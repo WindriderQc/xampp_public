@@ -1,0 +1,73 @@
+
+#lineeditor  .linetabs .stratvalue{width:80px;}
+
+
+
+
+.linetabs .blockcontainer{padding:0px 10px;}
+.linetabs .linesection{position:relative;border:1px solid #cccccc;float:left;padding:5px 5px 5px 5px;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); background-color: aliceblue !important;}
+.linetabs .linesection + .linesection{margin-left:10px;}
+.linesection .card-header {
+    background-color: #040407cb;
+    color: #E7BF3A;
+}
+
+.linetabs .strats{float:left;}
+.linetabs .stratlabel{float:left; margin-top:3px;}
+.linetabs .stratvalue{float:left;width:20px;}
+.linetabs .timelabel{float:left;}
+.linetabs .timevalue{float:left;}
+.linetabs .startinggoalie{margin-bottom:10px;}
+
+.positionlabel {
+    /*padding: 0;
+    color:#E7BF3A;*/
+    display: inline-block;
+    background-color: #E7BF3A !important;
+}
+.positionname{
+    display: inline-block;
+}
+
+.linetabs .tabcontainer{
+  /*  background-color:#0000009d !important ;*/
+  padding: 0%;
+
+}
+.linetabs {/*background-color:#d4c430dc !important;*/}
+
+
+#lineeditor  #tabs .linesection{
+    background-color: #22222256; 
+    margin-bottom:10px;
+    height:auto;
+    margin-left:10px; 
+   /* border:1px solid #e8e8e8;
+    border-radius: 15px;*/
+}
+#lineeditor  #tabs .linesection input[type=button]{padding:0px 0px;text-align:center;margin-top:3px;}
+
+
+#lineeditor  .playerlist{margin:2px; padding:2px;}
+
+#lineeditor  .playerlist li{ border:1px thin #f5f5ff2f; align-content: start;  }
+#lineeditor  .playerlist li:active {background-color: #E7BF3A ;}
+
+#lineeditor  .stratval{text-align: center;border:1px solid #cccccc;}
+
+
+
+#lineeditor  .updown{width:12px;background-repeat:no-repeat;border-width:0px;background-color: transparent;background-position:center center;}
+#lineeditor  .up {background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjFCMUU3QUUxNEMxQzExRTVBNTQ4OEM1RkJFQTQ4MkNBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjFCMUU3QUUyNEMxQzExRTVBNTQ4OEM1RkJFQTQ4MkNBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MUIxRTdBREY0QzFDMTFFNUE1NDg4QzVGQkVBNDgyQ0EiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MUIxRTdBRTA0QzFDMTFFNUE1NDg4QzVGQkVBNDgyQ0EiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4Rx+9MAAABRklEQVR42mI8cur6nTt3nz59xsbGxoAKfv36JS0tpaGhzgJUoSQvZayvzsTEBJQQFRUFkq9fvwaS//79+/Dxy5Ur11iAZlib66koyUJ0nzh+DEhaWFpBuDdvP9ix5zAL0JafP3/BrcjJzQOSZ86cgXC/f//BwcHBAmT9/v0broiPjw/ZWSysrAz//7NA3HHgwIH6hgYmRqYLF87////f0dHx759f7e0d6lqGQAUgxzL8/8fw/w/DX6B5f/79+8PExAw2gx0k8/8/iA3yy6sXDo7OBw+7ANl2dtYcHDy7du2EWHfl2h2oIlZ2LgYGRojo168/vn37CXcTJFxYgCHGzo4IxqlTJzOArYAANlbWHz9+sgDD9PmLN0AWRJOyqi6QvHbjHiQw33/4rKgozwIM9StXrz148IgdI1p+/vqloCBnaKgPEGAADaOEApnhhG0AAAAASUVORK5CYII=');margin:2px 0px 0px -4px;}
+#lineeditor  .down {background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjIzMkJDMTUwNEMxQzExRTVCRjM0RjdCRjY3OTc2ODBFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjIzMkJDMTUxNEMxQzExRTVCRjM0RjdCRjY3OTc2ODBFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjMyQkMxNEU0QzFDMTFFNUJGMzRGN0JGNjc5NzY4MEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjMyQkMxNEY0QzFDMTFFNUJGMzRGN0JGNjc5NzY4MEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4SZB2+AAABBUlEQVR42nRRS0vDQBCeLJPd4D2XFu0DIcWDJXjw4EXR32Wv9R958BC0J88xIkYIQrWoYEWhySbdcbaF4qP5DsvszDevb5zR9W2aPozHT1JK+A2tdbPZ6PUCZEa31djrB0KIPyRjzPTjK44T5BoH+7vb3U1Yh7v77PziSnCXotBQg9ks9zzPtijLso6ErgtEyJbv+1EUnQ4GDjhEhoh9BDQfDs+CndBSLZ8MUAXzqqIKUSEunGCXpUWG/b++TA6Pji9HJ7z1MrZCnKT82plctQHgrLJ/YqmLYMWUknWDS9fN8wJZ0+fJG1trxXyffnY6LWTV45skyx7Vv7MUWrfbW2HY/xZgANNXaYpKnG/oAAAAAElFTkSuQmCC');margin:2px -4px 0px 0px;}
+
+#lineeditor .goalies .blockcontainer{margin-bottom:5px;}
+
+
+
+.teamstrategy{overflow:hidden;}
+.strategyamount{float:left;padding:0px 10px;}
+.strategystrategies{float:right;background-color:#e8e8e8;padding:0px 10px;margin-right:0px;}
+.strategieswrapper input[type=text]{text-align:center;}
+
+#lineeditor #tabs .strategieswrapper{width:98%;margin-left:0px;}
