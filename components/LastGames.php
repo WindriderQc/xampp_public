@@ -1,6 +1,6 @@
 
 
-<div class="card border border-primary frontpage-card shadow-0 mb-3">
+<div class="card frontpage-card lastGamesCard shadow-0 mb-3">
 
     <div class="card-header"><?php echo $IndexLang['LatestScores'];?></div>
     <div class="card-body text-primary">

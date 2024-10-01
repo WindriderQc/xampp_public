@@ -1,5 +1,5 @@
 
-<div class="card border border-primary frontpage-card shadow-0 mb-3" >
+<div class="card frontpage-card topFreeAgentsCard shadow-0 mb-3" >
     <div class="card-header"><?php echo $IndexLang['Top20FreeAgents'];?></div>
     <div class="card-body  text-primary"> 
     <table class=""> 

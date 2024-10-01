@@ -1114,8 +1114,8 @@ footer .module-content {
 
 .frontpage-card {
 
-    background-color: white ; /* 25% transparency */
-
+    background-color: white ; 
+    border: 1px solid rgb(20, 20, 20);
 
 
   }
@@ -1377,89 +1377,54 @@ footer .module-content {
 
 
 .card-date {
-
-text-align:right;
-
-vertical-align: top;
-
-
-
+    text-align:right;
+    vertical-align: top;
 }
-
-
 
 
 
 .team-list li a {
-
-align-items: center;
-
-display: flex;
-
+    align-items: center;
+    display: flex;
 }
 
 .team-list li a img {
-
-height: 24px;
-
-width: 24px;
-
-margin-left: 0px;
-
-padding-right: 6px;
+    height: 24px;
+    width: 24px;
+    margin-left: 0px;
+    padding-right: 6px;
 
 }
-
-
 
 
 
 .footer-logo {
 
     max-width:80px ;
-
     padding-left:0px;
-
     padding-right:0px;
-
     padding-top:0px;
-
     padding-bottom:0px;
-
     vertical-align:middle;
-
     text-align: center;
 
 }
 
 
 
-
-
 .STHSTodayGame_GameOverall {
 
     vertical-align: top;
-
     border-collapse: separate;
-
     border-spacing: 0;
-
     border: 1px solid black;
-
     border-radius: 10px;
-
     -moz-border-radius: 10px;
-
     padding: 5px;
-
     margin-bottom: 5px;
-
     background-color:  rgba(245,245,245,1);
-
     -webkit-column-break-inside: avoid;	
-
     page-break-inside: avoid; 
-
     break-inside: avoid;
 
 }
@@ -1469,21 +1434,13 @@ padding-right: 6px;
 .GameDayTable {
 
     border-collapse:collapse;
-
     min-width:142px;
-
     width:142px;
-
     background-repeat:no-repeat;
-
     background-position:right;
-
     border:none;
-
     border-right-style:solid;
-
     border-right-color:#cecece;
-
     border-right-width:1px;
 
 }
@@ -1493,9 +1450,7 @@ padding-right: 6px;
 .roster-container {
 
     border: 1px solid black; /* Black thin border */
-
     color: #b0ccbb;
-
     padding: 10px;
 
 }
@@ -1503,59 +1458,42 @@ padding-right: 6px;
 
 
 .roster-container .card-body {
-
     color: #27ae60;
-
     border: 1px solid rgb(2, 168, 24);
-
 }
 
 
 
 .roster-container p {
-
     color: #27ae60;
-
 }
 
 
 
 .roster-container .card-text {
-
     color: #27ae60;
-
 }
 
 
 
 .Roster  {
-
     padding: 10px;
-
 }
 
 
 
 .rosterElm {
-
     color: rgb(2, 168, 24);
-
     border: 1px solid rgb(2, 168, 24);
-
     padding: 5px;
-
     margin-bottom: 2px;
-
     display: block; /* Ensure it displays as a block element */
-
 }
 
 
 
 .rosterElm p {
-
     color: #27ae60;
-
 }
 
 
@@ -1565,13 +1503,9 @@ padding-right: 6px;
 .scratch {
 
     color: red;
-
     border: 1px solid red;
-
     padding: 5px;
-
     margin-bottom: 2px;
-
     display: block; /* Ensure it displays as a block element */
 
 }
@@ -1579,25 +1513,12 @@ padding-right: 6px;
 
 
 .Scratched {
-
     padding: 0px;
-
 }
 
 .Scratched p {
-
     color: red;
-
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1606,22 +1527,14 @@ padding-right: 6px;
 
 .showMe {border: 1px dotted #2e7bdf;}
 
-
-
 .paleText {color:#cccccc !important;}
-
-
-
 .darkText {color:#0f0f0f !important;}
 
 
 
 .btn-warning,
-
 .btn-warning:hover,
-
 .btn-warning:focus,
-
 .btn-warning:active {
 
     background-color:#E7BF3A  !important;
@@ -1631,39 +1544,26 @@ padding-right: 6px;
 }
 
 
-
-
-
 .error, .linesincomplete{color:#D8000C;background-color: #FFBABA;font-size:large;margin-bottom:5px;padding:5px;}
-
 .errorwrapper{padding:10px;overflow:hidden;}
-
 .erroritem{font-size:13px;float:left;margin-right:15px;}
-
 .rostercomplete,.linescomplete{color: #4F8A10;background-color: #DFF2BF;font-size:large;margin-bottom:5px;padding:2px; margin-top: 15px;}
-
 .confirm{color: #4F8A10;background-color: #DFF2BF;font-size:x-large;margin-bottom:2px;padding:2px;}
 
 
 
 .Save{padding-bottom:10px;  text-align:center; }
-
 .Save input {color:#333; }
-
-
 
 
 
 li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:#990000;}
 
 
-
 .positionlist { 
 
     border-bottom:1px solid #999999;
-
     border-top:1px solid #999999; 
-
     padding:3px;
 
 }
@@ -1682,8 +1582,6 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
     display: flex;
 
-    
-
 }
 
 
@@ -1691,13 +1589,9 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 .positionlist .form-check {
 
     display: flex;
-
     align-items: center; /* Ensures vertical alignment */
-
     gap: 0px; /* Controls the space between checkbox and label */
-
     padding: 1%;
-
     margin: 0;
 
 }
@@ -1705,9 +1599,7 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
 
 .cardbook {
-
     background-color: #ffffffbe;
-
 }
 
 
@@ -1720,19 +1612,11 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
 .deckCard { 
 
-
-
     border: 2px solid rgba(0,0,0,0.8);
-
     padding:0;
-
     margin:1px;
-
     padding: 1 ;
-
     margin: 1 ;
-
-    
 
 }
 
@@ -1741,13 +1625,6 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 .deckCard .card-header { 
 
     background-color:   rgba(0,0,0,0.8);
-
     color:#ffffff;
-
-   
-
-  
-
-
 
 }

@@ -1,4 +1,4 @@
-<div class="card border border-primary  transparent-card-body shadow-0 mb-3 frontpage-card  "  >
+<div class="card shadow-0 mb-3 frontpage-card top5Card  "  >
     <div class="card-header">Top Stars</div>
     <div class="card-body mt-0 pt-0 text-primary">
     <div class="StarTableHeader"><img id="Top5" src="<?php echo $ImagesCDNPath;?>/images/top5.png" alt="Top 5"  ></div>                                   

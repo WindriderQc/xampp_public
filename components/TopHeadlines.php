@@ -1,4 +1,4 @@
-<div class="card border border-primary shadow-0 mb-3 frontpage-card"  >
+<div class="card shadow-0 mb-3 frontpage-card topHeadlinesCard"  >
     <div class="card-header  "><?php echo $IndexLang['TopHeadlines'];?></div>
     <div class="card-body  text-primary"> 
 
