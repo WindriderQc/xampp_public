@@ -448,7 +448,7 @@ if ($MenuQueryOK == True) {
 
         <li><a href="#">Stats</a><ul> <?php echo $menuStatsItems; ?> </ul></li>
 
-        <li><a href="#">Trades</a><ul> <?php echo $menuTradesItems; ?> </ul></li>
+        <!-- <li><a href="#">Trades</a><ul> <?php echo $menuTradesItems; ?> </ul></li> -->
 
     
 
@@ -471,6 +471,10 @@ if ($MenuQueryOK == True) {
             <li><a href="TeamSalaryCapDetail.php?TeamID=<?php echo $CookieTeamNumber ?>">Contract Overview</a></li>
 
             <li><a href="PlayersCompare.php">Players Compare</a></li>
+
+            <li><a href="Trade.php">Trade</a></li>
+
+            <li><a href="upload.php">Upload Lines</a></li>
 
         </ul></li>
 
