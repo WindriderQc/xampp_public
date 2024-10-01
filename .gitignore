@@ -6,3 +6,5 @@ temp/
 
 #ignore db files as they change often
 .db
+
+linesupload/
