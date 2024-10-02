@@ -1683,3 +1683,20 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
         display: block;
     }
 }
+
+.tablesorter STHSPHPTeam_PlayersRosterTable {
+
+background-color: #27ae60;
+
+
+}
+
+#tabmain2{
+
+
+overflow-x:scroll; 
+width: 100%;
+
+
+
+}
