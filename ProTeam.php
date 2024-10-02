@@ -357,9 +357,14 @@ If ($TeamInfo <> Null){
 	echo "</td></tr></table></div>";
 }
 ?>
+
+<div class="container-flex">
+
+
 <div class="STHSPHPTeamStat_Main">
 <br />
-<div class="tabsmain standard"><ul class="tabmain-links">
+<div class="tabsmain standard">
+	<ul class="tabmain-links">
 <?php 
 If ($LeagueSimulation != Null AND $TeamFarmInfo != Null){If ($LeagueSimulation['FarmEnable'] == "True"){echo "<li><a class=\"tabmenuhome\" href=\"FarmTeam.php?Team=" . $Team . "\">" . $TeamFarmInfo['Name'] . "</a></li>";}}?>
 <li<?php if($SubMenu ==0){echo " class=\"activemain\"";}?>><a href="#tabmain0"><?php echo $TeamLang['Home'];?></a></li>
@@ -388,7 +393,14 @@ if ($LeagueOutputOption != Null){if (file_exists($CareerStatDatabaseFile) == tru
 <div class="tabmain<?php if($SubMenu ==0){echo " active";}?>" id="tabmain0">
 <?php If (isset($PerformanceMonitorStart)){echo "<script>console.log(\"STHS 0 Page PHP Performance : " . (microtime(true)-$PerformanceMonitorStart) . "\"); </script>";}?>
 
-<table class="STHSPHPTeam_HomeTable"><tr><td class="STHSPHPPlayerStat_HomeMainTD">
+<table class="STHSPHPTeam_HomeTable"><tr><td class="STHSPHPPlayerStat_HomeMainTD"></td>
+
+</div>
+
+
+
+
+
 <?php
 $LoopCount = (integer)0;
 if (empty($ScheduleLastGame) == false){while ($row = $ScheduleLastGame ->fetchArray()) {
@@ -807,6 +819,7 @@ If ($TeamInfo <> Null){
 <br /><br /></div>
 
 <div class="tabmain<?php if($SubMenu ==1){echo " active";}?>" id="tabmain1">
+	
 <?php If (isset($PerformanceMonitorStart)){echo "<script>console.log(\"STHS 1 Page PHP Performance : " . (microtime(true)-$PerformanceMonitorStart) . "\"); </script>";}?>
 
 <div class="tablesorter_ColumnSelectorWrapper">
