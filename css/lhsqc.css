@@ -1637,3 +1637,39 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
     color:#ffffff;
 
 }
+
+.tablesorterMainPage tbody tr.static td {
+    
+    vertical-align: middle; 
+    background-color:#ff1717;
+    color: white;
+}
+
+
+.tablesorterMainPage thead th {
+    
+    vertical-align: middle; 
+    background-color:#000000;
+    color: white;
+}
+
+
+.containerMainPage
+
+{
+    
+    border: 1px solid black;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.STHSPHPStandingTeamImageMainPage {
+    
+    width:24px;
+    height:24px;
+    padding-left:4px;
+    float: left;
+    vertical-align:middle;
+}

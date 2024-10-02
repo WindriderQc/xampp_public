@@ -123,7 +123,7 @@ STHSErrorStanding:
 
 function PrintStandingTop($TeamLang, $StandardStandingOutput, $LeagueGeneral) {
 
-echo "<table class=\"tablesorter STHSPHPStanding_Table\"><thead><tr>";
+echo "<table class=\"tablesorterMainPage STHSPHPStanding_TableMainPage\"><thead><tr>";
 
 echo "<th title=\"Position\" class=\"STHSW35\">PO</th>";
 
@@ -205,7 +205,7 @@ Function PrintStandingTableRow($row, $TypeText, $StandardStandingOutput, $League
 
 	echo "<td><span class=\"" . $TypeText . "Standing_Team" . $row['Number'] . "\"></span>";
 
-	If ($row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";}
+	If ($row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImageMainPage\" />";}
 
 	echo "<a href=\"" . $TypeText . "Team.php?Team=" . $row['Number'] . "\">" . $row['Name'] . "</a>";
 
@@ -383,8 +383,8 @@ if ($Playoff == True){
 
 <div class="STHSWarning"><?php echo $WarningResolution;?><br /></div>
 
-<div style="width:99%;margin:auto;">
-<div class="container">
+<div style="width:100%;margin:auto;">
+<div class="containerMainPage">
 
 	
 
@@ -403,7 +403,7 @@ if ($Playoff == True){
 
 <div class="tabmain <?php if(isset($LeagueGeneral)){If ($LeagueGeneral['DivisionNewNHLPlayoff'] == "True"){echo "active";}}?>" id="tabmain1">
 
-<div class="container">
+<!-- <div class="container"> -->
 
 <?php
 
