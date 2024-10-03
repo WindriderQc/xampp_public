@@ -1,4 +1,17 @@
-Fix trades qui ne fonctionne pas (FAITE DOM)
-Fix Filtres dans players page qui ne fonctionne pas
-Enlever la div de logo de la version mobile
+
+- Enlever la div de logo de la version mobile
+- Actualisé la page active dans le menu pour que le bon menu soit indiqué en jaune, pas tjrs HOME.
+- Lien HOME du menu est noir sur noir dans HOME mais pas dans les autres pages... confirmer Requis.
+- Valider Card Latest Score  vs  GameScroller qui affiche les latest score - Duplicata
+- Footer Menu - ajouter Farm league?
+- On dirait que les pages n'utilise pas toutes la meme db...  a valider car le contenu de GameScroller bar change selon les pages...
+
+
+
+
+
+
+Complété:
+- Fix trades qui ne fonctionne pas (FAITE DOM)
+- Fix Filtres dans players page qui ne fonctionne pas (YB)
 
