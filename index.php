@@ -84,6 +84,7 @@ STHSErrorIndex:
 
 <div class="container-fluid p-0 m-0">   
     <header>
+        <?php include "components/GamesScroller.php"; ?>
         <?php include "Menu.php"; ?>	
         <div class="clearfix header-content" style="display:inline-block;">
             <div class="row mt-2  mx-2 " >
