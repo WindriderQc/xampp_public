@@ -91,8 +91,8 @@ STHSErrorIndex:
             </div>
 
             <div class="row mt-2  mx-2 " >
-                <div class="col-5 "> <?php include "components/Top5.php"; ?> </div>   
-                <div class="col-7 "> <?php include "components/Standing_2.php"; ?> </div> 
+                <div class="col-lg-5 col-12 "> <?php include "components/Top5.php"; ?> </div>   
+                <div class="col-lg-7 col-12"> <?php include "components/Standing_2.php"; ?> </div> 
             </div>
         </div>
     </header>
