@@ -495,7 +495,7 @@ header p {
 
 div .active a {
 
-	color: #ffffff!important;
+	color: #ffffff;
 
 	text-transform: uppercase;
 
@@ -1217,6 +1217,7 @@ footer .module-content {
 
 
 
+
 .scrollButtons {
     position: absolute;
     top: 50%;
@@ -1520,6 +1521,12 @@ footer .module-content {
 
 
 
+
+
+.darkText a  {color:#0f0f0f !important;}
+.darkText .active a  {color:#0f0f0f !important;}
+
+
 .btn-warning,
 .btn-warning:hover,
 .btn-warning:focus,
@@ -1630,6 +1637,10 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
     vertical-align: middle; 
     background-color:#000000;
     color: white;
+}
+
+.tablesorterMainPage span {
+    color: black !important;
 }
 
 

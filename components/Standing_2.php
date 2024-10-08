@@ -65,7 +65,7 @@ STHSErrorStanding:
 
 
 function PrintStandingTop($TeamLang, $StandardStandingOutput, $LeagueGeneral) {
-    echo "<table class=\"tablesorterMainPage STHSPHPStanding_TableMainPage\"><thead><tr>";
+    echo "<table class=\"tablesorterMainPage\"><thead><tr>";
     echo "<th title=\"Position\" class=\"STHSW35\">PO</th>";
     echo "<th title=\"Team Name\" class=\"STHSW200\">" . $TeamLang['TeamName'] ."</th>";
     echo "<th title=\"Games Played\" class=\"STHSW30\">GP</th>";
@@ -113,7 +113,7 @@ Function PrintStandingTableRow($row, $TypeText, $StandardStandingOutput, $League
 	echo "<tr><td>" . $LoopCount . "</td>";
 	echo "<td><span class=\"" . $TypeText . "Standing_Team" . $row['Number'] . "\"></span>";
 	If ($row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImageMainPage\" />";}
-	echo "<a href=\"" . $TypeText . "Team.php?Team=" . $row['Number'] . "\">" . $row['Name'] . "</a>";
+	echo "<div class=\"darkText\"><a href=\"" . $TypeText . "Team.php?Team=" . $row['Number'] . "\">" . $row['Name'] . "</a></div>";
 
 	if($row['StandingPlayoffTitle']=="E"){echo " - E ";
 	} else if($row['StandingPlayoffTitle']=="X"){echo " - X";
