@@ -468,7 +468,10 @@ if ($MenuQueryOK == True) {
 
             <li><a href="WebClientRoster.php?TeamID=<?php echo $CookieTeamNumber ?>">Roster Editor</a></li>
 
-            <li><a href="WebClientLines.php?TeamID=<?php echo $CookieTeamNumber ?>">Lines Editor</a></li>
+            <li><a href="WebClientLines.php?TeamID=<?php echo $CookieTeamNumber ?>">Lines Editor NHL</a></li>
+
+            
+            <li><a href="WebClientLines.php?League=Farm&TeamID=<?php echo $CookieTeamNumber ?>">Lines Editor AHL</a></li>
 
             <li><a href="TeamSalaryCapDetail.php?TeamID=<?php echo $CookieTeamNumber ?>">Contract Overview</a></li>
 
@@ -476,7 +479,7 @@ if ($MenuQueryOK == True) {
 
             <li><a href="Trade.php">Trade</a></li>
 
-            <li><a href="upload.php">Upload Lines</a></li>
+            <!-- <li><a href="upload.php">Upload Lines</a></li> -->
 
         </ul></li>
 
