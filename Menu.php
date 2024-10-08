@@ -444,7 +444,11 @@ if ($MenuQueryOK == True) {
 
         <li><a href="Schedule.php">Schedule</a></li>
 
-        <li><a href="Standing.php">Standing</a></li>
+        <li><a href="#">Standings</a><ul>
+
+        <li><a href="Standing.php">LHSQC</a></li>
+
+        <li><a href="Standing.php?Farm">AHL</a></li></ul>
 
         <li><a href="PlayersRoster.php">Players</a></li>
 
