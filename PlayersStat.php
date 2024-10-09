@@ -19,6 +19,7 @@ If (file_exists($DatabaseFile) == false){
 	$ACSQuery = (boolean)FALSE;/* The SQL Query must be Ascending Order and not Descending */
 
 	$MaximumResult = (integer)0;
+	
 	$MinimumGP = (integer)1;
 
 	$OrderByField = (string)"P";

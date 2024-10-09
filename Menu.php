@@ -156,23 +156,25 @@ if ($MenuQueryOK == True) {
 
     // Stats   
 
-    if ($LeagueOutputOptionMenu['SplitTodayGames'] === "True") {
+    // if ($LeagueOutputOptionMenu['SplitTodayGames'] === "True") {
 
-        $menuStatsItems .= "<li><a href=\"TodayGames.php?Type=1\">" . $DynamicTitleLang['Pro'] . " " . $TopMenuLang['TodaysGames'] . "</a></li>";
+    //     $menuStatsItems .= "<li><a href=\"TodayGames.php?Type=1\">" . $DynamicTitleLang['Pro'] . " " . $TopMenuLang['TodaysGames'] . "</a></li>";
 
-        $menuStatsItems .= "<li><a href=\"TodayGames.php?Type=2\">" . $DynamicTitleLang['Farm'] . " " . $TopMenuLang['TodaysGames'] . "</a></li>";
-
-
-
-    } else {
-
-        $menuStatsItems .= "<li><a href=\"TodayGames.php\">" . $TopMenuLang['TodaysGames'] . "</a></li>";
-
-    }
+    //     $menuStatsItems .= "<li><a href=\"TodayGames.php?Type=2\">" . $DynamicTitleLang['Farm'] . " " . $TopMenuLang['TodaysGames'] . "</a></li>";
 
 
-    $menuStatsItems .= "<li><a href=\"PlayersStat.php?Order=P&MinGP&Max=50\">" . $TopMenuLang['PlayersLeader'] . "</a></li>";
-    $menuStatsItems .= "<li><a href=\"GoaliesStat.php?Order=P&MinGP&Max=10\">" . $TopMenuLang['GoaliesLeader'] . "</a></li>";
+
+    // } else {
+
+    //     $menuStatsItems .= "<li><a href=\"TodayGames.php\">" . $TopMenuLang['TodaysGames'] . "</a></li>";
+
+    // }
+
+
+    $menuStatsItems .= "<li><a href=\"PlayersStat.php?\">" . $TopMenuLang['PlayersLeader'] . "</a></li>";
+    $menuStatsItems .= "<li><a href=\"GoaliesStat.php?\">" . $TopMenuLang['GoaliesLeader'] . "</a></li>";
+    $menuStatsItems .= "<li><a href=\"PlayersStat.php?Farm\">" . $TopMenuLang['PlayersLeaderAhl'] . "</a></li>";
+    $menuStatsItems .= "<li><a href=\"GoaliesStat.php?Farm\">" . $TopMenuLang['GoaliesLeaderAhl'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"Transaction.php?SinceLast\">" . $TopMenuLang['TodaysTransactions'] . "</a></li>";
     
 
