@@ -4,16 +4,12 @@
 
 <?php
 $Title = (string)"";
-
 $Team = (integer)-1; /* -1 All Team */
 $Search = (boolean)False;
 $HistoryOutput = (boolean)False;
 include "SearchPossibleOrderField.php";
 
-If (file_exists($DatabaseFile) == false){
-
-	Goto STHSErrorPlayerRoster;
-
+If (file_exists($DatabaseFile) == false){	Goto STHSErrorPlayerRoster;
 }else{try{
 
 	$ACSQuery = (boolean)FALSE;/* The SQL Query must be Ascending Order and not Descending */
@@ -23,55 +19,33 @@ If (file_exists($DatabaseFile) == false){
 	$Injury = (boolean)FALSE; /* To show Available for Trade Only - Not Apply if Free Agent Option or Expansion option or Available for Trade is also request */
 
 	$MaximumResult = (integer)0;
-
 	$OrderByField = (string)"Overall";
-
 	$OrderByFieldText = (string)"Overall";
-
 	$OrderByInput = (string)"";
-
 	$FreeAgentYear = (integer)-1; /* -1 = No Input */
-
 	$Type = (integer)0; /* 0 = All / 1 = Pro / 2 = Farm */
 
-	
 
 	$TitleOverwrite = (string)"";
-
 	$LeagueName = (string)"";
-
 	if(isset($_GET['Type'])){$Type = filter_var($_GET['Type'], FILTER_SANITIZE_NUMBER_INT);} 
-
 	if(isset($_GET['ACS'])){$ACSQuery = TRUE;}
-
 	if(isset($_GET['Max'])){$MaximumResult = filter_var($_GET['Max'], FILTER_SANITIZE_NUMBER_INT);} 
-
 	if(isset($_GET['Order'])){$OrderByInput  = filter_var($_GET['Order'], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH || FILTER_FLAG_NO_ENCODE_QUOTES || FILTER_FLAG_STRIP_BACKTICK);} 
-
 	if(isset($_GET['Team'])){$Team = filter_var($_GET['Team'], FILTER_SANITIZE_NUMBER_INT);}
-
     if(isset($_GET['Title'])){$TitleOverwrite  = filter_var($_GET['Title'], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH || FILTER_FLAG_NO_ENCODE_QUOTES || FILTER_FLAG_STRIP_BACKTICK);} 	
-
 	if(isset($_GET['FreeAgent'])){$FreeAgentYear = filter_var($_GET['FreeAgent'], FILTER_SANITIZE_NUMBER_INT);If ($FreeAgentYear == null){$FreeAgentYear = (integer)0;}} 
 	if(isset($_GET['Expansion'])){$Expansion = TRUE;} 
 	if(isset($_GET['AvailableForTrade'])){$AvailableForTrade = TRUE;} 	
 	if(isset($_GET['Injury'])){$Injury = TRUE;} 	
 	if(isset($_GET['Retire'])){$Retire = "'True'";$FreeAgentYear=-1;}  /* Retire Overwrite Everything including FreeAgent */
 
-
-
 	foreach ($PlayersRosterPossibleOrderField as $Value) {
-
 		If (strtoupper($Value[0]) == strtoupper($OrderByInput)){
-
 			$OrderByField = $Value[0];
-
 			$OrderByFieldText = $Value[1];
-
 			Break;
-
 		}
-
 	}
 	
 	$Playoff = (boolean)False;
@@ -331,7 +305,6 @@ STHSErrorPlayerRoster:
 }}?>
 
 </head><body>
-<?php include "components/GamesScroller.php"; ?>
 
 <?php include "Menu.php";?>
 
