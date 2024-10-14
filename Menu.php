@@ -3,7 +3,8 @@ $MenuFreeAgentYear = (integer)1;
 $MenuTeamTeamID = (integer)0;
 $MenuQueryOK = (boolean)False;
 
-If (file_exists($DatabaseFile) == false){	Goto STHSErrorMenu;
+If (file_exists($DatabaseFile) == false){	
+    Goto STHSErrorMenu;
 }else{try{
 
 	$dbMenu = new SQLite3($DatabaseFile);
@@ -230,7 +231,7 @@ if ($MenuQueryOK == True) {
 
         <li><div> Stats  <i class="fa fa-chevron-right"></i></div><ul> <?php echo $menuStatsItems; ?> </ul></li>
 
-        <?php echo $menuTradesItems; ?> </ul></li> 
+        <?php echo $menuTradesItems; ?>  
 
         <li><div> Teams  <i class="fa fa-chevron-right"></i></div><ul> <?php echo $menuMobileTeamsItems; ?> </ul></li>
 
@@ -256,10 +257,5 @@ if ($MenuQueryOK == True) {
         </li>
     </ul>								
 </div>
-
-
-
-
-
 
 
