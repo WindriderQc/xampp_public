@@ -1,5 +1,4 @@
-- Standing AHL qui ne fonctionne pas
-- CSS Boxscore (J'ai copisé LHSQC dans Main) Nom des équipe devenu blanc
+
 - Actualisé la page active dans le menu pour que le bon menu soit indiqué en jaune, pas tjrs HOME.
 - Lien HOME du menu est noir sur noir dans HOME mais pas dans les autres pages... confirmer Requis.
 - Pimper le look de la page tradetracker pour avoir les trades sur la même ligne au lieu de deux différentes (voir référence dans le folder idee)
@@ -17,3 +16,5 @@ Complété:
 - Enlever la div de logo de la version mobile (Dom)
 - Valider Card Latest Score  vs  GameScroller qui affiche les latest score - Duplicata
 - Ajouter lien boxscore dans le scroller et enlever la card latest score. (YB)
+- CSS Boxscore (J'ai copisé LHSQC dans Main) Nom des équipe devenu blanc (YB)  - Remis le CSS original et copié LHSQC.css dans un nouveau fichier STHSMain_overwite.css
+- Standing AHL qui ne fonctionne pas (YB)   Weird...    je ne comprends pas comment ca pouvait marcher avant.    le code original empeche les standing Farm d'afficher quand on ajoute ?Farm a la requete standing.php, DivisionNewNHLPlayoff devient False et le tabmain1 n'affiche plus... 

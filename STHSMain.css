@@ -143,7 +143,7 @@ table.MenuSTHS a{padding:0px 3px;font-size:12px;}
 #cssmenu.align-right ul ul li.has-sub > a:before {right: auto;  left: 14px;}
 #cssmenu ul ul > li.has-sub:hover > a:before {top: 17px;  height: 0;}
 .MenuImage {top: -15px;}
-.MenuAfterImage:{padding-left:0px}
+.MenuAfterImage {padding-left:0px}
 #cssmenuLogin, 
 #cssmenuLogin ul,
 #cssmenuLogin ul li,
@@ -228,7 +228,7 @@ table.MenuSTHS a{padding:0px 3px;font-size:12px;}
   #cssmenu ul ul .submenu-button:before {  top: 12px;right: 16px;}
   #cssmenu .submenu-button.submenu-opened:before {  display: none;}
   .MenuImageDiv {display: none;}
-  .MenuAfterImage:{padding-left:17px}
+  .MenuAfterImage {padding-left:17px}
   .STHSPHPMenuDiv {display: none;}
   .STHSPHP_Login  {display: none;}
 }
@@ -366,7 +366,7 @@ a.tabmenuhome { color:#000000;}
 .STHSIndex_Top20FreeAgents td > a {text-decoration: none;}
 .STHSIndex_TheNewsTeamImage {width:24px;height:24px;padding-left:0px;padding-right:8px;vertical-align:middle}
 .STHSIndex_TheNews {font-size: 2em;margin: 10px;padding-left:40px}
-.STHSIndex_NewsDiv { order-collapse: separate;border-spacing: 0;border: 1px solid black;border-radius: 10px;-moz-border-radius: 10px;padding: 5px;margin-bottom: 5px;margin-left:10px;}
+.STHSIndex_NewsDiv { border-collapse: separate;border-spacing: 0;border: 1px solid black;border-radius: 10px;-moz-border-radius: 10px;padding: 5px;margin-bottom: 5px;margin-left:10px;}
 .STHSIndex_LastestResult {font-size: 1.5em;margin: 10px;text-align:center;}
 .STHSIndex_Headline {font-size: 1.5em;margin: 10px;text-align:center;}
 .STHSIndex_Main {padding-top: 10px; padding-right: 10px; padding-left: 10px;width:100%; border-spacing: 0px;}
