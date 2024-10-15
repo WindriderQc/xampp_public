@@ -80,7 +80,9 @@ if ($MenuQueryOK == True) {
     $menuStatsItems .= "<li><a href=\"GoaliesStat.php?\">" . $TopMenuLang['GoaliesLeader'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"PlayersStat.php?Farm\">" . $TopMenuLang['PlayersLeaderAhl'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"GoaliesStat.php?Farm\">" . $TopMenuLang['GoaliesLeaderAhl'] . "</a></li>";
+    $menuStatsItems .= "<li><a href=\"TeamsStat.php?\">" . $TopMenuLang['TeamsStats'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"Transaction.php?SinceLast\">" . $TopMenuLang['TodaysTransactions'] . "</a></li>";
+
 
     //Teams
     $menuTeamsItems .= "<li><a href=\"#\">Atlantic</a><ul>";
