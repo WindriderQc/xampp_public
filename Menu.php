@@ -230,6 +230,7 @@ if ($MenuQueryOK == True) {
         </li>		
 
         <li><div> Stats  <i class="fa fa-chevron-right"></i></div><ul> <?php echo $menuStatsItems; ?> </ul></li>
+        
 
         <?php echo $menuTradesItems; ?>  
 
@@ -245,7 +246,7 @@ if ($MenuQueryOK == True) {
         </ul>
 
         </li>
-
+        <li><a href="PlayersRoster.php">Players</a></li>
         <li><a href="Schedule.php">Schedule</a></li>
         <li><a href="Standing.php">Standing</a></li>
         <li><a href="Login.php">LOGIN</a></li>
