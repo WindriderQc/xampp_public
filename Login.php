@@ -88,8 +88,6 @@ if (!file_exists($DatabaseFile)) {   goto STHSErrorLogin;
 
 
 
-
-
             if ($HashMatch) {
 
                 $CookieTeamNumber = $CookieArray['TeamNumber'];
@@ -103,7 +101,6 @@ if (!file_exists($DatabaseFile)) {   goto STHSErrorLogin;
                     $LoginLink = $CurrentLink . "?Logoff";
                 }			
 
-                
 
                 $encryption_key = base64_decode($CookieTeamNumberKey);
                 $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
@@ -116,10 +113,10 @@ if (!file_exists($DatabaseFile)) {   goto STHSErrorLogin;
                     $CookieArray = array(
                         'expires' => time() + (86400 * 180),
                         'path' => '/',
-                        'domain' => $_SERVER['HTTP_HOST'],
+                        'domain' =>  $_SERVER['HTTP_HOST'],  // '192.168.1.161', //$_SERVER['HTTP_HOST'],
                         'secure' => false,
                         'httponly' => true,
-                        'samesite' => 'Strict'
+                        'samesite' =>  'Strict' //'LAX' //'Strict'
                     );
 
                     if(setcookie($Cookie_Name, base64_encode($encrypted . '::' . $iv),$CookieArray)) {
@@ -128,21 +125,15 @@ if (!file_exists($DatabaseFile)) {   goto STHSErrorLogin;
                     }  else {
                         error_log("Failed to set cookie.");
                     }
-
           
                     // Perform redirect after cookie is set and headers are flushed
                     header("Location: /ProTeam.php?Team=" . $CookieTeamNumber);
                     exit();  // Ensure no further code is executed after the redirect
                 }			
-
-			               
-
-              
+      
 
             } else {
-
                 $InformationMessage = $TopMenuLang['IncorrectPassword'];
-
             }
 
         }
@@ -153,7 +144,6 @@ if (!file_exists($DatabaseFile)) {   goto STHSErrorLogin;
         $Title = $DatabaseNotFound;
     }
 }
-
 
 
 include "Header.php";
@@ -176,7 +166,6 @@ echo "<title>" . $LeagueName . " - " . $TopMenuLang['Login'] . "</title>";
       }
     }
   </style>
-
 </head>
 
 <body>
@@ -184,35 +173,15 @@ echo "<title>" . $LeagueName . " - " . $TopMenuLang['Login'] . "</title>";
 
 
 <header>
-
-
-
     <?php include "Menu.php"; ?>
 
-    <?php /*include "loginMgnt.php";*/ ?>
-
-
-
-
-
     <?php 
-
     if ($InformationMessage != "") {
-
         echo "<div class=\"STHSDivInformationMessage\">" . htmlspecialchars($InformationMessage) . "<br /><br /></div>";
-
     }?>
 
-
-
-
-
-
-
 <div class="row">
-
 <div class="col-3"></div>
-
 <div class="col">
 
 <!-- Section: Design Block -->
@@ -220,23 +189,10 @@ echo "<title>" . $LeagueName . " - " . $TopMenuLang['Login'] . "</title>";
 <section class=" text-center text-lg-start">
 
 
-
-
-
-
-
-
-
-        
-
   <div class="card mb-3">
-
    <div class="row g-0 d-flex align-items-center">
-
     <div class="col-lg-4 d-none d-lg-flex">
-
             <img src="images/lhsqc_logo_2.png" alt="LHSQC" class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
-
     </div>
 
     <div class="col-lg-8">
@@ -244,126 +200,64 @@ echo "<title>" . $LeagueName . " - " . $TopMenuLang['Login'] . "</title>";
         <div class="card-body py-5 px-md-5">
 
         <form method="POST" action="Login.php" >
-
             <div class="form-group">
-
                 <select name="Team" class="form-control form-control-lg custom-select" id="teamSelect">
-
                     <?php
-
                     if ($LeagueGeneral['LeagueWebPassword'] != "") {    
-
                         echo "<option value=\"102\">" . htmlspecialchars($TopMenuLang['LeagueManagement']) . "</option>";
-
                     }
-
                     if ($LeagueGeneral['LeagueWebGuestPassword'] != "") {    
-
                         echo "<option value=\"101\">" . htmlspecialchars($TopMenuLang['Guest']) . "</option>";
-
                     }        
-
                     if ($TeamName) {
-
                         while ($Row = $TeamName->fetchArray()) {
-
                             echo "<option value=\"" . htmlspecialchars($Row['Number']) . "\">" . htmlspecialchars($Row['Name']) . "</option>"; 
-
                         }
-
                     }
-
                     ?>
 
                 </select>
-
                 <label for="teamSelect">GM - Team selection</label>
-
             </div>
-
-
 
             <!-- Password input -->
-
             <div class="form-group mt-5">
-
                 <input type="password" id="form2Example2" class="form-control" name="Password" required/> 
-
                 <label class="form-label" for="form2Example2"><strong>Password</strong></label>
-
             </div>
-
-
-
             <!-- Remember me checkbox 
-
             <div class="row mb-4">
-
                 <div class="col d-flex justify-content-center">
-
                     <div class="form-check">
-
                         <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-
                         <label class="form-check-label" for="form2Example31"> Remember me </label>
-
                     </div>
-
                 </div>
-
                 <div class="col">
-
                     <a href="#!">Forgot password?</a>
-
                 </div>
-
             </div>-->
-
-
-
             <!-- Submit button -->
-
             <button type="submit" class="btn btn-primary btn-block mb-4 SubmitButton">
-
                 <?php echo htmlspecialchars($TopMenuLang['Login']); ?>
-
             </button>
-
         </form>
-
-
-
-
 
         </div>
 
-
-
         <?php  echo "<br />" . $TopMenuLang['LoginMessage'];            ?>
 
-
-
     </div>
-
    </div>
-
   </div>
 
 
-
-
-
 </section>
-
 <!-- Section: Design Block -->
 
 </div>
-
 <div class="col-3"></div>
-
 </div>
-
-
 
 </header>
 
