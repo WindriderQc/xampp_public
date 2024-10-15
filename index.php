@@ -87,9 +87,9 @@ STHSErrorIndex:
         <?php include "components/GamesScroller.php"; ?>
         <?php include "Menu.php"; ?>	
         <div class="clearfix header-content" style="display:inline-block;">
-            <div class="row mt-2  mx-2 " >
+            <!-- <div class="row mt-2  mx-2 " >
                 <div class="col-12 "> <?php include "components/TopHeadlines.php"; ?> </div>
-            </div>
+            </div> -->
 
             <div class="row mt-2  mx-2 " >
                 <div class="col-lg-5 col-12 "> <?php include "components/Top5.php"; ?> </div>   
