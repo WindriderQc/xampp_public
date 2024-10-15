@@ -289,10 +289,7 @@ function load_api_layout(){
 				?>
 				</title>
           
-				<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-				<link rel="stylesheet" href="css/required.css">
-				
-                
+				<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">                
               
 			
                 <?php 
@@ -732,6 +729,8 @@ function load_api_pageinfo(){
 			foreach($dbfields AS $f){$cpfields .= strtolower($f) .",";}
 			$cpfields .= $cpfieldsOTLines;
 			//$cpfields = rtrim($cpfields,",");
+
+            
 		}// end if $teamid
 
 		
