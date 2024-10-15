@@ -1,4 +1,4 @@
-
+- ajouter un bouton pour rendre visbile/invisble les parametre de ligne dans line edirto, et mettre les player side by side
 - Actualisé la page active dans le menu pour que le bon menu soit indiqué en jaune, pas tjrs HOME.
 - Lien HOME du menu est noir sur noir dans HOME mais pas dans les autres pages... confirmer Requis.
 - Pimper le look de la page tradetracker pour avoir les trades sur la même ligne au lieu de deux différentes (voir référence dans le folder idee)
