@@ -183,41 +183,82 @@ if ($MenuQueryOK == True) {
 
 <nav>
     <div class="logo">
-        <a href="index.php"> <img src="images/lhsqc_logo_2.png" alt="LHSQC" class="header-logo"></a>
+        <a href="index.php">
+            <img src="images/lhsqc_logo_2.png" alt="LHSQC" class="header-logo">
+        </a>
     </div>
- 
 
     <ul>
-    <li class="active"><a href="index.php">Home</a></li>
+        <!-- Menu principal -->
+        <li class="active"><a href="index.php">Home</a></li>
         <li><a href="TodayGames.php">Scoreboard</a></li>
         <li><a href="Schedule.php">Schedule</a></li>
-        <li><a href="#">Standings</a><ul>
-            <li><a href="Standing.php">LHSQC</a></li>
-            <li><a href="Standing.php?Farm">AHL</a></li></ul>
-        <li><a href="PlayersRoster.php">Players</a></li>
 
-        <li><a href="#">Stats</a><ul> <?php echo $menuStatsItems; ?> </ul></li>
-        <!-- <li><a href="#">Trades</a><ul> <?php echo $menuTradesItems; ?> </ul></li> -->
+        <!-- Menu Standings avec sous-menus -->
+        <li>
+            <a href="Standing.php">Standings</a>
+            <ul>
+                <li><a href="Standing.php">LHSQC</a></li>
+                <li><a href="Standing.php?Farm">AHL</a></li>
+            </ul>
+        </li>
 
-        <li><a href="ProTeam.php?TeamID=<?php echo $CookieTeamNumber ?>">Teams</a><ul class="team-list"> <?php echo $menuTeamsItems; ?> </ul></li>
+        <!-- Menu Players avec sous-menus -->
+        <li>
+            <a href="PlayersRoster.php">Players</a>
+            <ul>
+                <li><a href="PlayersRoster.php">Players</a></li>
+                <li><a href="GoaliesRoster.php">Goalies</a></li>
+                <!-- <li><a href="PlayerContracts.php">Contracts</a></li> -->
+            </ul>
+        </li>
 
-        <li><a href="#">GM's Corner</a><ul>
-            <li><a href="WebClientRoster.php?TeamID=<?php echo $CookieTeamNumber ?>">Roster Editor</a></li>
-            <li><a href="WebClientLines.php?TeamID=<?php echo $CookieTeamNumber ?>">Lines Editor NHL</a></li>
-            <li><a href="WebClientLines.php?League=Farm&TeamID=<?php echo $CookieTeamNumber ?>">Lines Editor AHL</a></li>
-            <li><a href="TeamSalaryCapDetail.php?TeamID=<?php echo $CookieTeamNumber ?>">Contract Overview</a></li>
-            <li><a href="PlayersCompare.php">Players Compare</a></li>
-            <li><a href="Trade.php">Trade</a></li>
-            <!-- <li><a href="upload.php">Upload Lines</a></li> -->
-        </ul></li>
-       
+        <!-- Menu Stats généré par PHP -->
+        <li>
+            <a href="#">Stats</a>
+            <ul>
+                <?php echo $menuStatsItems; ?>
+            </ul>
+        </li>
 
+        <!-- Commenté: Menu Trades -->
+        <!--
+        <li>
+            <a href="#">Trades</a>
+            <ul>
+                <?php echo $menuTradesItems; ?>
+            </ul>
+        </li>
+        -->
+
+        <!-- Menu Teams généré par PHP avec le numéro d'équipe -->
+        <li>
+            <a href="ProTeam.php?TeamID=<?php echo $CookieTeamNumber ?>">Teams</a>
+            <ul class="team-list">
+                <?php echo $menuTeamsItems; ?>
+            </ul>
+        </li>
+
+        <!-- Menu GM's Corner avec sous-menus -->
+        <li>
+            <a href="#">GM's Corner</a>
+            <ul>
+                <li><a href="WebClientRoster.php?TeamID=<?php echo $CookieTeamNumber ?>">Roster Editor</a></li>
+                <li><a href="WebClientLines.php?TeamID=<?php echo $CookieTeamNumber ?>">Lines Editor NHL</a></li>
+                <li><a href="WebClientLines.php?League=Farm&TeamID=<?php echo $CookieTeamNumber ?>">Lines Editor AHL</a></li>
+                <li><a href="TeamSalaryCapDetail.php?TeamID=<?php echo $CookieTeamNumber ?>">Contract Overview</a></li>
+                <li><a href="PlayersCompare.php">Players Compare</a></li>
+                <li><a href="Trade.php">Trade</a></li>
+                <!-- <li><a href="upload.php">Upload Lines</a></li> -->
+            </ul>
+        </li>
+
+        <!-- Gestion Login/Logout via Cookie -->
         <?php if (isset($_COOKIE[$Cookie_Name])): ?>
             <li><a href="Login.php?Logoff=STHS" class="button yellow-bg">LOGOUT</a></li>
         <?php else: ?>
             <li><a href="Login.php" class="button yellow-bg">LOGIN</a></li>
         <?php endif; ?>
-
     </ul>
 </nav>
 
