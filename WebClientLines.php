@@ -30,8 +30,11 @@
 		
         
         // LHSQC
+        
+   
+    
         $WebClientHeadCode = "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">
-                            
+                              <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css\" rel=\"stylesheet\">                    
         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
         <script src=\"https://code.jquery.com/ui/1.14.0/jquery-ui.min.js\" integrity=\"sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=\" crossorigin=\"anonymous\"></script>
         <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js\"></script>
@@ -494,7 +497,7 @@
 
         </div> <!-- end row 1-->
 
-        <div class="col">
+        <div class="col p-0">
             
             <?php
             // Get all the players and goalies of the team who are dressed
@@ -505,30 +508,39 @@
             $sql .= "WHERE Team = " . $teamid . " AND Status1 = " . $status1 . " ";
             $sql .= "ORDER BY Name ASC, Overall DESC ";
             ?>
-            
-            <div class="playerlist justify-content-start">
+             <div class="alert alert-info darkText p-1"> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
+            <div class="playerlist justify-content-start p-0">
                 <?php api_html_checkboxes_positionlist("sltPlayerList","true","list-item",null,null); ?>
-                <form name="frmPlayerList">
+                                                          
+
+                <form name="frmPlayerList">                
                     <ul class="playerselect list-group">
-                    <?php 	// Loop through the players and add to the select list.
-                    $oRS = $db->query($sql);
-                    $first = true;
-                    while($row = $oRS->fetchArray()){
-                        //if its the first item in the loop, select the item as default.
-                        if($first){$s = " checked";$first = false;}else{$s = "";}
-                        // Separate Name and number with a pipe '|' to split in the javascript.
-                        $values = api_fields_input_values($row);
-                        ?>
-                        <li id="line1_<?= api_MakeCSSClass($row["Name"])?>" class="option list-group-item">
-                            <input name="sltPlayerList" type="radio" id="a<?= api_MakeCSSClass($row["Name"]); ?>" <?= $s;?> value="<?= $values; ?>">
-                            <label for="a<?= api_MakeCSSClass($row["Name"]); ?>"><?= $row["Name"];?> - <?= $row["PositionString"];?> <span class=""><small>(<?= $row["Overall"]; ?> OV)</small></span></label>
-                        </li><?php 
-                    }?>
-                    <li class="option">
-                        <input name="sltPlayerList" type="radio" id="aRemove" value="">
-                        <label for="aRemove">Remove Player/Goalie</label>
-                    </li>
+                        <?php 
+                        $oRS = $db->query($sql);
+                        $first = true;
+                        while($row = $oRS->fetchArray()) {
+                            if($first){$s = " checked"; $first = false;} else {$s = "";}
+                            $values = api_fields_input_values($row);
+                            ?>
+                            <li id="line1_<?= api_MakeCSSClass($row['Name']) ?>" class="option list-group-item">
+                                <input name="sltPlayerList" type="radio" id="a<?= api_MakeCSSClass($row['Name']); ?>" <?= $s;?> value="<?= $values; ?>">
+                                <label for="a<?= api_MakeCSSClass($row['Name']); ?>"><?= $row['Name']; ?> - <?= $row['PositionString']; ?> 
+                                    <span class=""><small>(<?= $row['Overall']; ?> OV)</small></span>
+                                </label>
+                            </li>
+                        <?php } ?>
+                        <li class="option">
+                            <input name="sltPlayerList" type="radio" id="aRemove" value="">
+                            <label for="aRemove">Remove Player/Goalie</label>
+                        </li>
                     </ul>
+
+                    <script>
+                       
+                    </script>
+
+
+
                 </form><!-- end frmPlayerList-->
             </div><!-- end playerlist-->
 
@@ -538,6 +550,18 @@
     </div><!-- end pagewrapper-->
 </div><!-- end id lineeditor-->
 </header>                
+
+<div class="selectionList list-group">
+  <button class="list-group-item" data-info="Item 1 info">Item 1</button>
+  <button class="list-group-item" data-info="Item 2 info">Item 2</button>
+  <button class="list-group-item" data-info="Item 3 info">Item 3</button>
+</div>
+
+<!-- Side Navigation -->
+<div id="sideNavR" class="sidenavR">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div id="sideNavContent">Item details will appear here...</div>
+</div>
             
             
             

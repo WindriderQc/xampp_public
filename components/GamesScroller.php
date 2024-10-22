@@ -3,10 +3,10 @@
 
         <div class="scrollButtons ">
             <div class="scrollDivTop  ">
-                <button class="scrollBtn scrollBtnLeft" id="left-button"><img src="/images/arrow-left-01-128.png" ></button>
+                <button class="scrollBtn scrollBtnLeft" id="left-button"><img src="/images/arrow-left-yellow.png" ></button>
             </div>
             <div class=" scrollDivBot  ">
-                <button class="scrollBtn scrollBtnRight " id="right-button"><img src="images/arrow-right-01-128.png" ></button>
+                <button class="scrollBtn scrollBtnRight " id="right-button"><img src="images/arrow-right-yellow.png" ></button>
             </div>
         </div>
         <div class=" ">    

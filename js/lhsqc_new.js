@@ -191,13 +191,12 @@ $(document).ready(function() {
 /*! Tab Menu ....   test if required*/ 
 jQuery(document).ready(function(){
     jQuery('.tabsmenu.standard .tabmenu-links a').on('click',function(e){
-        console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
         var currentAttrValue=jQuery(this).attr('href');
         jQuery('.tabsmenu '+ currentAttrValue).show().siblings().hide();
         jQuery(this).parent('li').addClass('activemenu').siblings().removeClass('activemenu');
         e.preventDefault();
     });
-    jQuery('.tabsmenu.animated-fade .tabmenu-links a').on('click',function(e){
+    /*jQuery('.tabsmenu.animated-fade .tabmenu-links a').on('click',function(e){
         var currentAttrValue=jQuery(this).attr('href');
         jQuery('.tabsmenu '+ currentAttrValue).fadeIn(400).siblings().hide();
         jQuery(this).parent('li').addClass('activemenu').siblings().removeClass('activemenu');e.preventDefault();
@@ -212,7 +211,7 @@ jQuery(document).ready(function(){
         jQuery('.tabsmenu '+ currentAttrValue).slideDown(400).siblings().slideUp(400);
         jQuery(this).parent('li').addClass('activemenu').siblings().removeClass('activemenu');
         e.preventDefault();
-    });
+    });*/
 });
 jQuery(document).ready(function(){
     jQuery('.tabsmain.standard .tabmain-links a').on('click',function(e){
@@ -221,7 +220,7 @@ jQuery(document).ready(function(){
         jQuery(this).parent('li').addClass('activemain').siblings().removeClass('activemain');
         e.preventDefault();
     });
-    jQuery('.tabsmain.animated-fade .tabmain-links a').on('click',function(e){
+    /*jQuery('.tabsmain.animated-fade .tabmain-links a').on('click',function(e){
         var currentAttrValue=jQuery(this).attr('href');
         jQuery('.tabsmain '+ currentAttrValue).fadeIn(400).siblings().hide();
         jQuery(this).parent('li').addClass('activemain').siblings().removeClass('activemain');
@@ -238,7 +237,7 @@ jQuery(document).ready(function(){
         jQuery('.tabsmain '+ currentAttrValue).slideDown(400).siblings().slideUp(400);
         jQuery(this).parent('li').addClass('activemain').siblings().removeClass('activemain');
         e.preventDefault();
-    });
+    });*/
 });
 
 

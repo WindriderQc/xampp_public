@@ -740,19 +740,17 @@ body:not(.mobile) #stickynav{
 
 
 .alert-info {
-
 	background: #f1c40f;
-
 	border-bottom: 5px solid #f39c12;
-
 	color: #fff;
-
+    display: flex;
+    align-items: center;
 }
 
 .alert-info i {
-
 	color: #f39c12;
-
+    font-size: 1.5em; /* Adjust size as needed */
+    max-height: 100%; /* Ensure the icon stays within the div */
 }
 
 

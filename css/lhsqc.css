@@ -740,20 +740,19 @@ body:not(.mobile) #stickynav{
 
 
 .alert-info {
-
 	background: #f1c40f;
-
 	border-bottom: 5px solid #f39c12;
-
 	color: #fff;
-
+    display: flex;
+    align-items: center;
+    padding-bottom: 2px;
 }
 
 .alert-info i {
-
 	color: #f39c12;
-
+    max-height: 100%; /* Ensure the icon stays within the div */
 }
+
 
 
 
@@ -1245,7 +1244,7 @@ footer .module-content {
     height: 42px;
     width: 45px;
     cursor: pointer;
-    background:  #E7BF3A; /* rgba(216, 215, 238, 1);*/
+    background:  #0c0c0c; /* rgba(216, 215, 238, 1);*/
 }
 
 

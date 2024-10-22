@@ -850,3 +850,127 @@ function checkCompleteLines(){
 
 	document.getElementById('errors').innerHTML = display;	
 }
+
+
+
+
+// Side Nav
+
+// Function to open the side navigation and show item info
+function openNav(info, id) {
+    // Set width to display the side navigation
+    document.getElementById("sideNavR").style.width = "250px";
+    
+    // Display the passed info and id
+    document.getElementById("sideNavContent").innerHTML = `
+      <p><strong>Selected Item ID:</strong> ${id}</p>
+      <p><strong>Item Info:</strong> ${info}</p>
+    `;
+  }
+  
+  // Function to close the side navigation
+  function closeNav() {
+    document.getElementById("sideNavR").style.width = "0"; // Hide by setting width back to 0
+  }
+  
+
+
+
+
+
+
+ // permet de clicker sur toute la div au lieu de juste le label ou le radio-button pour le selectionner
+ document.addEventListener('DOMContentLoaded', function() {
+
+
+
+    // Select all '.option' elements within the '.playerselect' list
+    document.querySelectorAll('.playerselect .option').forEach(function(item) {
+        item.addEventListener('click', function(event) {
+            // Prevent click propagation if the target is the input or label
+            if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'LABEL') {
+                // Simulate a click on the radio input within the clicked list item
+                this.querySelector('input[type="radio"]').click();
+            }
+        });
+    });
+
+
+  // Add event listeners to list-group items
+  /*document.querySelectorAll('.selectionList .list-group-item ').forEach(item => {
+    item.addEventListener('click', function () {
+      const info = this.getAttribute('data-info'); // Get the data-info
+      const id = this.id; // Get the item's ID
+      openNav(info, id); // Pass the info and id to openNav
+    });
+  });*/
+
+
+// Add event listener to the player list
+/*document.querySelector('.playerselect').addEventListener('click', function (event) {
+    const clickedItem = event.target.closest('.list-group-item'); // Check if a list-group-item was clicked
+    if (clickedItem) {
+      const label = clickedItem.querySelector('label');
+      const info = label ? label.innerText : 'No Info';
+      const id = clickedItem.id;
+    }
+  });*/
+
+  document.querySelector('.playerselect').addEventListener('dblclick', function (event) {
+    const clickedItem = event.target.closest('.list-group-item'); // Check if a list-group-item was clicked
+    if (clickedItem) {
+        const label = clickedItem.querySelector('label');
+        const info = label ? label.innerText : 'No Info';
+        const id = clickedItem.id;
+        openNav(info, id);
+    }
+});
+
+
+// Add double-tap support for mobile
+let lastTapTime = 0;
+document.querySelector('.playerselect').addEventListener('touchend', function(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTapTime;
+    lastTapTime = currentTime;
+
+    if (tapLength < 500 && tapLength > 0) { // Detect double-tap within 500ms
+        const clickedItem = event.target.closest('.list-group-item'); // Check if a list-group-item was clicked
+        if (clickedItem) {
+            const label = clickedItem.querySelector('label');
+            const info = label ? label.innerText : 'No Info';
+            const id = clickedItem.id;
+            openNav(info, id);
+        }
+        event.preventDefault();
+    }
+});
+  
+  // add touch support for mobile
+  document.querySelectorAll('.sidenavR .list-group-item').forEach(item => {
+    item.addEventListener('touchstart', function () {
+      const info = this.getAttribute('data-info');
+      const id = this.id;
+      openNav(info, id);
+    });
+  });
+
+
+
+// Close the side nav if clicking outside the list items or side nav
+document.addEventListener('click', function (event) {
+    const isClickInsideListItem = event.target.closest('.list-group-item');
+    const isClickInsideSideNav = event.target.closest('.sidenavR');
+  
+    // If the click is outside both the list items and side navigation, close the nav
+    if (!isClickInsideListItem && !isClickInsideSideNav) {
+      closeNav();
+    }
+  });
+
+
+
+
+
+});
+
