@@ -70,11 +70,11 @@
 
                                 <td class=" GameDayTable upcomingGame">
                                     
-                                    <div class="" style="margin-left:4px">
+                                    <div class="" style="margin-left:4px;" style="line-height:20px;color:#2a2a2a;font-weight:bold;font-size:14px;">
 
-                                        <div class="row" style="font-size:10px;color:#383732;font-weight:bold;line-height:15px;margin: auto;"> <?php echo "Day" . $row['Day'] . " - #" . $row['GameNumber']; ?> </div>
+                                        <div class="row" style="font-size:10px;color:#383732;font-weight:bold;line-height:15px; padding-left:20px;"> <?php echo "Day" . $row['Day'] . " - #" . $row['GameNumber']; ?> </div>
                                         
-                                        <div class="row">
+                                        <div class="row" >
                                             <div class="col">
                                             <img src= <?php echo $ImagesCDNPath . "/images/" . $row['VisitorTeamThemeID'] . ".png"; ?> alt="" style="width:24px;"> </div>
                                             <div class="col"> <?php echo $row['VisitorTeamAbbre'];  ?> </div>
