@@ -1272,7 +1272,6 @@ footer .module-content {
 }
 
 
-
 .scrollBtn {
     background: none;
     border: none;
@@ -1281,16 +1280,15 @@ footer .module-content {
     padding: 0%;
     pointer-events: auto; /* Allow interaction with buttons */
 }
-
 .scrollBtn:hover {
-    background:  #ffca1d; /* rgba(216, 215, 238, 1);*/
+    background:  #383838ce; /* rgba(216, 215, 238, 1);*/
 }
-
-
 .scrollBtn img {
+    /*background:  #ccad00; /* rgba(216, 215, 238, 1);*/
     width: 100%;
     height: 100%;
 }
+
 
 .scrollerBoxScore{
     font-size:8px;
