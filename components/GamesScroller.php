@@ -14,11 +14,18 @@
                 <table class="table py-0 my-0">
                         <td style="background:white;width:43px;height:84px;display:block"><br></td>
                         
+                    
+
                         <?php
                         // Add Latest Games with scores to gameScroller.
                         $i = 0;
-                        if (empty($LatestScore) == false) {
+                        
+                        if (empty($LatestScore) == false) { 
                             while ($row = $LatestScore->fetchArray()) {  ?>
+                             <script> // Use the PHP variable in JavaScript 
+                            var phpVar = <?php echo json_encode($row); ?>;
+                            console.log(JSON.stringify(phpVar, null, 2)); 
+                            </script>
 
                                 <td class="GameDayTable pastGame">
                                     <table class="" style="margin-left:4px;">
@@ -51,40 +58,45 @@
                                 $i = $i+1;
                             }
                         }
-                        ?>
-
-                        <?php
+                       
                         //  Add next games schedule to gameScroller.
                         if (empty($Schedule) == false) {
-                            while ($row = $Schedule->fetchArray()) { ?>
+                            while ($row = $Schedule->fetchArray()) {   ?>
+                           
+                           <script> // Use the PHP variable in JavaScript 
+                            var phpVar = <?php echo json_encode($row); ?>;
+                            console.log(JSON.stringify(phpVar, null, 2)); 
+                            </script>
 
                                 <td class=" GameDayTable upcomingGame">
-                                    <table class="" style="margin-left:4px">
-                                        <tr style="font-size:10px;color:#383732;font-weight:bold;"><td>Thu, Oct 10!!!</td></tr>
-                                        <tr style="line-height:20px;color:#2a2a2a;font-weight:bold;margin:0px;font-size:14px;">
-                                            <td>
-                                                <span><img src= <?php echo $ImagesCDNPath . "/images/" . $row['VisitorTeamThemeID'] . ".png"; ?> alt="" style="width:24px;vertical-align:middle;padding-right:4px;"></span>
-                                                <?php echo $row['VisitorTeamAbbre'];  ?>
-                                            </td> 
-                                            <td style="font-size:20px;text-align:center;font-weight:bold;">-</td>
-                                        </tr>
-                                        <tr style="line-height:20px;color:#2a2a2a;font-weight:bold;margin:0px;font-size:14px;">
-                                            <td>
-                                                <span><img src= <?php echo $ImagesCDNPath . "/images/" . $row['HomeTeamThemeID'] . ".png"; ?> alt="" style="width:24px;vertical-align:middle;padding-right:4px;"></span>
-                                                <?php echo $row['HomeTeamAbbre'] ?>
-                                            </td>
-                                            <td style=font-size:20px;text-align:center;font-weight:bold>-</td>
-                                        </tr>
-                                    </table>
+                                    
+                                    <div class="" style="margin-left:4px">
+
+                                        <div class="row" style="font-size:10px;color:#383732;font-weight:bold;line-height:15px;margin: auto;"> <?php echo "Day" . $row['Day'] . " - #" . $row['GameNumber']; ?> </div>
+                                        
+                                        <div class="row">
+                                            <div class="col">
+                                            <img src= <?php echo $ImagesCDNPath . "/images/" . $row['VisitorTeamThemeID'] . ".png"; ?> alt="" style="width:24px;"> </div>
+                                            <div class="col"> <?php echo $row['VisitorTeamAbbre'];  ?> </div>
+                                            <div class="col"> - </div>
+                                        </div>
+                                        
+                                        <div class="row"> 
+                                            <div class="col"> <img src= <?php echo $ImagesCDNPath . "/images/" . $row['HomeTeamThemeID'] . ".png"; ?> alt="" style="width:24px;"> </div>
+                                            <div class="col"> <?php echo $row['HomeTeamAbbre']; ?> </div>
+                                            <div class="col"> - </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    
                                 </td>
                                 <?php  
                                 $i = $i+1;
                             }
                         }
-                        ?>
-
-                        
-                        <?php
+                       
                         //  There are no game in Database...  display generic message.
                         if ($i == 0) {
 
