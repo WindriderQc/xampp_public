@@ -54,7 +54,7 @@
 		if(($CookieTeamNumber == $t OR $DoNotRequiredLoginDynamicWebsite == TRUE) AND $t > 0 AND $t <= 100){
 			// Display the line editor page using API.
 			// use 4 paramaters Database, TeamID, $league("Pro","Farm"), showH1Tag (DEFAULT true/false)   
-			if($t > 0){
+			if($t > 0){   // Check to see if there is a team selected.
                 // api_pageinfo_editor_lines($db,$t,$l, false);
                 $teamid = $t;
                 $league=$l;
@@ -66,45 +66,40 @@
                 // $showDropdown is a flag if you want to toggle between teams.
                 // $showHeader is a flag if you want to show the H1 Tag
             
-                // Check to see if there is a team selected.
-                if($teamid > 0){
-                    // Set the status value if the league is Pro or Farm
-                    $status = ($league == "Pro") ? 3: 1;
-                    // Select all the players and goalies if they are dressed.
-                    $sql = "SELECT Number, Name FROM PlayerInfo WHERE Team = " . $teamid . " AND Status1 = " . $status . " ";
-                    $sql .= "UNION ";
-                    $sql .= "SELECT Number, Name FROM GoalerInfo WHERE Team = " . $teamid . " AND Status1 = " . $status . " ";
-        
-                    // Get the recordset of all the players
-                    $oRS = $db->query($sql);
-                    // Make an array of available players to use.
-                    // This makes comparing from a roster change easier.
-                    // i.e. Database could show a player in a position in the lines table, but if that
-                    // player was scratched, or moved between farm and pro, there has to be a way to
-                    // show he isn't there and show blank on the line. 
-                    $availableplayers = array();
-                    while($row = $oRS->fetchArray()){
-                        $availableplayers[api_MakeCSSClass($row["Name"])]["id"] = $row["Number"];
-                        $availableplayers[api_MakeCSSClass($row["Name"])]["Name"] = $row["Name"];
-                    }
-        
-                    // Check to see if Custom OT lines are turned on 
-                    $sql = "SELECT " . $league . "CustomOTLines AS CustomLines FROM LeagueGeneral;";
-                    $oRS = $db->query($sql);
-                    $row = $oRS->fetchArray();
-                    $customOTlines = ($row["CustomLines"] == "True") ? true: false;
-                    $cpfieldsOTLines = ($customOTlines) ? 'true': 'false';
-        
-                    // get the fields needed for the ChangePlayer function onClick
-                    $dbfields = api_dbresult_line_editor_fields($db);
-                    $cpfields = "";
-                    foreach($dbfields AS $f){$cpfields .= strtolower($f) .",";}
-                    $cpfields .= $cpfieldsOTLines;
-                    //$cpfields = rtrim($cpfields,",");
+                // Set the status value if the league is Pro or Farm
+                $status = ($league == "Pro") ? 3: 1;
+                // Select all the players and goalies if they are dressed.
+                $sql = "SELECT Number, Name FROM PlayerInfo WHERE Team = " . $teamid . " AND Status1 = " . $status . " ";
+                $sql .= "UNION ";
+                $sql .= "SELECT Number, Name FROM GoalerInfo WHERE Team = " . $teamid . " AND Status1 = " . $status . " ";
+    
+                // Get the recordset of all the players
+                $oRS = $db->query($sql);
+                // Make an array of available players to use.
+                // This makes comparing from a roster change easier.
+                // i.e. Database could show a player in a position in the lines table, but if that
+                // player was scratched, or moved between farm and pro, there has to be a way to
+                // show he isn't there and show blank on the line. 
+                $availableplayers = array();
+                while($row = $oRS->fetchArray()){
+                    $availableplayers[api_MakeCSSClass($row["Name"])]["id"] = $row["Number"];
+                    $availableplayers[api_MakeCSSClass($row["Name"])]["Name"] = $row["Name"];
+                }
+    
+                // Check to see if Custom OT lines are turned on 
+                $sql = "SELECT " . $league . "CustomOTLines AS CustomLines FROM LeagueGeneral;";
+                $oRS = $db->query($sql);
+                $row = $oRS->fetchArray();
+                $customOTlines = ($row["CustomLines"] == "True") ? true: false;
+                $cpfieldsOTLines = ($customOTlines) ? 'true': 'false';
+    
+                // get the fields needed for the ChangePlayer function onClick
+                $dbfields = api_dbresult_line_editor_fields($db);
+                $cpfields = "";
+                foreach($dbfields AS $f){$cpfields .= strtolower($f) .",";}
+                $cpfields .= $cpfieldsOTLines;
+                //$cpfields = rtrim($cpfields,",");
 
-                }// end if $teamid
-            
-                    
                 $bannertext = "";
                 
                     
@@ -605,3 +600,12 @@
 
 <?php include ("Footer.php"); ?>
 </body></html>
+
+
+
+
+
+
+
+
+

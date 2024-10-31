@@ -6,6 +6,7 @@
 - On dirait que les pages n'utilise pas toutes la meme db...  a valider car le contenu de GameScroller bar change selon les pages...
 - TodayGames est dans le menu sous ScoreBoard   et aussi dans Stats->Today's Game.    Pourrait etre enlevé du main menu puisqu'il y a en plus le gameScroller.....
 - Bug de menu mobile...  icone qui bouge ou ligne qui rapettisse.
+- Fichier Transaction2.php  -  je crois qu'il n'est pas utilisé.
 
 
 
