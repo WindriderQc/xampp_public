@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Columns</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .column-container { display: flex; justify-content: space-between; }
+        .column { flex: 1; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Table Columns</h1>
+    <div class="column-container">
+        <div class="column">
+            <h2>PlayerInfo</h2>
+            <ul id="PlayerInfo"></ul>
+        </div>
+        <div class="column">
+            <h2>TeamProLines</h2>
+            <ul id="TeamProLines"></ul>
+        </div>
+        <div class="column">
+            <h2>TeamProStat</h2>
+            <ul id="TeamProStat"></ul>
+        </div>
+        <div class="column">
+            <h2>TeamProInfo</h2>
+            <ul id="TeamProInfo"></ul>
+        </div>
+    </div>
+
+    <script>
+        async function fetchColumnNames() {
+            const response = await fetch('fetch_player_info.php');
+            const columns = await response.json();
+            
+            for (const table in columns) {
+                const list = document.getElementById(table);
+                columns[table].forEach(column => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = column;
+                    list.appendChild(listItem);
+                });
+            }
+        }
+
+        fetchColumnNames();
+    </script>
+</body>
+</html>

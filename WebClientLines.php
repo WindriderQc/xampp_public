@@ -246,8 +246,8 @@
                                            
                                             $bcount = 0;
                                             foreach($blocks[$i] AS $bid=>$block){?>
-                                                    <div class="linesection card id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
-                                                        <div class="card-header no-border darkText fs-6"><?= $block ?></div>
+                                                    <div class="linesection card  p-0 m-0 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
+                                                        <div class="card-header no-border paleText fs-10"><?= $block ?></div>
                                                         <div class="blockcontainer row">
                                                             
                                                             <div class="positionwrapper row p-1 m-1">
@@ -284,8 +284,9 @@
                                                                         // Set player name in each position
                                                                         $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
                                                                         echo "<div class='col m-1 p-0'>";
-                                                                        echo "<div class='card'>";
-                                                                        echo "<input  class='roster-container textname positionname ' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}' value='{$playerName}'>";
+                                                                        echo "<div class='card h-100 mt-1 mx-1'>";
+                                                                        echo "<input  class='roster-container textname positionname form-control' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}'
+                                                                                type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value='{$playerName}'>";
                                                                         echo "</div>";
                                                                         echo "</div>";
                                                                     }

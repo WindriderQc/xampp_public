@@ -123,7 +123,7 @@ if (isset($_COOKIE[$Cookie_Name])) {
 <script src="js/rosterEditor.js"></script>
 
 <script>
-var teamID = 21   //   TODO    DEBUG Hardcoded....    teamID is not set...
+//var teamID = 21   //   TODO    DEBUG Hardcoded....    teamID is not set...
 </script>
 
 <div id="player-list"></div>
