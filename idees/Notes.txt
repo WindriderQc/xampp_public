@@ -1,3 +1,241 @@
 Player 
     .Status1 = 0-Farm Scratched, 1-Farm Healthy , 2-Pro Scratched, 3- Pro Healthy
 
+Defense1 = LEFT
+Defense2 = RIGHT
+
+
+
+Save Lines payload:
+
+sbtUpdateLines: Save Lines
+txtLine[Line15vs5ForwardCenter]: Mika Zibanejad
+txtLine[Line15vs5ForwardLeftWing]: Chris Kreider
+txtLine[Line15vs5ForwardRightWing]: Nick Schmaltz
+txtStrategies[Line15vs5ForwardPhy]: 0
+txtStrategies[Line15vs5ForwardDF]: 1
+txtStrategies[Line15vs5ForwardOF]: 4
+txtStrategies[Line15vs5ForwardTime]: 35
+txtLine[Line25vs5ForwardCenter]: Sean Couturier
+txtLine[Line25vs5ForwardLeftWing]: Michael Rasmussen
+txtLine[Line25vs5ForwardRightWing]: Gabriel Vilardi
+txtStrategies[Line25vs5ForwardPhy]: 0
+txtStrategies[Line25vs5ForwardDF]: 1
+txtStrategies[Line25vs5ForwardOF]: 4
+txtStrategies[Line25vs5ForwardTime]: 30
+txtLine[Line35vs5ForwardCenter]: Anton Lundell
+txtLine[Line35vs5ForwardLeftWing]: Nolan Foote
+txtLine[Line35vs5ForwardRightWing]: Jesper Fast
+txtStrategies[Line35vs5ForwardPhy]: 0
+txtStrategies[Line35vs5ForwardDF]: 2
+txtStrategies[Line35vs5ForwardOF]: 3
+txtStrategies[Line35vs5ForwardTime]: 22
+txtLine[Line45vs5ForwardCenter]: Sean Kuraly
+txtLine[Line45vs5ForwardLeftWing]: Gabriel Landeskog
+txtLine[Line45vs5ForwardRightWing]: Christian Fischer
+txtStrategies[Line45vs5ForwardPhy]: 1
+txtStrategies[Line45vs5ForwardDF]: 3
+txtStrategies[Line45vs5ForwardOF]: 1
+txtStrategies[Line45vs5ForwardTime]: 13
+txtLine[Line15vs5DefenseDefense1]: Victor Hedman
+txtLine[Line15vs5DefenseDefense2]: Shea Theodore
+txtStrategies[Line15vs5DefensePhy]: 0
+txtStrategies[Line15vs5DefenseDF]: 1
+txtStrategies[Line15vs5DefenseOF]: 4
+txtStrategies[Line15vs5DefenseTime]: 40
+txtLine[Line25vs5DefenseDefense1]: Cam Fowler
+txtLine[Line25vs5DefenseDefense2]: Alexander Romanov
+txtStrategies[Line25vs5DefensePhy]: 0
+txtStrategies[Line25vs5DefenseDF]: 2
+txtStrategies[Line25vs5DefenseOF]: 3
+txtStrategies[Line25vs5DefenseTime]: 30
+txtLine[Line35vs5DefenseDefense1]: Cam York
+txtLine[Line35vs5DefenseDefense2]: Dylan Samberg
+txtStrategies[Line35vs5DefensePhy]: 1
+txtStrategies[Line35vs5DefenseDF]: 2
+txtStrategies[Line35vs5DefenseOF]: 2
+txtStrategies[Line35vs5DefenseTime]: 20
+txtLine[Line45vs5DefenseDefense1]: Victor Hedman
+txtLine[Line45vs5DefenseDefense2]: Shea Theodore
+txtStrategies[Line45vs5DefensePhy]: 0
+txtStrategies[Line45vs5DefenseDF]: 2
+txtStrategies[Line45vs5DefenseOF]: 3
+txtStrategies[Line45vs5DefenseTime]: 10
+txtLine[Line1PPForwardCenter]: Mika Zibanejad
+txtLine[Line1PPForwardLeftWing]: Chris Kreider
+txtLine[Line1PPForwardRightWing]: Nick Schmaltz
+txtStrategies[Line1PPForwardPhy]: 0
+txtStrategies[Line1PPForwardDF]: 0
+txtStrategies[Line1PPForwardOF]: 5
+txtStrategies[Line1PPForwardTime]: 53
+txtLine[Line2PPForwardCenter]: Sean Couturier
+txtLine[Line2PPForwardLeftWing]: Michael Rasmussen
+txtLine[Line2PPForwardRightWing]: Gabriel Vilardi
+txtStrategies[Line2PPForwardPhy]: 0
+txtStrategies[Line2PPForwardDF]: 0
+txtStrategies[Line2PPForwardOF]: 5
+txtStrategies[Line2PPForwardTime]: 47
+txtLine[Line1PPDefenseDefense1]: Victor Hedman
+txtLine[Line1PPDefenseDefense2]: Shea Theodore
+txtStrategies[Line1PPDefensePhy]: 0
+txtStrategies[Line1PPDefenseDF]: 1
+txtStrategies[Line1PPDefenseOF]: 4
+txtStrategies[Line1PPDefenseTime]: 52
+txtLine[Line2PPDefenseDefense1]: Cam Fowler
+txtLine[Line2PPDefenseDefense2]: Alexander Romanov
+txtStrategies[Line2PPDefensePhy]: 0
+txtStrategies[Line2PPDefenseDF]: 2
+txtStrategies[Line2PPDefenseOF]: 3
+txtStrategies[Line2PPDefenseTime]: 48
+txtLine[Line14VS4ForwardCenter]: Mika Zibanejad
+txtLine[Line14VS4ForwardWing]: Chris Kreider
+txtStrategies[Line14VS4ForwardPhy]: 1
+txtStrategies[Line14VS4ForwardDF]: 2
+txtStrategies[Line14VS4ForwardOF]: 2
+txtStrategies[Line14VS4ForwardTime]: 50
+txtLine[Line24VS4ForwardCenter]: Sean Couturier
+txtLine[Line24VS4ForwardWing]: Michael Rasmussen
+txtStrategies[Line24VS4ForwardPhy]: 1
+txtStrategies[Line24VS4ForwardDF]: 2
+txtStrategies[Line24VS4ForwardOF]: 2
+txtStrategies[Line24VS4ForwardTime]: 50
+txtLine[Line14VS4DefenseDefense1]: Victor Hedman
+txtLine[Line14VS4DefenseDefense2]: Shea Theodore
+txtStrategies[Line14VS4DefensePhy]: 1
+txtStrategies[Line14VS4DefenseDF]: 2
+txtStrategies[Line14VS4DefenseOF]: 2
+txtStrategies[Line14VS4DefenseTime]: 60
+txtLine[Line24VS4DefenseDefense1]: Cam Fowler
+txtLine[Line24VS4DefenseDefense2]: Alexander Romanov
+txtStrategies[Line24VS4DefensePhy]: 1
+txtStrategies[Line24VS4DefenseDF]: 2
+txtStrategies[Line24VS4DefenseOF]: 2
+txtStrategies[Line24VS4DefenseTime]: 40
+txtLine[Line1PK4ForwardCenter]: Mika Zibanejad
+txtLine[Line1PK4ForwardWing]: Chris Kreider
+txtStrategies[Line1PK4ForwardPhy]: 1
+txtStrategies[Line1PK4ForwardDF]: 4
+txtStrategies[Line1PK4ForwardOF]: 0
+txtStrategies[Line1PK4ForwardTime]: 60
+txtLine[Line2PK4ForwardCenter]: Sean Couturier
+txtLine[Line2PK4ForwardWing]: Michael Rasmussen
+txtStrategies[Line2PK4ForwardPhy]: 1
+txtStrategies[Line2PK4ForwardDF]: 4
+txtStrategies[Line2PK4ForwardOF]: 0
+txtStrategies[Line2PK4ForwardTime]: 40
+txtLine[Line1PK4DefenseDefense1]: Victor Hedman
+txtLine[Line1PK4DefenseDefense2]: Shea Theodore
+txtStrategies[Line1PK4DefensePhy]: 1
+txtStrategies[Line1PK4DefenseDF]: 4
+txtStrategies[Line1PK4DefenseOF]: 0
+txtStrategies[Line1PK4DefenseTime]: 60
+txtLine[Line2PK4DefenseDefense1]: Cam Fowler
+txtLine[Line2PK4DefenseDefense2]: Alexander Romanov
+txtStrategies[Line2PK4DefensePhy]: 1
+txtStrategies[Line2PK4DefenseDF]: 4
+txtStrategies[Line2PK4DefenseOF]: 0
+txtStrategies[Line2PK4DefenseTime]: 40
+txtLine[Line1PK3ForwardCenter]: Mika Zibanejad
+txtStrategies[Line1PK3ForwardPhy]: 0
+txtStrategies[Line1PK3ForwardDF]: 5
+txtStrategies[Line1PK3ForwardOF]: 0
+txtStrategies[Line1PK3ForwardTime]: 60
+txtLine[Line2PK3ForwardCenter]: Sean Couturier
+txtStrategies[Line2PK3ForwardPhy]: 0
+txtStrategies[Line2PK3ForwardDF]: 5
+txtStrategies[Line2PK3ForwardOF]: 0
+txtStrategies[Line2PK3ForwardTime]: 40
+txtLine[Line1PK3DefenseDefense1]: Victor Hedman
+txtLine[Line1PK3DefenseDefense2]: Shea Theodore
+txtStrategies[Line1PK3DefensePhy]: 0
+txtStrategies[Line1PK3DefenseDF]: 5
+txtStrategies[Line1PK3DefenseOF]: 0
+txtStrategies[Line1PK3DefenseTime]: 60
+txtLine[Line2PK3DefenseDefense1]: Cam Fowler
+txtLine[Line2PK3DefenseDefense2]: Alexander Romanov
+txtStrategies[Line2PK3DefensePhy]: 0
+txtStrategies[Line2PK3DefenseDF]: 5
+txtStrategies[Line2PK3DefenseOF]: 0
+txtStrategies[Line2PK3DefenseTime]: 40
+txtLine[Goaler1]: Igor Shesterkin
+txtLine[Goaler2]: Anton Forsberg
+txtLine[ExtraForwardN1]: Sean Couturier
+txtLine[ExtraForwardN2]: Michael Rasmussen
+txtLine[ExtraForwardN3]: Jesper Fast
+txtLine[ExtraForwardPP1]: Sean Couturier
+txtLine[ExtraForwardPP2]: Michael Rasmussen
+txtLine[ExtraForwardPK]: Sean Couturier
+txtLine[ExtraDefenseN1]: Alexander Romanov
+txtLine[ExtraDefenseN2]: Cam York
+txtLine[ExtraDefenseN3]: Dylan Samberg
+txtLine[ExtraDefensePP]: Alexander Romanov
+txtLine[ExtraDefensePK1]: Alexander Romanov
+txtLine[ExtraDefensePK2]: Cam York
+txtLine[PenaltyShots1]: Chris Kreider
+txtLine[PenaltyShots2]: Mika Zibanejad
+txtLine[PenaltyShots3]: Nick Schmaltz
+txtLine[PenaltyShots4]: Gabriel Vilardi
+txtLine[PenaltyShots5]: Sean Couturier
+txtLine[LastMinOffForwardCenter]: Mika Zibanejad
+txtLine[LastMinOffForwardLeftWing]: Chris Kreider
+txtLine[LastMinOffForwardRightWing]: Nick Schmaltz
+txtLine[LastMinOffDefenseDefense1]: Victor Hedman
+txtLine[LastMinOffDefenseDefense2]: Shea Theodore
+txtLine[LastMinDefForwardCenter]: Mika Zibanejad
+txtLine[LastMinDefForwardLeftWing]: Chris Kreider
+txtLine[LastMinDefForwardRightWing]: Nick Schmaltz
+txtLine[LastMinDefDefenseDefense1]: Victor Hedman
+txtLine[LastMinDefDefenseDefense2]: Shea Theodore
+txtLine[OTForward1]: Chris Kreider
+txtLine[OTForward2]: Mika Zibanejad
+txtLine[OTForward3]: Nick Schmaltz
+txtLine[OTForward4]: Gabriel Vilardi
+txtLine[OTForward5]: Sean Couturier
+txtLine[OTForward6]: Michael Rasmussen
+txtLine[OTForward7]: Jesper Fast
+txtLine[OTForward8]: Anton Lundell
+txtLine[OTForward9]: Sean Kuraly
+txtLine[OTForward10]: Christian Fischer
+txtLine[OTDefense1]: Victor Hedman
+txtLine[OTDefense2]: Shea Theodore
+txtLine[OTDefense3]: Cam Fowler
+txtLine[OTDefense4]: Alexander Romanov
+txtLine[OTDefense5]: Cam York
+txtStrategies[Strategy1GoalDiff]: 2
+txtStrategies[Strategy1Phy]: 0
+txtStrategies[Strategy1DF]: 2
+txtStrategies[Strategy1OF]: 3
+txtStrategies[Strategy2GoalDiff]: 1
+txtStrategies[Strategy2Phy]: 1
+txtStrategies[Strategy2DF]: 2
+txtStrategies[Strategy2OF]: 2
+txtStrategies[Strategy3Phy]: 1
+txtStrategies[Strategy3DF]: 2
+txtStrategies[Strategy3OF]: 2
+txtStrategies[Strategy4GoalDiff]: 1
+txtStrategies[Strategy4Phy]: 0
+txtStrategies[Strategy4DF]: 0
+txtStrategies[Strategy4OF]: 5
+txtStrategies[Strategy5GoalDiff]: 2
+txtStrategies[Strategy5Phy]: 0
+txtStrategies[Strategy5DF]: 1
+txtStrategies[Strategy5OF]: 4
+txtStrategies[PullGoalerMinGoal]: 5
+txtStrategies[PullGoalerMinPct]: 84
+txtStrategies[RemoveGoaliesSecond]: 60
+
+
+
+
+
+
+
+quick php to JS console:
+
+ ?>
+<script> // Use the PHP variable in JavaScript 
+/* var phpVar = <?php echo json_encode($VARIABLE!!!!); ?>;
+console.log(JSON.stringify(phpVar, null, 2)); */
+</script>
+
+<?php

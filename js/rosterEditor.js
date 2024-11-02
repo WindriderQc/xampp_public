@@ -173,16 +173,15 @@ function dropOnContainer(targetDiv, playerDiv, fromZone) {
             targetDiv.appendChild(playerDiv)
             console.log(parentDiv)
             //parentDiv.innerHTML = "<div class=\"card-body \"><p class=\"card-text\">" +  parentDiv.id + "</p></div>"
-            parentDiv.innerHTML =  parentDiv.id;
+            parentDiv.innerHTML =  parentDiv.dataset.linePos;
         } else {                                        //  a player was already assigned.
             targetDiv.innerHTML = ''
             targetDiv.appendChild(playerDiv)
-            parentDiv.innerHTML =  parentDiv.id;
+            parentDiv.innerHTML =  parentDiv.dataset.linePos;
             rosterDiv.appendChild(currentDiv)
         }  
     } 
     else {
-        console.log("test" , targetDiv)
         targetDiv.innerHTML = "";
         targetDiv.appendChild(playerDiv)
         //  if a player was previously assigned
@@ -201,7 +200,7 @@ function dropToScratched(playerDiv, fromZone) {
 
     if (fromZone === 'roster-container') {
         let parentDiv = playerDiv.parentElement;
-        parentDiv.innerHTML =  parentDiv.id;
+        parentDiv.innerHTML =  parentDiv.dataset.linePos;
     }
 
     scratchedDiv.appendChild(playerDiv)
@@ -215,7 +214,7 @@ function dropToRoster(playerDiv, fromZone) {
 
     if (fromZone === 'roster-container') {
         let parentDiv = playerDiv.parentElement;
-        parentDiv.innerHTML =  parentDiv.id;
+        parentDiv.innerHTML =  parentDiv.dataset.linePos;
     }
 
     rosterDiv.appendChild(playerDiv);
@@ -249,12 +248,14 @@ function handleTouchStart(event) {
     let touch = event.touches[0];
 
     activeDraggedElement = event.currentTarget; // Get the element being dragged
-    originalDropzone = getDropzone(activeDraggedElement.parentElement); // Store the original dropzone based on parent
-    //originalDropzone = getDropzone(activeDraggedElement); // Store the original dropzone
+    originalDropzone = getDropzone(activeDraggedElement.parentElement); // Store the original dropzone based on parent   //originalDropzone = getDropzone(activeDraggedElement); // Store the original dropzone
     activeDraggedElement.fromZone = originalDropzone
     
     activeDraggedElement.style.opacity = '0.4'; // Visual feedback
-    //activeDraggedElement.style.position = 'absolute';
+    //activeDraggedElement.style.position = 'absolute'; // Set position to absolute for drag movements
+    //activeDraggedElement.style.position = 'fixed'; // Set position to fixed for drag movements
+  //  style=" overflow-x: hidden;"  on main container fixes issue of div being out of page when drag start....
+    
    
 
     console.log("TouchStart:", activeDraggedElement, "from ", originalDropzone )
@@ -266,8 +267,8 @@ function handleTouchStart(event) {
     originalPosition.top = rect.top;
 
     // Correct the offset
-    activeDraggedElement.touchStartX = touch.clientX - rect.left;
-    activeDraggedElement.touchStartY = touch.clientY - rect.top;
+    activeDraggedElement.touchStartX = touch.pageX - rect.left;
+    activeDraggedElement.touchStartY = touch.pageY - rect.top;
 }
 
 function handleTouchMove(event) {
@@ -277,11 +278,11 @@ function handleTouchMove(event) {
    // console.log("Move:", activeDraggedElement)
     if (activeDraggedElement) {
         // Update the element's position during dragging
-        activeDraggedElement.style.left = `${touch.clientX - activeDraggedElement.touchStartX}px`;
-        activeDraggedElement.style.top = `${touch.clientY - activeDraggedElement.touchStartY}px`;
+        activeDraggedElement.style.left = `${touch.pageX  - activeDraggedElement.touchStartX}px`;
+        activeDraggedElement.style.top = `${touch.pageY  - activeDraggedElement.touchStartY}px`;
     }
 
-    let element = document.elementFromPoint(touch.clientX, touch.clientY);
+    let element = document.elementFromPoint(touch.pageX, touch.pageY);
     let dropzone = findClosestDropzone(element);  // Use the new function
 
    // console.log(" over :", element)

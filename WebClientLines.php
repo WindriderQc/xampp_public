@@ -55,16 +55,12 @@
 			// Display the line editor page using API.
 			// use 4 paramaters Database, TeamID, $league("Pro","Farm"), showH1Tag (DEFAULT true/false)   
 			if($t > 0){   // Check to see if there is a team selected.
-                // api_pageinfo_editor_lines($db,$t,$l, false);
                 $teamid = $t;
                 $league=$l;
-                $showHeader=false;
                 $useServerURIInTabLink=false;
                 // $db = sqlite DB
                 // $teamid is a teamid to use that teams roster.
-                // $league is "Pro" or "Farm" based on selection.
-                // $showDropdown is a flag if you want to toggle between teams.
-                // $showHeader is a flag if you want to show the H1 Tag
+                // $league is "Pro" or "Farm" based on selection.         
             
                 // Set the status value if the league is Pro or Farm
                 $status = ($league == "Pro") ? 3: 1;
@@ -86,6 +82,7 @@
                     $availableplayers[api_MakeCSSClass($row["Name"])]["Name"] = $row["Name"];
                 }
     
+               
                 // Check to see if Custom OT lines are turned on 
                 $sql = "SELECT " . $league . "CustomOTLines AS CustomLines FROM LeagueGeneral;";
                 $oRS = $db->query($sql);
@@ -102,6 +99,7 @@
 
                 $bannertext = "";
                 
+               
                     
                 // If the updatelines submit button is clicked 
                 if(isset($_POST["sbtUpdateLines"])){
@@ -202,6 +200,9 @@
                         $positions = api_get_line_arrays("positions");
                         $strategy = api_get_line_arrays("strategy");
                         $count = 0;
+
+                      
+                        
                     ?>
                         
                     <div class="linetabs">
@@ -243,11 +244,8 @@
                                             // Each of the if'ed statements above have the same kind of info. 
                                             // display the blocks based on which tabbed page you are on.
                                            
-                                            //api_make_blocks($row,$blocks,$positions,$strategy,$i,$availableplayers,$cpfields,$league);
-
-                                            // /* function api_make_blocks($row,$blocks,$positions,$strategy,$i,$availableplayers,$cpfields,$league){
-                                                $bcount = 0;
-                                                foreach($blocks[$i] AS $bid=>$block){?>
+                                            $bcount = 0;
+                                            foreach($blocks[$i] AS $bid=>$block){?>
                                                     <div class="linesection card id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
                                                         <div class="card-header no-border darkText fs-6"><?= $block ?></div>
                                                         <div class="blockcontainer row">
@@ -275,15 +273,60 @@
                                                                     }else{
                                                                         $field = "Line". ++$bcount ."5vs5" . $i;
                                                                         $posit = $positions[$i];
-                                                                    }?>
-                                                                <?php foreach($posit AS $pid=>$pos){?>
+                                                                       
+                                                                   
+                                                                    }
+                                                                    
+                                                                    
+                                                                    // Generate Forward and Defense Lines
+                                                                    echo "<div class='row m-0 p-0' id='divF" . $bcount . "'>";
+                                                                    foreach($posit as $pid => $pos) {
+                                                                        // Set player name in each position
+                                                                        $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
+                                                                        echo "<div class='col m-1 p-0'>";
+                                                                        echo "<div class='card'>";
+                                                                        echo "<input  class='roster-container textname positionname ' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}' value='{$playerName}'>";
+                                                                        echo "</div>";
+                                                                        echo "</div>";
+                                                                    }
+                                                                    echo "</div>"; // End Forward row
+                                                                    
+                                                                    ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                <?php /*foreach($posit AS $pid=>$pos){
+                                                                    
+                                                          
+                                                                    ?>
                                                                     <div class="positionline input-group">
                                                                         <span class="input-group-text positionlabel"  id="positionlabel"><?= $pos?></span>
                                                                         <?php  $row[$field . $pid] = (isset($availableplayers[api_MakeCSSClass($row[$field . $pid])])) ? $row[$field . $pid]: "";?>
                                                                         <?= "<input id=\"". $field . $pid ."\" onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" class=\"textname positionname form-control\" "
                                                                                 ." readonly type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value=\"".  $row[$field . $pid] ."\">";?>
-                                                                    </div>
-                                                                <?php }?>
+                                                                    
+                                                                
+                                                                  
+
+
+
+
+                                                                </div>
+                                                                <?php }*/?>
                                                             </div><!-- end positionwrapper-->
                                                             
                                                             <div class="sliders row">
@@ -546,11 +589,6 @@
 </div><!-- end id lineeditor-->
 </header>                
 
-<div class="selectionList list-group">
-  <button class="list-group-item" data-info="Item 1 info">Item 1</button>
-  <button class="list-group-item" data-info="Item 2 info">Item 2</button>
-  <button class="list-group-item" data-info="Item 3 info">Item 3</button>
-</div>
 
 <!-- Side Navigation -->
 <div id="sideNavR" class="sidenavR">
@@ -597,6 +635,11 @@
     document.addEventListener('click', deactivateBanner);  // Hide the confirm banner on user interaction
 </script>
 
+<?php
+/*<br><br>
+Work In Progress:
+
+ include ("components/RosterEditor.php");*/ ?>
 
 <?php include ("Footer.php"); ?>
 </body></html>

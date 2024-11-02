@@ -1183,7 +1183,7 @@ footer .module-content {
 .draggable {
 
     cursor: grab; /* Changes the cursor to a "grab" hand */
-
+    touch-action: none; /* Prevents default touch actions like scroll or zoom */
 }
 
 
@@ -1400,7 +1400,8 @@ footer .module-content {
 
 .roster-container {
 
-    border: 1px solid black; /* Black thin border */
+    /*border: 1px solid black;  Black thin border */
+  
     color: #b0ccbb;
     padding: 10px;
 
