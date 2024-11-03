@@ -915,11 +915,31 @@ function openNav(info, id) {
       const id = clickedItem.id;
     }
   });*/
+async function fetchColumnNames() {
+            const response = await fetch('fetch_player_info.php');
+            const columns = await response.json();
+            
+            for (const table in columns) {
+                const list = document.getElementById(table);
+                columns[table].forEach(column => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = column;
+                    list.appendChild(listItem);
+                });
+            }
+return 
+
+}
+
 
   document.querySelector('.playerselect').addEventListener('dblclick', function (event) {
     const clickedItem = event.target.closest('.list-group-item'); // Check if a list-group-item was clicked
     if (clickedItem) {
         const label = clickedItem.querySelector('label');
+
+        fetchColumnNames();
+    
+
         const info = label ? label.innerText : 'No Info';
         const id = clickedItem.id;
         openNav(info, id);
@@ -951,7 +971,7 @@ document.querySelector('.playerselect').addEventListener('touchend', function(ev
     item.addEventListener('touchstart', function () {
       const info = this.getAttribute('data-info');
       const id = this.id;
-      openNav(info, id);
+      //openNav(info, id);    //  to do, a voir si ca bug pas... c'est pas un double touch!?
     });
   });
 
