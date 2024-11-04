@@ -854,6 +854,51 @@ function checkCompleteLines(){
 
 
 
+
+let allPlayersInfo = [];
+
+async function fetch_players_info() {
+    const response = await fetch('fetch_players_info.php');
+    const data = await response.json(); 
+    if (data.error) { 
+        console.error(data.error); 
+    } 
+    else { 
+        allPlayersInfo = data; 
+        console.log(allPlayersInfo);
+        //displayPlayersInfo(allPlayersInfo); // Display initial info if needed 
+        }
+}
+
+fetch_players_info();
+// Call filterPlayers with the desired ID to filter and display data
+
+
+
+function displayPlayersInfo(players, displayDivID) {
+    // Assuming you have some container to display the player info
+    const container = document.getElementById(displayDivID); // document.getElementById('playerInfoContainer');
+    container.innerHTML = ''; // Clear current content
+
+    players.forEach(player => {
+        const listItem = document.createElement('li');
+        listItem.textContent = JSON.stringify(player);
+        container.appendChild(listItem);
+    });
+}
+
+function filterPlayers(uniqueID) {
+    const filteredPlayer = allPlayersInfo.filter(player => player.Number == uniqueID);
+   // displayPlayersInfo(filteredPlayers, 'playerInfoContainer');
+   console.log(filteredPlayer);
+    return filteredPlayer;
+}
+
+
+
+
+
+
 // Side Nav
 
 // Function to open the side navigation and show item info
@@ -861,11 +906,16 @@ function openNav(info, id) {
     // Set width to display the side navigation
     document.getElementById("sideNavR").style.width = "250px";
     
-    // Display the passed info and id
-    document.getElementById("sideNavContent").innerHTML = `
-      <p><strong>Selected Item ID:</strong> ${id}</p>
-      <p><strong>Item Info:</strong> ${info}</p>
-    `;
+    
+    let playerInfoHtml = `<p><strong>Selected Item ID:</strong> ${id}</p>`; 
+    playerInfoHtml += '<ul>'; 
+    for (const key in info) { 
+        if (info.hasOwnProperty(key)) { 
+            playerInfoHtml += `<li><strong>${key}:</strong> ${info[key]}</li>`; 
+        } 
+    } 
+    playerInfoHtml += '</ul>'; 
+    document.getElementById("sideNavContent").innerHTML = playerInfoHtml;
   }
   
   // Function to close the side navigation
@@ -879,10 +929,35 @@ function openNav(info, id) {
 
 
 
- // permet de clicker sur toute la div au lieu de juste le label ou le radio-button pour le selectionner
+//  When all DOM is loaded
  document.addEventListener('DOMContentLoaded', function() {
 
 
+
+    
+
+  document.querySelector('.playerselect').addEventListener('dblclick', function (event) {
+    const clickedItem = event.target.closest('.list-group-item'); // Check if a list-group-item was clicked
+    if (clickedItem) {
+        const label = clickedItem.querySelector('label');
+        const uniqueID = clickedItem.getAttribute('data-id');
+       
+        const player = allPlayersInfo.find(player => player.Number == uniqueID); 
+        console.log(player);
+
+        const info = player;
+
+        //const info = label ? label.innerText : 'No Info';
+        const id = clickedItem.id;
+        openNav(info, id);
+    }
+});
+
+
+
+
+
+ // permet de clicker sur toute la div au lieu de juste le label ou le radio-button pour le selectionner
 
     // Select all '.option' elements within the '.playerselect' list
     document.querySelectorAll('.playerselect .option').forEach(function(item) {
@@ -915,36 +990,10 @@ function openNav(info, id) {
       const id = clickedItem.id;
     }
   });*/
-async function fetchColumnNames() {
-            const response = await fetch('fetch_player_info.php');
-            const columns = await response.json();
-            
-            for (const table in columns) {
-                const list = document.getElementById(table);
-                columns[table].forEach(column => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = column;
-                    list.appendChild(listItem);
-                });
-            }
-return 
-
-}
+  
 
 
-  document.querySelector('.playerselect').addEventListener('dblclick', function (event) {
-    const clickedItem = event.target.closest('.list-group-item'); // Check if a list-group-item was clicked
-    if (clickedItem) {
-        const label = clickedItem.querySelector('label');
 
-        fetchColumnNames();
-    
-
-        const info = label ? label.innerText : 'No Info';
-        const id = clickedItem.id;
-        openNav(info, id);
-    }
-});
 
 
 // Add double-tap support for mobile
@@ -958,8 +1007,16 @@ document.querySelector('.playerselect').addEventListener('touchend', function(ev
         const clickedItem = event.target.closest('.list-group-item'); // Check if a list-group-item was clicked
         if (clickedItem) {
             const label = clickedItem.querySelector('label');
-            const info = label ? label.innerText : 'No Info';
+            //const info = label ? label.innerText : 'No Info';
             const id = clickedItem.id;
+
+            const uniqueID = clickedItem.getAttribute('data-id');
+       
+            const player = allPlayersInfo.find(player => player.Number == uniqueID); 
+            console.log(player);
+    
+            const info = player;
+
             openNav(info, id);
         }
         event.preventDefault();

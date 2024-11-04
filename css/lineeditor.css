@@ -5,7 +5,7 @@
 
 
 .linetabs .blockcontainer{padding:0px 10px;}
-.linetabs .linesection{position:relative;padding:0; margin:0%; border:1px solid #cccccc;float:left;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); background-color: rgb(1, 30, 54) !important;}
+.linetabs .linesection{position:relative;padding:0; margin:0%; border:1px solid #cccccc;float:left;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); background-color: rgb(214, 224, 233) !important;}
 .linetabs .linesection + .linesection{}
 
 .linesection .card-header {

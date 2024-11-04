@@ -30,34 +30,7 @@
 		
         
         // LHSQC
-        
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-//$DatabaseFile = '../LHSQC-STHS.db';
-//$db = new SQLite3($DatabaseFile);
-
-$uniqueID = 1; // Replace with the ID you're looking for
-
-$query = "SELECT * FROM PlayerInfo";
-$result = $db->query($query);
-
-if (!$result) {
-    echo $db->lastErrorMsg();
-} else {
-    $playersInfo = [];
-
-    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-        $playersInfo[] = $row;
-    }
-
-    $filteredPlayersInfo = array_filter($playersInfo, function($player) use ($uniqueID) {
-        return $player['UniqueID'] == $uniqueID;
-    });
-
-    echo json_encode($filteredPlayersInfo);
-}
-
+ 
 
 
 
@@ -589,13 +562,14 @@ if (!$result) {
                         $first = true;
                         while($row = $oRS->fetchArray()) {
                             if($first){$s = " checked"; $first = false;} else {$s = "";}
-                            $values = api_fields_input_values($row);
-                            ?>
-                            <li id="line1_<?= api_MakeCSSClass($row['Name']) ?>" class="option list-group-item">
-                                <input name="sltPlayerList" type="radio" id="a<?= api_MakeCSSClass($row['Name']); ?>" <?= $s;?> value="<?= $values; ?>">
-                                <label for="a<?= api_MakeCSSClass($row['Name']); ?>"><?= $row['Name']; ?> - <?= $row['PositionString']; ?> 
+                            $values = api_fields_input_values($row); ?>
+                            
+                            <li id="ID_<?= $row['Number'] ?>" class="option list-group-item" data-id="<?= $row['Number'] ?>">
+                                <input name="sltPlayerList" type="radio" id="a<?= $row['Name']; ?>" <?= $s;?> value="<?= $values; ?>">
+                                <label for="a<?= $row['Name']; ?>"><?= $row['Name']; ?> - <?= $row['PositionString']; ?> 
                                     <span class=""><small>(<?= $row['Overall']; ?> OV)</small></span>
                                 </label>
+                            
                             </li>
                         <?php } ?>
                         <li class="option">
@@ -603,14 +577,8 @@ if (!$result) {
                             <label for="aRemove">Remove Player/Goalie</label>
                         </li>
                     </ul>
-
-                    <script>
-                       
-                    </script>
-
-
-
                 </form><!-- end frmPlayerList-->
+
             </div><!-- end playerlist-->
 
         </div>
@@ -633,7 +601,19 @@ if (!$result) {
             
             
             
-            
+<script>
+    function deactivateBanner() {
+        const banner = document.querySelector('.confirm');
+        if (banner) banner.style.display = 'none'; // Hides the banner
+    }
+   
+    setTimeout(deactivateBanner, 5000);                    // Hide the confirm banner after 5 seconds
+    document.addEventListener('click', deactivateBanner);  // Hide the confirm banner on user interaction
+</script>
+
+
+
+<div id="playerInfoContainer"></div>            
 
 
 
@@ -657,25 +637,6 @@ if (!$result) {
        
 }?>
     
-
-
-           
-<script>
-    function deactivateBanner() {
-        const banner = document.querySelector('.confirm');
-        if (banner) banner.style.display = 'none'; // Hides the banner
-    }
-   
-    setTimeout(deactivateBanner, 5000);                    // Hide the confirm banner after 5 seconds
-    document.addEventListener('click', deactivateBanner);  // Hide the confirm banner on user interaction
-</script>
-
-<?php
-/*<br><br>
-Work In Progress:
-
- include ("components/RosterEditor.php");*/ ?>
-
 <?php include ("Footer.php"); ?>
 </body></html>
 
