@@ -250,7 +250,7 @@
                                             $bcount = 0;
                                             foreach($blocks[$i] AS $bid=>$block){?>
                                                     <div class="linesection card  p-0 m-0 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
-                                                        <div class="card-header no-border paleText fs-10"><?= $block ?></div>
+                                                        <div class="card-header no-border darkText fs-10"><?= $block ?></div>
                                                         <div class="blockcontainer row">
                                                             
                                                             <div class="positionwrapper row p-1 m-1">
@@ -333,31 +333,38 @@
                                                                 <?php }*/?>
                                                             </div><!-- end positionwrapper-->
                                                             
-                                                            <div class="sliders row">
-                                                                <div class="col">
-                                                                <div class="strategywrapper">
-                                                                    <div class="strategy">
+                                                            <div class="container sliders row">
+                                                               
                                                                         <?php foreach($strategy AS $sid=>$strat){?>
-                                                                            <div class="strats">
-                                                                                <div class="stratlabel"><?= $sid?> : </div>
-                                                                                <div class="stratvalue">
-                                                                                    <?php api_make_strategies($row,$field,$sid,"Strat",$cpfields);?>
+                                                                            <div class="col strategy strats">
+                                                                                <div class="stratlabel my-0 py-0 "><?= $sid?> : </div>
+                                                                                <div class="stratvalue pb-1"> 
+                                                                                    <?php  
+                                                                                    $id = $field . $sid; 
+                                                                                    $size = 0;
+                                                                                    if($strat == "Strat"){$size = 1;}
+                                                                                    elseif($strat == "Time"){$size=3;}
+                                                                                    else{
+                                                                                        $exp = explode("-",$strat);
+                                                                                        if($exp[1] <= 10){$size = 2;}
+                                                                                        else{$size = 3;}
+                                                                                    }
+                                                                                    ?>
+                                                                                    <input class="updown down" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);" type="button" name="btnDown" value="&#160;">
+                                                                                    <input readonly size="<?= $size ?>" id="<?= $id?>" class="stratval" type="text" name="txtStrategies[<?= $id ?>]" value="<?= $row[$id] ?>">
+                                                                                    <input class="updown up" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);" type="button" name="btnUp" value="&#160;"> 
                                                                                 </div>
                                                                             </div>
-                                                                        <?php }?>
-                                                                    </div><!-- end strategy-->
-                                                                </div><!-- end strategywrapper-->
-                                                                <div class="timewrapper">
-                                                                    <div class="time">
-                                                                        <div class="timelabel">Time%: </div>
-                                                                        <div class="timevalue">
-                                                                            <?php api_make_strategies($row,$field,"Time","Time",$cpfields);?>
-                                                                        </div>
+                                                                        <?php }?>                                                          
+                                                                   
+                                                                    <div class="col time">
+                                                                        <div class="timelabel my-0 py-0">Time%: </div>
+                                                                        <div class="timevalue pb-1"> <?php api_make_strategies($row,$field,"Time","Time",$cpfields);?> </div>
                                                                     </div>
-                                                                </div><!-- end timerwrapper-->
-                                                                </div>
+                                                            
                                                             </div><!-- end sliders-->
-                                        
+
+
                                         
                                                         </div><!-- end blockcontainer-->
                                                     </div><!-- end linesection <?= api_MakeCSSClass($i)?> <?= api_MakeCSSClass($bid)?>--><?php 

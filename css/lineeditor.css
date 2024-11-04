@@ -21,6 +21,18 @@
 .linetabs .timevalue{float:left;}
 .linetabs .startinggoalie{margin-bottom:10px;}
 
+
+.strats, .time {
+    display: flex;
+    flex-direction: column; /* Stack labels and inputs vertically */
+}
+
+.stratlabel, .timelabel {
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+
+
 .positionlabel {
     /*padding: 0;
     color:#E7BF3A;*/
