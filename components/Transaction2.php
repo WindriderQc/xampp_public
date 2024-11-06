@@ -1,7 +1,8 @@
 <?php include "Header.php"; ?>
 
-<div class="container my-5 tradetable">
+<div class="container my-5 tradetable frontpage-card top5Card">
 <div class="card-header">Latest Trades</div>
+<div class="card-body mt-0 pt-1 px-0 mx-0 text-primary"></div>
     <div class="table-responsive">
         <table class="table table-bordered">
             <!-- <thead>
@@ -30,7 +31,7 @@ try {
     // Requête pour récupérer les champs spécifiés, incluant ReceivingTeamThemeID
     $query = "SELECT ReceivingTeamThemeID, ReceivingTeamName, ReceivingTeamText 
               FROM TradeLog
-              ORDER BY DateTxt DESC
+              ORDER BY Number ASC
               LIMIT 20";
               
 

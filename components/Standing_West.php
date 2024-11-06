@@ -203,7 +203,7 @@ if ($Playoff == True){
 
 
 <div class="card shadow-0  px-0 mx-0 mb-3 frontpage-card top5Card  "  >
-    <div class="card-header">Standings</div>
+    <div class="card-header">Conférence de l'Ouest</div>
     <div class="card-body mt-0 pt-1 px-0 mx-0 text-primary">
 
 

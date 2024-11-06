@@ -372,8 +372,8 @@ a.tabmenuhome { color:#000000;}
 .STHSIndex_Main {padding-top: 10px; padding-right: 10px; padding-left: 10px;width:100%; border-spacing: 0px;}
 .STHSIndex_Score{vertical-align:top; width:5px;width: 250px;}
 .STHSIndex_NewsTD {vertical-align:top;text-align:left;width:660px;padding-right:20px}
-.STHSIndex_Top5 {vertical-align:top;width:350px;padding-right:20px}
-.STHSIndex_3StarNameHeader {width:200px;min-width: 150px;font-weight: bold;}
+.STHSIndex_Top5 {vertical-align:top;width:350px;padding-right:20px;color: black;}
+.STHSIndex_3StarNameHeader {width:200px;min-width: 150px;font-weight: bold;color: black;}
 .STHSIndex_Top5PointNameHeader {width:225px;min-width: 150px;font-weight: bold;}
 .STHSIndex_Top5PointResultHeader {width:75px;min-width: 50px;font-weight: bold;}
 .STHSIndex_OutputSetting_Table{width:98%;margin:auto;border-width: 2px;border-style: solid;border-collapse: collapse;text-align:center;}
