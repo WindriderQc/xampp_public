@@ -286,14 +286,20 @@ function load_api_layout(){
 						$teamname = (!empty($row)) ? $row["FullTeamName"] . " - " : "";
 						echo $teamname . "Line Editor";
 					}
+
+                    
 				?>
 				</title>
-          
-				<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">                
-              
+         
+				<!-- 
+                <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">                
+                -->
 			
                 <?php 
-					// Using the $id paramater, check if there is a css file with that name to use for this page only. 
+                    if($headcode != ""){echo $headcode;}
+					
+                    
+                    // Using the $id paramater, check if there is a css file with that name to use for this page only. 
 					// If the $id.css exists, load it in.
 					foreach(array("css","js") AS $filetype){
 						$file = $filetype . "/". $id ."." . $filetype;
@@ -326,7 +332,7 @@ function load_api_layout(){
 						echo api_script_team_array($db,$teamid); 
 					}
 
-				    if($headcode != ""){echo $headcode;}
+				   
 				?>
                
 				<script src="js/scripts_labs.js"></script><!-- Load in the scripts needed from labs -->

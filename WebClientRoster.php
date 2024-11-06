@@ -278,33 +278,46 @@ if(($CookieTeamNumber == $t OR $DoNotRequiredLoginDynamicWebsite == TRUE) AND $t
                                                                 </div>
 
                                                                 <div class="row ">
+
                                                                     <div class="col-1">
                                                                         <span class="badge rounded-pill text-bg-warning d-flex justify-content-center "><div class=" px-3 py-0 mx-1"><?= $s["PositionString"]?> </div></span> 
                                                                     </div> 
                                                                     
-
-                                                                    <div class="col-2 text-end px-3 mx-2">
-                                                                        <div class="row ">
-                                                                            <div class="cardlabel d-flex justify-content-center ">overall</div>
+                                                                    <div class="col text-end px-3 mx-2">
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class="col-2 d-flex justify-content-center cardlabel">overall</div>
                                                                         </div>
-                                                                        <div class="row">
-                                                                            <div class="d-flex justify-content-center"><?= $s["Overall"]?></div>
+                                                                        <div class="row d-flex justify-content-center">
+                                                                            <div class=" col-2 d-flex justify-content-center"><?= $s["Overall"]; ?></div>
                                                                         </div>
                                                                     </div> 
+                                                               
+
+                                                                    <?php if($s["Condition"] < 100){?>
+                                                                        <div class="col text-end px-3 mx-2 ">
+                                                                            <div class="row d-flex justify-content-center">
+                                                                                <div class="col-2  cardlabel  d-flex justify-content-center">condition</div>
+                                                                            </div>
+                                                                            <div class="row d-flex justify-content-center">
+                                                                                <div class="col-2 rowcondition d-flex justify-content-center"><?= $s["Condition"]; ?> </div>
+                                                                            </div>
+                                                                        </div>   
+                                                                    <?php } ?>
+                                                                    <?php if($s["Suspension"] > 0 and $s["Suspension"] != 99){?>
+                                                                        <div class="rowsuspension"><?= $s["Suspension"]; ?> S</div>
+                                                                    <?php } ?>
+                                                                    <?php if($s["Suspension"] == 99){?>
+                                                                        <div class="rowsuspension99">HO</div>
+                                                                    <?php } ?>																			
+                                                                    <?php if($s["WaiverPossible"] == "True" and $s["Suspension"] == 0){?>
+                                                                        <div class="rowwaiver">Waiver</div>
+                                                                    <?php } ?>
+
                                                                 </div>
-                                                                
-                                                                <?php if($s["Condition"] < 100){?>
-                                                                    <div class="rowcondition"><?= $s["Condition"]; ?> CD</div>
-                                                                <?php } ?>
-                                                                <?php if($s["Suspension"] > 0 and $s["Suspension"] != 99){?>
-                                                                    <div class="rowsuspension"><?= $s["Suspension"]; ?> S</div>
-                                                                <?php } ?>
-                                                                <?php if($s["Suspension"] == 99){?>
-                                                                    <div class="rowsuspension99">HO</div>
-                                                                <?php } ?>																			
-                                                                <?php if($s["WaiverPossible"] == "True" and $s["Suspension"] == 0){?>
-                                                                    <div class="rowwaiver">Waiver</div>
-                                                                <?php } ?>
+
+
+
+
                                                             </div>
                                                         </li>
                                                     <?php }
@@ -322,7 +335,7 @@ if(($CookieTeamNumber == $t OR $DoNotRequiredLoginDynamicWebsite == TRUE) AND $t
                                 </div>
                                 
                                 <?php 
-                        }elseif(!api_validate_teamid($db,$teamid) && isset($_REQUEST["TeamID"])){
+                        }elseif(isset($_REQUEST["TeamID"])){
                             ?><div class="doesntexits">The team you are looking for does not exist.</div><?php
                         }
 

@@ -1,5 +1,5 @@
 
-#lineeditor  .linetabs .stratvalue{width:80px;}
+
 
 
 
@@ -14,12 +14,21 @@
     margin: 0 ;
 }
 
+#lineeditor  .linetabs .stratvalue{width:80px;}
 .linetabs .strats{float:left;}
 .linetabs .stratlabel{float:left; margin-top:3px;}
 .linetabs .stratvalue{float:left;width:20px;}
 .linetabs .timelabel{float:left;}
 .linetabs .timevalue{float:left;}
 .linetabs .startinggoalie{margin-bottom:10px;}
+
+.linetabs .tabcontainer{
+  /*  background-color:#0000009d !important ;*/
+  padding: 0%;
+  margin: 0;
+
+}
+.linetabs {/*background-color:#d4c430dc !important;*/}
 
 
 .strats, .time {
@@ -31,6 +40,12 @@
     margin-bottom: 5px; /* Space between label and input */
 }
 
+.plusMinusBtn 
+{
+    padding-bottom: 5px;
+   margin:0;
+   
+}
 
 
 .positionlabel {
@@ -43,14 +58,24 @@
     display: inline-block;
 }
 
-.linetabs .tabcontainer{
-  /*  background-color:#0000009d !important ;*/
-  padding: 0%;
-  margin: 0;
+
+#lineeditor  #tabs .ui-state-focus a {
+border: 0 !important;
+background-color:#E7BF3A;
 
 }
-.linetabs {/*background-color:#d4c430dc !important;*/}
 
+#lineeditor  #tabs .ui-state-focus  li {
+    border: 0 !important;
+    background-color:#E7BF3A;
+    
+    }
+
+#lineeditor  #tabs .ui-state-active a {
+    border: 0 !important;
+    background-color:#E7BF3A;
+    
+    }
 
 #lineeditor  #tabs .linesection{
     background-color: #22222256; 
@@ -61,6 +86,21 @@
     border-radius: 15px;*/
 }
 #lineeditor  #tabs .linesection input[type=button]{padding:0px 0px;text-align:center;margin-top:3px;}
+
+
+#toggleButton.active {
+    border: 2px solid blue; /* Example active state styling */
+    background-color: lightgray;
+}
+
+.sliders {
+    display: none; /* Start as inactive */
+}
+
+.sliders.active {
+    display: block; /* Show when active */
+}
+
 
 
 #lineeditor  .playerlist{margin:2px; padding:2px;}

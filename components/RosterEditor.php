@@ -2,8 +2,7 @@
 <?php 
 
 if (isset($_COOKIE[$Cookie_Name])) {
-   /* $cookie_value = $_COOKIE[$Cookie_Name];
-
+    $cookie_value = $_COOKIE[$Cookie_Name];
     //echo "Raw Cookie Value: " . htmlspecialchars($cookie_value) . "<br>";
 
     // Decode the cookie from Base64
@@ -13,9 +12,7 @@ if (isset($_COOKIE[$Cookie_Name])) {
         //echo "Base64 decoding failed.<br>";
         exit;
     } else {
-
         //echo "Decoded Cookie Value: " . htmlspecialchars($decoded_cookie_value) . "<br>";
-        
         $encryption_key = base64_decode($CookieTeamNumberKey);
         list($encrypted_data, $iv) = explode('::', base64_decode($_COOKIE[$Cookie_Name]), 2);
         $CookieArray = unserialize(openssl_decrypt($encrypted_data, 'aes-256-cbc', $encryption_key, 0, $iv));
@@ -24,10 +21,10 @@ if (isset($_COOKIE[$Cookie_Name])) {
         
         $teamID = $CookieArray['TeamNumber'] ?? 0; // Adjust as necessary
         echo "<script>var teamID = $teamID; console.log('cookie team', teamID);</script>";
-
-    }*/
+    }
 } else {
    // echo "Cookie is missing. Name: " . htmlspecialchars($Cookie_Name) . "<br>";
+   echo "<script>var teamID = 21; console.log('Cookie is missing. TeamID set to 21 for testing purpose', TeamID);</script>";
 }
  ?>
 
@@ -122,9 +119,7 @@ if (isset($_COOKIE[$Cookie_Name])) {
 
 <script src="js/rosterEditor.js"></script>
 
-<script>
-//var teamID = 21   //   TODO    DEBUG Hardcoded....    teamID is not set...
-</script>
+
 
 <div id="player-list"></div>
 

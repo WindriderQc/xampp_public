@@ -489,7 +489,7 @@ header p {
 
 .active a {
 
-	color: #F8C630!important;
+	color: #F8C630;
 
 }
 
@@ -497,7 +497,7 @@ div .active a {
 
 	color: #ffffff;
 
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 
     font-weight: 550;
 

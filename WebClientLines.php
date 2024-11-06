@@ -36,14 +36,19 @@
 
    
     
-        $WebClientHeadCode = "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">
-                              <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css\" rel=\"stylesheet\">                    
+        $WebClientHeadCode = " 
+        <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css\" rel=\"stylesheet\">  
+       
+                                                
         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
-        <script src=\"https://code.jquery.com/ui/1.14.0/jquery-ui.min.js\" integrity=\"sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=\" crossorigin=\"anonymous\"></script>
+        <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.min.js\"></script>
         <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js\"></script>
-        
+       
+        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" >
+        <link href=\"//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">
         <link href=\"css/lhsqc.css\" rel=\"stylesheet\" type=\"text/css\" /> 
         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>";
+        //<link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
         //<script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
 
 
@@ -169,6 +174,7 @@
 
 <header>
 <?php include "Menu.php";?>
+
 <div id="lineeditor">
     <div class="container pagewrapper pagewrapperlineeditor">
         <div class="row">
@@ -207,31 +213,36 @@
                       
                         
                     ?>
-                        
-                    <div class="linetabs">
-                        <div id="tabs" class="linetabs">
-                            <ul class=" ">
-                                    <?php  
-                                    // loop through the tab names creating clickable tabs.
-                                    $tablink = ($useServerURIInTabLink) ? $_SERVER["REQUEST_URI"] . "#tabs-" : "#tabs-";
-                                    foreach($tabs AS $i=>$t){
-                                        $displaytab = false;
-                                        if($i != "OT")                       $displaytab = true;
-                                        elseif($i == "OT" && $customOTlines) $displaytab = true;
-                                        else                                 $displaytab = false;
-                                        
-                                        if($displaytab){
-                                            if($count) {?>
-                                            <li class="tabitem"><a  href="<?= $tablink . ++$count?>"><?= $t?></a></li><?php 
-                                            }else {?> 
-                                            <li class="active tabitem"><a href="<?= $tablink . ++$count?>"><?= $t?></a></li><?php 
-                                            }
+                        <script>
+                      /*  $( function() {
+                            $( "#tabs" ).tabs();
+                        } );*/
+                        </script>
+                    
+                    <div id="tabs" class="linetabs">
+                        <ul class="nav nav-tabs">
+                                <?php  
+                                // loop through the tab names creating clickable tabs.
+                                $tablink = ($useServerURIInTabLink) ? $_SERVER["REQUEST_URI"] . "#tabs-" : "#tabs-";
+                                foreach($tabs AS $i=>$t){
+                                    $displaytab = false;
+                                    if($i != "OT")                       $displaytab = true;
+                                    elseif($i == "OT" && $customOTlines) $displaytab = true;
+                                    else                                 $displaytab = false;
+                                    
+                                    if($displaytab){
+                                        if($count) {?>
+                                        <li class="tabsItem"><a href="<?= $tablink . ++$count?>"><?= $t?></a></li><?php 
+                                        }else {?> 
+                                        <li class="tabsItem" ><a href="<?= $tablink . ++$count?>"><?= $t?></a></li><?php 
                                         }
                                     }
-                                    $count = 0;
-                                    ?>	
-                            </ul>
-                                
+                                }
+                                $count = 0;
+                                ?>	
+                        </ul>
+
+                        <div id="tabs" class="tab-content">
                                 <?php // Loop through the tabs info making the lines pages.
                                 foreach($tabs AS $i=>$t) {
                                     $displaytab = false;
@@ -240,7 +251,7 @@
                                     else                                 $displaytab = false;
                                     
                                     if($displaytab) { ?>
-                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer vh-100">
+                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer vh-100 tab-pane">
                                         
                                         <?php 
                                         if($i == "Forward" || $i == "Defense" || $i == "PP" || $i == "PK4" || $i == "4VS4" || $i == "PK3"){	
@@ -250,9 +261,14 @@
                                             $bcount = 0;
                                             foreach($blocks[$i] AS $bid=>$block){?>
                                                     <div class="linesection card  p-0 m-0 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
-                                                        <div class="card-header no-border darkText fs-10"><?= $block ?></div>
+                                                            
+                                                                <div class="text-start px-10 m-0"> <img src="./images/strategy.png"  width="35" class="toggle-active" id="toggleButton"/> </div>
+                                                                <div class="darkText fs-10 text-end px-3 pt-1"><?= $block ?> </div>
+                                                          
                                                         <div class="blockcontainer row">
                                                             
+                                                           
+
                                                             <div class="positionwrapper row p-1 m-1">
                                                                 <?php 	// Depending on which page you are on sets up how many blocks are needed.
                                                                     // If its anything but 5vs5
@@ -313,55 +329,61 @@
 
 
 
-                                                                <?php /*foreach($posit AS $pid=>$pos){
-                                                                    
-                                                          
-                                                                    ?>
-                                                                    <div class="positionline input-group">
-                                                                        <span class="input-group-text positionlabel"  id="positionlabel"><?= $pos?></span>
-                                                                        <?php  $row[$field . $pid] = (isset($availableplayers[api_MakeCSSClass($row[$field . $pid])])) ? $row[$field . $pid]: "";?>
-                                                                        <?= "<input id=\"". $field . $pid ."\" onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" class=\"textname positionname form-control\" "
-                                                                                ." readonly type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value=\"".  $row[$field . $pid] ."\">";?>
-                                                                    
-                                                                
-                                                                  
-
-
-
-
-                                                                </div>
-                                                                <?php }*/?>
+                                                
                                                             </div><!-- end positionwrapper-->
                                                             
-                                                            <div class="container sliders row">
-                                                               
-                                                                        <?php foreach($strategy AS $sid=>$strat){?>
-                                                                            <div class="col strategy strats">
-                                                                                <div class="stratlabel my-0 py-0 "><?= $sid?> : </div>
-                                                                                <div class="stratvalue pb-1"> 
-                                                                                    <?php  
-                                                                                    $id = $field . $sid; 
-                                                                                    $size = 0;
-                                                                                    if($strat == "Strat"){$size = 1;}
-                                                                                    elseif($strat == "Time"){$size=3;}
-                                                                                    else{
-                                                                                        $exp = explode("-",$strat);
-                                                                                        if($exp[1] <= 10){$size = 2;}
-                                                                                        else{$size = 3;}
-                                                                                    }
-                                                                                    ?>
-                                                                                    <input class="updown down" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);" type="button" name="btnDown" value="&#160;">
-                                                                                    <input readonly size="<?= $size ?>" id="<?= $id?>" class="stratval" type="text" name="txtStrategies[<?= $id ?>]" value="<?= $row[$id] ?>">
-                                                                                    <input class="updown up" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);" type="button" name="btnUp" value="&#160;"> 
+                                                            <div class="container sliders " id="sliders">
+                                                                
+                                                                   
+                                                                        <?php foreach($strategy AS $sid=>$strat){
+                                                                                $id = $field . $sid; 
+                                                                                $size = 0;
+                                                                                if($strat == "Strat"){$size = 1;}
+                                                                                elseif($strat == "Time"){$size=3;}
+                                                                                else{
+                                                                                    $exp = explode("-",$strat);
+                                                                                    if($exp[1] <= 10){$size = 2;}
+                                                                                    else{$size = 3;}
+                                                                                } ?>
+                                                                            <div class=" strategy strats">
+                                                                                <div class="stratlabel my-0 py-0 "><?= $sid?> </div>
+                                                                            
+                                                                                <div class="input-group  plusMinusBtn">
+                                                                                    <span class="input-group-btn ">
+                                                                                        <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);">
+                                                                                            <span class="glyphicon glyphicon-minus"></span>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                    <input readonly type="text" id="<?= $id?>" size="<?= $size ?>" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button type="button" class="btn btn-success btn-number p-100 m-0" data-type="plus" data-field="quant[2]"  name="btnUp"    onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                                                        </button>
+                                                                                    </span>
                                                                                 </div>
                                                                             </div>
                                                                         <?php }?>                                                          
                                                                    
-                                                                    <div class="col time">
-                                                                        <div class="timelabel my-0 py-0">Time%: </div>
-                                                                        <div class="timevalue pb-1"> <?php api_make_strategies($row,$field,"Time","Time",$cpfields);?> </div>
-                                                                    </div>
-                                                            
+                                                                            <div class="  time ">
+                                                                                <div class="timelabel my-0 py-0">Time% </div>
+                                                                            
+                                                                                <?php   $id = $field . "Time";   ?>                                                                       
+                                                                                <div class="input-group  plusMinusBtn">
+                                                                                    <span class="input-group-btn ">
+                                                                                        <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown" onclick="valChange('<?= $id ?>','Time','<?=$field?>','down',<?=$cpfields?>);">
+                                                                                            <span class="glyphicon glyphicon-minus"></span>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                    <input readonly type="text" id="<?= $id?>" size="3" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button type="button" class="btn btn-success btn-number p-100 m-0" data-type="plus" data-field="quant[2]"  name="btnUp"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                   
+                                
                                                             </div><!-- end sliders-->
 
 
@@ -537,7 +559,7 @@
                                                                 </div><!-- end tabs-<?= $count ?>--><?php 
                                                             }
                                                         }?>
-                                                    
+                                              
                         </div><!-- end tabs-->
                     </div><!-- end linetabs-->
                 </form>              
