@@ -39,14 +39,7 @@ $(document).ready(function() {
         });
     });
 
-    // Toggle button click event
-    document.getElementById('toggleButton').addEventListener('click', function(event) {
-        console.log("clicked");
-        const targetDiv = document.getElementById('sliders');
-        const button = event.target;
-        button.classList.toggle('active'); // Toggle the active class on the button
-        targetDiv.classList.toggle('active'); // Toggle the active class on the target div
-    });
+
 
     // Sticky Nav
     function isMobile() {

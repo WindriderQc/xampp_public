@@ -1049,8 +1049,19 @@ document.addEventListener('click', function (event) {
 
 
 
+
+
 });
 
+function toggleSlider(event, bcount) {
+    
+    console.log("clicked", `sliders${bcount}`);
+    const targetDiv = document.getElementById(`sliders${bcount}`);
+    const button = event.target;
+    button.classList.toggle('active'); // Toggle the active class on the button
+    targetDiv.classList.toggle('active'); // Toggle the active class on the target div
+
+}
 
 
 
@@ -1129,5 +1140,7 @@ jQuery(document).ready(function(){
             e.preventDefault();
         }
     });
-
+    
 });
+
+

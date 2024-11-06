@@ -261,10 +261,11 @@
                                             $bcount = 0;
                                             foreach($blocks[$i] AS $bid=>$block){?>
                                                     <div class="linesection card  p-0 m-0 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
+                                                            <div class="headerTool d-flex justify-content-between align-items-center" >
+                                                                <div class="darkText fs-10 text-start px-3 pt-1"><?= $block ?> </div>
+                                                                <div class="text-end px-2 py-1 m-0"> <img src="./images/strategy.png"  width="35" class="toggle-active"  id="toggleButton<?= $bcount ?>" onclick="toggleSlider(event, <?= $bcount ?>)"/> </div>
                                                             
-                                                                <div class="text-start px-10 m-0"> <img src="./images/strategy.png"  width="35" class="toggle-active" id="toggleButton"/> </div>
-                                                                <div class="darkText fs-10 text-end px-3 pt-1"><?= $block ?> </div>
-                                                          
+                                                            </div>
                                                         <div class="blockcontainer row">
                                                             
                                                            
@@ -332,7 +333,7 @@
                                                 
                                                             </div><!-- end positionwrapper-->
                                                             
-                                                            <div class="container sliders " id="sliders">
+                                                            <div class="container sliders " id="sliders<?= $bcount-1 ?>">
                                                                 
                                                                    
                                                                         <?php foreach($strategy AS $sid=>$strat){
@@ -345,44 +346,47 @@
                                                                                     if($exp[1] <= 10){$size = 2;}
                                                                                     else{$size = 3;}
                                                                                 } ?>
-                                                                            <div class=" strategy strats">
-                                                                                <div class="stratlabel my-0 py-0 "><?= $sid?> </div>
-                                                                            
-                                                                                <div class="input-group  plusMinusBtn">
-                                                                                    <span class="input-group-btn ">
-                                                                                        <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);">
-                                                                                            <span class="glyphicon glyphicon-minus"></span>
-                                                                                        </button>
-                                                                                    </span>
-                                                                                    <input readonly type="text" id="<?= $id?>" size="<?= $size ?>" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
-                                                                                    <span class="input-group-btn">
-                                                                                        <button type="button" class="btn btn-success btn-number p-100 m-0" data-type="plus" data-field="quant[2]"  name="btnUp"    onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
-                                                                                            <span class="glyphicon glyphicon-plus"></span>
-                                                                                        </button>
-                                                                                    </span>
+                                                                            <div class="row ">    
+                                                                                <div class=" strategy strats d-flex align-items-center justify-content-center">
+                                                                                    <div class="stratlabel my-0 py-0 "><?= $sid?> </div>
+                                                                                
+                                                                                    <div class="plusMinusBtn input-group mx-2 d-flex justify-content-center align-items-center" style="width: auto;">
+       
+                                                                                        <span class="input-group-btn"  style="margin-right: 35px;">
+                                                                                            <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown-<?= $id ?>" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);">
+                                                                                                <span class="glyphicon glyphicon-minus"></span>
+                                                                                            </button>
+                                                                                        </span>
+                                                                                        <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
+                                                                                        <span class="input-group-btn">
+                                                                                            <button type="button" class="btn btn-success btn-number p-100 m-0" name="btnUp-<?= $id ?>" data-type="plus" data-field="quant[2]"  onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                                                            </button>
+                                                                                        </span>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         <?php }?>                                                          
-                                                                   
-                                                                            <div class="  time ">
-                                                                                <div class="timelabel my-0 py-0">Time% </div>
-                                                                            
-                                                                                <?php   $id = $field . "Time";   ?>                                                                       
-                                                                                <div class="input-group  plusMinusBtn">
-                                                                                    <span class="input-group-btn ">
-                                                                                        <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown" onclick="valChange('<?= $id ?>','Time','<?=$field?>','down',<?=$cpfields?>);">
-                                                                                            <span class="glyphicon glyphicon-minus"></span>
-                                                                                        </button>
-                                                                                    </span>
-                                                                                    <input readonly type="text" id="<?= $id?>" size="3" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
-                                                                                    <span class="input-group-btn">
-                                                                                        <button type="button" class="btn btn-success btn-number p-100 m-0" data-type="plus" data-field="quant[2]"  name="btnUp"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up',<?=$cpfields?>);">
-                                                                                            <span class="glyphicon glyphicon-plus"></span>
-                                                                                        </button>
-                                                                                    </span>
+                                                                            <div class="row">  
+                                                                                <div class="  time d-flex align-items-center justify-content-center ">
+                                                                                    <div class="timelabel my-0 py-0">Time% </div>
+                                                                                
+                                                                                    <?php   $id = $field . "Time";   ?>                                                                       
+                                                                                    <div class="input-group  plusMinusBtn mx-2 d-flex justify-content-center align-items-center" style="width: auto;">
+                                                                                        <span class="input-group-btn  "  style="margin-right: 35px;">>
+                                                                                            <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown-Time" onclick="valChange('<?= $id ?>','Time','<?=$field?>','down',<?=$cpfields?>);">
+                                                                                                <span class="glyphicon glyphicon-minus"></span>
+                                                                                            </button>
+                                                                                        </span>
+                                                                                        <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
+                                                                                        <span class="input-group-btn">
+                                                                                            <button type="button" class="btn btn-success btn-number p-100 m-0" data-type="plus" data-field="quant[2]"  name="btnUp-Time"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                                                            </button>
+                                                                                        </span>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                   
                                 
                                                             </div><!-- end sliders-->
 
@@ -568,49 +572,51 @@
 
         </div> <!-- end row 1-->
 
-        <div class="col p-0">
+
+      
             
-            <?php
-            // Get all the players and goalies of the team who are dressed
-            $sql = api_sql_players_base("Player",$isPro);
-            $sql .= "WHERE Team = " . $teamid . " AND Status1 = " . $status1 . " ";
-            $sql .= "UNION ";
-            $sql .= api_sql_players_base("Goaler",$isPro);
-            $sql .= "WHERE Team = " . $teamid . " AND Status1 = " . $status1 . " ";
-            $sql .= "ORDER BY Name ASC, Overall DESC ";
-            ?>
-             <div class="alert alert-info darkText p-1"> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
-            <div class="playerlist justify-content-start p-0">
-                <?php api_html_checkboxes_positionlist("sltPlayerList","true","list-item",null,null); ?>
-                                                          
+                
+                <?php
+                // Get all the players and goalies of the team who are dressed
+                $sql = api_sql_players_base("Player",$isPro);
+                $sql .= "WHERE Team = " . $teamid . " AND Status1 = " . $status1 . " ";
+                $sql .= "UNION ";
+                $sql .= api_sql_players_base("Goaler",$isPro);
+                $sql .= "WHERE Team = " . $teamid . " AND Status1 = " . $status1 . " ";
+                $sql .= "ORDER BY Name ASC, Overall DESC ";
+                ?>
+                <div class="alert alert-info darkText p-1 "> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
+                <div class="playerlist justify-content-start p-0">
+                    <?php api_html_checkboxes_positionlist("sltPlayerList","true","list-item",null,null); ?>
+                                                            
 
-                <form name="frmPlayerList">                
-                    <ul class="playerselect list-group">
-                        <?php 
-                        $oRS = $db->query($sql);
-                        $first = true;
-                        while($row = $oRS->fetchArray()) {
-                            if($first){$s = " checked"; $first = false;} else {$s = "";}
-                            $values = api_fields_input_values($row); ?>
-                            
-                            <li id="ID_<?= $row['Number'] ?>" class="option list-group-item" data-id="<?= $row['Number'] ?>">
-                                <input name="sltPlayerList" type="radio" id="a<?= $row['Name']; ?>" <?= $s;?> value="<?= $values; ?>">
-                                <label for="a<?= $row['Name']; ?>"><?= $row['Name']; ?> - <?= $row['PositionString']; ?> 
-                                    <span class=""><small>(<?= $row['Overall']; ?> OV)</small></span>
-                                </label>
-                            
+                    <form name="frmPlayerList">                
+                        <ul class="playerselect list-group">
+                            <?php 
+                            $oRS = $db->query($sql);
+                            $first = true;
+                            while($row = $oRS->fetchArray()) {
+                                if($first){$s = " checked"; $first = false;} else {$s = "";}
+                                $values = api_fields_input_values($row); ?>
+                                
+                                <li id="ID_<?= $row['Number'] ?>" class="option list-group-item" data-id="<?= $row['Number'] ?>">
+                                    <input name="sltPlayerList" type="radio" id="a<?= $row['Name']; ?>" <?= $s;?> value="<?= $values; ?>">
+                                    <label for="a<?= $row['Name']; ?>"><?= $row['Name']; ?> - <?= $row['PositionString']; ?> 
+                                        <span class=""><small>(<?= $row['Overall']; ?> OV)</small></span>
+                                    </label>
+                                
+                                </li>
+                            <?php } ?>
+                            <li class="option">
+                                <input name="sltPlayerList" type="radio" id="aRemove" value="">
+                                <label for="aRemove">Remove Player/Goalie</label>
                             </li>
-                        <?php } ?>
-                        <li class="option">
-                            <input name="sltPlayerList" type="radio" id="aRemove" value="">
-                            <label for="aRemove">Remove Player/Goalie</label>
-                        </li>
-                    </ul>
-                </form><!-- end frmPlayerList-->
+                        </ul>
+                    </form><!-- end frmPlayerList-->
 
-            </div><!-- end playerlist-->
+                </div><!-- end playerlist-->
 
-        </div>
+       
         
                   
     </div><!-- end pagewrapper-->

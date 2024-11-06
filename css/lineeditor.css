@@ -5,7 +5,7 @@
 
 
 .linetabs .blockcontainer{padding:0px 10px;}
-.linetabs .linesection{position:relative;padding:0; margin:0%; border:1px solid #cccccc;float:left;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); background-color: rgb(214, 224, 233) !important;}
+.linetabs .linesection{position:relative;padding:0; margin:0%; border:1px solid #cccccc;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); background-color: rgb(214, 224, 233) !important;}
 .linetabs .linesection + .linesection{}
 
 .linesection .card-header {
@@ -15,11 +15,9 @@
 }
 
 #lineeditor  .linetabs .stratvalue{width:80px;}
-.linetabs .strats{float:left;}
-.linetabs .stratlabel{float:left; margin-top:3px;}
-.linetabs .stratvalue{float:left;width:20px;}
-.linetabs .timelabel{float:left;}
-.linetabs .timevalue{float:left;}
+
+.linetabs .stratlabel{ margin-top:3px;}
+
 .linetabs .startinggoalie{margin-bottom:10px;}
 
 .linetabs .tabcontainer{
@@ -42,8 +40,7 @@
 
 .plusMinusBtn 
 {
-    padding-bottom: 5px;
-   margin:0;
+   padding-bottom: 5px;
    
 }
 
@@ -102,6 +99,10 @@ background-color:#E7BF3A;
 }
 
 
+.headerTool > *{
+    display: inline-block;
+  }
+
 
 #lineeditor  .playerlist{margin:2px; padding:2px;}
 
@@ -121,12 +122,23 @@ background-color:#E7BF3A;
 
 
 .teamstrategy{overflow:hidden;}
-.strategyamount{float:left;padding:0px 10px;}
+.strategyamount{padding:0px 10px;}
 .strategystrategies{float:right;background-color:#e8e8e8;padding:0px 10px;margin-right:0px;}
 .strategieswrapper input[type=text]{text-align:center;}
 
 #lineeditor #tabs .strategieswrapper{width:98%;margin-left:0px;}
 
+
+.strats, .time {
+    display: flex;
+    flex-direction: row; /* This stacks labels and inputs vertically */
+}
+
+#lineeditor input[type="text"] {
+    text-align: center;
+    line-height: 30px; /* Adjust this to match the height of the input */
+   /* line-height: normal;*/
+}
 
 
 .list-group-item:hover {
