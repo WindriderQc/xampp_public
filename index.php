@@ -97,6 +97,11 @@ STHSErrorIndex:
                 <div class="col-lg-4 col-12"> <?php include "components/Standing_2.php"; ?> </div> 
 				
             </div>
+
+			<div class="row mt-2  mx-2 " >
+				<div class="col-lg-12 col-12"> <?php include "components/Transaction2.php"; ?> </div>
+               
+            </div>
         </div>
     </header>
 </div> <!-- container-fluid -->
