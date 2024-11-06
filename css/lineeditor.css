@@ -6,7 +6,7 @@
 
 .linetabs .blockcontainer{padding:0px 10px;}
 .linetabs .linesection{position:relative;padding:0; margin:0%; border:1px solid #cccccc;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); background-color: rgb(214, 224, 233) !important;}
-.linetabs .linesection + .linesection{}
+
 
 .linesection .card-header {
     /*background-color: #0707becb;*/
@@ -26,7 +26,6 @@
   margin: 0;
 
 }
-.linetabs {/*background-color:#d4c430dc !important;*/}
 
 
 .strats, .time {
@@ -53,12 +52,15 @@
 }
 .positionname{
     display: inline-block;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700; /* Bold weight for bold text */
 }
 
 
 #lineeditor  #tabs .ui-state-focus a {
-border: 0 !important;
-background-color:#E7BF3A;
+    border: 0 !important;
+    background-color:#E7BF3A;
+    color: black;
 
 }
 
@@ -82,7 +84,12 @@ background-color:#E7BF3A;
    /* border:1px solid #e8e8e8;
     border-radius: 15px;*/
 }
-#lineeditor  #tabs .linesection input[type=button]{padding:0px 0px;text-align:center;margin-top:3px;}
+#lineeditor  #tabs .linesection input[type=button]{
+    padding:0px 0px;
+    text-align:center;
+    margin-top:3px;
+}
+
 
 
 #toggleButton.active {
@@ -137,6 +144,7 @@ background-color:#E7BF3A;
 #lineeditor input[type="text"] {
     text-align: center;
     line-height: 30px; /* Adjust this to match the height of the input */
+    
    /* line-height: normal;*/
 }
 

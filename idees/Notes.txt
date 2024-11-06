@@ -1,3 +1,48 @@
+
+
+
+
+
+
+
+
+
+
+
+
+quick php to JS console:
+
+ ?>
+<script> // Use the PHP variable in JavaScript 
+/* var phpVar = <?php echo json_encode($VARIABLE!!!!); ?>;
+console.log(JSON.stringify(phpVar, null, 2)); */
+</script>
+
+<?php
+
+
+
+
+
+
+
+
+
+Player 
+    .Status1 = 0-Farm Scratched, 1-Farm Healthy , 2-Pro Scratched, 3- Pro Healthy
+
+Defense1 = LEFT
+Defense2 = RIGHT
+
+
+
+
+
+
+
+
+
+
 sbtUpdateLines: Save Lines
 txtLine[Line15vs5ForwardCenter]: Mika Zibanejad
 txtLine[Line15vs5ForwardLeftWing]: Chris Kreider
@@ -213,42 +258,5 @@ txtStrategies[Strategy5OF]: 4
 txtStrategies[PullGoalerMinGoal]: 5
 txtStrategies[PullGoalerMinPct]: 84
 txtStrategies[RemoveGoaliesSecond]: 60
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-quick php to JS console:
-
- ?>
-<script> // Use the PHP variable in JavaScript 
-/* var phpVar = <?php echo json_encode($VARIABLE!!!!); ?>;
-console.log(JSON.stringify(phpVar, null, 2)); */
-</script>
-
-<?php
-
-
-
-
-
-
-
-
-
-Player 
-    .Status1 = 0-Farm Scratched, 1-Farm Healthy , 2-Pro Scratched, 3- Pro Healthy
-
-Defense1 = LEFT
-Defense2 = RIGHT
 
 
