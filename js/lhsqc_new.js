@@ -71,14 +71,6 @@ $(document).ready(function() {
         $(this).parent().fadeOut();
     });
 
-    // List group item active state
-    $('.list-group li').click(function(e) {
-        e.preventDefault();
-        $that = $(this);
-        $('.list-group').find('li').removeClass('active');
-        $that.addClass('active');
-    });
-
     // Tabs item active state
     document.querySelectorAll('#tabsList .tabsItem').forEach(item => {
         item.addEventListener('click', function() {

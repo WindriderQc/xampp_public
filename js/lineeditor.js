@@ -962,6 +962,8 @@ function openNav(info, id) {
     // Select all '.option' elements within the '.playerselect' list
     document.querySelectorAll('.playerselect .option').forEach(function(item) {
         item.addEventListener('click', function(event) {
+            // Custom behavior when the radio button is clicked
+        console.log('Radio button clicked:', this.id);
             // Prevent click propagation if the target is the input or label
             if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'LABEL') {
                 // Simulate a click on the radio input within the clicked list item
