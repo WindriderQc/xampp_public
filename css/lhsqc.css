@@ -1401,7 +1401,12 @@ footer .module-content {
 .roster-container {
     /*border: 1px solid black;  Black thin border */
     color: #529e71;
-    padding: 10px;
+    padding: 5px;
+}
+
+.textname {
+    color: #529e71;
+   
 }
 
 .roster-container .card-body {
