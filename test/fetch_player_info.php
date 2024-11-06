@@ -10,6 +10,7 @@ if ($db) {
     $columns = [];
     
     foreach ($tables as $table) {
+        // Fetch column names
         $query = "PRAGMA table_info($table)";
         $result = $db->query($query);
         
@@ -17,7 +18,17 @@ if ($db) {
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $tableColumns[] = $row['name'];
         }
-        $columns[$table] = $tableColumns;
+
+        // Fetch first row of data
+        $query = "SELECT * FROM $table LIMIT 1";
+        $result = $db->query($query);
+        $firstRow = $result->fetchArray(SQLITE3_ASSOC);
+
+        // Add both column names and first row data to the response
+        $columns[$table] = [
+            'columns' => $tableColumns,
+            'firstRow' => $firstRow
+        ];
     }
     
     header('Content-Type: application/json');

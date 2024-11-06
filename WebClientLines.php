@@ -47,7 +47,8 @@
         <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" >
         <link href=\"//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">
         <link href=\"css/lhsqc.css\" rel=\"stylesheet\" type=\"text/css\" /> 
-        <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>";
+        <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>
+        <link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap\" rel=\"stylesheet\">";
         //<link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
         //<script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
 
@@ -303,9 +304,9 @@
                                                                     foreach($posit as $pid => $pos) {
                                                                         // Set player name in each position
                                                                         $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
-                                                                        echo "<div class='col m-1 p-0'>";
-                                                                        echo "<div class='card h-100 mt-1 mx-1'>";
-                                                                        echo "<input  class='roster-container textname positionname form-control' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}'
+                                                                        echo "<div class='col m-0 p-0'>";
+                                                                        echo "<div class='card h-100 '>";
+                                                                        echo "<input  class='c textname positionname form-control' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}'
                                                                                 type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value='{$playerName}'>";
                                                                         echo "</div>";
                                                                         echo "</div>";
@@ -359,7 +360,7 @@
                                                                                         </span>
                                                                                         <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
                                                                                         <span class="input-group-btn">
-                                                                                            <button type="button" class="btn btn-success btn-number p-100 m-0" name="btnUp-<?= $id ?>" data-type="plus" data-field="quant[2]"  onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                            <button type="button" class="btn btn-success btn-number m-0" name="btnUp-<?= $id ?>" data-type="plus" data-field="quant[2]"  onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
                                                                                                 <span class="glyphicon glyphicon-plus"></span>
                                                                                             </button>
                                                                                         </span>
@@ -380,7 +381,7 @@
                                                                                         </span>
                                                                                         <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
                                                                                         <span class="input-group-btn">
-                                                                                            <button type="button" class="btn btn-success btn-number p-100 m-0" data-type="plus" data-field="quant[2]"  name="btnUp-Time"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                            <button type="button" class="btn btn-success btn-number  m-0" data-type="plus" data-field="quant[2]"  name="btnUp-Time"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up',<?=$cpfields?>);">
                                                                                                 <span class="glyphicon glyphicon-plus"></span>
                                                                                             </button>
                                                                                         </span>

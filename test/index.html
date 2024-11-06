@@ -8,47 +8,255 @@
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid black; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
-        .column-container { display: flex; justify-content: space-between; }
-        .column { flex: 1; padding: 10px; }
+
+       /* Style for the column container */
+.column-container { 
+    display: flex; 
+    flex-wrap: wrap;  /* Allow columns to wrap to the next line if necessary */
+    justify-content: flex-start; 
+    gap: 20px; /* Add spacing between columns */
+}
+
+/* Each column container will take up equal space */
+.column { 
+    flex: 1; 
+    min-width: 200px; /* Minimum width for each column to ensure readability */
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Ensure all columns have equal height */
+}
+
+/* The main table data layout */
+.table-data {
+    display: flex;
+    flex-direction: row; /* Arrange column names and data horizontally */
+    gap: 20px;
+}
+
+.table-data ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Prevent text from wrapping inside list items */
+.table-data li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Show ellipsis if text overflows */
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+    .column {
+        min-width: 100%; /* Stack columns vertically on small screens */
+    }
+
+    .table-data {
+        flex-direction: column; /* Stack lists vertically on small screens */
+    }
+}
+
+
     </style>
 </head>
 <body>
+    <!--  Section to Edit Data -->
+<section>
+    <h2>Edit Field Data</h2>
+    <form id="editForm">
+        <label for="tableSelect">Select Table:</label>
+        <select id="tableSelect">
+            <option value="PlayerInfo">PlayerInfo</option>
+            <option value="TeamProLines">TeamProLines</option>
+            <option value="TeamProStat">TeamProStat</option>
+            <option value="TeamProInfo">TeamProInfo</option>
+        </select>
+
+        <label for="columnSelect">Select Column:</label>
+        <select id="columnSelect"></select>
+
+        <label for="newValue">New Value:</label>
+        <input type="text" id="newValue" required />
+
+        <button type="submit">Update Data</button>
+    </form>
+    <p id="feedback"></p>
+</section>
+
     <h1>Table Columns</h1>
     <div class="column-container">
         <div class="column">
             <h2>PlayerInfo</h2>
-            <ul id="PlayerInfo"></ul>
+            <div class="table-data" id="PlayerInfo"></div>
         </div>
         <div class="column">
             <h2>TeamProLines</h2>
-            <ul id="TeamProLines"></ul>
+            <div class="table-data" id="TeamProLines"></div>
         </div>
         <div class="column">
             <h2>TeamProStat</h2>
-            <ul id="TeamProStat"></ul>
+            <div class="table-data" id="TeamProStat"></div>
         </div>
         <div class="column">
             <h2>TeamProInfo</h2>
-            <ul id="TeamProInfo"></ul>
+            <div class="table-data" id="TeamProInfo"></div>
         </div>
     </div>
 
     <script>
-        async function fetchColumnNames() {
-            const response = await fetch('fetch_player_info.php');
-            const columns = await response.json();
-            
-            for (const table in columns) {
-                const list = document.getElementById(table);
-                columns[table].forEach(column => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = column;
-                    list.appendChild(listItem);
-                });
-            }
+    
+async function fetchColumnNames() {
+    try {
+        const response = await fetch('fetch_player_info.php');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const columns = await response.json();
+
+        // Loop through each table and display the column names and first row data
+        for (const table in columns) {
+            const container = document.getElementById(table);
+
+            // Create two containers for column names and first row data
+            const columnList = document.createElement('ul');
+            const firstRowList = document.createElement('ul');
+
+            // Display column names
+            columns[table].columns.forEach(column => {
+                const listItem = document.createElement('li');
+                listItem.textContent = column;
+                columnList.appendChild(listItem);
+            });
+
+            // Display first row data
+            columns[table].columns.forEach((column, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = columns[table].firstRow[column] || 'N/A'; // Display 'N/A' if no data
+                firstRowList.appendChild(listItem);
+            });
+
+            // Create a container for both lists (column names and first row data)
+            const rowContainer = document.createElement('div');
+            rowContainer.style.display = 'flex';
+
+            // Add styling for the column names list
+            const columnContainer = document.createElement('div');
+            columnContainer.style.flex = '1';
+            columnContainer.appendChild(columnList);
+            rowContainer.appendChild(columnContainer);
+
+            // Add styling for the first row data list
+            const dataContainer = document.createElement('div');
+            dataContainer.style.flex = '1';
+            dataContainer.appendChild(firstRowList);
+            rowContainer.appendChild(dataContainer);
+
+            // Append the row container to the table's container
+            container.appendChild(rowContainer);
         }
 
-        fetchColumnNames();
+        // Populate column selection dropdown when a table is selected
+        document.getElementById('tableSelect').addEventListener('change', function() {
+            const table = this.value;
+            populateColumnSelect(columns[table].columns);
+        });
+
+        // Initially populate columns for the first table
+        populateColumnSelect(columns['PlayerInfo'].columns);
+
+    } catch (error) {
+        console.error('Error fetching column names:', error);
+    }
+}
+
+// Populate the column select dropdown dynamically
+function populateColumnSelect(columns) {
+    const columnSelect = document.getElementById('columnSelect');
+    columnSelect.innerHTML = ''; // Clear existing options
+    columns.forEach(column => {
+        const option = document.createElement('option');
+        option.value = column;
+        option.textContent = column;
+        columnSelect.appendChild(option);
+    });
+}
+
+// Handle form submission to update data
+document.getElementById('editForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const table = document.getElementById('tableSelect').value;
+    const column = document.getElementById('columnSelect').value;
+    const newValue = document.getElementById('newValue').value;
+
+    try {
+        const response = await fetch('update_field_data.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ table, column, newValue })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            document.getElementById('feedback').textContent = 'Data updated successfully!';
+        } else {
+            document.getElementById('feedback').textContent = 'Error updating data.';
+        }
+    } catch (error) {
+        console.error('Error updating data:', error);
+        document.getElementById('feedback').textContent = 'Failed to update data.';
+    }
+});
+
+fetchColumnNames();
+
+const updateFieldData = async (table, column, newValue, id) => {
+    // Determine the primary key based on the table
+    const primaryKey = (table === 'TeamProLines') ? 'TeamNumber' : 'Number';  // Use TeamNumber for TeamProLines, otherwise use Number
+    
+    try {
+        const response = await fetch('update_field_data.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                table: table,
+                column: column,
+                newValue: newValue,
+                id: id,
+                primaryKey: primaryKey,  // Send the primary key dynamically
+            }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert('Data updated successfully');
+        } else {
+            alert('Error updating data: ' + result.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+
+// Example call to the function (replace with actual data)
+updateFieldData('PlayerInfo', 'name', 'New Player Name', 1);
+
+
     </script>
 </body>
 </html>
