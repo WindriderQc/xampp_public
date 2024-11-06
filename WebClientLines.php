@@ -306,7 +306,7 @@
                                                                         $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
                                                                         echo "<div class='col m-0 p-0'>";
                                                                         echo "<div class='card h-100 '>";
-                                                                        echo "<input  class='c textname positionname form-control' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}'
+                                                                        echo "<input  class='roster-container textname positionname form-control' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}'
                                                                                 type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value='{$playerName}'>";
                                                                         echo "</div>";
                                                                         echo "</div>";
