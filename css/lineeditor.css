@@ -59,8 +59,9 @@
 
 
 #lineeditor  #tabs .ui-state-focus a {
-border: 0 !important;
-background-color:#E7BF3A;
+    border: 0 !important;
+    background-color:#E7BF3A;
+    color: black;
 
 }
 

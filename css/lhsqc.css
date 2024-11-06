@@ -1399,28 +1399,19 @@ footer .module-content {
 
 
 .roster-container {
-
     /*border: 1px solid black;  Black thin border */
-  
-    color: #b0ccbb;
+    color: #529e71;
     padding: 10px;
-
 }
-
-
 
 .roster-container .card-body {
     color: #27ae60;
     border: 1px solid rgb(2, 168, 24);
 }
 
-
-
 .roster-container p {
     color: #27ae60;
 }
-
-
 
 .roster-container .card-text {
     color: #27ae60;
