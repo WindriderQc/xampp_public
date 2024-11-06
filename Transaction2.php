@@ -1,21 +1,3 @@
-<?php include "Header.php"; ?>
-
-<div class="container my-5 tradetable">
-<div class="card-header">Latest Trades</div>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <!-- <thead>
-                <tr>
-                    <th>Logo</th>
-                    <th>Team Name</th>
-                    <th>Assets</th>
-                    <th>Logo</th>
-                    <th>Team Name</th>
-                    <th>Assets</th>
-                </tr>
-            </thead>
-            <tbody></tbody> -->
-
 <?php
 // Nom du fichier de la base de données SQLite
 $databaseFile = 'LHSQC-STHS.db';
@@ -29,10 +11,7 @@ try {
 
     // Requête pour récupérer les champs spécifiés, incluant ReceivingTeamThemeID
     $query = "SELECT ReceivingTeamThemeID, ReceivingTeamName, ReceivingTeamText 
-              FROM TradeLog
-              ORDER BY DateTxt DESC
-              LIMIT 20";
-              
+              FROM TradeLog";
 
     // Exécuter la requête
     $result = $db->query($query);
@@ -50,16 +29,14 @@ try {
 
     // Parcourir les résultats et les afficher
     echo "<table style='border-collapse: collapse; width: 100%;'>"; // Utiliser toute la largeur disponible
-
-    
-    // echo "<tr>
-    //         <th style='border-bottom: 2px solid black; padding: 10px;'>Logo</th>
-    //         <th style='border-bottom: 2px solid black; padding: 10px;'>Team Name</th>
-    //         <th style='border-bottom: 2px solid black; padding: 10px;'>Assets</th>
-    //         <th style='border-bottom: 2px solid black; padding: 10px;'>Logo</th>
-    //         <th style='border-bottom: 2px solid black; padding: 10px;'>Team Name</th>
-    //         <th style='border-bottom: 2px solid black; padding: 10px;'>Assets</th>
-    //       </tr>";
+    echo "<tr>
+            <th style='border-bottom: 2px solid black; padding: 10px;'>Logo</th>
+            <th style='border-bottom: 2px solid black; padding: 10px;'>Team Name</th>
+            <th style='border-bottom: 2px solid black; padding: 10px;'>Assets</th>
+            <th style='border-bottom: 2px solid black; padding: 10px;'>Logo</th>
+            <th style='border-bottom: 2px solid black; padding: 10px;'>Team Name</th>
+            <th style='border-bottom: 2px solid black; padding: 10px;'>Assets</th>
+          </tr>";
     
     // Boucle pour parcourir toutes les lignes
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -104,7 +81,3 @@ try {
     echo "Erreur : " . $e->getMessage();
 }
 ?>
- </tbody>
-        </table>
-    </div>
-</div>

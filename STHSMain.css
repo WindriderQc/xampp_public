@@ -444,7 +444,7 @@ a.tabmenuhome { color:#000000;}
 .STHSSelect{border-radius: .5em;}
 .STHSPHPSearch_Field{ font-family:Georgia, Tahoma;}
 .STHSWebClient_Form{padding: 5px 10px 5px 30px;margin:5px;}
-.STHSPHPStandingTeamImage {width:24px;height:24px;padding-left:8px;padding-right:8px;vertical-align:middle}
+.STHSPHPStandingTeamImage {width:24px;height:24px;padding-left:0px;padding-right:0px;vertical-align:middle}
 .STHSPHPCoachesTeamImage {width:24px;height:24px;padding-left:0px;padding-right:8px;vertical-align:middle}
 .STHSPHPScheduleTeamImage {width:24px;height:24px;padding-left:0px;padding-right:8px;vertical-align:middle}
 .STHSPHPTodayGameTeamImage {width:24px;height:24px;padding-left:0px;padding-right:8px;vertical-align:middle}

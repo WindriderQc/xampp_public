@@ -305,7 +305,7 @@ if ($Playoff == True){
             //     If ($LoopCount > 6 ){PrintStandingTableRow($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);}
             //     If ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
             // }}
-            echo "</tbody></table>";
+            // echo "</tbody></table>";
         }
         ?>
         </div>

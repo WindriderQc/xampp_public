@@ -1,254 +1,502 @@
+let Roster = [];
 
-function roster_validator(	MaximumPlayerPerTeam,MinimumPlayerPerTeam,isWaivers,BlockSenttoFarmAfterTradeDeadline,isPastTradeDeadline,ProTeamEliminatedCannotSendPlayerstoFarm,isEliminated,ForceCorrect10LinesupbeforeSaving,
-							ProMinC,ProMinLW,ProMinRW,ProMinD,ProMinForward,ProGoalerInGame,ProPlayerInGame,ProPlayerLimit,
-							FarmMinC,FarmMinLW,FarmMinRW,FarmMinD,FarmMinForward,FarmGoalerInGame,FarmPlayerInGame,FarmPlayerLimit,MaxFarmOv,MaxFarmOvGoaler,GamesLeft,FullFarmEnableGlobal,FullFarmEnableLocal,MaxFarmSalary){
-	//Must have at least 20 players on the Pro Roster and farm if FullFarm enabled.
-	var FullRoster = 20;
-	var MinimumGoaliesDressed = 2;
-	GamesLeft = 1; //Force GamesLeft to 1
-	
-	// FullFarmEnableLocal hack - read current value
-	// Need to read the value from hidden field because the value can have change from the checkbox and this function parameters value are hardcoded in PHP code in some place. 
-	// TODO: revamp validator logic to read hidden fields instead of having many parameters. Function header need to be changed in many place when adding validation. 
-	FullFarmEnableLocal = (document.getElementById("FullFarmEnableLocal").value === 'true') ? true : false;
-		
-	// If not Full Farm, a place is need for "Unknown Player"
-	// Ref.:https://sths.simont.info/Forum/viewtopic.php?t=15153
-	if (!(FullFarmEnableGlobal || FullFarmEnableLocal)) {
-		var FarmFullRoster = FullRoster -1;
-	}
-	// Disable checkbox if FullFarm is globally enabled	
-	if (FullFarmEnableGlobal == true) {document.getElementById("cbFullFarm").disabled = true;}
+let rosterDiv
+let scratchedDiv
 
-	// Declare variables needed inside the loop. Set to Null
-	var explode, status, proPlayerLimit, farmPlayerLimit, playerProToFarmTradeDeadline, playerProToFarmEliminated;
+// Mobile touch handlers
+let activeDraggedElement = null;
+let originalDropzone = null;
+let originalPosition = { left: 0, top: 0 };
+let lastHoveredElement = null;
 
-	// Declare variables with a default value of empty text or 0
-	var playerCount = 0, waiverCount = 0;
-	var errorText = '', waiverText = '', s = '';
 
-	// Declare array variables for counting during the loops
-	var pro = [], proDress = [], farm = [], farmDress = [];
+function setup() 
+{
+    rosterDiv = document.getElementById('Roster')
+    scratchedDiv = document.getElementById('Scratched')
 
-	for(s=0;s<=6;s++){
-		pro[s] = [];
-		proDress[s] = [];
-		farm[s] = [];
-		farmDress[s] = [];
-	}
-	
-	// Declare variables for validation.
-	var validated = true;
-	var lineValidated = [false,false,false,false,false,false,false,false,false,false];
-	var waiverList = [];
-	var injsus = false;
-	var positionNumbers = position_number_array(); // array;
+   createPlayers();
 
-	// Loop through how many games are left up to 10.
-	// Only 1 if no schedule.
-	for(g=1;g<=GamesLeft;g++){
-		// Get the players from the current gameleft. And set the error element to display errors.
-		// Reset error text for each gameleft. 
-		
-		var players = document.getElementsByClassName( 'rosterline'+g ), res  = {}, i;
-		errorElement = document.getElementById('errors rostererror' + g);
-		errorText = '';
-		
-		// Reset count of pro and farm positions
-		for(s=0;s<=6;s++){
-			pro[s][g] = 0;
-			proDress[s][g] = 0;
-			farm[s][g] = 0;
-			farmDress[s][g] = 0;
-		}
+    // Handle drop zones in Lines (roster-containers)
+    let dropZones = document.querySelectorAll('#Lines .roster-container');
+    dropZones.forEach(zone => {
+        zone.addEventListener('dragover', allowDrop);
+        zone.addEventListener('drop', handleDropOnContainer);
+        zone.addEventListener('touchend', handleTouchEnd);
+    });
 
-		// Reset other variables.
-		playerProToFarmTradeDeadline = 0;
-		playerProToFarmEliminated = 0;
+    // Make the roster droppable
+    let rosterDropZone = document.getElementById('Roster');
+    rosterDropZone.addEventListener('dragover', allowDrop);
+    rosterDropZone.addEventListener('drop', handleDropToRoster);
+    //rosterDropZone.addEventListener('touchmove', handleTouchMove);
+    rosterDropZone.addEventListener('touchend', handleTouchEnd);
 
-		// Loop through each player
-		for (x = 0; x < players.length; x++) {
-			// Split the value at the pipe "|" and use each section for checking.
-			//Anthony Marchant|571|1|C|3|80|true|anthonymarchant|false|100|2|1999000|true|true
-			// 0 = Name
-			// 1 = Number
-			// 2 = Position Number
-			// 3 = Position String
-			// 4 = Status1
-			// 5 = Overall
-			// 6 = ForceWaiver
-			// 7 = NameID
-			// 8 = Injure/Suspension
-			// 9 = Condition
-			//10 = Contract
-			//11 = Salary1
-			//12 = CanPlayPro
-			//13 = CamPlayFarm
-			//14 = PossibleWaiver
-			//15 = EmergencyRecall
-		    explode = players[x].value.split("|");
-		    // If the explode array only has 2 sections then its a change in which status we are going through.
-		    if(explode.length == 2){
-		    	if(explode[1] == "ProDress"){status = 3;}
-		    	else if (explode[1] == "ProScratch"){status = 2;}
-		    	else if (explode[1] == "FarmDress"){status = 1;}
-		    	else{status = 0;}
-		    // Else its a player and increment variables where needed
-		    }else{
-		    	if(g == 1){playerCount++;}
-		    	 injsus = (explode[8] == 'true' || explode[9] <= 95) ? true : false;
-		    	// explode[2] is PositionNumber passed through from the SQLite record. ie 1=centre 16 = goalie 
-		    	for(p=0;p<=6;p++){
-		    		if(inArray(explode[2],positionNumbers[p])){
-		    			if(status == 3){pro[p][g]++;proDress[p][g]++;}
-		    			else if(status == 2 && !injsus){pro[p][g]++;}
-		    			else if(status == 1){farm[p][g]++;farmDress[p][g]++;}
-		    			else if(status == 0){farm[p][g]++;}
-	    			}
-		    	}
-		    	var elem = document.getElementById('line1_'+explode[7]);
-	    		// If flagged properly and trying to send to farm, not allowed if sending player to the farm after trade deadline 
-	    		if(BlockSenttoFarmAfterTradeDeadline == true && isPastTradeDeadline == true && explode[4] >= 2 && status <= 1 && explode[15] == "false"){playerProToFarmTradeDeadline++;}
-	    		// If flagged properly and trying to send to farm, not allowed if sending player to the farm if eliminated from the playoffs
-	    		if(ProTeamEliminatedCannotSendPlayerstoFarm == true && isEliminated == true && explode[4] >= 2 && status <= 1 && explode[15] == "false"){playerProToFarmEliminated++;}
-	    		// Check for Overall to see if their overall is allowed in the farm
-		    	if(status <= 1 && explode[2] != 16 && explode[5] > MaxFarmOv || status <= 1 && explode[2] == 16 && explode[5] > MaxFarmOvGoaler){
-					errorText += '<div class="erroritem errorplayer">' + explode[0] + ' overall is too high for farm.</div>'
-		    		if(elem.className.match(/\bprotofarmov\b/)){var me;}else{elem.className = elem.className + " protofarmov";} 
-		    	}
-		    	// Check for Salary to see if their Salary is allowed in the farm
-		    	if(status <= 1 && explode[11] > MaxFarmSalary && MaxFarmSalary > 0){
-					errorText += '<div class="erroritem errorplayer">' + explode[0] + ' salary is too high for farm.</div>'
-		    		if(elem.className.match(/\bprotofarmsalary\b/)){var me;}else{elem.className = elem.className + " protofarmsalary";} 	
-		    	}
-				// Check for if CanPlayPro
-		    	if(status >= 2 && explode[12] == "false") {
-					errorText += '<div class="erroritem errorplayer">' + explode[0] + ' can\'t play pro.</div>'
-		    		if(elem.className.match(/\bproplaypro\b/)){var me;}else{elem.className = elem.className + " canplaypro";} 	
-		    	}
-				// Check for if CanPlayFarm
-		    	if(status <= 1 && explode[13] == "false") {
-					errorText += '<div class="erroritem errorplayer">' + explode[0] + ' can\'t play farm.</div>'
-		    		if(elem.className.match(/\bproplayfarm\b/)){var me;}else{elem.className = elem.className + " canplayfarm";} 	
-		    	}			
-	    		// If flagged properly and player is forced to waivers set up waiver info. Can only do this on Game 1
-	    		if(isWaivers == true && explode[14]=="true" && g == 1 && status <= 1 && explode[4] >= 2){
-	    			// Add the movetowaiver class to the li
-	    			if(elem.className.match(/\bmovetowaiver\b/)){var me;}else{elem.className = elem.className + " movetowaiver";} 					
-					// Remove the li from where it was dropped and tag it to the bottom of the scratch list
-					elem.parentNode.removeChild(elem);
-					var scratchlist = document.getElementsByClassName("sortFarmScratch1");
-					scratchlist[0].appendChild(elem); 
-	    		}
+    // Make the scratched list droppable
+    let scratchedDropZone = document.getElementById('Scratched');
+    scratchedDropZone.addEventListener('dragover', allowDrop);
+    scratchedDropZone.addEventListener('drop', handleDropToScratched);
+    //scratchedDropZone.addEventListener('touchmove', handleTouchMove);
+    scratchedDropZone.addEventListener('touchend', handleTouchEnd);
 
-	    		if (g == 1 && status >= 2){
-	    			// If moving the player back up to the pros, remove the some class.
-	    			var elemLine = 'line1_' + explode[7];
-	    			var elem = document.getElementById(elemLine);
-	    			elem.className = elem.className.replace(" movetowaiver","");
-	    			elem.className = elem.className.replace(" protofarmsalary","");
-	    			elem.className = elem.className.replace(" protofarmov","");
-					elem.className = elem.className.replace(" canplayfarm","");
-	    		}
-	    		if (g == 1 && status <= 1){
-	    			// If moving the player back up to the farm, remove the some class.
-	    			var elemLine = 'line1_' + explode[7];
-	    			var elem = document.getElementById(elemLine);
-					elem.className = elem.className.replace(" canplaypro","");
-	    		}				
-		    }
-		}
-
-		// Check for waived players
-		if(g == 1){
-			for (x = 0; x < players.length; x++) {
-				// Split the value at the pipe "|" and use each section for checking.
-			    explode = players[x].value.split("|");
-
-			    // If the explode array only has 2 sections then its a change in which status we are going through.
-			    if(explode.length == 2){
-			    	if(explode[1] == "ProDress"){status = 3;}
-			    	else if (explode[1] == "ProScratch"){status = 2;}
-			    	else if (explode[1] == "FarmDress"){status = 1;}
-			    	else{status = 0;}
-			    // Else its a player and increment variables where needed
-			    }else{
-			    	if(isWaivers == true && explode[14]=="true" && g == 1 && status <= 1 && explode[4] >= 2){
-						if(waiverList.indexOf(explode[0]) == -1){
-							waiverList.push(explode[0]);
-						}
-		    		}
-			    }
-			}
-		}
-		
-		// Add to the waiverText if there is at least a player in the waivers section.
-		if(waiverList.length > 0 && g == 1){
-			waiverText = '<div class="notice waivernotice">Saving will send ' + waiverList.length + ' player(s) to waivers.</div>';
-		}
-		
-		// Add to error text if conditions met.
-		if(proDress[0][g] < ProMinC){errorText += '<div class="erroritem errorposition notproposition">Pro C: ' + proDress[0][g] + ' dressed, ' + ProMinC + ' required.</div>';}
-		if(proDress[1][g] < ProMinLW){errorText += '<div class="erroritem errorposition notproposition">Pro LW: ' + proDress[1][g] + ' dressed, ' + ProMinLW + ' required.</div>';}
-		if(proDress[2][g] < ProMinRW){errorText += '<div class="erroritem errorposition notproposition">Pro RW:  ' + proDress[2][g] + ' dressed, ' + ProMinRW + ' required.</div>';}
-		if(proDress[3][g] < ProMinD){errorText += '<div class="erroritem errorposition notproposition">Pro D:  ' + proDress[3][g] + ' dressed, ' + ProMinD + ' required.</div>';}
-		if(proDress[4][g] < MinimumGoaliesDressed || proDress[4][g] > ProGoalerInGame){errorText += '<div class="erroritem errorposition notproposition">Pro G:  ' + proDress[4][g] + ' dressed, ' + ProGoalerInGame + ' required.</div>';}
-		if(proDress[5][g] < ProMinForward){errorText += '<div class="erroritem errorposition notproposition">Pro Fwd:  ' + proDress[5][g] + ' dressed, ' + ProMinForward + ' required.</div>';}
-		if(proDress[6][g] < FullRoster){errorText += '<div class="erroritem playercount notenoughprodressed">Not Enough Pro players dressed.</div>';}
-		if(proDress[6][g] - proDress[4][g] > ProPlayerInGame){errorText += '<div class="erroritem playercount limitprodressed">Too many Pro Dress players.</div>';}
-		if(pro[6][g] > ProPlayerLimit){errorText += '<div class="erroritem playercount limitprodressed">Too many Pro players.</div>';}		
-		if(FullFarmEnableGlobal || FullFarmEnableLocal){
-			if(farmDress[0][g] < FarmMinC){errorText += '<div class="erroritem errorposition notfarmposition">Farm C:  ' + farmDress[0][g] + ' dressed, ' + FarmMinC + ' required.</div>';}
-			if(farmDress[1][g] < FarmMinLW){errorText += '<div class="erroritem errorposition notfarmposition">Farm LW:  ' + farmDress[1][g] + ' dressed, ' + FarmMinLW + ' required.</div>';}
-			if(farmDress[2][g] < FarmMinRW){errorText += '<div class="erroritem errorposition notfarmposition">Farm RW:  ' + farmDress[2][g] + ' dressed, ' + FarmMinRW + ' required.</div>';}
-			if(farmDress[5][g] < FarmMinForward){errorText += '<div class="erroritem errorposition notfarmposition">Farm Fwd:  ' + farmDress[5][g] + ' dressed, ' + FarmMinForward + ' required.</div>';}
-			if(farmDress[3][g] < FarmMinD){errorText += '<div class="erroritem errorposition notfarmposition">Farm D:  ' + farmDress[3][g] + ' dressed, ' + FarmMinD + ' required.</div>';}
-			if(farmDress[4][g] < MinimumGoaliesDressed || farmDress[4][g] > FarmGoalerInGame){errorText += '<div class="erroritem errorposition notfarmposition">Farm G:  ' + farmDress[4][g] + ' dressed, ' + FarmGoalerInGame + ' required.</div>';}
-			if(farmDress[6][g] < FullRoster){errorText += '<div class="erroritem playercount notenoughfarmdressed">Not Enough Farm players dressed.</div>';}
-			if(farmDress[6][g] - farmDress[4][g] > FarmPlayerInGame){errorText += '<div class="erroritem playercount limitfarmdressed">Too many Farm Dress players.</div>';}
-			if(farm[6][g] > FarmPlayerLimit){errorText += '<div class="erroritem playercount limitfarmdressed">Too many Farm players.</div>';}				
-		}
-		else { // Not full farm. 
-			if(farmDress[6][g] > FarmFullRoster){errorText += '<div class="erroritem playercount notenoughfarmdressed">Full farm not enabled. You need to dress at least one player less than a full roster.</div>';}
-		} 
-		if(playerCount > MaximumPlayerPerTeam){errorText += '<div class="erroritem playercount toomanyplayers">Too many players on your roster.</div>';}
-		if(playerCount < MinimumPlayerPerTeam){errorText += '<div class="erroritem playercount notenoughplayers">Not enough players on your roster.</div>';}
-		if(playerProToFarmTradeDeadline > 0){errorText += '<div class="erroritem farmmove tradedeadline">Cannot send ' + playerProToFarmTradeDeadline + ' players to the farm. (After Trade Deadline).</div>';}
-		if(playerProToFarmEliminated > 0){errorText += '<div class="erroritem farmmove eliminated">Cannot send ' + playerProToFarmEliminated + ' players to the farm. (Eliminated From Playoffs).</div>';}
-		// If the error text is empty still then the roster is complete and display
-		if(errorText == ''){
-			errorElement.innerHTML = waiverText + '<div class="rostercomplete">Roster is complete.</div>';
-			lineValidated[g] = true;
-			document.getElementById("saveroster").disabled = false;
-		// Else there are errors, display them
-		}else{
-			var displayErrors = '';
-			displayErrors += "<div class='errorwrapper error'>";
-			displayErrors += "		<div id='errorheader'>";
-			displayErrors += "			<div> Incomplete Lines</div>";
-			displayErrors += "		</div>";
-			displayErrors += 		errorText;
-			displayErrors += "</div>";
-
-			errorElement.innerHTML = waiverText + displayErrors;	
-			document.getElementById("saveroster").disabled = true;
-		}
-	}	
-
-	// Check to see if the flag is on for forcing all lines completed before saving.
-	// If not just check the first line.
-	if(ForceCorrect10LinesupbeforeSaving && GamesLeft > 1){
-		for(var g=1;g<=GamesLeft;g++){
-			if(lineValidated[g]){
-				validated = true;
-			}else{
-				validated = false;
-				break;
-			}
-		}
-	}else{
-		validated = (lineValidated[1] == true) ? true : false;
-	}
-
-	document.getElementById("saveroster").disabled = (validated) ? false : true;
+    // Save button functionality
+    let saveButton = createButton('Save');
+    saveButton.parent('saveBtn');
+    saveButton.mousePressed(savePositions);
 }
+
+function createPlayers() {
+     // Create player divs using the players array (array of objects) from PHP
+    // console.log('creating players', players)
+     players.forEach(player => {
+        let name = player.Name;
+        let pos = player.position;
+
+        let destDiv 
+
+         // Split players into categories based on Status1
+       
+        switch (player.Status1) {
+            case 0:    //  farmScratched
+                destDiv = null
+                break;
+            case 1:  // farmDressed
+                destDiv = null
+                break;
+            case 2:    // proSratched
+                destDiv = scratchedDiv;
+                break;
+            case 3:    // proDressed
+                destDiv = rosterDiv;
+                break;
+        
+            default:
+                break;
+        }
+       
+        if(destDiv) {
+            let d = createDraggablePlayerDiv(name,destDiv)
+            let p = { name: name, pos: pos, div: d, lineup: "", status: destDiv.id }
+            console.log(p)
+            Roster.push(p);
+        }
+            
+    });
+}
+
+function createDraggablePlayerDiv(playerName, parentDiv) 
+{
+    let contenant = createDiv().addClass('card Roster rosterElm draggable p-0').elt;
+    contenant.id = playerName;
+    contenant.setAttribute('draggable', true); 
+    let bodyDiv = createDiv().parent(contenant).addClass('card-body p-0').elt;
+    createP(playerName).parent(bodyDiv).addClass('card-text');
+    parentDiv.appendChild(contenant)
+
+    makeDraggable(contenant, parentDiv.id )
+
+    return contenant;
+}
+
+function makeDraggable(div, fromZone, isDZ = false) {
+    // Add dragstart event listener
+    div.addEventListener('dragstart', function (event) { 
+        //console.log('Dragging started for:', div.id);
+        event.dataTransfer.setData('playerId', div.id);
+        event.dataTransfer.setData('fromZone', fromZone);
+    });
+
+    // Ensure touch events are re-enabled after handling
+    div.addEventListener('touchstart', handleTouchStart);
+    div.addEventListener('touchmove', handleTouchMove);
+    // Optionally: Add touchend event again if needed (depends on your logic flow)
+    if(isDZ) div.addEventListener('touchend', handleTouchEnd);
+}
+
+
+
+
+function allowDrop(event) {
+    event.preventDefault();
+    /*  TODO:   implement effect to show possible drop here   */   
+}
+
+function handleDropOnContainer(event) {
+    event.preventDefault()
+  
+    let target = event.currentTarget;
+    let playerName = event.dataTransfer.getData('playerId')
+    let playerDiv = document.getElementById(playerName)
+    let fromZone = event.dataTransfer.getData('fromZone')
+
+    dropOnContainer(target, playerDiv, fromZone)
+}
+
+function handleDropToRoster(event) {
+    event.preventDefault();
+    let playerName = event.dataTransfer.getData('playerId')
+    let fromZone = event.dataTransfer.getData('fromZone')
+    let playerDiv = document.getElementById(playerName)
+    dropToRoster(playerDiv, fromZone)
+}
+
+function handleDropToScratched(event) {
+    event.preventDefault();
+    let playerName = event.dataTransfer.getData('playerId')
+    let fromZone = event.dataTransfer.getData('fromZone')
+    let playerDiv = document.getElementById(playerName)
+    dropToScratched(playerDiv, fromZone)
+}
+
+
+function dropOnContainer(targetDiv, playerDiv, fromZone) {
+
+    let parentDiv = playerDiv.parentElement           // origin div
+    let currentDiv 
+    let currentPlayerInZone
+    if(targetDiv.querySelector('.card-body')) 
+    {
+        currentPlayerInZone = targetDiv.querySelector('.card-text').innerHTML  // get player Name if assigned
+        currentDiv = document.getElementById(currentPlayerInZone)    // current player div in place if exist, or lineup container div    
+       
+    } else {
+        currentPlayerInZone = targetDiv.innerHTML  // or get lineup Pos
+        currentDiv = targetDiv
+    }
+  
+    console.log("Dropping:", playerDiv.id, "on:", targetDiv.id, "CurrentInZone:", currentDiv.id , "From", fromZone)
+     
+    if (fromZone === 'roster-container') 
+    {
+        if(targetDiv.id === currentDiv.id) {             // Empty lineup
+            targetDiv.innerHTML = ''
+            targetDiv.appendChild(playerDiv)
+            console.log(parentDiv)
+            //parentDiv.innerHTML = "<div class=\"card-body \"><p class=\"card-text\">" +  parentDiv.id + "</p></div>"
+            parentDiv.innerHTML =  parentDiv.dataset.linePos;
+        } else {                                        //  a player was already assigned.
+            targetDiv.innerHTML = ''
+            targetDiv.appendChild(playerDiv)
+            parentDiv.innerHTML =  parentDiv.dataset.linePos;
+            rosterDiv.appendChild(currentDiv)
+        }  
+    } 
+    else {
+        targetDiv.innerHTML = "";
+        targetDiv.appendChild(playerDiv)
+        //  if a player was previously assigned
+        if(currentDiv.id  !== targetDiv.id) {   
+            console.log("Returning previous player to roster:" , currentDiv)
+            rosterDiv.appendChild(currentDiv)     }                       
+    }
+
+    makeDraggable(playerDiv, 'roster-container', true)
+}
+
+function dropToScratched(playerDiv, fromZone) {
+      
+    console.log("Dropping:", playerDiv.id, "on:", "Scratched", "From:", fromZone)
+    if (fromZone === 'Scratched') return
+
+    if (fromZone === 'roster-container') {
+        let parentDiv = playerDiv.parentElement;
+        parentDiv.innerHTML =  parentDiv.dataset.linePos;
+    }
+
+    scratchedDiv.appendChild(playerDiv)
+
+  //  makeDraggable(playerDiv, 'Scratched')
+}
+
+function dropToRoster(playerDiv, fromZone) {
+
+    if (fromZone === 'Roster') return
+
+    if (fromZone === 'roster-container') {
+        let parentDiv = playerDiv.parentElement;
+        parentDiv.innerHTML =  parentDiv.dataset.linePos;
+    }
+
+    rosterDiv.appendChild(playerDiv);
+    playerDiv.addEventListener('dragstart', function (event) {
+        event.dataTransfer.setData('playerId', playerDiv.id);
+        event.dataTransfer.setData('fromZone', 'Roster');
+    });
+}
+
+
+
+function handleTouchEndOnContainer(data) { 
+    console.log('Touch drop to lineup', data.dragged.id, data.fromZone, "target:", data.currentTarget.id)
+    dropOnContainer(data.currentTarget, data.dragged, data.fromZone)
+}
+
+function handleTouchEndBackToRoster(data) {
+    console.log('Touch drop to roster', data.dragged.id, data.fromZone)
+    dropToRoster(data.dragged, data.fromZone)
+}
+
+function handleTouchEndToScratched(data) {
+    console.log('Touch drop to Scratched', data.dragged.id, data.fromZone)
+    dropToScratched(data.dragged, data.fromZone)
+}
+
+
+
+function handleTouchStart(event) {
+    event.preventDefault();
+    let touch = event.touches[0];
+
+    activeDraggedElement = event.currentTarget; // Get the element being dragged
+    originalDropzone = getDropzone(activeDraggedElement.parentElement); // Store the original dropzone based on parent   //originalDropzone = getDropzone(activeDraggedElement); // Store the original dropzone
+    activeDraggedElement.fromZone = originalDropzone
+    
+    activeDraggedElement.style.opacity = '0.4'; // Visual feedback
+    //activeDraggedElement.style.position = 'absolute'; // Set position to absolute for drag movements
+    //activeDraggedElement.style.position = 'fixed'; // Set position to fixed for drag movements
+  //  style=" overflow-x: hidden;"  on main container fixes issue of div being out of page when drag start....
+    
+   
+
+    console.log("TouchStart:", activeDraggedElement, "from ", originalDropzone )
+  
+
+    // Store original position in case we need to revert it
+    const rect = activeDraggedElement.getBoundingClientRect();
+    originalPosition.left = rect.left;
+    originalPosition.top = rect.top;
+
+    // Correct the offset
+    activeDraggedElement.touchStartX = touch.pageX - rect.left;
+    activeDraggedElement.touchStartY = touch.pageY - rect.top;
+}
+
+function handleTouchMove(event) {
+    event.preventDefault();
+    let touch = event.touches[0];
+
+   // console.log("Move:", activeDraggedElement)
+    if (activeDraggedElement) {
+        // Update the element's position during dragging
+        activeDraggedElement.style.left = `${touch.pageX  - activeDraggedElement.touchStartX}px`;
+        activeDraggedElement.style.top = `${touch.pageY  - activeDraggedElement.touchStartY}px`;
+    }
+
+    let element = document.elementFromPoint(touch.pageX, touch.pageY);
+    let dropzone = findClosestDropzone(element);  // Use the new function
+
+   // console.log(" over :", element)
+    // Reset border of the previously hovered element if it's not the current one
+    if (lastHoveredElement && lastHoveredElement !== dropzone) {
+        lastHoveredElement.style.border = ""; // Reset border to original
+    }
+
+    // Highlight the current hovered element if it's a valid dropzone
+    if (getDropzone(element)) {
+        element.style.border = "2px solid green";
+        lastHoveredElement = dropzone; // Update the last hovered element
+    }
+}
+
+function handleTouchEnd(event) {
+    event.preventDefault();
+
+    if (activeDraggedElement) {
+        let touch = event.changedTouches[0];
+        let element = document.elementFromPoint(touch.clientX, touch.clientY);
+
+        let destination = findClosestDropzone(element);  // Find the closest valid dropzone 
+        let dz = getDropzone(destination)
+
+        if (destination) {                                // If a valid dropzone is found
+            if (dz === 'Roster') {
+                handleTouchEndBackToRoster({
+                    dragged: activeDraggedElement,
+                    currentTarget: element,
+                    fromZone: originalDropzone
+                });
+            } else if (dz === 'roster-container') {
+                handleTouchEndOnContainer({
+                    dragged: activeDraggedElement,
+                    currentTarget: element,
+                    fromZone: originalDropzone
+                });
+            } else if (dz === 'Scratched') {
+                handleTouchEndToScratched({
+                    dragged: activeDraggedElement,
+                    currentTarget: element,
+                    fromZone: originalDropzone
+                });
+            }
+        } else {
+            // If no valid dropzone is found, revert the element to its original position
+            activeDraggedElement.style.left = `${originalPosition.left}px`;
+            activeDraggedElement.style.top = `${originalPosition.top}px`;
+        }
+
+        console.log("Touch End:", activeDraggedElement.id, "from", originalDropzone, "to", dz);
+
+        // Reset the dragged element state
+        activeDraggedElement.style.opacity = '1';
+        activeDraggedElement.style.position = 'static'; // Reset position style
+        activeDraggedElement = null;
+        originalDropzone = null; // Clear the stored dropzone
+    }
+}
+
+// Function to get the dropzone of an element
+function getDropzone(element) {
+    let dz = null
+    if(element.classList.contains('Roster'))           dz = "Roster"
+    if(element.classList.contains('roster-container')) dz = "roster-container"
+    if(element.classList.contains('Scratched'))        dz = "Scratched"
+
+    return dz;
+}
+// Function to traverse the DOM tree and find the closest valid dropzone
+function findClosestDropzone(element) {
+    while (element && !getDropzone(element)) {
+        element = element.parentElement;
+    }
+    return element; // Return the closest dropzone or null if not found
+}
+
+
+
+function savePositions() {
+    console.log(Roster);
+}
+
+
+function draw() {
+    /* for p5.js compatibility */
+}
+
+
+
+
+
+// Pass the PHP array to a JavaScript variable
+let playersNames = ['Player1', 'Player2', 'Player3', 'Player4'];
+let playersPositions =  ['LW', 'C', 'RW', 'DD'];
+let playersStatus = ['H', 'H', 'H', 'S'];
+let players = [];
+
+for (let i = 0; i < playersNames.length; i++) {
+    let name = playersNames[i];
+    let position = playersPositions[i];
+    let status = playersStatus[i];
+    players.push({ name: name, position: position, status: status});
+}
+
+console.log(players); // Check the structure of the players array
+
+
+document.addEventListener('DOMContentLoaded', function() {
+// Check if teamID is set
+if (typeof teamID !== 'undefined' && teamID > 0) {
+    // Fetch player info from API
+    fetch(`http://192.168.1.161:8001/API.php?PlayerInfo&Team=${teamID}`)
+        .then(response => {
+            console.log('Raw response:', response);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Process and display player data
+            //displayPlayers(data);
+            players = data;
+            console.log(players)
+            createPlayers()
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+} else {
+    console.log('Team ID is not set or invalid.');
+}
+});
+
+function displayPlayers(playersArray) {
+const playerCategories = {
+    farmScratched: [],
+    farmDressed: [],
+    proScratched: [],
+    proDressed: [],
+    // Add more categories as needed
+};
+
+// Split players into categories based on Status1
+playersArray.forEach(player => {
+    switch (player.Status1) {
+        case 0:   
+            playerCategories.farmScratched.push(player);
+            break;
+        case 1:  
+            playerCategories.farmDressed.push(player);
+            break;
+        case 2:   
+            playerCategories.proScratched.push(player);
+            break;
+        case 3:    
+            playerCategories.proDressed.push(player);
+            break;
+        // Add more cases as needed
+        default:
+            // Handle other statuses or ignore
+            break;
+    }
+});
+
+// Display the categorized players
+displayCategorizedPlayers(playerCategories);
+}
+
+function displayCategorizedPlayers(categories) {
+const playerListContainer = document.getElementById('player-list');
+playerListContainer.innerHTML = ''; // Clear previous content
+
+for (const [status, players] of Object.entries(categories)) {
+    if (players.length > 0) {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'player-category';
+        categoryDiv.innerHTML = `<h2>Status ${status}</h2>`;
+        
+        players.forEach(player => {
+            const playerItem = document.createElement('div');
+            playerItem.className = 'player-item';
+            playerItem.innerHTML = `
+                <h3>${player.Name} (${player.Number})</h3>
+                <p>Team: ${player.TeamName}</p>
+                <p>Age: ${player.Age}</p>
+                <p>Position: ${player.PosD ? 'Defenseman' : 'Unknown'}</p>
+                <a href="${player.URLLink}" target="_blank">View Profile</a>
+            `;
+            categoryDiv.appendChild(playerItem);
+        });
+
+        playerListContainer.appendChild(categoryDiv);
+    }
+}
+}
+
+
+
+ /* 
+    document.addEventListener('DOMContentLoaded', function() {
+    
+    if (typeof teamID === 'undefined' || teamID === null || teamID === 0) {
+        // teamID is either undefined or null
+        console.log("teamID no set yet")
+    } else {
+        const url = new URL(window.location.href);
+        if (!url.searchParams.has('Team')) {
+            url.searchParams.set('Team', teamID);
+            window.location.href = url.toString(); // Reload with new parameter
+        } 
+    } 
+});
+*/
+
