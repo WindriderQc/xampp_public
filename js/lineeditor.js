@@ -887,17 +887,17 @@ function actualizePlayerCard(player)
 	document.getElementById("tdLD").innerHTML = player.LD;
 	document.getElementById("tdOV").innerHTML = player.Overall;
 
-	document.getElementById("tdGP").innerHTML = player.DU;
-	document.getElementById("tdG").innerHTML = player.DU;
-	document.getElementById("tdA").innerHTML = player.DU;
-	document.getElementById("tdPTS").innerHTML = player.DU;
-	document.getElementById("td+/-").innerHTML = player.DU;
-	document.getElementById("tdPPG").innerHTML = player.DU;
-	document.getElementById("tdSHG").innerHTML = player.DU;
-	document.getElementById("tdSHOTS").innerHTML = player.DU;
-	document.getElementById("tdBS").innerHTML = player.DU;
-	document.getElementById("tdCHECKS").innerHTML = player.DU;
-	document.getElementById("tdPIM").innerHTML = player.DU;
+	document.getElementById("tdGP").innerHTML = player.GP;
+	document.getElementById("tdG").innerHTML = player.G;
+	document.getElementById("tdA").innerHTML = player.A;
+	document.getElementById("tdPTS").innerHTML = player.P;
+	document.getElementById("td+/-").innerHTML = player.PlusMinus;
+	document.getElementById("tdPPG").innerHTML = player.PPG;
+	document.getElementById("tdSHG").innerHTML = player.PKG;
+	document.getElementById("tdSHOTS").innerHTML = player.SHOTS;
+	document.getElementById("tdBS").innerHTML = player.ShotsBlock;
+	document.getElementById("tdCHECKS").innerHTML = player.Hits;
+	document.getElementById("tdPIM").innerHTML = player.PIM;
 
 	document.getElementById("tdCapHit").innerHTML = player.SalaryAverage;
 	document.getElementById("tdNTC").innerHTML = player.NoTrade;
