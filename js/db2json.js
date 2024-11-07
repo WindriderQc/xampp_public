@@ -64,6 +64,8 @@ async function fetch_teams_lines() {
 
 
 
+
+
 //  Initiatizing global variable with DB data.
 async function getAllInfos() 
 {
