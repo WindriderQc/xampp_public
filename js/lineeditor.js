@@ -857,12 +857,21 @@ function checkCompleteLines(){
 
 
 
+function actualizePlayerCard(player) 
+{
+    
+    document.getElementById("tdCountry").innerHTML = player.Country;
+    document.getElementById("tdAge").innerHTML = player.Age;
+
+    // etc.....
+
+}
 
 
 // Side Nav
 
 // Function to open the side navigation and show item info
-async function openNav(info, id) {
+async function openNav(info) {
     // Set width to display the side navigation
     document.getElementById("sideNavR").style.width = "350px";
     
@@ -872,7 +881,9 @@ async function openNav(info, id) {
     const response = await fetch('../components/PlayerCard.html');
     const playerCardHtml = await response.text();
     document.getElementById("sideNavContent").innerHTML = playerCardHtml;
-    actualizePlayerCard(id);
+
+    console.log(info)
+    actualizePlayerCard(info);
 
 
     /*let playerInfoHtml = `<p><strong>Selected Item ID:</strong> ${id}</p>`; 
@@ -917,8 +928,8 @@ async function openNav(info, id) {
         const info = player;
 
         //const info = label ? label.innerText : 'No Info';
-        const id = clickedItem.id;
-        openNav(info, id);
+        //const id = clickedItem.id;
+        openNav(info);
     }
 });
 
