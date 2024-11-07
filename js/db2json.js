@@ -1,7 +1,10 @@
 
 
 let allPlayersInfo = [];
-let allTeamsInfo = [];
+let allProTeamInfo = [];
+let allProTeamStats = [];
+let allProTeamLines = [];
+
 
 
 async function fetch_players_info() { 
@@ -10,7 +13,7 @@ async function fetch_players_info() {
         const data = await response.json(); 
         if (data.error) { console.error(data.error); } 
         else { 
-            allPlayersInfo = data; console.log(allPlayersInfo); 
+            allPlayersInfo = data; console.log("PlayersInfo", allPlayersInfo); 
             displayPlayersInfo(allPlayersInfo, 'dataDisplay'); // Display initial info if needed 
             } 
     } 
@@ -26,8 +29,34 @@ async function fetch_teams_info() {
         console.error(data.error); 
     } 
     else { 
-        allTeamsInfo = data; 
-        console.log(allTeamsInfo);
+        allProTeamInfo = data; 
+        console.log("ProTeamInfo", allProTeamInfo);
+        //displayPlayersInfo(allPlayersInfo); // Display initial info if needed 
+        }
+}
+
+async function fetch_teams_stats() {
+    const response = await fetch('../../components/sql/fetch_team_stats.php');
+    const data = await response.json(); 
+    if (data.error) { 
+        console.error(data.error); 
+    } 
+    else { 
+        allProTeamStats = data; 
+        console.log("ProStats", allProTeamStats);
+        //displayPlayersInfo(allPlayersInfo); // Display initial info if needed 
+        }
+}
+
+async function fetch_teams_lines() {
+    const response = await fetch('../../components/sql/fetch_team_lines.php');
+    const data = await response.json(); 
+    if (data.error) { 
+        console.error(data.error); 
+    } 
+    else { 
+        allProTeamLines = data; 
+        console.log("ProLines", allProTeamLines);
         //displayPlayersInfo(allPlayersInfo); // Display initial info if needed 
         }
 }
@@ -36,10 +65,12 @@ async function fetch_teams_info() {
 
 
 //  Initiatizing global variable with DB data.
-async function getAllInfos() {
+async function getAllInfos() 
+{
     await fetch_players_info(); // Call filterPlayers with the desired ID to filter and display data
     await fetch_teams_info();
-
+    await fetch_teams_lines(); 
+    await fetch_teams_stats();
 }
 
 

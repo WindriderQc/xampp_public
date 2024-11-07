@@ -10,22 +10,22 @@ $DatabaseFile = '../../LHSQC-STHS.db';
 $db = new SQLite3($DatabaseFile);
 
 if($db) {
-    $query = "SELECT * FROM TeamProInfo";
+    $query = "SELECT * FROM TeamProLines";
     $result = $db->query($query);
 
     if (!$result) {
         echo json_encode(["error" => $db->lastErrorMsg()]);
     } else {
-        $TeamProInfo = [];
+        $TeamProLines = [];
 
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $TeamProInfo[] = $row;
+            $TeamProLines[] = $row;
         }
 
-        echo json_encode($TeamProInfo);
+        echo json_encode($TeamProLines);
     }
 }
 else { 
-    echo json_encode(["error" => "Error - db not defined when fetching team info"]); 
+    echo json_encode(["error" => "Error - db not defined when fetching team lines"]); 
 }
 ?>
