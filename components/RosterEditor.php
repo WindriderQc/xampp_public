@@ -117,7 +117,7 @@ if (isset($_COOKIE[$Cookie_Name])) {
 
 
 
-<script src="js/rosterEditor.js"></script>
+<script src="js/teamEditor.js"></script>
 
 
 
