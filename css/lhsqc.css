@@ -1124,6 +1124,7 @@ footer .module-content {
 
     background-color: white ; 
     border: 1px solid rgb(20, 20, 20);
+    overflow: hidden;
 
 
   }
@@ -1597,11 +1598,14 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
 }
 
+
+
 .tablesorterMainPage tbody tr.static td {
     
     vertical-align: middle; 
     background-color:#ff1717;
     color: white;
+    font-size: larger;
 }
 
 
@@ -1616,6 +1620,10 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
     color: black !important;
 }
 
+.tablesorterMainPage {
+    color:black !important;
+    
+}
 
 .containerMainPage
 
