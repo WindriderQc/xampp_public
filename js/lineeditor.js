@@ -859,10 +859,50 @@ function checkCompleteLines(){
 
 function actualizePlayerCard(player) 
 {
-    
+	document.getElementById("tdName").innerHTML = player.Name;
+	
+	document.getElementById("tdAge").innerHTML = player.Age;
     document.getElementById("tdCountry").innerHTML = player.Country;
-    document.getElementById("tdAge").innerHTML = player.Age;
+   	document.getElementById("tdPos").innerHTML = player.PosC;
+	document.getElementById("tdHeight").innerHTML = player.Height;
+	document.getElementById("tdWeight").innerHTML = player.Weight;
+	document.getElementById("tdBorn").innerHTML = player.AgeDate;
+
+
 	document.getElementById("tdCON").innerHTML = player.Condition;
+	document.getElementById("tdCK").innerHTML = player.CK;
+	document.getElementById("tdFG").innerHTML = player.FG;
+	document.getElementById("tdDI").innerHTML = player.DI;
+	document.getElementById("tdSK").innerHTML = player.SK;
+	document.getElementById("tdST").innerHTML = player.ST;
+	document.getElementById("tdEN").innerHTML = player.EN;
+	document.getElementById("tdDU").innerHTML = player.DU;
+	document.getElementById("tdPH").innerHTML = player.PH;
+	document.getElementById("tdFO").innerHTML = player.FO;
+	document.getElementById("tdPA").innerHTML = player.PA;
+	document.getElementById("tdSC").innerHTML = player.SC;
+	document.getElementById("tdDF").innerHTML = player.DF;
+	document.getElementById("tdPS").innerHTML = player.PS;
+	document.getElementById("tdEX").innerHTML = player.EX;
+	document.getElementById("tdLD").innerHTML = player.LD;
+	document.getElementById("tdOV").innerHTML = player.Overall;
+
+	document.getElementById("tdGP").innerHTML = player.DU;
+	document.getElementById("tdG").innerHTML = player.DU;
+	document.getElementById("tdA").innerHTML = player.DU;
+	document.getElementById("tdPTS").innerHTML = player.DU;
+	document.getElementById("td+/-").innerHTML = player.DU;
+	document.getElementById("tdPPG").innerHTML = player.DU;
+	document.getElementById("tdSHG").innerHTML = player.DU;
+	document.getElementById("tdSHOTS").innerHTML = player.DU;
+	document.getElementById("tdBS").innerHTML = player.DU;
+	document.getElementById("tdCHECKS").innerHTML = player.DU;
+	document.getElementById("tdPIM").innerHTML = player.DU;
+
+	document.getElementById("tdCapHit").innerHTML = player.SalaryAverage;
+	document.getElementById("tdNTC").innerHTML = player.NoTrade;
+	document.getElementById("tdYeatsLeft").innerHTML = player.Contract;
+	document.getElementById("tdStatus").innerHTML = player.DraftYear; //place holder
 
 
     // etc.....
