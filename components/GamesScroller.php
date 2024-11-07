@@ -24,7 +24,7 @@
                             while ($row = $LatestScore->fetchArray()) {  ?>
                              <script> // Use the PHP variable in JavaScript 
                             var phpVar = <?php echo json_encode($row); ?>;
-                            console.log(JSON.stringify(phpVar, null, 2)); 
+                           // console.log(JSON.stringify(phpVar, null, 2)); 
                             </script>
 
                                 <td class="GameDayTable pastGame">
@@ -65,7 +65,7 @@
                            
                            <script> // Use the PHP variable in JavaScript 
                             var phpVar = <?php echo json_encode($row); ?>;
-                            console.log(JSON.stringify(phpVar, null, 2)); 
+                            //console.log(JSON.stringify(phpVar, null, 2)); 
                             </script>
 
                                 <td class=" GameDayTable upcomingGame">
