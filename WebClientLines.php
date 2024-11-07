@@ -634,6 +634,7 @@
 <div id="sideNavR" class="sidenavR">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <div id="sideNavContent">Item details will appear here...</div>
+
 </div>
             
             

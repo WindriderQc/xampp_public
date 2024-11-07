@@ -862,12 +862,20 @@ function checkCompleteLines(){
 // Side Nav
 
 // Function to open the side navigation and show item info
-function openNav(info, id) {
+async function openNav(info, id) {
     // Set width to display the side navigation
-    document.getElementById("sideNavR").style.width = "250px";
+    document.getElementById("sideNavR").style.width = "350px";
     
     
-    let playerInfoHtml = `<p><strong>Selected Item ID:</strong> ${id}</p>`; 
+
+     // Load the external HTML file
+    const response = await fetch('../components/PlayerCard.html');
+    const playerCardHtml = await response.text();
+    document.getElementById("sideNavContent").innerHTML = playerCardHtml;
+    actualizePlayerCard(id);
+
+
+    /*let playerInfoHtml = `<p><strong>Selected Item ID:</strong> ${id}</p>`; 
     playerInfoHtml += '<ul>'; 
     for (const key in info) { 
         if (info.hasOwnProperty(key)) { 
@@ -875,9 +883,10 @@ function openNav(info, id) {
         } 
     } 
     playerInfoHtml += '</ul>'; 
-    document.getElementById("sideNavContent").innerHTML = playerInfoHtml;
+    document.getElementById("sideNavContent").innerHTML = playerInfoHtml;*/
   }
   
+
   // Function to close the side navigation
   function closeNav() {
     document.getElementById("sideNavR").style.width = "0"; // Hide by setting width back to 0
