@@ -191,3 +191,39 @@
   #sideNavContent {
     margin: 20px;
   }
+
+
+
+
+
+
+  .nav-tabs .nav-item .nav-link {
+    background-color:  #303336 ;
+    color: #747474;
+  }
+
+
+  .tabsItem button:hover{
+    background-color: #1e2022 !important;
+    color: #E7BF3A !important;
+   /* transform: scale(1.05); /* Slightly enlarges the box */
+    cursor: pointer; /* Changes the cursor to indicate it's interactive */
+  }
+  
+  .nav-tabs .nav-item .nav-link.active {
+    color: #E7BF3A;
+    background-color: #010305;
+  }
+  
+  .tab-content {
+    border: 1px solid #dee2e6;
+    border-top: transparent;
+    padding: 15px;
+  }
+  
+  .tab-content .tab-pane {
+    background-color: #FFF;
+    color: #0080FF;
+    min-height: 200px;
+    height: auto;
+  }

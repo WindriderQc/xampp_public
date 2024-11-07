@@ -76,12 +76,12 @@ $(document).ready(function() {
     });
 
     // Tabs item active state
-    document.querySelectorAll('#tabsList .tabsItem').forEach(item => {
+    /*document.querySelectorAll('#tabsList .tabsItem').forEach(item => {
         item.addEventListener('click', function() {
             document.querySelectorAll('#tabsList .tabsItem').forEach(el => el.classList.remove('active'));
             this.classList.add('active');
         });
-    });
+    });*/
 
 
 
