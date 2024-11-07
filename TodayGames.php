@@ -101,8 +101,12 @@ STHSErrorTodayGame:
 echo "<title>" . $Title . "</title>";
 
 
+?>
 
 
+<div class="container">
+
+<?php
 
 Function PrintGames($Row, $ScheduleLang, $LeagueOutputOption, $ImagesCDNPath){
 
@@ -196,6 +200,7 @@ Function PrintGames($Row, $ScheduleLang, $LeagueOutputOption, $ImagesCDNPath){
 
 ?>
 
+</div>
 <style>
 
 .TodayGameDiv {

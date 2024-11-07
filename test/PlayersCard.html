@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="card" style="width: 18rem;">
+        <img src="../images/Petterson.png" class="card-img-top rounded-circle" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Elias Petterson</h5>
+            
+            <!-- Informations de base du joueur -->
+            <table class="table PlayerInfoTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Pos</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Center</td>
+                        <td>SWE</td>
+                        <td>30</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Height</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Born</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6'2"</td>
+                        <td>175</td>
+                        <td>30/02/1993</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Onglets pour les Ratings et Stats -->
+            <ul class="nav nav-tabs" id="playerTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="ratings-tab" data-bs-toggle="tab" data-bs-target="#ratings" type="button" role="tab" aria-controls="ratings" aria-selected="true">Ratings</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Stats</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#contract" type="button" role="tab" aria-controls="contracts" aria-selected="false">Contracts</button>
+              </li>
+            </ul>
+            
+            <div class="tab-content" id="playerTabsContent">
+                <!-- Ratings Tab -->
+                <div class="tab-pane fade show active" id="ratings" role="tabpanel" aria-labelledby="ratings-tab">
+                    <table class="table PlayerRatingsTable mt-3">
+                        <tbody>
+                            <tr><th scope="row">CON</th><td>100</td></tr>
+                            <tr><th scope="row">CK</th><td>57</td></tr>
+                            <tr><th scope="row">FG</th><td>33</td></tr>
+                            <tr><th scope="row">DI</th><td>92</td></tr>
+                            <tr><th scope="row">SK</th><td>79</td></tr>
+                            <tr><th scope="row">ST</th><td>66</td></tr>
+                            <tr><th scope="row">EN</th><td>89</td></tr>
+                            <tr><th scope="row">DU</th><td>83</td></tr>
+                            <tr><th scope="row">PH</th><td>84</td></tr>
+                            <tr><th scope="row">FO</th><td>59</td></tr>
+                            <tr><th scope="row">PA</th><td>80</td></tr>
+                            <tr><th scope="row">SC</th><td>77</td></tr>
+                            <tr><th scope="row">DF</th><td>64</td></tr>
+                            <tr><th scope="row">PS</th><td>83</td></tr>
+                            <tr><th scope="row">EX</th><td>90</td></tr>
+                            <tr><th scope="row">LD</th><td>80</td></tr>
+                            <tr><th scope="row">OV</th><td>73</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Stats Tab -->
+                <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                    <table class="table PlayerStatsTable mt-3">
+                        <tbody>
+                            <tr><th scope="row">GP</th><td>10</td></tr>
+                            <tr><th scope="row">G</th><td>6</td></tr>
+                            <tr><th scope="row">A</th><td>4</td></tr>
+                            <tr><th scope="row">PTS</th><td>10</td></tr>
+                            <tr><th scope="row">+/-</th><td>4</td></tr>
+                            <tr><th scope="row">PPG</th><td>1</td></tr>
+                            <tr><th scope="row">SHG</th><td>0</td></tr>
+                            <tr><th scope="row">SHOTS</th><td>32</td></tr>
+                            <tr><th scope="row">BLOCKED SHOTS</th><td>2</td></tr>
+                            <tr><th scope="row">CHECKS</th><td>1</td></tr>
+                            <tr><th scope="row">PIM</th><td>2</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                    <!-- Contracts Tab -->
+                    <div class="tab-pane fade" id="contract" role="tabpanel" aria-labelledby="contract-tab">
+                      <table class="table PlayerContractTable mt-3">
+                          <tbody>
+                              <tr><th scope="row">CapHit</th><td>100000</td></tr>
+                              <tr><th scope="row">NTC</th><td>Yes</td></tr>
+                              <tr><th scope="row">Years Left</th><td>4</td></tr>
+                              <tr><th scope="row">Status</th><td>UFA</td></tr>
+                                                       </tbody>
+                      </table>
+                    </div>
+
+
+            </div>
+        </div>
+    </div>  
+</body>
+</html>
