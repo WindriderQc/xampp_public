@@ -1675,3 +1675,13 @@ border-width: 1px;
     
     
     }
+
+
+
+
+
+
+    /* Set a maximum width for the Transaction card */ 
+    .transaction-card .card { 
+        max-width: 100%; overflow: auto; /* Allow scrolling if the content exceeds the width */ 
+    }

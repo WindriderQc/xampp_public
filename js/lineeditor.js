@@ -855,46 +855,6 @@ function checkCompleteLines(){
 
 
 
-let allPlayersInfo = [];
-
-async function fetch_players_info() {
-    const response = await fetch('fetch_players_info.php');
-    const data = await response.json(); 
-    if (data.error) { 
-        console.error(data.error); 
-    } 
-    else { 
-        allPlayersInfo = data; 
-        console.log(allPlayersInfo);
-        //displayPlayersInfo(allPlayersInfo); // Display initial info if needed 
-        }
-}
-
-fetch_players_info();
-// Call filterPlayers with the desired ID to filter and display data
-
-
-
-function displayPlayersInfo(players, displayDivID) {
-    // Assuming you have some container to display the player info
-    const container = document.getElementById(displayDivID); // document.getElementById('playerInfoContainer');
-    container.innerHTML = ''; // Clear current content
-
-    players.forEach(player => {
-        const listItem = document.createElement('li');
-        listItem.textContent = JSON.stringify(player);
-        container.appendChild(listItem);
-    });
-}
-
-function filterPlayers(uniqueID) {
-    const filteredPlayer = allPlayersInfo.filter(player => player.Number == uniqueID);
-   // displayPlayersInfo(filteredPlayers, 'playerInfoContainer');
-   console.log(filteredPlayer);
-    return filteredPlayer;
-}
-
-
 
 
 

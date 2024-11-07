@@ -253,7 +253,7 @@ if(($CookieTeamNumber == $t OR $DoNotRequiredLoginDynamicWebsite == TRUE) AND $t
                                     
                                     ?>
                                     <div class="">
-                                    <div class="col4">
+                                    <div class="col-5">
                                         <ol id="sort<?= str_replace(" ","",$columnid)?>" class="sort<?= str_replace(" ","",$columnid) . $nextgame; ?> connectedSortable ui-sortable list-group mt-2  ">
                                             <h4 class="columnheader darkText"><?= $type?></h4>
                                             <input class="rosterline<?=$nextgame; ?>" type="hidden" name="txtRoster[<?=$nextgame; ?>][]" value="LINE|<?= $columnid; ?>">
