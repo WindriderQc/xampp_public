@@ -221,7 +221,7 @@
                         } );*/
                         </script>
                     
-                    <div id="tabsLines" class="linetabs">
+                    <div id="tabs" class="linetabs">
                         <ul class="nav nav-tabs" role="tablist">
                                 <?php  
                                 // loop through the tab names creating clickable tabs.
@@ -249,7 +249,7 @@
                                 ?>	
                         </ul>
 
-                        <div id="tabsSections" class="tab-content">
+                        <div id="tabs" class="tab-content">
                                 <?php // Loop through the tabs info making the lines pages.
                                 foreach($tabs AS $i=>$t) {
                                     $displaytab = false;
@@ -258,7 +258,7 @@
                                     else                                 $displaytab = false;
                                     
                                     if($displaytab) { ?>
-                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer vh-100 tab-pane <?php if($count = 1) { echo " active show ";} ?> ">
+                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer vh-100 tab-pane <?php echo ($count == 1) ? 'active show' : ''; ?> ">
                                         
                                         <?php 
                                         if($i == "Forward" || $i == "Defense" || $i == "PP" || $i == "PK4" || $i == "4VS4" || $i == "PK3"){	
