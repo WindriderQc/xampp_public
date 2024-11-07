@@ -5,16 +5,10 @@ $(document).ready(function() {
     $('.button-menu li').on('click', function(event) {
         event.stopPropagation(); // Prevent the event from bubbling up
         console.log('Menu button clicked'); // Check if the event is triggered
-
         const menu = $('.nav-mobile-menu');
-        console.log('Before toggle:', menu.hasClass('active')); // Check class before toggle
         menu.toggleClass('active');
-        console.log('After toggle:', menu.hasClass('active')); // Check class after toggle
+      
     });
-
-
-
-    // Mobile Nav $('.button-menu li').on('click', function(event) { event.stopPropagation(); // Prevent the event from bubbling up console.log('Menu button clicked'); // Check if the event is triggered $('.nav-mobile-menu').toggleClass('active'); });
 
 
     // Toggle submenus within the mobile menu
@@ -88,13 +82,13 @@ $(document).ready(function() {
             this.classList.add('active');
         });
     });
-});
+
 
 
 
 
 /*! Tab Menu ....   test if required*/ 
-jQuery(document).ready(function(){
+
     jQuery('.tabsmenu.standard .tabmenu-links a').on('click',function(e){
         console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
         var currentAttrValue=jQuery(this).attr('href');
@@ -118,8 +112,7 @@ jQuery(document).ready(function(){
         jQuery(this).parent('li').addClass('activemenu').siblings().removeClass('activemenu');
         e.preventDefault();
     });
-});
-jQuery(document).ready(function(){
+
     jQuery('.tabsmain.standard .tabmain-links a').on('click',function(e){
         var currentAttrValue=jQuery(this).attr('href');
         jQuery('.tabsmain '+ currentAttrValue).show().siblings().hide();

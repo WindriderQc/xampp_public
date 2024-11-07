@@ -1,4 +1,4 @@
-<?php include "Header.php"; ?>
+
 
 <div class="container my-5 tradetable frontpage-card top5Card">
 <div class="card-header">Latest Trades</div>
