@@ -884,7 +884,7 @@ async function openNav(info) {
     const playerCardHtml = await response.text();
     document.getElementById("sideNavContent").innerHTML = playerCardHtml;
 
-    console.log(info)
+    //console.log(info)
     actualizePlayerCard(info);
 
 
