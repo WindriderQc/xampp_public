@@ -14,7 +14,7 @@ async function fetch_players_info() {
         if (data.error) { console.error(data.error); } 
         else { 
             allPlayersInfo = data; console.log("PlayersInfo", allPlayersInfo); 
-            displayPlayersInfo(allPlayersInfo, 'dataDisplay'); // Display initial info if needed 
+           // displayPlayersInfo(allPlayersInfo, 'dataDisplay'); // Display initial info if needed 
             } 
     } 
     catch (error) { console.error('Error fetching player info:', error);
@@ -74,7 +74,7 @@ async function getAllInfos()
 }
 
 
-
+getAllInfos();
 
 
 
@@ -118,11 +118,3 @@ function displayField(playerID, displayDivID)
 }
 
 
-document.addEventListener('DOMContentLoaded', async function() {  //  comme les requetes DB prenne du temps avant de creer les DOM, on attend que tout le DOM soit pret avant de lancer les scripts.
-
-    await getAllInfos();
-
-    displayPlayersInfo(allPlayersInfo, "dataDisplay");
-
-    displayField(1, 'specificField');
-});

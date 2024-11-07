@@ -48,6 +48,7 @@
         <link href=\"//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">
         <link href=\"css/lhsqc.css\" rel=\"stylesheet\" type=\"text/css\" /> 
         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>
+        <script src=\"js/db2json.js\"    type=\"text/javascript\"></script>
         <link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap\" rel=\"stylesheet\">";
         //<link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
         //<script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
