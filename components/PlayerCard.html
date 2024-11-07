@@ -1,8 +1,8 @@
   
     <div class="card" style="width: 18rem;">
-        <img src="../images/Petterson.png" class="card-img-top rounded-circle" alt="...">
+        <img src="../images/Petterson.png" class="card-img-top rounded-circle" alt="..." >
         <div class="card-body">
-            <h5 class="card-title">Elias Petterson</h5>
+            <h5 id="tdName"></h5>
             
             <!-- Informations de base du joueur -->
             <table class="table PlayerInfoTable">
@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Center</td>
+                        <td id="tdPos"></td>
                         <td id="tdCountry"></td>
                         <td id="tdAge"></td>
                     </tr>
@@ -29,9 +29,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>6'2"</td>
-                        <td>175</td>
-                        <td>30/02/1993</td>
+                        <td id="tdHeight"></td>
+                        <td id="tdWeight"></td>
+                        <td id="tdBorn"></td>  
                     </tr>
                 </tbody>
             </table>
@@ -54,23 +54,23 @@
                 <div class="tab-pane fade show active" id="ratings" role="tabpanel" aria-labelledby="ratings-tab">
                     <table class="table PlayerRatingsTable mt-3">
                         <tbody>
-                            <tr><th scope="row">CON</th><td id="tdCON">100</td></tr>
-                            <tr><th scope="row">CK</th><td>57</td></tr>
-                            <tr><th scope="row">FG</th><td>33</td></tr>
-                            <tr><th scope="row">DI</th><td>92</td></tr>
-                            <tr><th scope="row">SK</th><td>79</td></tr>
-                            <tr><th scope="row">ST</th><td>66</td></tr>
-                            <tr><th scope="row">EN</th><td>89</td></tr>
-                            <tr><th scope="row">DU</th><td>83</td></tr>
-                            <tr><th scope="row">PH</th><td>84</td></tr>
-                            <tr><th scope="row">FO</th><td>59</td></tr>
-                            <tr><th scope="row">PA</th><td>80</td></tr>
-                            <tr><th scope="row">SC</th><td>77</td></tr>
-                            <tr><th scope="row">DF</th><td>64</td></tr>
-                            <tr><th scope="row">PS</th><td>83</td></tr>
-                            <tr><th scope="row">EX</th><td>90</td></tr>
-                            <tr><th scope="row">LD</th><td>80</td></tr>
-                            <tr><th scope="row">OV</th><td>73</td></tr>
+                            <tr><th scope="row">CON</th><td id="tdCON"></td></tr>
+                            <tr><th scope="row">CK</th><td id="tdCK"></td></tr>
+                            <tr><th scope="row">FG</th><td id="tdFG"></td></tr>
+                            <tr><th scope="row">DI</th><td id="tdDI"></td></tr>
+                            <tr><th scope="row">SK</th><td id="tdSK"></td></tr>
+                            <tr><th scope="row">ST</th><td id="tdST"></td></tr>
+                            <tr><th scope="row">EN</th><td id="tdEN"></td></tr>
+                            <tr><th scope="row">DU</th><td id="tdDU"></td></tr>
+                            <tr><th scope="row">PH</th><td id="tdPH"></td></tr>
+                            <tr><th scope="row">FO</th><td id="tdFO"></td></tr>
+                            <tr><th scope="row">PA</th><td id="tdPA"></td></tr>
+                            <tr><th scope="row">SC</th><td id="tdSC"></td></tr>
+                            <tr><th scope="row">DF</th><td id="tdDF"></td></tr>
+                            <tr><th scope="row">PS</th><td id="tdPS"></td></tr>
+                            <tr><th scope="row">EX</th><td id="tdEX"></td></tr>
+                            <tr><th scope="row">LD</th><td id="tdLD"></td></tr>
+                            <tr><th scope="row">OV</th><td id="tdOV"></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -79,17 +79,17 @@
                 <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
                     <table class="table PlayerStatsTable mt-3">
                         <tbody>
-                            <tr><th scope="row">GP</th><td>10</td></tr>
-                            <tr><th scope="row">G</th><td>6</td></tr>
-                            <tr><th scope="row">A</th><td>4</td></tr>
-                            <tr><th scope="row">PTS</th><td>10</td></tr>
-                            <tr><th scope="row">+/-</th><td>4</td></tr>
-                            <tr><th scope="row">PPG</th><td>1</td></tr>
-                            <tr><th scope="row">SHG</th><td>0</td></tr>
-                            <tr><th scope="row">SHOTS</th><td>32</td></tr>
-                            <tr><th scope="row">BLOCKED SHOTS</th><td>2</td></tr>
-                            <tr><th scope="row">CHECKS</th><td>1</td></tr>
-                            <tr><th scope="row">PIM</th><td>2</td></tr>
+                            <tr><th scope="row">GP</th><td id="tdGP"></td></tr>
+                            <tr><th scope="row">G</th><td id="tdG"></td></tr>
+                            <tr><th scope="row">A</th><td id="tdA"></td></tr>
+                            <tr><th scope="row">PTS</th><td id="tdPTS"></td></tr>
+                            <tr><th scope="row">+/-</th><td id="td+/-"></td></tr>
+                            <tr><th scope="row">PPG</th><td id="tdPPG"></td></tr>
+                            <tr><th scope="row">SHG</th><td id="tdSHG"></td></tr>
+                            <tr><th scope="row">SHOTS</th><td id="tdSHOTS"></td></tr>
+                            <tr><th scope="row">BLOCKED SHOTS</th><td id="tdBS"></td></tr>
+                            <tr><th scope="row">CHECKS</th><td id="tdCHECKS"></td></tr>
+                            <tr><th scope="row">PIM</th><td id="tdPIM"></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -98,10 +98,10 @@
                     <div class="tab-pane fade" id="contract" role="tabpanel" aria-labelledby="contract-tab">
                       <table class="table PlayerContractTable mt-3">
                           <tbody>
-                              <tr><th scope="row">CapHit</th><td>100000</td></tr>
-                              <tr><th scope="row">NTC</th><td>Yes</td></tr>
-                              <tr><th scope="row">Years Left</th><td>4</td></tr>
-                              <tr><th scope="row">Status</th><td>UFA</td></tr>
+                              <tr><th scope="row">CapHit</th><td id="tdCapHit"></td></tr>
+                              <tr><th scope="row">NTC</th><td id="tdNTC"></td></tr>
+                              <tr><th scope="row">Years Left</th><td id="tdYearsLeft"></td></tr>
+                              <tr><th scope="row">Status</th><td id="tdStatus"></td></tr>
                             </tbody>
                       </table>
                     </div>
