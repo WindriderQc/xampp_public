@@ -1,6 +1,7 @@
 
 
 let allPlayersInfo = [];
+let allPlayersStats = [];
 let allProTeamInfo = [];
 let allProTeamStats = [];
 let allProTeamLines = [];
@@ -14,6 +15,20 @@ async function fetch_players_info() {
         if (data.error) { console.error(data.error); } 
         else { 
             allPlayersInfo = data; console.log("PlayersInfo", allPlayersInfo); 
+           // displayPlayersInfo(allPlayersInfo, 'dataDisplay'); // Display initial info if needed 
+            } 
+    } 
+    catch (error) { console.error('Error fetching player info:', error);
+    }
+}
+
+async function fetch_players_stats() { 
+    try { 
+        const response = await fetch('../../components/sql/fetch_player_pro_stats.php'); 
+        const data = await response.json(); 
+        if (data.error) { console.error(data.error); } 
+        else { 
+            allPlayersStats = data; console.log("PlayersStats", allPlayersStats); 
            // displayPlayersInfo(allPlayersInfo, 'dataDisplay'); // Display initial info if needed 
             } 
     } 
@@ -73,6 +88,7 @@ async function getAllInfos()
     await fetch_teams_info();
     await fetch_teams_lines(); 
     await fetch_teams_stats();
+    await fetch_players_stats();
 }
 
 
