@@ -862,6 +862,8 @@ function actualizePlayerCard(player)
     
     document.getElementById("tdCountry").innerHTML = player.Country;
     document.getElementById("tdAge").innerHTML = player.Age;
+	document.getElementById("tdCON").innerHTML = player.Condition;
+
 
     // etc.....
 
