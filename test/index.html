@@ -98,6 +98,10 @@
             <div class="table-data" id="PlayerInfo"></div>
         </div>
         <div class="column">
+            <h2>PlayerProStat</h2>
+            <div class="table-data" id="TeamProInfo"></div>
+        </div>
+        <div class="column">
             <h2>TeamProLines</h2>
             <div class="table-data" id="TeamProLines"></div>
         </div>
@@ -109,13 +113,15 @@
             <h2>TeamProInfo</h2>
             <div class="table-data" id="TeamProInfo"></div>
         </div>
+
+      
     </div>
 
     <script>
     
 async function fetchColumnNames() {
     try {
-        const response = await fetch('fetch_player_info.php');
+        const response = await fetch('fetch_db.php');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

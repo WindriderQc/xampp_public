@@ -6,7 +6,7 @@ $DatabaseFile = '../LHSQC-STHS.db';
 $db = new SQLite3($DatabaseFile);
 
 if ($db) {
-    $tables = ['PlayerInfo', 'TeamProLines', 'TeamProStat', 'TeamProInfo'];
+    $tables = ['PlayerInfo', 'TeamProLines', 'TeamProStat', 'TeamProInfo', 'PlayerProStat'];
     $columns = [];
     
     foreach ($tables as $table) {
