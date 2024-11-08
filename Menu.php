@@ -290,8 +290,19 @@ if ($MenuQueryOK == True) {
 
         </li>
         <li><a href="PlayersRoster.php">Players</a></li>
-        <li><a href="Schedule.php">Schedule</a></li>
-        <li><a href="Standing.php">Standing</a></li>
+        <li><div> Schedule  <i class="fa fa-chevron-right"></i></div>
+            <ul>
+                <li><a href="Schedule.php">LHSQC</a></li>
+                <li><a href="Schedule.php?Farm">AHL</a></li>
+            </ul>
+        </li>
+        <li><div> Standing  <i class="fa fa-chevron-right"></i></div>
+            <ul>
+                <li><a href="Standing.php">LHSQC</a></li>
+                <li><a href="Standing.php?Farm">AHL</a></li>
+            </ul>
+        </li>
+        
         <li><a href="Login.php">LOGIN</a></li>
     </ul>	
 
