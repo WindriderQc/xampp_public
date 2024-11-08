@@ -36,8 +36,9 @@
 
    
     
-        $WebClientHeadCode = " 
-        <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css\" rel=\"stylesheet\">  
+        $WebClientHeadCode = "
+
+        <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css\" rel=\"stylesheet\">  
        
                                                 
         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
@@ -359,15 +360,15 @@
                                                                                 
                                                                                     <div class="plusMinusBtn input-group mx-2 d-flex justify-content-center align-items-center" style="width: auto;">
        
-                                                                                        <span class="input-group-btn"  style="margin-right: 35px;">
-                                                                                            <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown-<?= $id ?>" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);">
-                                                                                                <span class="glyphicon glyphicon-minus"></span>
+                                                                                        <span class="input-group-btn"  style="">
+                                                                                            <button type="button" class="btn btn-danger btn-number form-control"  data-type="minus"   name="btnDown-<?= $id ?>" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);">
+                                                                                            <i class="fa-solid fa-minus"></i>
                                                                                             </button>
                                                                                         </span>
                                                                                         <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
                                                                                         <span class="input-group-btn">
-                                                                                            <button type="button" class="btn btn-success btn-number m-0" name="btnUp-<?= $id ?>" data-type="plus" data-field="quant[2]"  onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
-                                                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                                                            <button type="button" class="btn btn-success btn-number m-0" name="btnUp-<?= $id ?>" data-type="plus"  onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                            <i class="fa-solid fa-plus"></i>
                                                                                             </button>
                                                                                         </span>
                                                                                     </div>
@@ -376,19 +377,19 @@
                                                                         <?php }?>                                                          
                                                                             <div class="row">  
                                                                                 <div class="  time d-flex align-items-center justify-content-center ">
-                                                                                    <div class="timelabel my-0 py-0">Time% </div>
+                                                                                    <div class="timelabel my-0 py-0">Time%</div>
                                                                                 
                                                                                     <?php   $id = $field . "Time";   ?>                                                                       
                                                                                     <div class="input-group  plusMinusBtn mx-2 d-flex justify-content-center align-items-center" style="width: auto;">
-                                                                                        <span class="input-group-btn  "  style="margin-right: 35px;">>
+                                                                                        <span class="input-group-btn  "  style="">
                                                                                             <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown-Time" onclick="valChange('<?= $id ?>','Time','<?=$field?>','down',<?=$cpfields?>);">
-                                                                                                <span class="glyphicon glyphicon-minus"></span>
+                                                                                            <i class="fa-solid fa-minus"></i>
                                                                                             </button>
                                                                                         </span>
                                                                                         <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
                                                                                         <span class="input-group-btn">
                                                                                             <button type="button" class="btn btn-success btn-number  m-0" data-type="plus" data-field="quant[2]"  name="btnUp-Time"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up',<?=$cpfields?>);">
-                                                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                                                            <i class="fa-solid fa-plus"></i>
                                                                                             </button>
                                                                                         </span>
                                                                                     </div>
