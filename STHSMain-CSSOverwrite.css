@@ -489,7 +489,7 @@ header p {
 
 .active a {
 
-	color: #F8C630!important;
+	color: #F8C630;
 
 }
 
@@ -497,7 +497,7 @@ div .active a {
 
 	color: #ffffff;
 
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 
     font-weight: 550;
 
@@ -745,13 +745,14 @@ body:not(.mobile) #stickynav{
 	color: #fff;
     display: flex;
     align-items: center;
+    padding-bottom: 2px;
 }
 
 .alert-info i {
 	color: #f39c12;
-    font-size: 1.5em; /* Adjust size as needed */
     max-height: 100%; /* Ensure the icon stays within the div */
 }
+
 
 
 
@@ -1123,6 +1124,7 @@ footer .module-content {
 
     background-color: white ; 
     border: 1px solid rgb(20, 20, 20);
+    overflow: hidden;
 
 
   }
@@ -1144,6 +1146,17 @@ footer .module-content {
     background-color:black ; 
 
     color:white;
+
+  }
+
+
+  .boxscorecontainer {
+
+   
+
+    background-color:black; 
+
+    
 
   }
 
@@ -1182,7 +1195,7 @@ footer .module-content {
 .draggable {
 
     cursor: grab; /* Changes the cursor to a "grab" hand */
-
+    touch-action: none; /* Prevents default touch actions like scroll or zoom */
 }
 
 
@@ -1238,40 +1251,25 @@ footer .module-content {
     align-items: center; /* Center the content vertically */
 }
 
-
 .scrollDivTop, .scrollDivBot {
     height: 42px;
     width: 45px;
     cursor: pointer;
-    background:  #E7BF3A; /* rgba(216, 215, 238, 1);*/
+    background:  #0c0c0c; /* rgba(216, 215, 238, 1);*/
 }
-
-
-
 .scrollDivTop {
     border-top-left-radius: 10px;
 }
-
-
-
-
 .scrollDivBot {
     border-bottom-left-radius: 10px;
 }
 
-
-
 .scrollBtnRight {
     border-bottom-left-radius: 10px;
 }
-
-
-
 .scrollBtnLeft {
     border-top-left-radius: 10px;
 }
-
-
 .scrollBtn {
     background: none;
     border: none;
@@ -1299,12 +1297,8 @@ footer .module-content {
 }
 
 
-
-
 .active {
-
     cursor: grabbing;
-
 }
 
 
@@ -1326,27 +1320,14 @@ footer .module-content {
 .StarTable  tr:hover {font-weight: 900;}
 
 
-
-.StarTableHeader {
-
-        padding: 5px; }
+.StarTableHeader { padding: 5px; }
 
 .StarTableHeader img {
-
         max-width: 100%; 
-
         width: 100%;
-
         height: auto;
-
         object-fit:cover;
-
     }
-
-
-
-
-
 
 
 .card-date {
@@ -1430,27 +1411,24 @@ footer .module-content {
 
 
 .roster-container {
-
-    border: 1px solid black; /* Black thin border */
-    color: #b0ccbb;
-    padding: 10px;
-
+    /*border: 1px solid black;  Black thin border */
+    color: #529e71;
+    padding: 5px;
 }
 
-
+.textname {
+    color: #529e71;
+   
+}
 
 .roster-container .card-body {
     color: #27ae60;
     border: 1px solid rgb(2, 168, 24);
 }
 
-
-
 .roster-container p {
     color: #27ae60;
 }
-
-
 
 .roster-container .card-text {
     color: #27ae60;
@@ -1620,11 +1598,14 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
 }
 
+
+
 .tablesorterMainPage tbody tr.static td {
     
     vertical-align: middle; 
     background-color:#ff1717;
     color: white;
+    font-size: larger;
 }
 
 
@@ -1639,6 +1620,10 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
     color: black !important;
 }
 
+.tablesorterMainPage {
+    color:black !important;
+    
+}
 
 .containerMainPage
 
@@ -1686,3 +1671,36 @@ width: 100%;
 
 
 }
+
+
+.StandingsWest{
+
+
+    
+    
+    
+    
+    }
+
+
+.tradetable{
+
+background-color: white;
+border-radius: 5px;
+border-style: solid;
+border-width: 1px;
+
+    
+    
+    
+    }
+
+
+
+
+
+
+    /* Set a maximum width for the Transaction card */ 
+    .transaction-card .card { 
+        max-width: 100%; overflow: auto; /* Allow scrolling if the content exceeds the width */ 
+    }

@@ -28,31 +28,32 @@
                         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
                         <script src=\"https://code.jquery.com/ui/1.14.0/jquery-ui.min.js\" integrity=\"sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=\" crossorigin=\"anonymous\"></script>
                         <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js\"></script>
-                        <link href=\"css/lhsqc.css\" rel=\"stylesheet\" type=\"text/css\" /> 
+                        <link href=\"STHSMain-CSSOverwrite.css\" rel=\"stylesheet\" type=\"text/css\" /> 
                         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>"; //  <script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
        
 		// Make a default header 
 		// 5 Paramaters. PageID, database, teamid, League = Pro/Farm, $headcode (custom headercode can be added. DEFAULT "")
         api_layout_header("rostereditor",$db,$t,false,$WebClientHeadCode);
     } else { echo "Error with DB. :("; }
+
+
+    $FullFarmEnableGlobal = false;
+    $FullFarmEnableLocal = false;
+
+    if ($CookieTeamNumber == 102){$DoNotRequiredLoginDynamicWebsite = TRUE;} 
+            
+    if(($CookieTeamNumber == $t OR $DoNotRequiredLoginDynamicWebsite == TRUE) AND $t > 0 AND $t <= 100){
+        if($t > 0){
+            $teamid = $t;
+
 ?>
 
 <header>
-<?php include "Menu.php";
-
-$FullFarmEnableGlobal = false;
-$FullFarmEnableLocal = false;
-
-if ($CookieTeamNumber == 102){$DoNotRequiredLoginDynamicWebsite = TRUE;} 
-		
-if(($CookieTeamNumber == $t OR $DoNotRequiredLoginDynamicWebsite == TRUE) AND $t > 0 AND $t <= 100){
-	if($t > 0){
-        $teamid = $t;
-?>
+<?php include "Menu.php";?>
 
 <div id="rostereditor">
     <input type="hidden" id="FullFarmEnableLocal" name="FullFarmEnableLocal" value="false">
-    <div class="pagewrapper pagewrapperrostereditor"><?php 
+    <div class="container pagewrapper pagewrapperrostereditor"><?php 
                        
         $sql = "";
         $execute = false;
@@ -328,22 +329,21 @@ if(($CookieTeamNumber == $t OR $DoNotRequiredLoginDynamicWebsite == TRUE) AND $t
                                 }?>
                             </div>
                         </div><?php 
-                    break;
                     } ?>
-                                    </div>
-                                </form> 
-                                </div>
-                                
-                                <?php 
-                        }elseif(isset($_REQUEST["TeamID"])){
-                            ?><div class="doesntexits">The team you are looking for does not exist.</div><?php
-                        }
-
-                        
-                        
-                        ?>
                     </div>
-                </div><?php
+                </form> 
+                </div>
+                
+                <?php 
+        }elseif(isset($_REQUEST["TeamID"])){
+            ?><div class="doesntexits">The team you are looking for does not exist.</div><?php
+        }
+
+        
+        
+        ?>
+    </div>
+</div><?php
             }
 		}else{
 			echo "<div class=\"STHSDivInformationMessage\">" . $NoUserLogin . "<br /><br /></div>";

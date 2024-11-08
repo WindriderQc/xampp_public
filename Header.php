@@ -36,6 +36,6 @@
 
 
      <!--<link href="css/styleT.css" rel="stylesheet" type="text/css" />  -->  
-    <link href="css/lhsqc.css" rel="stylesheet" type="text/css" />
+    <link href="STHSMain-CSSOverwrite.css" rel="stylesheet" type="text/css" />
 
     <script src="js/lhsqc_new.js"    type="text/javascript"></script>
