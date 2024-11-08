@@ -259,7 +259,7 @@
                                     else                                 $displaytab = false;
                                     
                                     if($displaytab) { ?>
-                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer vh-100 tab-pane <?php echo ($count == 1) ? 'active show' : ''; ?> ">
+                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer  tab-pane <?php echo ($count == 1) ? 'active show' : ''; ?> ">
                                         
                                         <?php 
                                         if($i == "Forward" || $i == "Defense" || $i == "PP" || $i == "PK4" || $i == "4VS4" || $i == "PK3"){	
@@ -303,9 +303,7 @@
                                                                     // else its 5vs5
                                                                     }else{
                                                                         $field = "Line". ++$bcount ."5vs5" . $i;
-                                                                        $posit = $positions[$i];
-                                                                       
-                                                                   
+                                                                        $posit = $positions[$i];                                                                
                                                                     }
                                                                     
                                                                     
@@ -325,30 +323,8 @@
                                                                     
                                                                     ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                
                                                             </div><!-- end positionwrapper-->
                                                             
-
-                                                            <script>
-                                                                console.log(`sliders<?= api_MakeCSSClass($bid)?>`)
-
-                                                            </script>
 
                                                             <div class="container sliders " id='sliders<?= api_MakeCSSClass($bid)?>'>
                                                                 
@@ -602,11 +578,17 @@
             $sql .= "WHERE Team = " . $teamid . " AND Status1 = " . $status1 . " ";
             $sql .= "ORDER BY Name ASC, Overall DESC ";
             ?>
-             <div class="alert alert-info darkText p-1"> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
+            
+            <div class="alert alert-info darkText p-1"> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
+            <div class='row justify-content-center'>
+                <div class='col-10 col-lg-2'>
+                     <?php api_html_checkboxes_positionlist("sltPlayerList","true","list-item",null,null); ?>
+                </div> 
+            </div> 
+             
+            
             <div class="playerlist justify-content-start p-0">
-                <?php api_html_checkboxes_positionlist("sltPlayerList","true","list-item",null,null); ?>
-                                                          
-
+                
                 <form name="frmPlayerList">                
                     <ul class="playerselect list-group">
                         <?php 
@@ -648,8 +630,7 @@
 <!-- Side Navigation -->
 <div id="sideNavR" class="sidenavR">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <div id="sideNavContent">Item details will appear here...</div>
-
+  <div id="sideNavContent">PlayerCardC will appear here...</div>
 </div>
             
             

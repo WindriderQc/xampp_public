@@ -1543,7 +1543,12 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
 .positionlist .form-check-label {color:#E7BF3A  !important; font-size:small;  }
 
-.positionlist .form-check-input { margin:0px 2px 0px 2px; font-size:small; }
+.positionlist .form-check-input { 
+    margin:0px 2px 0px 2px; 
+    font-size:small; 
+ /*   border: 2px solid rgba(254, 14, 81, 0.95);
+    background-color: rgba(254, 14, 81, 0.95);*/
+}
 
 
 
