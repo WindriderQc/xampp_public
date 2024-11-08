@@ -271,8 +271,11 @@
                                                     <div class="linesection card  p-0 m-0 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
                                                             <div class="headerTool d-flex justify-content-between align-items-center" >
                                                                 <div class="darkText fs-10 text-start px-3 pt-1"><?= $block ?> </div>
-                                                                <div class="text-end px-2 py-1 m-0"> <img src="./images/strategy.png"  width="35" class="toggle-active"  id="toggleButton<?= $bcount ?>" onclick="toggleSlider(event, <?= $bcount ?>)"/> </div>
+                                                                <div class="text-end px-2 py-1 m-0"> <img src="./images/strategy.png"  width="35" class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggleSlider(event, '<?= api_MakeCSSClass($bid)?>')"  /> </div>
                                                             
+        
+
+
                                                             </div>
                                                         <div class="blockcontainer row">
                                                             
@@ -341,7 +344,13 @@
                                                 
                                                             </div><!-- end positionwrapper-->
                                                             
-                                                            <div class="container sliders " id="sliders<?= $bcount-1 ?>">
+
+                                                            <script>
+                                                                console.log(`sliders<?= api_MakeCSSClass($bid)?>`)
+
+                                                            </script>
+
+                                                            <div class="container sliders " id='sliders<?= api_MakeCSSClass($bid)?>'>
                                                                 
                                                                    
                                                                         <?php foreach($strategy AS $sid=>$strat){

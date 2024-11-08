@@ -1077,10 +1077,14 @@ document.addEventListener('click', function (event) {
 
 });
 
-function toggleSlider(event, bcount) {
+function toggleSlider(event, block) {
     
-    console.log("clicked", `sliders${bcount}`);
-    const targetDiv = document.getElementById(`sliders${bcount}`);
+    const divName =  `sliders${block}`;
+
+    console.log("clicked",divName);
+    const targetDiv = document.getElementById(divName);
+
+
     const button = event.target;
     button.classList.toggle('active'); // Toggle the active class on the button
     targetDiv.classList.toggle('active'); // Toggle the active class on the target div
