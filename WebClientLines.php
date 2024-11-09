@@ -581,7 +581,7 @@
             
             <div class="alert alert-info darkText p-1"> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
             <div class='row justify-content-center'>
-                <div class='col-10 col-lg-2'>
+                <div class='col-10 col-lg-3'>
                      <?php api_html_checkboxes_positionlist("sltPlayerList","true","list-item",null,null); ?>
                 </div> 
             </div> 
@@ -672,6 +672,8 @@
 }?>
     
 <?php include ("Footer.php"); ?>
+
+
 </body></html>
 
 

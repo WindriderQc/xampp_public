@@ -140,31 +140,31 @@ function load_api_html(){
 
             <div class='row'>
                 <div class='col'>
-                    <div class='form-check '>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posC" name="position" class="position form-check-input" checked>
                         <label class="form-check-label" for="posC">C</label>
                     </div>
                 </div>
                 <div class='col'>
-                    <div class='form-check '>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posLW" name="position" class="position form-check-input" checked>
                         <label class="form-check-label" for="posLW">LW</label>
                     </div>
                 </div>
                 <div class='col'>
-                    <div class='form-check'>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posRW" name="position" class="position form-check-input" checked>
                         <label class="form-check-label" for="posRW">RW</label>
                     </div>
                 </div>    
                 <div class='col'>
-                    <div class='form-check'>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posD" name="position" class="position form-check-input" checked>
                         <label class="form-check-label" for="posD">D</label>
                     </div>
                 </div>
                 <div class='col'>
-                    <div class='form-check'>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posG" name="position" class="position form-check-input" checked>                
                         <label class="form-check-label" for="posG">G</label>
                     </div>

@@ -4,8 +4,30 @@
 
 
 
-.linetabs .blockcontainer{padding:0px 10px;}
-.linetabs .linesection{position:relative;padding:0; margin:0%; border:1px solid #cccccc;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); background-color: rgb(214, 224, 233) !important;}
+
+
+
+
+
+
+
+
+
+
+.linetabs .tabcontainer {
+    background-color: #ededed;
+}
+
+
+
+.linetabs .linesection{
+    position:relative;
+    padding:0; 
+    margin:0%; 
+    border:1px solid #cccccc;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); 
+    background-color: rgb(214, 224, 233) !important;
+}
 
 
 .linesection .card-header {
@@ -14,18 +36,14 @@
     margin: 0 ;
 }
 
-#lineeditor  .linetabs .stratvalue{width:80px;}
+.linetabs .blockcontainer{padding:0px 10px;}
+
+.linetabs .stratvalue{width:80px;}
 
 .linetabs .stratlabel{ margin-top:3px;}
 
 .linetabs .startinggoalie{margin-bottom:10px;}
 
-.linetabs .tabcontainer{
-  /*  background-color:#0000009d !important ;
-  padding: 0%;
-  margin: 0;
-*/
-}
 
 
 .strats, .time {
@@ -190,35 +208,3 @@
 
 
 
-
-
-  .nav-tabs .nav-item .nav-link {
-    background-color:  #303336 ;
-    color: #747474;
-  }
-
-
-  .tabsItem button:hover{
-    background-color: #1e2022 !important;
-    color: #E7BF3A !important;
-   /* transform: scale(1.05); /* Slightly enlarges the box */
-    cursor: pointer; /* Changes the cursor to indicate it's interactive */
-  }
-  
-  .nav-tabs .nav-item .nav-link.active {
-    color: #E7BF3A;
-    background-color: #010305;
-  }
-  
-  .tab-content {
-    border: 1px solid #dee2e6;
-    border-top: transparent;
-    padding: 15px;
-  }
-  
-  .tab-content .tab-pane {
-    background-color: #FFF;
-    color: #0080FF;
-    min-height: 200px;
-    height: auto;
-  }
