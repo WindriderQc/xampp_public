@@ -268,20 +268,20 @@
                                            
                                             $bcount = 0;
                                             foreach($blocks[$i] AS $bid=>$block){?>
-                                                    <div class="linesection card  p-0 m-0 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
-                                                            <div class="headerTool d-flex justify-content-between align-items-center" >
-                                                                <div class="darkText fs-10 text-start px-3 pt-1"><?= $block ?> </div>
-                                                                <div class="text-end px-2 py-1 m-0"> <img src="./images/strategy.png"  width="35" class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggleSlider(event, '<?= api_MakeCSSClass($bid)?>')"  /> </div>
+                                                    <div class="linesection card p-1 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
+                                                            <div class=" d-flex justify-content-between align-items-center" >
+                                                                <div class="darkText fs-10 text-start px-2"><?= $block ?> </div>
+                                                                <div class="text-end m-0"> <img src="./images/strategy.png"  width="30" class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggleSlider(event, '<?= api_MakeCSSClass($bid)?>')"  /> </div>
                                                             
         
 
 
                                                             </div>
-                                                        <div class="blockcontainer row">
+                                                        <div class="blockcontainer">
                                                             
                                                            
 
-                                                            <div class="positionwrapper row p-1 m-1">
+                                                            <div class="positionwrapper">
                                                                 <?php 	// Depending on which page you are on sets up how many blocks are needed.
                                                                     // If its anything but 5vs5
                                                                     if($i == "PP" || $i == "PK4" || $i == "4VS4" || $i == "PK3"){
@@ -308,16 +308,15 @@
                                                                     
                                                                     
                                                                     // Generate Forward and Defense Lines
-                                                                    echo "<div class='row m-0 p-0' id='divF" . $bcount . "'>";
+                                                                    echo "<div class='row pt-2 m-1' id='divF" . $bcount . "'>";
                                                                     foreach($posit as $pid => $pos) {
                                                                         // Set player name in each position
                                                                         $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
-                                                                        echo "<div class='col m-0 p-0'>";
-                                                                        echo "<div class='card h-100 '>";
-                                                                        echo "<input  class='roster-container textname positionname form-control' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}'
+                                                                        echo "<div class='col p-1 '>";
+                                                                        echo "<input  class='colorName positionname form-control' readonly onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" id='{$field}{$pid}'
                                                                                 type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value='{$playerName}'>";
                                                                         echo "</div>";
-                                                                        echo "</div>";
+                                                                      
                                                                     }
                                                                     echo "</div>"; // End Forward row
                                                                     
@@ -411,7 +410,7 @@
                                                     <?php if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2){echo "<h4 style=\"display:none\">". $g ."</h4>";}else{echo "<h4>". $g ."</h4>";}?>
                                                     <div class="blockcontainer" <?php if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2){echo "style=\"display:none\">";}else{echo ">";}
                                                         $row["Goaler" . $gid] = (isset($availableplayers[api_MakeCSSClass($row["Goaler".$gid])])) ? $row["Goaler".$gid]: "";?>
-                                                        <div class="positionline"><?= "<input class=\"textname\" id=\"Goaler". $gid ."\" onclick=\"ChangePlayer('Goaler". $gid ."','". $league ."',".$cpfields.");\"  readonly type=\"text\" name=\"txtLine[Goaler". $gid ."]\" value=\"". $row["Goaler".$gid] ."\">";?></div>
+                                                        <div class="positionline"><?= "<input class=\"textName\" id=\"Goaler". $gid ."\" onclick=\"ChangePlayer('Goaler". $gid ."','". $league ."',".$cpfields.");\"  readonly type=\"text\" name=\"txtLine[Goaler". $gid ."]\" value=\"". $row["Goaler".$gid] ."\">";?></div>
                                                     </div><?php 
                                                 } ?>
                                             </div><!-- end linesection goalies-->
@@ -430,7 +429,7 @@
                                                                             <div class="positionlabel"><?= $fe?></div>
                                                                             <div class="positionname">
                                                                                 <?php  $row[$usefield] = (isset($availableplayers[api_MakeCSSClass($row[$usefield])])) ? $row[$usefield] : "";?>
-                                                                                <input id="<?= $usefield ?>" onclick="ChangePlayer('<?= $usefield ?>','<?= $league ?>',<?=$cpfields?>);" class="textname" readonly type="text" name="txtLine[<?= $usefield ?>]" value="<?= $row[$usefield] ?>">
+                                                                                <input id="<?= $usefield ?>" onclick="ChangePlayer('<?= $usefield ?>','<?= $league ?>',<?=$cpfields?>);" class="textName" readonly type="text" name="txtLine[<?= $usefield ?>]" value="<?= $row[$usefield] ?>">
                                                                             </div>
                                                                         </div><?php 
                                                                     }
@@ -448,7 +447,7 @@
                                                                     <div class="positionlabel"><?= $x ?>.</div>
                                                                     <div class="positionname">
                                                                         <?php  $row["PenaltyShots" . $x] = (isset($availableplayers[api_MakeCSSClass($row["PenaltyShots" . $x])])) ? $row["PenaltyShots" . $x] : "";?>
-                                                                        <input id="PenaltyShots<?= $x ?>" onclick="ChangePlayer('PenaltyShots<?= $x ?>','<?= $league ?>',<?=$cpfields?>);" class="textname" readonly type="text" name="txtLine[PenaltyShots<?= $x ?>]" value="<?= $row["PenaltyShots" . $x] ?>">
+                                                                        <input id="PenaltyShots<?= $x ?>" onclick="ChangePlayer('PenaltyShots<?= $x ?>','<?= $league ?>',<?=$cpfields?>);" class="textName" readonly type="text" name="txtLine[PenaltyShots<?= $x ?>]" value="<?= $row["PenaltyShots" . $x] ?>">
                                                                     </div>	
                                                                 </div>
                                                                 <?php }?>
@@ -468,7 +467,7 @@
                                                                         <div class="positionlabel"><?= $x?>.</div>
                                                                         <div class="positionname">
                                                                             <?php  $row["OT" . $p.$x] = (isset($availableplayers[api_MakeCSSClass($row["OT" . $p.$x])])) ? $row["OT" . $p.$x] : "";?>															
-                                                                            <input class="textname" id="OT<?= $p.$x;?>" onclick="ChangePlayer('OT<?= $p.$x;?>','<?= $league ?>',<?=$cpfields?>);"  readonly type="text" name="txtLine[OT<?=$p.$x;?>]" value="<?= $row["OT". $p.$x]; ?>">
+                                                                            <input class="textName" id="OT<?= $p.$x;?>" onclick="ChangePlayer('OT<?= $p.$x;?>','<?= $league ?>',<?=$cpfields?>);"  readonly type="text" name="txtLine[OT<?=$p.$x;?>]" value="<?= $row["OT". $p.$x]; ?>">
                                                                         </div>
                                                                     </div><?php
                                                                 }
@@ -543,7 +542,7 @@
                                                                                                     <div class="positionlabel"><?= $pos?></div>
                                                                                                     <div class="positionname">
                                                                                                         <?php  $row[$usefield] = (isset($availableplayers[api_MakeCSSClass($row[$usefield])])) ? $row[$usefield]: "";?>
-                                                                                                        <?= "<input id=\"". $usefield ."\" onclick=\"ChangePlayer('". $usefield ."','". $league ."',".$cpfields.");\" class=\"textname\" readonly type=\"text\" name=\"txtLine[". $usefield ."]\" value=\"". $row[$usefield] ."\">";?>
+                                                                                                        <?= "<input id=\"". $usefield ."\" onclick=\"ChangePlayer('". $usefield ."','". $league ."',".$cpfields.");\" class=\"textName\" readonly type=\"text\" name=\"txtLine[". $usefield ."]\" value=\"". $row[$usefield] ."\">";?>
                                                                                                     </div>
                                                                                                 </div><?php 
                                                                                             }

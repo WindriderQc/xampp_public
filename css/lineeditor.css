@@ -1,56 +1,68 @@
 
+#tabs .ui-state-focus a {
+    border: 0 !important;
+    background-color:#E7BF3A;
+    color: black;
+}
+
+#tabs .ui-state-focus  li {
+    border: 0 !important;
+    background-color:#E7BF3A;
+    
+    }
+
+#tabs .ui-state-active a {
+    border: 0 !important;
+    background-color:#E7BF3A;
+    
+    }
 
 
+#tabs .nav-tabs .nav-item .nav-link {
+    background-color: black;
+    color: #747474;
+}
 
+#tabs  .tabsItem button:hover {
+    background-color: #1e2022 !important;
+    color: #E7BF3A !important;
+    /* transform: scale(1.05); /* Slightly enlarges the box */
+    cursor: pointer; /* Changes the cursor to indicate it's interactive */
+    font-size: 110%;
+}
 
+#tabs  .nav-tabs .nav-item .nav-link.active {
+    color: #303336 ;
+    background-color:  #E7BF3A;
+    border-bottom: none !important;
+    font-weight: bold;
+    font-size: 115%;
+}
 
+#tabs .tabcontainer {
+    background-color:#E7BF3A;
+}
 
-
-
-
-
-
-
-
-
-
-.linetabs .tabcontainer {
-    background-color: #ededed;
+#tabs .tab-content {
+    background-color:#E7BF3A;
+    border: 2px solid #f5cc44;
+    border-bottom-left-radius: 10px;  
+    border-bottom-right-radius: 10px; 
+    padding: 5px;
 }
 
 
 
-.linetabs .linesection{
-    position:relative;
-    padding:0; 
-    margin:0%; 
-    border:1px solid #cccccc;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); 
-    background-color: rgb(214, 224, 233) !important;
-}
 
-
-.linesection .card-header {
-    /*background-color: #0707becb;*/
-    padding: 0;
-    margin: 0 ;
-}
-
-.linetabs .blockcontainer{padding:0px 10px;}
 
 .linetabs .stratvalue{width:80px;}
-
 .linetabs .stratlabel{ margin-top:3px;}
-
 .linetabs .startinggoalie{margin-bottom:10px;}
-
-
 
 .strats, .time {
     display: flex;
     flex-direction: column; /* Stack labels and inputs vertically */
 }
-
 .stratlabel, .timelabel {
     margin-bottom: 5px; /* Space between label and input */
 }
@@ -63,46 +75,43 @@
     display: inline-block;
     background-color: #E7BF3A !important;
 }
-.positionname{
+
+
+.slotcard {
     display: inline-block;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 700; /* Bold weight for bold text */
 }
 
 
-#lineeditor  #tabs .ui-state-focus a {
-    border: 0 !important;
-    background-color:#E7BF3A;
-    color: black;
 
-}
 
-#lineeditor  #tabs .ui-state-focus  li {
-    border: 0 !important;
-    background-color:#E7BF3A;
-    
-    }
+#lineeditor  .linesection{
 
-#lineeditor  #tabs .ui-state-active a {
-    border: 0 !important;
-    background-color:#E7BF3A;
-    
-    }
+    background: rgba(0, 0, 0, 0.50);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 1);
+    margin-bottom: 4px;
+   
 
-#lineeditor  #tabs .linesection{
-    background-color: #22222256; 
-    margin-bottom:10px;
-    height:auto;
-    margin-left:10px; 
-   /* border:1px solid #e8e8e8;
-    border-radius: 15px;*/
 }
 #lineeditor  #tabs .linesection input[type=button]{
-    padding:0px 0px;
+    
     text-align:center;
-    margin-top:3px;
+   
 }
 
+
+.positionname{
+   
+    font-family: 'Roboto Condensed', sans-serif;
+    
+}
+#lineeditor  #tabs .colorName {
+    color:  #529e71;
+
+    padding: 5px;
+   
+}
 
 
 #toggleButton.active {
@@ -119,9 +128,6 @@
 }
 
 
-.headerTool > *{
-    display: inline-block;
-  }
 
 
 #lineeditor  .playerlist{margin:2px; padding:2px;}
@@ -145,8 +151,7 @@
 .strategyamount{padding:0px 10px;}
 .strategystrategies{float:right;background-color:#e8e8e8;padding:0px 10px;margin-right:0px;}
 .strategieswrapper input[type=text]{text-align:center;}
-
-#lineeditor #tabs .strategieswrapper{width:98%;margin-left:0px;}
+.strategieswrapper{width:98%;margin-left:0px;}
 
 
 .strats, .time {
@@ -156,7 +161,7 @@
 
 #lineeditor input[type="text"] {
     text-align: center;
-    line-height: 30px; /* Adjust this to match the height of the input */
+    line-height: 20px; /* Adjust this to match the height of the input */
     
    /* line-height: normal;*/
 }
