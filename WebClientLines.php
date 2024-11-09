@@ -622,7 +622,7 @@
             $sql .= "ORDER BY Name ASC, Overall DESC ";
             ?>
             <div class="col-12">
-                <button type="button" class="btn btn-success btn-block" onclick="closeList()"> X </button>
+                <button type="button" class="btn btn-warning btn-block" onclick="closeList()"> X </button>
             </div>
             <div class="alert alert-info darkText p-1"> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
             <div class='row justify-content-center'>
