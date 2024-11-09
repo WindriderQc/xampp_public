@@ -5,12 +5,7 @@ ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-require_once("../../STHSSetting.php");
-//echo $DatabaseFile;
 $DatabaseFile = '../../LHSQC-STHS.db';
-
-//$path = "../../" . $DatabaseFile . "";
-
 
 $db = new SQLite3($DatabaseFile);
 

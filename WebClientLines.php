@@ -2,6 +2,8 @@
 	$lang = "en"; 	require_once("LanguageEN.php");	$LeagueName = Null;	session_start();	mb_internal_encoding("UTF-8");	$PerformanceMonitorStart = microtime(true); 
 	require_once("STHSSetting.php");
 	require_once("WebClientAPI.php");
+
+    require_once("helperTool.php");
 	
 	$exempt = array();  // exempt is an array of api names.  if you do not need the html or layout api then add as an array item   example:  $exempt = array("html","layout");
 	load_apis($exempt); // Call the required APIs
@@ -92,7 +94,7 @@
                     $availableplayers[api_MakeCSSClass($row["Name"])]["id"] = $row["Number"];
                     $availableplayers[api_MakeCSSClass($row["Name"])]["Name"] = $row["Name"];
                 }
-    
+                log2console($availableplayers);
                
                 // Check to see if Custom OT lines are turned on 
                 $sql = "SELECT " . $league . "CustomOTLines AS CustomLines FROM LeagueGeneral;";
@@ -107,6 +109,7 @@
                 foreach($dbfields AS $f){$cpfields .= strtolower($f) .",";}
                 $cpfields .= $cpfieldsOTLines;
                 //$cpfields = rtrim($cpfields,",");
+
 
                 $bannertext = "";
                 
@@ -126,7 +129,7 @@
                         if (array_key_exists($f,$fmfields)){$fminfo .= $fmfields[$f] . ",";}else{$fminfo .= "0,";}
                     }
                     $fminfo = rtrim($fminfo,",");
-            
+                
                     if(trim($fminfo) != trim($dbinfo)){
                         $arrDB = explode(",",$dbinfo);
                         $arrFM = explode(",",$fminfo);
@@ -151,7 +154,7 @@
                                 $sqlno .= $f . " = " . $valno . ", ";
                             }
                         }
-            
+          
                         
                         $sql = rtrim($sql,", ");
                         $sqlno .= " WebClientModify = 'True' ";
@@ -205,7 +208,8 @@
                         $sql .= "WHERE t.Number = '" . $teamid . "' AND Day = 1 ";
                         $oRS = $db->query($sql);
                         $row = $oRS->fetchArray();
-        
+
+                        //log2console($row);        
                         // Fill in arrays needed. // tabs = line pages, 	blocks =  section per page, positions = different position combination for the blocks,	strategy = strategy slider info.  
                         $tabs = api_get_line_arrays("tabs");
                         $blocks = api_get_line_arrays("blocks");
@@ -216,12 +220,7 @@
                       
                         
                     ?>
-                        <script>
-                      /*  $( function() {
-                            $( "#tabs" ).tabs();
-                        } );*/
-                        </script>
-                    
+                                       
                     <div id="tabs" class="linetabs">
                         <ul class="nav nav-tabs" role="tablist">
                                 <?php  
@@ -271,9 +270,19 @@
                                                     <div class="linesection card p-1 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
                                                             <div class=" d-flex justify-content-between align-items-center" >
                                                                 <div class="darkText fs-10 text-start px-2"><?= $block ?> </div>
-                                                                <div class="text-end m-0"> <img src="./images/strategy.png"  width="30" class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggleSlider(event, '<?= api_MakeCSSClass($bid)?>')"  /> </div>
+                                                                <div class="text-end m-0"> 
+                                                                    <div class="button-container">
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-warning btn-custom"  class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggleSlider(event, '<?= api_MakeCSSClass($bid)?>')" > 
+                                                                                <img src="images/strategy.png" alt="Button 1" > </button>
+                                                                            <button type="button" class="btn btn-warning btn-custom"> <img src="images/roster.png" alt="Button 2" > </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             
-        
+                                                                
+
+
 
 
                                                             </div>
@@ -306,7 +315,7 @@
                                                                         $posit = $positions[$i];                                                                
                                                                     }
                                                                     
-                                                                    
+                                                                
                                                                     // Generate Forward and Defense Lines
                                                                     echo "<div class='row pt-2 m-1' id='divF" . $bcount . "'>";
                                                                     foreach($posit as $pid => $pos) {
@@ -318,10 +327,39 @@
                                                                         echo "</div>";
                                                                       
                                                                     }
-                                                                    echo "</div>"; // End Forward row
-                                                                    
+                                                                    echo "</div>"; // End Forward row*/
                                                                     ?>
 
+                                                                    
+                                                                <div class='row pt-2 m-1' id='divF<?= $bcount; ?>'>
+                                                               
+
+
+
+
+                                                                <?php 
+                                                                foreach($posit as $pid => $pos) {
+                                                                        // Set player name in each position
+
+                                                                     //   log2console($row);
+
+                                                                        $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
+                                                                        log2console($playername ."  " . $field . "   sdf   ". $pid ); ?>
+
+                                                                        <div class='col-4 p-1 '>
+                                                                            <div class="card rosterElm draggable p-0" draggable="true">
+                
+                                                                                <div class="card-body p-0" onclick="ChangePlayer('<?= $field . $pid; ?>','<?= $league; ?>','<?= $cpfields; ?>')" id="<?= $field . $pid; ?>" name="txtLine[<?= $field . $pid; ?>]">
+
+                                                                                    <p><?= $playerName; ?></p></div>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                        <?php         
+                                                                    }
+                                                                ?>
+                                                                </div>
+    
                                                             </div><!-- end positionwrapper-->
                                                             
 

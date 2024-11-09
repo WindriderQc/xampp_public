@@ -121,6 +121,8 @@ function filterPlayers(uniqueID) {
     return filteredPlayer[0];
 }
 
+
+
 function displayField(playerID, displayDivID) 
 {
     const container = document.getElementById(displayDivID); 

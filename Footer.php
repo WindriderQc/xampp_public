@@ -105,51 +105,31 @@
 <!-- Copyright -->
 
 <div class="text-center p-1" style="background-color: rgba(0, 0, 0, 0.2);">
-
+<i class="fa-regular fa-hand-peace" ></i>
         <div class="mt-1">
 
         <?php 
 
-        If (isset($Footer) == True){
-
             echo $Footer . $LeagueOwner;
 
-
-
             If (file_exists($DatabaseFile) == True){
-
                 try{
-
                     echo " - " . $DatabaseCreate;
-
                     If (isset($LeagueGeneralMenu) == True){
-
                         echo	$LeagueGeneralMenu['DatabaseCreationDate'];
-
                     }
-
                 } catch (Exception $e) {}
-
             }
-
-        }
+       
 
         If (isset($PerformanceMonitorStart)){
-
             echo "<script>  console.log(\"STHS Page PHP Performance : " . (microtime(true)-$PerformanceMonitorStart) . " - Peak Memory Usage : " . round(memory_get_peak_usage() / 1024) . "KB  - Peak Memory Usage : " . round(memory_get_peak_usage(true) / 1024) . "KB \");  </script>";}
-
-        ?> </a>
-
+        ?> 
+          
+           
+                
         </div>
-
     </div>
-
-
-
-
-
-<a href="#" class="scrollup">Back to the Top</a>
-
 
 
 
@@ -159,6 +139,41 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
 
 <script src="js/db2json.js"    type="text/javascript"></script>
+
+
+
+
+<script>
+    // To track the number of clicks
+    let clickCount = 0;
+    let clickTimeout;
+
+    // Time window in milliseconds for triple-click detection (e.g., 500ms)
+    const clickTimeWindow = 650;
+
+    function redirectToPage() { window.location.href = "/tools"; }
+
+
+    // Handle clicks for triple-click detection
+    document.addEventListener('click', function() {
+        clickCount++;
+
+        // Reset the click count after the defined time window (e.g., 500ms)
+        clearTimeout(clickTimeout);
+        clickTimeout = setTimeout(function() {
+            clickCount = 0; // Reset click count if time window passes
+        }, clickTimeWindow);
+
+        if (clickCount === 3) {
+            console.log("TripleClicked!")
+            clickCount = 0; // Reset click count after triple-click
+            // Trigger action for triple-click
+            redirectToPage();
+           }   
+    });
+
+
+</script>
 
 
 
