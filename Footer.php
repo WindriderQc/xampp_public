@@ -105,8 +105,10 @@
 <!-- Copyright -->
 
 <div class="text-center p-1" style="background-color: rgba(0, 0, 0, 0.2);">
-<i class="fa-regular fa-hand-peace" ></i>
-        <div class="mt-1">
+    
+    <i class="fa-regular fa-hand-peace" id="tripleClickElement"></i>
+
+    <div class="mt-1">
 
         <?php 
 
@@ -128,9 +130,8 @@
           
            
                 
-        </div>
     </div>
-
+</div>
 
 
 
@@ -140,43 +141,23 @@
 
 <script src="js/db2json.js"    type="text/javascript"></script>
 
-
-
-
 <script>
-    // To track the number of clicks
     let clickCount = 0;
     let clickTimeout;
 
-    // Time window in milliseconds for triple-click detection (e.g., 500ms)
-    const clickTimeWindow = 650;
+    const clickTimeWindow = 650; // Time window in milliseconds for triple-click detection (e.g., 500ms)
 
-    function redirectToPage() { window.location.href = "/tools"; }
-
-
-    // Handle clicks for triple-click detection
-    document.addEventListener('click', function() {
+    document.getElementById('tripleClickElement').addEventListener('click', function() {
         clickCount++;
-
-        // Reset the click count after the defined time window (e.g., 500ms)
-        clearTimeout(clickTimeout);
-        clickTimeout = setTimeout(function() {
-            clickCount = 0; // Reset click count if time window passes
-        }, clickTimeWindow);
+        clearTimeout(clickTimeout);  // Reset the click count after the defined time window (e.g., 500ms)
+        clickTimeout = setTimeout(function() { clickCount = 0;  }, clickTimeWindow);// Reset click count if time window passes
 
         if (clickCount === 3) {
-            console.log("TripleClicked!")
-            clickCount = 0; // Reset click count after triple-click
-            // Trigger action for triple-click
-            redirectToPage();
+            clickCount = 0;  // Reset click count after triple-click
+            window.location.href = "/tools";  // Trigger action for triple-click
            }   
     });
-
-
 </script>
 
-
-
 </body>
-
 </html> 

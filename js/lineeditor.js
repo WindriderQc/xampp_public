@@ -956,6 +956,18 @@ async function openNav(info) {
   }
   
 
+  
+// Function to open the side navigation and show item info
+function openList() {
+    // Set width to display the side navigation
+    document.getElementById("sideList").style.width = "350px";
+}
+  
+// Function to close the side navigation
+function closeList() {
+    document.getElementById("sideList").style.width = "0"; // Hide by setting width back to 0
+}
+  
 
 
 
@@ -981,8 +993,17 @@ async function openNav(info) {
 
         //const info = label ? label.innerText : 'No Info';
         //const id = clickedItem.id;
+        closeList();
         openNav(info);
     }
+});
+
+
+
+
+document.querySelector('.openList').addEventListener('click', function (event) {
+  
+        openList();
 });
 
 
@@ -994,8 +1015,10 @@ async function openNav(info) {
     // Select all '.option' elements within the '.playerselect' list
     document.querySelectorAll('.playerselect .option').forEach(function(item) {
         item.addEventListener('click', function(event) {
+
             // Custom behavior when the radio button is clicked
-        console.log('Radio button clicked:', this.id);
+            closeList();
+
             // Prevent click propagation if the target is the input or label
             if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'LABEL') {
                 // Simulate a click on the radio input within the clicked list item

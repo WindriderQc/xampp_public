@@ -275,7 +275,7 @@
                                                                         <div class="btn-group">
                                                                             <button type="button" class="btn btn-warning btn-custom"  class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggleSlider(event, '<?= api_MakeCSSClass($bid)?>')" > 
                                                                                 <img src="images/strategy.png" alt="Button 1" > </button>
-                                                                            <button type="button" class="btn btn-warning btn-custom"> <img src="images/roster.png" alt="Button 2" > </button>
+                                                                            <button type="button" class="btn btn-warning btn-custom openList" > <img src="images/roster.png" alt="Button 2" > </button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -317,7 +317,7 @@
                                                                     
                                                                 
                                                                     // Generate Forward and Defense Lines
-                                                                    echo "<div class='row pt-2 m-1' id='divF" . $bcount . "'>";
+                                                                   /* echo "<div class='row pt-2 m-1' id='divF" . $bcount . "'>";
                                                                     foreach($posit as $pid => $pos) {
                                                                         // Set player name in each position
                                                                         $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
@@ -344,14 +344,20 @@
                                                                      //   log2console($row);
 
                                                                         $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : "";
-                                                                        log2console($playername ."  " . $field . "   sdf   ". $pid ); ?>
+                                                                        //log2console($playername ."  " . $field . " -  ". $pid ); ?>
 
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm draggable p-0" draggable="true">
                 
-                                                                                <div class="card-body p-0" onclick="ChangePlayer('<?= $field . $pid; ?>','<?= $league; ?>','<?= $cpfields; ?>')" id="<?= $field . $pid; ?>" name="txtLine[<?= $field . $pid; ?>]">
+                                                                                <div class="card-body p-0" >
+                                                                                <input class='colorName positionname form-control' readonly type="text" placeholder="." aria-label=".." aria-describedby="positionlabel" 
+                                                                                        onclick="ChangePlayer('<?= $field . $pid; ?>','<?= $league; ?>','<?= $cpfields; ?>')" 
+                                                                                        id="<?= $field . $pid; ?>" 
+                                                                                        name="txtLine[<?= $field . $pid; ?>]"
+                                                                                        value="<?= $playerName ?>">
 
-                                                                                    <p><?= $playerName; ?></p></div>
+                                                                                        <!-- <p><?= $playerName; ?></p></div> -->
+                                                                                </div>
                                                                             </div>
                                                                             
                                                                         </div>
@@ -604,7 +610,7 @@
 
 
         
-        <div class="col p-0">
+        <div id="sideList" class="sideList">
             
             <?php
             // Get all the players and goalies of the team who are dressed
@@ -618,7 +624,7 @@
             
             <div class="alert alert-info darkText p-1"> <i class="fas fa-info-circle"></i> Double Click to see Player Info card </div> 
             <div class='row justify-content-center'>
-                <div class='col-10 col-lg-3'>
+                <div class='col-10  d-flex justify-content-center'>
                      <?php api_html_checkboxes_positionlist("sltPlayerList","true","list-item",null,null); ?>
                 </div> 
             </div> 
