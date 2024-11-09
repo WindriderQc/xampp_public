@@ -1017,7 +1017,7 @@ document.querySelector('.openList').addEventListener('click', function (event) {
         item.addEventListener('click', function(event) {
 
             // Custom behavior when the radio button is clicked
-            closeList();
+           // closeList();
 
             // Prevent click propagation if the target is the input or label
             if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'LABEL') {
@@ -1074,6 +1074,7 @@ document.querySelector('.playerselect').addEventListener('touchend', function(ev
     
             const info = player;
 
+            closeList();
             openNav(info, id);
         }
         event.preventDefault();
