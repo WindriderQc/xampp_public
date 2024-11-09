@@ -134,39 +134,39 @@ function load_api_html(){
 		</form>
 		<?php
 	}
-	function api_html_checkboxes_positionlist($elementName,$byName="true",$display="inline",$FullFarmEnableGlobal,$FullFarmEnableLocal){
+	function api_html_checkboxes_positionlist($elementName,$byName="true",$display="inline",$FullFarmEnableGlobal,$FullFarmEnableLocal, $darkText=false){
 		?>
-		<div class="positionlist ">
+		<div class="positionlist">
 
             <div class='row'>
                 <div class='col'>
                     <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posC" name="position" class="position form-check-input" checked>
-                        <label class="form-check-label" for="posC">C</label>
+                        <label class="form-check-label  <?= $darkText ? 'darkText' : 'paleText'; ?>" for="posC">C</label>
                     </div>
                 </div>
                 <div class='col'>
-                    <div class='form-check checkbox checkbox-yellow'>
+                    <div class='form-check checkbox checkbox-yellow '>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posLW" name="position" class="position form-check-input" checked>
-                        <label class="form-check-label" for="posLW">LW</label>
+                        <label class="form-check-label <?= $darkText ? 'darkText' : 'paleText'; ?> " for="posLW">LW</label>
                     </div>
                 </div>
                 <div class='col'>
                     <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posRW" name="position" class="position form-check-input" checked>
-                        <label class="form-check-label" for="posRW">RW</label>
+                        <label class="form-check-label <?= $darkText ? 'darkText' : 'paleText'; ?>" for="posRW">RW</label>
                     </div>
                 </div>    
                 <div class='col'>
                     <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posD" name="position" class="position form-check-input" checked>
-                        <label class="form-check-label" for="posD">D</label>
+                        <label class="form-check-label <?= $darkText ? 'darkText' : 'paleText'; ?>" for="posD">D</label>
                     </div>
                 </div>
                 <div class='col'>
                     <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posG" name="position" class="position form-check-input" checked>                
-                        <label class="form-check-label" for="posG">G</label>
+                        <label class="form-check-label <?= $darkText ? 'darkText' : 'paleText'; ?>" for="posG">G</label>
                     </div>
                 </div> 
             </div>

@@ -229,7 +229,7 @@
                             
                             <div class="row Save">
                                 <div class="col-7">
-                                    <?php api_html_checkboxes_positionlist("rosterline1","false","list-item",$FullFarmEnableGlobal,$FullFarmEnableLocal); ?>
+                                    <?php api_html_checkboxes_positionlist("rosterline1","false","list-item",$FullFarmEnableGlobal,$FullFarmEnableLocal, true); ?>
                                 </div>
                                 <div class="col">
                                     <div class="py-1 my-0 ">
