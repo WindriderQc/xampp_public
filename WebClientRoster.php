@@ -28,6 +28,7 @@
                         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
                         <script src=\"https://code.jquery.com/ui/1.14.0/jquery-ui.min.js\" integrity=\"sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM=\" crossorigin=\"anonymous\"></script>
                         <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js\"></script>
+                        <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css\" rel=\"stylesheet\"> 
                         <link href=\"STHSMain-CSSOverwrite.css\" rel=\"stylesheet\" type=\"text/css\" /> 
                         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>"; //  <script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
        
@@ -231,14 +232,13 @@
                                     <?php api_html_checkboxes_positionlist("rosterline1","false","list-item",$FullFarmEnableGlobal,$FullFarmEnableLocal); ?>
                                 </div>
                                 <div class="col">
-                                    <div class="py-1 my-0">
-                                        <input id="saveroster" class="btn btn-warning" type="submit" name="sbtRoster" value="Save"> 
-                                        <?php if(api_security_isLogged($teamid)){ api_html_logout_button(); } ?>
+                                    <div class="py-1 my-0 ">
+                                        <input id="saveroster" class="btn btn-warning btn-lg" type="submit" name="sbtRoster" value="Save" > 
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="columnwrapper"><?php 
+                            <div class=" row "><?php 
                                 for($x=3;$x>=0;$x--){
                                     if($x == 3){
                                         $type = "Pro Dress";	
@@ -253,8 +253,8 @@
                                     $colcount = 0;
                                     
                                     ?>
-                                    <div class="">
-                                    <div class="col4">
+                                   
+                                    <div class="col-6 col-lg-3">
                                         <ol id="sort<?= str_replace(" ","",$columnid)?>" class="sort<?= str_replace(" ","",$columnid) . $nextgame; ?> connectedSortable ui-sortable list-group mt-2  ">
                                             <h4 class="columnheader darkText"><?= $type?></h4>
                                             <input class="rosterline<?=$nextgame; ?>" type="hidden" name="txtRoster[<?=$nextgame; ?>][]" value="LINE|<?= $columnid; ?>">
@@ -325,7 +325,7 @@
                                                 }?>
                                         </ol>
                                     </div>
-                                    </div><?php
+                                    <?php
                                 }?>
                             </div>
                         </div><?php 
@@ -352,7 +352,7 @@
 		// Close the db connection
 		$db->close();
         ?>
-
+ 
 </header> 
         
 <script>
@@ -364,6 +364,8 @@
     setTimeout(deactivateBanner, 5000);                    // Hide the confirm banner after 5 seconds
     document.addEventListener('click', deactivateBanner);  // Hide the confirm banner on user interaction
 </script>
-        
+      
 <?php include ("Footer.php"); ?>
+
+
 </body></html>

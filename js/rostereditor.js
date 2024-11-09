@@ -37,6 +37,23 @@ farm[s] = [];
 farmDress[s] = [];
 }
 
+
+
+
+function position_number_array(){
+	var positions = [];
+	positions[0] = [1,3,5,7,9,11,13,15]; // Centres
+	positions[1] = [2,3,6,7,10,11,14,15]; // Left Wings
+	positions[2] = [4,5,6,7,12,13,14,15]; // Right Wings
+	positions[3] = [8,9,10,11,12,13,14,15]; // Defense
+	positions[4] = [16]; // Goalies
+	positions[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15]; // Forwards
+	positions[6] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]; // All
+
+	return positions;
+}
+
+
 // Declare variables for validation.
 var validated = true;
 var lineValidated = [false,false,false,false,false,false,false,false,false,false];

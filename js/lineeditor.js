@@ -901,7 +901,7 @@ function actualizePlayerCard(player)
 
 	document.getElementById("tdCapHit").innerHTML = player.SalaryAverage;
 	document.getElementById("tdNTC").innerHTML = player.NoTrade;
-	document.getElementById("tdYeatsLeft").innerHTML = player.Contract;
+	document.getElementById("tdYearsLeft").innerHTML = player.Contract;
 	document.getElementById("tdStatus").innerHTML = player.DraftYear; //place holder
 
 
@@ -1170,5 +1170,19 @@ jQuery(document).ready(function(){
     });
     
 });
+
+
+
+
+// helper function
+
+function inArray(needle, haystack) {
+	var ret = false;
+    var length = haystack.length;
+    for(var i = 0; i < length; i++) {
+        if(haystack[i] == needle){ret = true;}
+    }
+    return ret;
+}
 
 

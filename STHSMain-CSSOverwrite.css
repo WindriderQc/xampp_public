@@ -1212,6 +1212,30 @@ footer .module-content {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /***    Scroller   ***********************/
 .gamesScroller {
     z-index: 1;
@@ -1300,6 +1324,18 @@ footer .module-content {
 .active {
     cursor: grabbing;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1416,8 +1452,8 @@ footer .module-content {
     padding: 5px;
 }
 
-.textname {
-    color: #529e71;
+.textName {
+    color: #18201b;
    
 }
 
@@ -1533,25 +1569,138 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
     border-bottom:1px solid #999999;
     border-top:1px solid #999999; 
-    padding:3px;
+   
 
 }
 
-.positionlist label{padding-left: 2px; font-size:small;  }
 
-.positionlist option{padding:2px 0px 0px 2px; }
-
-.positionlist .form-check-label {color:#E7BF3A  !important; font-size:small;  }
-
-.positionlist .form-check-input { margin:0px 2px 0px 2px; font-size:small; }
-
-
-
-.positionlist .row { 
-
-    display: flex;
-
+.positionlist .checkbox * {
+    cursor: pointer;
+   /* border:1px solid #999999 !important;*/
 }
+.positionlist .checkbox {
+   
+    margin-top: 1px;
+   
+}
+.positionlist .checkbox input::hover {
+    
+}
+
+.positionlist .checkbox label {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    padding-left: 5px;
+}
+
+.positionlist .checkbox label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    margin-left: -20px;
+    border: 1px solid #555;
+    border-radius: 3px;
+    background-color: #fff;
+    -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+    -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+    transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.positionlist .checkbox label::after {
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 2px;
+    margin-left: -21px;
+    padding-left: 3px;
+    padding-top: 1px;
+    font-size: 11px;
+    color: #555555;
+}
+
+.positionlist .checkbox input[type="checkbox"] {
+    opacity: 0;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+}
+
+.positionlist .checkbox input[type="checkbox"]:checked + label::after {
+    font-family: 'FontAwesome';
+    content: "\f00c";
+}
+
+.positionlist .checkbox.checkbox-circle label::before {
+    border-radius: 50%;
+}
+
+.positionlist .checkbox.checkbox-inline {
+    margin-top: 0;
+}
+
+.positionlist .checkbox-red input[type="checkbox"] + label::before {
+    background-color: #990000;
+    border-color: #990000;
+}
+
+.positionlist .checkbox-yellow input[type="checkbox"] + label::before {
+    background-color: #face00;
+    border-color: #face00;
+}
+.positionlist .checkbox-yellow input[type="checkbox"] + label::hover {
+    background-color: #face00;
+    border-color: #0f0e0ad5;
+}
+
+.positionlist .checkbox-green input[type="checkbox"] + label::before {
+    background-color: #008000;
+    border-color: #008000;
+}
+
+.positionlist .checkbox-blue input[type="checkbox"] + label::before {
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+.positionlist .checkbox-black input[type="checkbox"] + label::before {
+    background-color: #000000;
+    border-color: #000000;
+}
+
+.positionlist .checkbox-red input[type="checkbox"]:checked + label::after,
+.positionlist .checkbox-yellow input[type="checkbox"]:checked + label::after,
+.positionlist .checkbox-green input[type="checkbox"]:checked + label::after,
+.positionlist .checkbox-blue input[type="checkbox"]:checked + label::after,
+.positionlist .checkbox-black input[type="checkbox"]:checked + label::after {
+    color: rgb(27, 27, 27);  /* checkmark color  */
+}
+
+
+
+.positionlist .form-check-label {
+    
+    font-size:small;  
+    margin:0px 2px 0px 2px; 
+    color: rgb(27, 27, 27);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1673,34 +1822,61 @@ width: 100%;
 }
 
 
-.StandingsWest{
+.StandingsWest {
 
 
+}
+
+
+.tradetable {
+    background-color: white;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;  
+}
+
+
+
+
+
+
+/* Set a maximum width for the Transaction card */ 
+.transaction-card .card { 
+    max-width: 100%; overflow: auto; /* Allow scrolling if the content exceeds the width */ 
+}
+
+
+
+.nav-tabs .nav-item .nav-link {
+    background-color:  #303336 ;
+    color: #747474;
+}
+
+.tabsItem button:hover {
+    background-color: #1e2022 !important;
+    color: #E7BF3A !important;
+    /* transform: scale(1.05); /* Slightly enlarges the box */
+    cursor: pointer; /* Changes the cursor to indicate it's interactive */
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    color: #E7BF3A;
+    background-color: #010305;
+}
+
+.tab-content {
+    border: 1px solid #dee2e6;
+    border-top: transparent;
+    padding: 15px;
+}
+
+.tab-content .tab-pane {
+    background-color: #FFF;
+    color: #0080FF;
+    min-height: 200px;
+    height: auto;
+}
     
     
-    
-    
-    }
 
-
-.tradetable{
-
-background-color: white;
-border-radius: 5px;
-border-style: solid;
-border-width: 1px;
-
-    
-    
-    
-    }
-
-
-
-
-
-
-    /* Set a maximum width for the Transaction card */ 
-    .transaction-card .card { 
-        max-width: 100%; overflow: auto; /* Allow scrolling if the content exceeds the width */ 
-    }
+      

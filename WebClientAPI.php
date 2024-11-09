@@ -140,38 +140,38 @@ function load_api_html(){
 
             <div class='row'>
                 <div class='col'>
-                    <div class='form-check '>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posC" name="position" class="position form-check-input" checked>
-                        <label class="form-check-label " for="posC">C</label>
+                        <label class="form-check-label" for="posC">C</label>
                     </div>
                 </div>
                 <div class='col'>
-                    <div class='form-check '>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posLW" name="position" class="position form-check-input" checked>
-                        <label class="form-check-label inline" for="posLW">LW</label>
+                        <label class="form-check-label" for="posLW">LW</label>
                     </div>
                 </div>
                 <div class='col'>
-                    <div class='form-check'>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posRW" name="position" class="position form-check-input" checked>
                         <label class="form-check-label" for="posRW">RW</label>
                     </div>
                 </div>    
                 <div class='col'>
-                    <div class='form-check'>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posD" name="position" class="position form-check-input" checked>
                         <label class="form-check-label" for="posD">D</label>
                     </div>
                 </div>
                 <div class='col'>
-                    <div class='form-check'>
+                    <div class='form-check checkbox checkbox-yellow'>
                         <input onchange="update_position_list('<?= $elementName; ?>',<?= $byName; ?>,'<?= $display; ?>');" type="checkbox" id="posG" name="position" class="position form-check-input" checked>                
                         <label class="form-check-label" for="posG">G</label>
                     </div>
                 </div> 
             </div>
 
-            <div class='row invisible'>  
+            <div class='row invisible' style="display:none;">  
                 <div class='col  d-flex align-items-center justify-content-center'> 
                     <div class='form-check '>
                         <input onchange="toggleFullFarm();" type="checkbox" id="cbFullFarm" name="FullFarm" class="position form-check-input" <?php if($FullFarmEnableGlobal || $FullFarmEnableLocal) {echo "checked";} ?> >
@@ -181,6 +181,68 @@ function load_api_html(){
             </div>
 
 		</div>
+        <script>
+        function update_position_list(element,byName,display){
+            var expval;
+            var exppos;
+            var checkedValue = null; 
+            var positions = ['C','LW','RW','D','G'];
+            var pos = [];
+            var pcount = 0;
+            var inputElements = document.getElementsByClassName('position');
+
+            console.log(`Element: ${element}, By Name: ${byName}, Display: ${display}`);
+            // Existing logic
+
+            for(var i=0; inputElements[i]; ++i){
+                if(inputElements[i].checked){
+                pos[pcount++] = positions[i];
+                }
+            }
+
+            var elements = (byName) ? document.getElementsByName(element) : document.getElementsByClassName(element);
+
+            for (i=0;i<elements.length;i++) {
+                expval = elements[i].value.split('|');
+                if(expval.length > 2){
+                    exppos = expval[3].split(',');
+                    for (p=0;p<exppos.length;p++) {
+                        if(inArray(exppos[p],pos)){
+                            document.getElementById("line1_"+expval[7]).style.display = "" + display;
+                            break;
+                        }else{
+                            // display none for li
+                            document.getElementById("line1_"+expval[7]).style.display = "none";
+                        }
+                    }
+                }
+            }
+        }
+
+        function toggleFullFarm(){
+            var values = [];
+            
+            var element = document.getElementById("FullFarmEnableLocal");
+            element.value = (element.value == "true") ? "false" : "true";
+            
+            document.querySelectorAll('input[type=hidden].rvField').forEach(function(elem) {
+                    
+                // convert string/text value to real JavaScript type for better code handling
+                if (!isNaN(elem.value)) {
+                    val = parseInt(elem.value);
+                }
+                else if(elem.value === 'true') {val = true;}
+                else if(elem.value === 'false') {val = false;}
+                else {val = elem.value;}
+                
+                values.push(val);
+            })
+            roster_validator.apply(null,values);
+        }
+        </script>
+
+
+
 		<?php
 	}
 	function api_html_login_form($row){
@@ -335,7 +397,6 @@ function load_api_layout(){
 				   
 				?>
                
-				<script src="js/scripts_labs.js"></script><!-- Load in the scripts needed from labs -->
 			</head>
 		<?php
 		// Start the Body, add an onload function if set above. 
@@ -929,7 +990,7 @@ function load_api_pageinfo(){
 																		<?php if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2){echo "<h4 style=\"display:none\">". $g ."</h4>";}else{echo "<h4>". $g ."</h4>";}?>
 																		<div class="blockcontainer" <?php if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2){echo "style=\"display:none\">";}else{echo ">";}
 																			$row["Goaler" . $gid] = (isset($availableplayers[api_MakeCSSClass($row["Goaler".$gid])])) ? $row["Goaler".$gid]: "";?>
-																			<div class="positionline"><?= "<input class=\"textname\" id=\"Goaler". $gid ."\" onclick=\"ChangePlayer('Goaler". $gid ."','". $league ."',".$cpfields.");\"  readonly type=\"text\" name=\"txtLine[Goaler". $gid ."]\" value=\"". $row["Goaler".$gid] ."\">";?></div>
+																			<div class="positionline"><?= "<input class=\"textName\" id=\"Goaler". $gid ."\" onclick=\"ChangePlayer('Goaler". $gid ."','". $league ."',".$cpfields.");\"  readonly type=\"text\" name=\"txtLine[Goaler". $gid ."]\" value=\"". $row["Goaler".$gid] ."\">";?></div>
 																		</div><?php 
 																	}
 																?>
@@ -952,7 +1013,7 @@ function load_api_pageinfo(){
 																					<div class="positionlabel"><?= $fe?></div>
 																					<div class="positionname">
 																						<?php  $row[$usefield] = (isset($availableplayers[api_MakeCSSClass($row[$usefield])])) ? $row[$usefield] : "";?>
-																						<input id="<?= $usefield ?>" onclick="ChangePlayer('<?= $usefield ?>','<?= $league ?>',<?=$cpfields?>);" class="textname" readonly type="text" name="txtLine[<?= $usefield ?>]" value="<?= $row[$usefield] ?>">
+																						<input id="<?= $usefield ?>" onclick="ChangePlayer('<?= $usefield ?>','<?= $league ?>',<?=$cpfields?>);" class="textName" readonly type="text" name="txtLine[<?= $usefield ?>]" value="<?= $row[$usefield] ?>">
 																					</div>
 																				</div><?php 
 																			}
@@ -970,7 +1031,7 @@ function load_api_pageinfo(){
 																			<div class="positionlabel"><?= $x ?>.</div>
 																			<div class="positionname">
 																				<?php  $row["PenaltyShots" . $x] = (isset($availableplayers[api_MakeCSSClass($row["PenaltyShots" . $x])])) ? $row["PenaltyShots" . $x] : "";?>
-																				<input id="PenaltyShots<?= $x ?>" onclick="ChangePlayer('PenaltyShots<?= $x ?>','<?= $league ?>',<?=$cpfields?>);" class="textname" readonly type="text" name="txtLine[PenaltyShots<?= $x ?>]" value="<?= $row["PenaltyShots" . $x] ?>">
+																				<input id="PenaltyShots<?= $x ?>" onclick="ChangePlayer('PenaltyShots<?= $x ?>','<?= $league ?>',<?=$cpfields?>);" class="textName" readonly type="text" name="txtLine[PenaltyShots<?= $x ?>]" value="<?= $row["PenaltyShots" . $x] ?>">
 																			</div>	
 																		</div>
 																		<?php }?>
@@ -990,7 +1051,7 @@ function load_api_pageinfo(){
 																			<div class="positionlabel"><?= $x?>.</div>
 																			<div class="positionname">
 																				<?php  $row["OT" . $p.$x] = (isset($availableplayers[api_MakeCSSClass($row["OT" . $p.$x])])) ? $row["OT" . $p.$x] : "";?>															
-																				<input class="textname" id="OT<?= $p.$x;?>" onclick="ChangePlayer('OT<?= $p.$x;?>','<?= $league ?>',<?=$cpfields?>);"  readonly type="text" name="txtLine[OT<?=$p.$x;?>]" value="<?= $row["OT". $p.$x]; ?>">
+																				<input class="textName" id="OT<?= $p.$x;?>" onclick="ChangePlayer('OT<?= $p.$x;?>','<?= $league ?>',<?=$cpfields?>);"  readonly type="text" name="txtLine[OT<?=$p.$x;?>]" value="<?= $row["OT". $p.$x]; ?>">
 																			</div>
 																		</div><?php
 																	}
@@ -1066,7 +1127,7 @@ function load_api_pageinfo(){
 																						<div class="positionlabel"><?= $pos?></div>
 																						<div class="positionname">
 																							<?php  $row[$usefield] = (isset($availableplayers[api_MakeCSSClass($row[$usefield])])) ? $row[$usefield]: "";?>
-																							<?= "<input id=\"". $usefield ."\" onclick=\"ChangePlayer('". $usefield ."','". $league ."',".$cpfields.");\" class=\"textname\" readonly type=\"text\" name=\"txtLine[". $usefield ."]\" value=\"". $row[$usefield] ."\">";?>
+																							<?= "<input id=\"". $usefield ."\" onclick=\"ChangePlayer('". $usefield ."','". $league ."',".$cpfields.");\" class=\"textName\" readonly type=\"text\" name=\"txtLine[". $usefield ."]\" value=\"". $row[$usefield] ."\">";?>
 																						</div>
 																					</div><?php 
 																				}
@@ -1231,7 +1292,7 @@ function load_api_pageinfo(){
 							<div class="positionline input-group">
                                 <span class="input-group-text positionlabel"  id="positionlabel"><?= $pos?></span>
                                 <?php  $row[$field . $pid] = (isset($availableplayers[api_MakeCSSClass($row[$field . $pid])])) ? $row[$field . $pid]: "";?>
-                                <?= "<input id=\"". $field . $pid ."\" onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" class=\"textname positionname form-control\" readonly type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value=\"".  $row[$field . $pid] ."\">";?>
+                                <?= "<input id=\"". $field . $pid ."\" onclick=\"ChangePlayer('". $field . $pid ."','". $league ."',".$cpfields.");\" class=\"textName positionname form-control\" readonly type=\"text\" placeholder=\".\" aria-label=\"..\" aria-describedby=\"positionlabel\" name=\"txtLine[". $field . $pid ."]\" value=\"".  $row[$field . $pid] ."\">";?>
 							</div>
 						<?php }?>
 					</div><!-- end positionwrapper-->
