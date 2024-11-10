@@ -239,7 +239,7 @@
 
                     <div id="tabs" class="linetabs">
                         <div class="menuPin">
-                            <div class="tabsMenu">
+                            <div class="tabsMenu ">
                                 <ul class="nav flex-column  " role="tablist">
                                     <?php  
                                     // loop through the tab names creating clickable tabs.
@@ -270,7 +270,7 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <div id="tabs" class="tab-content ">
                                 <?php // Loop through the tabs info making the lines pages.
                                 foreach($tabs AS $i=>$t) {

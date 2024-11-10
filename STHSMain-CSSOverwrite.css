@@ -1854,7 +1854,7 @@ width: 100%;
     top: 0px; /* Adjust this value to move the menu higher */
     left: 0; /* Adjust as needed for horizontal positioning */
     z-index: 10; /* Ensure tabsMenu is on top */
-    background-color: white; /* Add background color for better visibility */
+   
   }
 
 .tabsMenu li {
@@ -1888,13 +1888,30 @@ width: 100%;
 
 .tabsMenu li.active {
     background-color: #E7BF3A;
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px;
+   
+}
+
+.tabsMenu li button .active {
+   
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px;
    
 }
 
 
 .tabsMenu:hover li {
     display: block;
+    background-color: white; /* Add background color for better visibility */
  
+}
+
+.tabsMenu:hover li.active {
+    background-color: #E7BF3A;
+    border-top-left-radius: 0px; 
+    border-top-right-radius: 0px;
+   
 }
 
 .tabsMenu li:hover {
