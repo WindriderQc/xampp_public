@@ -320,7 +320,7 @@
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm draggable p-0" draggable="true">
                                                                                 <div class="card-body p-0" >
-                                                                                <input class='colorName positionname form-control' readonly type="text" placeholder="." aria-label=".." aria-describedby="positionlabel" 
+                                                                                    <input class='colorName positionname form-control' readonly type="text" placeholder="." aria-label=".." aria-describedby="positionlabel" 
                                                                                         onclick="ChangePlayer('<?= $field . $pid; ?>','<?= $league; ?>','<?= $cpfields; ?>')" 
                                                                                         id="<?= $field . $pid; ?>" name="txtLine[<?= $field . $pid; ?>]" value="<?= $playerName ?>">
                                                                                 </div>

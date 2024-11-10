@@ -1367,7 +1367,8 @@ function load_api_pageinfo(){
 		$arr["blocks"]["PK3"] = array("pk3line1"=>"PK3 Lines #1","pk3line2"=>"PK3 Lines #2","pk3pair1"=>"PK3 Pair #1","pk3pair2"=>"PK3 Pair #2");
 		$arr["blocks"]["OT"] = array("forwards"=>"Forwards","defense"=>"Defense");
 
-		$arr["positions"]["Forward"] = array("Center"=>"C","LeftWing"=>"LW","RightWing"=>"RW");
+		//$arr["positions"]["Forward"] = array("Center"=>"C","LeftWing"=>"LW","RightWing"=>"RW");
+        $arr["positions"]["Forward"] = array("LeftWing"=>"LW", "Center"=>"C","RightWing"=>"RW");  //  Mod pour avoir le centre au millieu 
 		$arr["positions"]["Forward3"] = array("Center"=>"F");
 		$arr["positions"]["Forward4"] = array("Center"=>"C","Wing"=>"W");
 		$arr["positions"]["Defense"] = array("Defense1"=>"LD","Defense2"=>"RD");

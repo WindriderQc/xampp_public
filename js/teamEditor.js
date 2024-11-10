@@ -396,7 +396,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Check if teamID is set
 if (typeof teamID !== 'undefined' && teamID > 0) {
     // Fetch player info from API
-    fetch(`http://192.168.1.161:8001/API.php?PlayerInfo&Team=${teamID}`)
+   // fetch(`http://192.168.1.161:8001/API.php?PlayerInfo&Team=${teamID}`)
+    fetch(`/API.php?PlayerInfo&Team=${teamID}`)
         .then(response => {
             console.log('Raw response:', response);
             if (!response.ok) {
