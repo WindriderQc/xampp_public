@@ -9,34 +9,48 @@ if ($db) {
     $table = $_GET['table'] ?? null;
     $field = $_GET['field'] ?? null;
     $value = $_GET['value'] ?? null;
+    $getFields = isset($_GET['getFields']) && $_GET['getFields'] === 'true';
 
-    if ($table && $field && $value) {
-        // Fetch column names
+    if ($table && $getFields) {
+        // Fetch only column names for the specified table
         $query = "PRAGMA table_info($table)";
         $result = $db->query($query);
-        
+
         $tableColumns = [];
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $tableColumns[] = $row['name'];
         }
 
-        // Fetch row data based on specified field and value
+        header('Content-Type: application/json');
+        echo json_encode(['fields' => $tableColumns]);
+        exit;
+    } elseif ($table && $field && $value) {
+        // Fetch column names and row data based on specified field and value
+        $query = "PRAGMA table_info($table)";
+        $result = $db->query($query);
+
+        $tableColumns = [];
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $tableColumns[] = $row['name'];
+        }
+
         $stmt = $db->prepare("SELECT * FROM $table WHERE $field = :value LIMIT 1");
         $stmt->bindValue(':value', $value, SQLITE3_TEXT);
         $result = $stmt->execute();
         $rowData = $result->fetchArray(SQLITE3_ASSOC);
+        $rowData = $rowData ? [$rowData] : []; // Wrap rowData in an array
+        
 
         header('Content-Type: application/json');
         echo json_encode([
             'columns' => $tableColumns,
-            'rowData' => $rowData ? $rowData : []
+            'rows' => $rowData ? $rowData : []
         ]);
     } else {
         // Default: Fetch first row of each table
-       // $tables = ['PlayerInfo', 'TeamProLines', 'TeamProStat', 'TeamProInfo', 'PlayerProStat'];
-
         $query = "SELECT name FROM sqlite_master WHERE type='table'";
         $result = $db->query($query);
+        
 
         $tables = [];
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -48,7 +62,7 @@ if ($db) {
         foreach ($tables as $table) {
             $query = "PRAGMA table_info($table)";
             $result = $db->query($query);
-            
+
             $tableColumns = [];
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $tableColumns[] = $row['name'];

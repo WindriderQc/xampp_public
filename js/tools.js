@@ -1,25 +1,34 @@
- // Function to load the navbar from the external file
- async function loadNavbar() {
+// Function to load the navbar from the external file
+async function loadNavbar() {
     const response = await fetch('/tools/menu.html');
     const navbarHtml = await response.text();
     document.getElementById('navbar-placeholder').innerHTML = navbarHtml;
 }
 
-//  Function to test a request to the database via a PHP request
+// Function to test a request to the database via a PHP request
 async function testDB() {
-    const selectedTable = 'TeamInfo';  
-    const selectedField = 'Number';  
-    const selectedValue = '21';  
+    const selectedTable = 'TeamInfo';
+    const selectedField = 'Number';
+    const selectedValue = '21';
 
     const testResp = await fetch(`/components/sql/fetch_db.php?table=${selectedTable}&field=${selectedField}&value=${selectedValue}`);
     console.log('Testing db - team 21:', testResp)
 }
 
+//***************
+// Page Configuration and Execution
+//****************
+async function loadStart() {
+    await loadNavbar();
+    await testDB();
+    await fetchTableList();
+}
+window.onload = loadStart;
 
-// Function to fetch and populate the table dropdown
+// Fetch and populate the table dropdown
 async function fetchTableList() {
     try {
-        const response = await fetch('/components/sql/fetch_db_table_names.php'); // Replace with the correct PHP path
+        const response = await fetch('/components/sql/fetch_db_table_names.php');
         const data = await response.json();
 
         const tableSelector = document.getElementById('tableSelector');
@@ -30,36 +39,54 @@ async function fetchTableList() {
             tableSelector.appendChild(option);
         });
     } catch (error) {
-        console.warn('Error fetching table list:', error);
+        console.error('Error fetching table list:', error);
     }
 }
 
+// Fetch columns (fields) for the selected table
+async function fetchFieldList(table) {
+    try {
+        const response = await fetch(`/components/sql/fetch_db.php?table=${table}&getFields=true`);
+        const data = await response.json();
 
+        const fieldSelector = document.getElementById('fieldSelector');
+        fieldSelector.innerHTML = '<option value="">-- Choose a Field --</option>';
 
+        if (data && data.fields) {
+            data.fields.forEach(field => {
+                const option = document.createElement('option');
+                option.value = field;
+                option.textContent = field;
+                fieldSelector.appendChild(option);
+            });
+        } else {
+            console.error('No fields found for table:', table);
+        }
+    } catch (error) {
+        console.error('Error fetching field list:', error);
+    }
+}
 
-// Display the selected table's first row on page load
+// Display columns and first row of the selected table
 async function displaySelectedTable() {
     const selectedTable = document.getElementById('tableSelector').value;
 
     if (selectedTable) {
+        await fetchFieldList(selectedTable);
+
         try {
             const response = await fetch(`/components/sql/fetch_db.php?table=${selectedTable}`);
             if (!response.ok) throw new Error('Network response was not ok');
 
-            // Log the response to inspect its structure
             const data = await response.json();
             console.log('Fetched Data:', data, "Selected Table", selectedTable);
 
-            // Check if we are handling multiple tables or a single table's data
             if (data[selectedTable]) {
-                // If data for a single table is returned
                 const tableData = data[selectedTable];
                 if (tableData && tableData.columns && tableData.firstRow) {
                     displayTableData(tableData.columns, tableData.firstRow);
                 } else {
                     console.warn('Invalid data structure for table:', selectedTable);
-                    //alert('Error: Invalid data structure received.');
-                    // Dump raw data if structure is invalid
                     dumpRawData(data);
                 }
             } else {
@@ -71,16 +98,45 @@ async function displaySelectedTable() {
         }
     } else {
         document.getElementById('tableDisplay').innerHTML = '';
+        document.getElementById('fieldSelector').innerHTML = '<option value="">-- Choose a Field --</option>';
     }
 }
 
+// Fetch and display rows based on selected field and input value
+async function fetchRowByField() {
+    const selectedTable = document.getElementById('tableSelector').value;
+    const selectedField = document.getElementById('fieldSelector').value;
+    const fieldValue = document.getElementById('fieldValue').value;
+
+    if (!selectedTable || !selectedField || !fieldValue) {
+        alert('Please select a table, a field, and enter a value.');
+        return;
+    }
+
+    console.log('Requesting: ',selectedTable, selectedField, fieldValue )
+
+    try {
+        const response = await fetch(`/components/sql/fetch_db.php?table=${selectedTable}&field=${selectedField}&value=${fieldValue}`);
+        const data = await response.json();
+
+        console.log('Received: ',data )
+
+        if (data && data.rows && data.columns) {
+            displayTableData(data.columns, data.rows[0] || {}); // Display the first matching row
+        } else {
+            console.error('No data found for the selected field and value');
+            alert('No results found for your query.');
+        }
+    } catch (error) {
+        console.error('Error fetching row by field and value:', error);
+    }
+}
 
 // Display data in single-column format
 function displayTableData(columns, rowData) {
     const container = document.getElementById('tableDisplay');
-    container.innerHTML = ''; // Clear previous data
+    container.innerHTML = '';
 
-    // Ensure columns and rowData are properly passed
     if (Array.isArray(columns) && typeof rowData === 'object') {
         columns.forEach(column => {
             const row = document.createElement('div');
@@ -104,55 +160,29 @@ function displayTableData(columns, rowData) {
     }
 }
 
-// Function to dump raw data when the structure is invalid
+// Dump raw data if the structure is invalid
 function dumpRawData(data) {
     const container = document.getElementById('tableDisplay');
-    container.innerHTML = ''; // Clear any previous content
+    container.innerHTML = '';
 
-    // Check if the raw data is an array or object and display it
     if (Array.isArray(data)) {
-        // If it's an array, display each item
         data.forEach(item => {
             const row = document.createElement('div');
             row.classList.add('row');
-            row.textContent = JSON.stringify(item);  // Stringify to display raw data
+            row.textContent = JSON.stringify(item);
             container.appendChild(row);
         });
     } else if (typeof data === 'object') {
-        // If it's an object, display key-value pairs
         Object.keys(data).forEach(key => {
             const row = document.createElement('div');
             row.classList.add('row');
-            row.textContent = `${key}: ${JSON.stringify(data[key])}`;  // Stringify values
+            row.textContent = `${key}: ${JSON.stringify(data[key])}`;
             container.appendChild(row);
         });
     } else {
-        // For any other type (e.g., string or number), just display it
         const row = document.createElement('div');
         row.classList.add('row');
         row.textContent = JSON.stringify(data);
         container.appendChild(row);
     }
 }
-
-
-
-
-//*************** 
-
-//  Page Configuration and Execution
-
-//****************
-
-
-async function loadStart() {
-    
-    await loadNavbar();
-    
-    await testDB();
-    
-    await fetchTableList();
-
-}
-window.onload = loadStart;
-
