@@ -341,7 +341,7 @@
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm draggable p-0" draggable="true">
                                                                                 <div class="card-body p-0" >
-                                                                                    <input class='colorName positionname form-control p-0' readonly type="text" placeholder="." aria-label=".." aria-describedby="positionlabel" 
+                                                                                    <input class='colorName  form-control p-0' readonly type="text" placeholder="." aria-label=".." aria-describedby="positionlabel" 
                                                                                         onclick="ChangePlayer('<?= $field . $pid; ?>','<?= $league; ?>','<?= $cpfields; ?>')" 
                                                                                         id="<?= $field . $pid; ?>" name="txtLine[<?= $field . $pid; ?>]" value="<?= $playerName ?>">
                                                                                 </div>
@@ -451,16 +451,26 @@
                                         elseif($i == "Others"){ ?>
                                             
                                             <div class="linesection id<?= api_MakeCSSClass($i)?> goalies tab-pane"> <?php // Start with the goalies. ?>
-                                                                                                                     
-                                                <?php 
-                                                $GoalerInGame = api_GoalerInGame($db,$league);																
-                                                foreach(array(1=>"Starting Goalie",2=>"Backup Goalie",3=>"Third Goalie") AS $gid=>$g){?>
-                                                    <?php if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2){echo "<h4 style=\"display:none\">". $g ."</h4>";}else{echo "<h4>". $g ."</h4>";}?>
-                                                    <div class="blockcontainer" <?php if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2){echo "style=\"display:none\">";}else{echo ">";}
-                                                        $row["Goaler" . $gid] = (isset($availableplayers[api_MakeCSSClass($row["Goaler".$gid])])) ? $row["Goaler".$gid]: "";?>
-                                                        <div class="positionline"><?= "<input class=\"textName\" id=\"Goaler". $gid ."\" onclick=\"ChangePlayer('Goaler". $gid ."','". $league ."',".$cpfields.");\"  readonly type=\"text\" name=\"txtLine[Goaler". $gid ."]\" value=\"". $row["Goaler".$gid] ."\">";?></div>
-                                                    </div><?php 
-                                                } ?>
+                                                <div class="row">                                                                   
+                                                    <?php 
+                                                    $GoalerInGame = api_GoalerInGame($db,$league);																
+                                                    foreach(array(1=>"Starting Goalie",2=>"Backup Goalie",3=>"Third Goalie") AS $gid=>$g){?>
+                                                        <div class=" p-1 m-1 ">
+                                                            <?php 
+                                                            if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2){echo "<h4 style=\"display:none\">". $g ."</h4>";}else{echo "<h4>". $g ."</h4>";}
+                                                            $row["Goaler" . $gid] = (isset($availableplayers[api_MakeCSSClass($row["Goaler".$gid])])) ? $row["Goaler".$gid]: ""; 
+                                                            ?>
+                                                            <div class="blockcontainer"<?php if ($g == "Third Goalie" AND $GoalerInGame['GoalerInGame'] == 2) echo "style=\"display:none\""; ?>>
+                                                                <div class="positionline">
+                                                                
+                                                                    <input class="textName" id="Goaler<?= $gid ?>" onclick="ChangePlayer('Goaler<?= $gid ?>', '<?= $league ?>', <?= $cpfields ?>)" readonly type="text" name="txtLine[Goaler<?= $gid ?>]" value="<?= $row["Goaler".$gid] ?>">
+
+                                                                </div>
+                                                            </div>
+                                                        </div><?php 
+                                                            
+                                                    }?>
+                                                </div>    
                                             </div><!-- end linesection goalies-->
 
                                             <?php 
@@ -474,7 +484,7 @@
                                                                     $usefield = "Extra" .$fsid . $fe;
                                                                     if(array_key_exists($usefield, $row)){?>
                                                                         <div class="positionline">
-                                                                            <div class="positionlabel"><?= $fe?></div>
+                                                                            <div class="paleText"><?= $fe?></div>
                                                                             <div class="positionname">
                                                                                 <?php  $row[$usefield] = (isset($availableplayers[api_MakeCSSClass($row[$usefield])])) ? $row[$usefield] : "";?>
                                                                                 <input id="<?= $usefield ?>" onclick="ChangePlayer('<?= $usefield ?>','<?= $league ?>',<?=$cpfields?>);" class="textName" readonly type="text" name="txtLine[<?= $usefield ?>]" value="<?= $row[$usefield] ?>">
@@ -492,7 +502,7 @@
                                                             <div class="penaltyshot">
                                                                 <?php  for($x=1;$x<6;$x++){?>
                                                                 <div class="positionline">
-                                                                    <div class="positionlabel"><?= $x ?>.</div>
+                                                                    <div class="paleText"><?= $x ?>.</div>
                                                                     <div class="positionname">
                                                                         <?php  $row["PenaltyShots" . $x] = (isset($availableplayers[api_MakeCSSClass($row["PenaltyShots" . $x])])) ? $row["PenaltyShots" . $x] : "";?>
                                                                         <input id="PenaltyShots<?= $x ?>" onclick="ChangePlayer('PenaltyShots<?= $x ?>','<?= $league ?>',<?=$cpfields?>);" class="textName" readonly type="text" name="txtLine[PenaltyShots<?= $x ?>]" value="<?= $row["PenaltyShots" . $x] ?>">

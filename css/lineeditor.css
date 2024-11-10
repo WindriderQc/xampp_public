@@ -69,15 +69,6 @@
 }
 
 
-
-.positionlabel {
-    /*padding: 0;
-    color:#E7BF3A;*/
-    display: inline-block;
-    background-color: #E7BF3A !important;
-}
-
-
 .slotcard {
     display: inline-block;
 }
@@ -94,11 +85,6 @@
     margin-bottom: 4px;
    
 
-}
-#lineeditor  #tabs .linesection input[type=button]{
-    
-    text-align:center;
-   
 }
 
 
