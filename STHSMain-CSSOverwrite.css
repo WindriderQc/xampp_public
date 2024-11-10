@@ -1878,13 +1878,17 @@ width: 100%;
     box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
 }
 
+.tabsMenu li button:focus, .tabsMenu li button:hover  {
+    color: black;
+}
+
 .tabsMenu li:not(.active) {
     display: none;
 }
 
 .tabsMenu li.active {
     background-color: #E7BF3A;
-    color: white;
+   
 }
 
 
