@@ -219,3 +219,18 @@ function inArray(needle, haystack) {
 
 
 
+
+//  toggle active class on a target and its source
+function toggler(event, target)  {
+    
+    const divName = target ;   // `${target}${block}`;
+
+    console.log("clicked",divName);
+    const targetDiv = document.getElementById(divName);
+
+
+    const source = event.target;
+    source.classList.toggle('active'); // Toggle the active class on the button
+    targetDiv.classList.toggle('active'); // Toggle the active class on the target div
+
+}

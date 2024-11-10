@@ -296,9 +296,9 @@
                                                             <div class="text-end m-0"> 
                                                                 <div class="button-container">
                                                                     <div class="btn-group">   
-                                                                        <button type="button" class="btn btn-warning btn-custom"  class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggler(event, '<?= api_MakeCSSClass($bid)?>', 'sliders')" > 
+                                                                        <button type="button" class="btn btn-warning btn-custom"  class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggler(event,`sliders<?= api_MakeCSSClass($bid)?>`)" > 
                                                                             <img src="images/strategy.png" alt="Button 1" ></button>
-                                                                        <button type="button" class="btn btn-warning btn-custom " class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggler(event, '<?= api_MakeCSSClass($bid)?>', 'persona')" >
+                                                                        <button type="button" class="btn btn-warning btn-custom " class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggler(event, 'persona<?= api_MakeCSSClass($bid)?>')" >
                                                                             <i class="fa-solid fa-user"></i></button>
                                                                     </div>
                                                                 </div>

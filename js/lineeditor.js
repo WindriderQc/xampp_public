@@ -1109,21 +1109,19 @@ document.addEventListener('click', function (event) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 });
 
-function toggler(event, block, target)  {
-    
-    const divName =  `${target}${block}`;
-
-    console.log("clicked",divName);
-    const targetDiv = document.getElementById(divName);
-
-
-    const button = event.target;
-    button.classList.toggle('active'); // Toggle the active class on the button
-    targetDiv.classList.toggle('active'); // Toggle the active class on the target div
-
-}
 
 
 
