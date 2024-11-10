@@ -161,41 +161,130 @@ $(document).ready(function() {
         });
     });*/
 
+  
+  
+    
 
-    document.querySelectorAll('.tabsMenu .nav-link').forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all nav items
+
+        const tabsMenu = document.querySelector('.tabsMenu');
+        let isTouchEvent = false;
+        
+    
+        // Function to show the menu
+        function showMenu() {
+            tabsMenu.classList.add('active'); // Add active class to indicate the menu is open
             document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
-                item.classList.remove('active');
-                item.style.display = 'none'; // Hide all items
+                item.style.display = 'block';
             });
+        }
     
-            // Add active class to the clicked button's parent li
-            this.parentElement.classList.add('active');
-            this.parentElement.style.display = 'block'; // Show the clicked item
+        // Function to hide the menu
+        function hideMenu() {
+            tabsMenu.classList.remove('active'); // Remove active class to indicate the menu is closed
+            document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+                if (!item.classList.contains('active')) {
+                    item.style.display = 'none';
+                }
+            });
+        }
     
-        });
-    });
+        // Desktop hover event
+        tabsMenu.addEventListener('mouseover', showMenu);
+        tabsMenu.addEventListener('mouseout', hideMenu);
     
-    // Show all items on hover
-    document.querySelector('.tabsMenu').addEventListener('mouseover', function() {
-        document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
-            item.style.display = 'block';
-        });
-    });
-    
-    // Hide all non-active items when mouse leaves
-    document.querySelector('.tabsMenu').addEventListener('mouseout', function() {
-        document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
-            if (!item.classList.contains('active')) {
-                item.style.display = 'none';
+        // Function to handle touchstart events
+      /*  function handleTouchStart(event) {
+            isTouchEvent = true;
+            console.log("Tooouuuccccchhhhhh")
+            if (event.target.classList.contains('nav-link')) {
+
+                const parentLi = event.target.parentElement;
+                if (tabsMenu.classList.contains('active')) {
+                   
+                    // If menu is already open, activate the clicked button and hide the menu
+                    document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+                        item.classList.remove('active');
+                        item.style.display = 'none'; // Hide all items
+                    });
+                    parentLi.classList.add('active');
+                    parentLi.style.display = 'block'; // Show the clicked item
+                    hideMenu(); // Hide the menu
+                } else {
+                    // Show the menu if it's closed
+                    showMenu();
+                }
             }
-        });
-    });
+        }*/
     
+        // Function to handle click events
+        /*function handleClick(event) {
+            console.log("Cliiiiiccccccc")
+
+            if (tabsMenu.classList.contains('active')) {}
 
 
+           // Prevent the click event if it was a touch event 
+            if (isTouchEvent) { 
+                isTouchEvent = false; // Reset the flag return; 
+                return;
+            } 
+            if (event.target.classList.contains('nav-link')) { 
+                hideMenu(); // Hide the menu on click 
+            }
+        }*/
+    
+        // Add touchstart and click event listeners
+       // tabsMenu.addEventListener('touchstart', handleTouchStart);
+       // tabsMenu.addEventListener('click', handleClick);
+    
+        // Hide menu on menu item click
+            document.querySelectorAll('.tabsMenu .nav-link').forEach(button => {
+                button.addEventListener('click', function() {
+                    const parentLi = this.parentElement;
+            
+                    // Check if the parent li is already active
+                    const wasActive = parentLi.classList.contains('active');
+            
+                    // Remove active class from all nav items
+                    document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+                        item.classList.remove('active');
+                        item.style.display = 'none'; // Hide all items
+                    });
+            
+                    // If the clicked button was not active, activate it
+                    if (!wasActive) {
+                        parentLi.classList.add('active');
+                        parentLi.style.display = 'block'; // Show the clicked item
+                        hideMenu();
+                    } 
+                    else { 
+                        showMenu();
+                    }
+            
+                });
+            });
+            
+    
+           /* button.addEventListener('touchstart', function(event) {
+                // Ensure the event is not triggered twice
+                event.stopPropagation();
+    
+                // Remove active class from all nav items
+                document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+                    item.classList.remove('active');
+                    item.style.display = 'none'; // Hide all items
+                });
+    
+                // Add active class to the clicked button's parent li
+                this.parentElement.classList.add('active');
+                this.parentElement.style.display = 'block'; // Show the clicked item
+    
+                // Hide the menu
+               // hideMenu();
+            });*/
+      
 });
+    
 
 
 

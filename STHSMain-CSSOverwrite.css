@@ -1853,9 +1853,12 @@ width: 100%;
     position: absolute;
     top: 0px; /* Adjust this value to move the menu higher */
     left: 0; /* Adjust as needed for horizontal positioning */
-    z-index: 10; /* Ensure tabsMenu is on top */
-   
+    z-index: 0; 
   }
+
+.tabsMenu {
+    z-index: 10; /* Ensure tabsMenu is on top */
+}
 
 .tabsMenu li {
     color: black;
@@ -1865,7 +1868,7 @@ width: 100%;
     position: relative; /* Stack items naturally within the container */
     width: 100%; /* Ensure it covers the full width */ 
     left: 0; /* Align to the left */ 
-    z-index: 20; /* Ensure it overlaps other content */
+   
 }
 
 .tabsMenu li button {
@@ -1901,6 +1904,7 @@ width: 100%;
 }
 
 
+
 .tabsMenu:hover li {
     display: block;
     background-color: white; /* Add background color for better visibility */
@@ -1919,4 +1923,9 @@ width: 100%;
 }
 
 
+.tabsMenu .active li {
+   
+    display: block;
+   
+}
 
