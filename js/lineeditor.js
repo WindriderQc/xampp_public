@@ -676,7 +676,7 @@ function line_validator(BlockPlayerFromPlayingLines12,BlockPlayerFromPlayingLine
 	display += "</div>";
 
 	document.getElementById('errors').innerHTML = display;	
-	document.getElementById("linesubmit").disabled = disabled;
+	document.getElementById('linesubmit').disabled = disabled;
 }
 function clean_position_list(){
 	var positions = make_position_list();
@@ -1111,9 +1111,9 @@ document.addEventListener('click', function (event) {
 
 });
 
-function toggleSlider(event, block) {
+function toggler(event, block, target)  {
     
-    const divName =  `sliders${block}`;
+    const divName =  `${target}${block}`;
 
     console.log("clicked",divName);
     const targetDiv = document.getElementById(divName);

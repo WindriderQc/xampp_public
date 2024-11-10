@@ -625,45 +625,6 @@ body:not(.mobile) #stickynav{
 
 
 
-/*  VERTICAL MENU   ============================================================================= */
-
-
-
-.vertical-menu ul {
-
-	border-top: 5px solid #E7BF3A;
-
-}
-
-.vertical-menu ul li:hover {
-
-	background: #3f444a;
-
-}
-
-.vertical-menu ul li a{
-
-	display: block;
-
-	padding: 15px 20px;
-
-	color: #fff;
-
-	font-size: 15px;
-
-	border-top: 1px solid #E7BF3A;
-
-}
-
-
-
-.vertical-menu ul li a:hover {
-
-	color: #E7BF3A;
-
-}
-
-
 
 
 
@@ -1527,12 +1488,8 @@ footer .module-content {
 .showMe {border: 1px dotted #2e7bdf;}
 
 .paleText {color:#cccccc !important;}
+
 .darkText {color:#0f0f0f !important;}
-
-
-
-
-
 .darkText a  {color:#0f0f0f !important;}
 .darkText .active a  {color:#0f0f0f !important;}
 
@@ -1552,13 +1509,26 @@ footer .module-content {
 .error, .linesincomplete{color:#D8000C;background-color: #FFBABA;font-size:large;margin-bottom:5px;padding:5px;}
 .errorwrapper{padding:10px;overflow:hidden;}
 .erroritem{font-size:13px;float:left;margin-right:15px;}
-.rostercomplete,.linescomplete{color: #4F8A10;background-color: #DFF2BF;font-size:large;margin-bottom:5px;padding:2px; margin-top: 15px;}
-.confirm{color: #4F8A10;background-color: #DFF2BF;font-size:x-large;margin-bottom:2px;padding:2px;}
+
+.rostercomplete,.linescomplete{
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    font-size:large;
+    padding:2px; 
+}
+
+.confirm{
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    font-size:x-large;
+    margin-bottom:2px;
+    padding:2px;
+}
 
 
 
-.Save{padding-bottom:10px;  text-align:center; }
-.Save input {color:#333; }
+.lineButtons{padding-bottom:10px;  text-align:center; }
+.lineButtons input {color:#333; }
 
 
 
@@ -1872,11 +1842,87 @@ width: 100%;
 
 .tab-content .tab-pane {
     background-color: #FFF;
-    color: #0080FF;
+    color: #148a80;
     min-height: 200px;
     height: auto;
 }
     
     
 
+
+
+
+
+/*  VERTICAL MENU   ============================================================================= */
+
+
+
+.vertical-menu ul {
+
+	border-top: 5px solid #E7BF3A;
+
+}
+
+.vertical-menu ul li:hover {
+
+	background: #3f444a;
+
+}
+
+.vertical-menu ul li a{
+
+	display: block;
+
+	padding: 15px 20px;
+
+	color: #fff;
+
+	font-size: 15px;
+
+	border-top: 1px solid #E7BF3A;
+
+}
+
+
+
+.vertical-menu ul li a:hover {
+
+	color: #E7BF3A;
+
+}
+
+
+
+
       
+
+.vertical-tab-container {
+    position: relative;
+    width: 200px; /* Adjust width as needed */
+}
+
+.nav-pills {
+    display: none; /* Hide tabs by default */
+}
+.nav-pills.active {
+    display: block; /* Show tabs on active */
+}
+
+.vertical-tab-container:hover .nav-pills {
+    display: block; /* Show tabs on hover */
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 1;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+}
+
+.nav-link {
+    display: block;
+    text-align: left;
+}
+
+.vertical-tab-container .nav-link.active {
+    font-weight: bold; /* Highlight active tab */
+}

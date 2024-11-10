@@ -161,7 +161,7 @@
                         $TransactionSQL = "INSERT Into LeagueLog (Number, Text, DateTime, TransactionType) VALUES ('" . rand(90000,99999) . "','Save Lines for " . $teamname . "','" . gmdate('Y-m-d H:i:s') . "','8')";
                         $db->exec($TransactionSQL);
                         
-                        $bannertext = "Lines have been saved.";
+                        $c = "Lines have been saved.";
                     }else{
                         $bannertext = "No changes have been made.";
                     }
@@ -184,20 +184,35 @@
 
 <div id="lineeditor">
     <div class="container pagewrapper pagewrapperlineeditor">
-        <div class="row">
-                
-            
-                <form id="submissionform" class="STHSWebClient_Form " name="frmEditLines" method="POST" onload="checkCompleteLines();">
-                        
-                    <div class="row Save justify-content-center pt-1">
-                            <div class="col"><input id="autolines" onClick="javascript:auto_lines('<?= $league ?>',<?=$cpfields?>);" type="button" name="btnAutoLines" value="Auto Lines" class="btn btn-info"></div>
-                            <div class="col"><input id="linesubmit" type="submit" value="Save Lines" name="sbtUpdateLines" form="submissionform" class=" btn btn-warning" /> </div>  
-                    </div>
+       
+            <div class="lineSave pb-3 "> 
+                <div class="row  darkText justify-content-center pt-1 m-0 px-0">
 
-                    <h3 class="withsave darkText"><?= api_make_nextgame($nextgames[1],$league);?></h3>
-                    
-                    <?php if($bannertext != ""){ echo "<div class=\"confirm\">" . $bannertext . "</div>"; }  ?>                      
-                    <div id="errors"></div>
+                    <div class="col-3 ">
+                        <button id="autolines" onClick="javascript:auto_lines('<?= $league ?>',<?= $cpfields ?>);" type="button" name="btnAutoLines" class="btn btn-info  m-1 shadow "> Auto </button>
+                        <button id="linesubmit" type="submit" name="sbtUpdateLines" form="submissionform" class="btn btn-warning  m-1 shadow "> Save</button>
+                    </div>
+                    <div class="col "> 
+                        <div id="errors"></div>
+                        <div id="confirmDiv" class="confirm banner"><?php if($bannertext) echo $bannertext; else  echo ""; ?>    </div>
+                        <h4 class="darkText"><?= api_make_nextgame($nextgames[1],$league);?></h4>
+                    </div> 
+
+                    <div class="col-3"> 
+                        <button type="button" class="btn btn-warning btn-custom openList btn-lg shadow " > <img src="images/roster.png" alt="Button 2" ><br>Roster </button>
+                    </div> 
+                </div>
+            </div>
+           
+       
+ 
+
+        <form id="submissionform" class="STHSWebClient_Form " name="frmEditLines" method="POST" onload="checkCompleteLines();">
+
+            
+                   
+           
+
                     <?php  
                         $nextgames = api_get_nextgames($db,$t); // Create a next 10 games array to see the games both Pro and Farm will play.
                                                 
@@ -224,7 +239,8 @@
 
 
                     <div id="tabs" class="linetabs">
-                        <ul class="nav nav-tabs" role="tablist">
+                        <div class="">
+                            <ul class="nav nav-tabs " role="tablist">
                                 <?php  
                                 // loop through the tab names creating clickable tabs.
                                 $tablink = ($useServerURIInTabLink) ? $_SERVER["REQUEST_URI"] . "#tabs-" : "#tabs-";
@@ -249,9 +265,10 @@
                                 }
                                 $count = 0;
                                 ?>	
-                        </ul>
+                            </ul>
+                        </div>
 
-                        <div id="tabs" class="tab-content">
+                        <div id="tabs" class="tab-content ">
                                 <?php // Loop through the tabs info making the lines pages.
                                 foreach($tabs AS $i=>$t) {
                                     $displaytab = false;
@@ -275,10 +292,11 @@
                                                             <div class="darkText fs-10 text-start px-2"><?= $block ?> </div>
                                                             <div class="text-end m-0"> 
                                                                 <div class="button-container">
-                                                                    <div class="btn-group">
-                                                                        <button type="button" class="btn btn-warning btn-custom"  class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggleSlider(event, '<?= api_MakeCSSClass($bid)?>')" > 
-                                                                            <img src="images/strategy.png" alt="Button 1" > </button>
-                                                                        <button type="button" class="btn btn-warning btn-custom openList" > <img src="images/roster.png" alt="Button 2" > </button>
+                                                                    <div class="btn-group">   
+                                                                        <button type="button" class="btn btn-warning btn-custom"  class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggler(event, '<?= api_MakeCSSClass($bid)?>', 'sliders')" > 
+                                                                            <img src="images/strategy.png" alt="Button 1" ></button>
+                                                                        <button type="button" class="btn btn-warning btn-custom " class="toggle-active"  id="toggleButton<?= api_MakeCSSClass($bid)?> " onclick="toggler(event, '<?= api_MakeCSSClass($bid)?>', 'persona')" >
+                                                                            <i class="fa-solid fa-user"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -311,7 +329,7 @@
                                                                     $posit = $positions[$i];                                                                
                                                                 }?>
 
-                                                                <div class='row pt-2 m-1' id='divF<?= $bcount; ?>'>
+                                                                <div class='row pt-1 ' id='divF<?= $bcount; ?>'>
                                                                     <?php 
                                                                     foreach($posit as $pid => $pos) {
                                                                         // Set player name in each position
@@ -320,7 +338,7 @@
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm draggable p-0" draggable="true">
                                                                                 <div class="card-body p-0" >
-                                                                                    <input class='colorName positionname form-control' readonly type="text" placeholder="." aria-label=".." aria-describedby="positionlabel" 
+                                                                                    <input class='colorName positionname form-control p-0' readonly type="text" placeholder="." aria-label=".." aria-describedby="positionlabel" 
                                                                                         onclick="ChangePlayer('<?= $field . $pid; ?>','<?= $league; ?>','<?= $cpfields; ?>')" 
                                                                                         id="<?= $field . $pid; ?>" name="txtLine[<?= $field . $pid; ?>]" value="<?= $playerName ?>">
                                                                                 </div>
@@ -392,6 +410,34 @@
                                                                 </div>
                                 
                                                             </div><!-- end sliders-->
+
+
+                                                            <div class="container persona" id='persona<?= api_MakeCSSClass($bid)?>'>
+
+                                                                <div class='row pt-1 '>
+                                                                    <?php 
+                                                                    foreach($posit as $pid => $pos) {
+                                                                        // Set player name in each position
+                                                                        $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : ""; //log2console($playername ."  " . $field . " -  ". $pid );
+                                                                        ?>
+                                                                        <div class='col-4 p-1 '>
+                                                                            <div class="card rosterElm  p-0" >
+                                                                                <div class="card-body p-0" >
+                                                                                    <?= $playerName ?><br>
+                                                                                    <span>stats </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php         
+                                                                    }
+                                                                    ?>
+
+                                                                </div>
+    
+
+                                                            </div>
+
+
                                         
                                                         </div><!-- end blockcontainer-->
                                                     </div><!-- end linesection <?= api_MakeCSSClass($i)?> <?= api_MakeCSSClass($bid)?>--><?php 
@@ -402,8 +448,7 @@
                                         elseif($i == "Others"){ ?>
                                             
                                             <div class="linesection id<?= api_MakeCSSClass($i)?> goalies tab-pane"> <?php // Start with the goalies. ?>
-                                                <button type="button" class="btn btn-warning btn-custom openList" > <img src="images/roster.png" alt="Button 2" > </button>
-                                                                      
+                                                                                                                     
                                                 <?php 
                                                 $GoalerInGame = api_GoalerInGame($db,$league);																
                                                 foreach(array(1=>"Starting Goalie",2=>"Backup Goalie",3=>"Third Goalie") AS $gid=>$g){?>
@@ -565,7 +610,8 @@
             
          
 
-        </div> <!-- end row 1-->
+    </div><!-- end pagewrapper-->
+</div><!-- end id lineeditor-->
 
 
         
@@ -622,8 +668,7 @@
         </div>
         
                   
-    </div><!-- end pagewrapper-->
-</div><!-- end id lineeditor-->
+
 </header>                
 
 
@@ -640,13 +685,14 @@
             
             
 <script>
-    function deactivateBanner() {
-        const banner = document.querySelector('.confirm');
-        if (banner) banner.style.display = 'none'; // Hides the banner
+    function deactivateBanners() {
+        const banners = document.querySelectorAll('.banner'); 
+        banners.forEach(banner => { banner.style.display = 'none'; // Hides the banner 
+        });
     }
    
-    setTimeout(deactivateBanner, 5000);                    // Hide the confirm banner after 5 seconds
-    document.addEventListener('click', deactivateBanner);  // Hide the confirm banner on user interaction
+    setTimeout(deactivateBanners, 5000);                    // Hide the confirm banner after 5 seconds
+    document.addEventListener('click', deactivateBanners);  // Hide the confirm banner on user interaction
 </script>
 
 
