@@ -136,6 +136,65 @@ $(document).ready(function() {
         jQuery(this).parent('li').addClass('activemain').siblings().removeClass('activemain');
         e.preventDefault();
     });
+
+
+
+
+
+
+    
+    /*document.querySelectorAll('.tabsMenu .nav-link').forEach(button => {
+        button.addEventListener('click', function() {
+
+            // Remove active class from all nav items 
+            document.querySelectorAll('.tabsMenu .nav-item').forEach(item => { 
+                item.classList.remove('active'); 
+                item.style.display = 'none'; // Hide all items 
+            }); 
+            // Add active class to the clicked button's parent li 
+            this.parentElement.classList.add('active'); 
+            this.parentElement.style.display = 'block'; // Show the clicked item
+            
+           
+            // Hide the menu
+            document.querySelector('.tabsMenu').style.display = 'none';
+        });
+    });*/
+
+
+    document.querySelectorAll('.tabsMenu .nav-link').forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all nav items
+            document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+                item.classList.remove('active');
+                item.style.display = 'none'; // Hide all items
+            });
+    
+            // Add active class to the clicked button's parent li
+            this.parentElement.classList.add('active');
+            this.parentElement.style.display = 'block'; // Show the clicked item
+    
+        });
+    });
+    
+    // Show all items on hover
+    document.querySelector('.tabsMenu').addEventListener('mouseover', function() {
+        document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+            item.style.display = 'block';
+        });
+    });
+    
+    // Hide all non-active items when mouse leaves
+    document.querySelector('.tabsMenu').addEventListener('mouseout', function() {
+        document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+            if (!item.classList.contains('active')) {
+                item.style.display = 'none';
+            }
+        });
+    });
+    
+
+
 });
 
 
@@ -157,5 +216,6 @@ function inArray(needle, haystack) {
     }
     return ret;
 }
+
 
 

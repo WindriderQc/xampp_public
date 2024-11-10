@@ -1813,26 +1813,18 @@ width: 100%;
 /* Set a maximum width for the Transaction card */ 
 .transaction-card .card { 
     max-width: 100%; overflow: auto; /* Allow scrolling if the content exceeds the width */ 
-}
+}    
 
 
 
-.nav-tabs .nav-item .nav-link {
-    background-color:  #303336 ;
-    color: #747474;
-}
 
-.tabsItem button:hover {
-    background-color: #1e2022 !important;
-    color: #E7BF3A !important;
-    /* transform: scale(1.05); /* Slightly enlarges the box */
-    cursor: pointer; /* Changes the cursor to indicate it's interactive */
-}
 
-.nav-tabs .nav-item .nav-link.active {
-    color: #E7BF3A;
-    background-color: #010305;
-}
+
+
+
+
+
+
 
 .tab-content {
     border: 1px solid #dee2e6;
@@ -1847,82 +1839,63 @@ width: 100%;
     height: auto;
 }
     
-    
 
 
 
-
-
-/*  VERTICAL MENU   ============================================================================= */
-
-
-
-.vertical-menu ul {
-
-	border-top: 5px solid #E7BF3A;
-
+.menuPin { 
+    position: relative; /* Wrapper div with relative positioning */ 
+    width: 100%; /* Adjust width as necessary */
+    height: 50px;
 }
 
-.vertical-menu ul li:hover {
-
-	background: #3f444a;
-
-}
-
-.vertical-menu ul li a{
-
-	display: block;
-
-	padding: 15px 20px;
-
-	color: #fff;
-
-	font-size: 15px;
-
-	border-top: 1px solid #E7BF3A;
-
-}
-
-
-
-.vertical-menu ul li a:hover {
-
-	color: #E7BF3A;
-
-}
-
-
-
-
-      
-
-.vertical-tab-container {
-    position: relative;
-    width: 200px; /* Adjust width as needed */
-}
-
-.nav-pills {
-    display: none; /* Hide tabs by default */
-}
-.nav-pills.active {
-    display: block; /* Show tabs on active */
-}
-
-.vertical-tab-container:hover .nav-pills {
-    display: block; /* Show tabs on hover */
+.tabsMenu {
+    width: 200px;
     position: absolute;
-    top: 0;
-    left: 100%;
-    z-index: 1;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+    top: 0px; /* Adjust this value to move the menu higher */
+    left: 0; /* Adjust as needed for horizontal positioning */
+    z-index: 10; /* Ensure tabsMenu is on top */
+    background-color: white; /* Add background color for better visibility */
+  }
+
+.tabsMenu li {
+    color: black;
+    /*border: 2px solid black;*/
+    padding: 6px;
+    text-decoration: none;
+    position: relative; /* Stack items naturally within the container */
+    width: 100%; /* Ensure it covers the full width */ 
+    left: 0; /* Align to the left */ 
+    z-index: 20; /* Ensure it overlaps other content */
 }
 
-.nav-link {
+.tabsMenu li button {
+   
+    color: black;
+    display: block; /* Make button a block-level element */ 
+    width: 100%; /* Make button take up the full width of the parent li */ 
+    height: 100%; /* Make button take up the full height of the parent li */ 
+    padding: 10px; 
+    box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+}
+
+.tabsMenu li:not(.active) {
+    display: none;
+}
+
+.tabsMenu li.active {
+    background-color: #E7BF3A;
+    color: white;
+}
+
+
+.tabsMenu:hover li {
     display: block;
-    text-align: left;
+ 
 }
 
-.vertical-tab-container .nav-link.active {
-    font-weight: bold; /* Highlight active tab */
+.tabsMenu li:hover {
+    background-color: #ccc;
 }
+
+
+

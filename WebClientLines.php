@@ -231,7 +231,6 @@
                         $blocks = api_get_line_arrays("blocks");
                         $positions = api_get_line_arrays("positions");
                         $strategy = api_get_line_arrays("strategy");
-                        $count = 0; 
                     ?>
                         
                         
@@ -239,35 +238,39 @@
 
 
                     <div id="tabs" class="linetabs">
-                        <div class="">
-                            <ul class="nav nav-tabs " role="tablist">
-                                <?php  
-                                // loop through the tab names creating clickable tabs.
-                                $tablink = ($useServerURIInTabLink) ? $_SERVER["REQUEST_URI"] . "#tabs-" : "#tabs-";
-                                foreach($tabs AS $i=>$t){
-                                    $displaytab = false;
-                                    if($i != "OT")                       $displaytab = true;
-                                    elseif($i == "OT" && $customOTlines) $displaytab = true;
-                                    else                                 $displaytab = false;
-                                    
-                                    if($displaytab){
-                                        if($count) {?>
+                        <div class="menuPin">
+                            <div class="tabsMenu">
+                                <ul class="nav flex-column  " role="tablist">
+                                    <?php  
+                                    // loop through the tab names creating clickable tabs.
+                                    $count = 0; 
+                                    $tablink = ($useServerURIInTabLink) ? $_SERVER["REQUEST_URI"] . "#tabs-" : "#tabs-";
+                                    foreach($tabs AS $i=>$t){
+                                        $displaytab = false;
+                                        if($i != "OT")                       $displaytab = true;
+                                        elseif($i == "OT" && $customOTlines) $displaytab = true;
+                                        else                                 $displaytab = false;
                                         
-                                        <li class="tabsItem nav-item">
-                                            <button class="nav-link" id="<?= $t?>-tab" data-bs-toggle="tab" data-bs-target="<?= $tablink . ++$count?>" type="button" role="tab" aria-controls="ratings" aria-selected="false" tabindex="-1"><?= $t?></button> 
-                                        </li><?php 
-                                        }else {?> 
-                                        <li class="tabsItem nav-item active" >
-                                            <button class="nav-link active" id="<?= $t?>-tab" data-bs-toggle="tab" data-bs-target="<?= $tablink . ++$count?>" type="button" role="tab" aria-controls="ratings" aria-selected="false" tabindex="-1"><?= $t?></button> 
-                                        </li><?php 
+                                        if($displaytab){
+
+                                            $activeClass = $count ? '' : 'active';
+                                        
+                                            
+                                            ?> 
+                                            <li class=" nav-item <?= $activeClass ?>" >
+                                                <button class="nav-link <?= $activeClass ?>" id="<?= $t?>-tab" data-bs-toggle="tab" data-bs-target="<?= $tablink . ++$count?>" type="button" role="tab"  tabindex="-1"><?= $t?></button> 
+                                            </li><?php
+
+
+                                            
                                         }
                                     }
-                                }
-                                $count = 0;
-                                ?>	
-                            </ul>
+                                    $count = 0;
+                                    ?>	
+                                </ul>
+                            </div>
                         </div>
-
+                        
                         <div id="tabs" class="tab-content ">
                                 <?php // Loop through the tabs info making the lines pages.
                                 foreach($tabs AS $i=>$t) {
@@ -700,10 +703,6 @@
 <div id="playerInfoContainer"></div>            
 
 
-
-
-
-
 <?php 
             }
 		}else{
@@ -722,6 +721,8 @@
 }?>
     
 <?php include ("Footer.php"); ?>
+
+
 
 
 </body></html>
