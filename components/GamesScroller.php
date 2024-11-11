@@ -9,7 +9,7 @@
                 <button class="scrollBtn scrollBtnRight " id="right-button"><img src="images/arrow-right-yellow.png" ></button>
             </div>
         </div>
-        <div class=" ">    
+           
             <div class="scroll-container" id="boxscore">
                 <table class="table py-0 my-0">
                         <td style="background:white;width:43px;height:84px;display:block"><br></td>
@@ -111,7 +111,7 @@
 
                 </table>
             </div>   
-        </div>
+        
     </div>
 </div>  
     
