@@ -119,3 +119,54 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 .teamColorPale22 { color: #ffffff;  }
 .teamColorBright22 { color: #FF4C00; }
 .teamColorSecondary22 { color: #041E42; }
+
+.teamColorDark23 { color: #000000;  background-color:#D2001C; }  /*   23 - Flames                 */
+.teamColorPale23 { color: #ffffff;  }
+.teamColorBright23 { color: #FAAF19; }
+.teamColorSecondary23 { color: #D2001C; }
+
+.teamColorDark24 { color: #000000;  background-color: #00205B; }  /*   24 - Canucks                 */
+.teamColorPale24 { color: #ffffff;  }
+.teamColorBright24 { color: #00843d; }
+.teamColorSecondary24 { color: #041C2C; }
+
+.teamColorDark25 { color: #000000;  background-color: #236192; }  /*   25 - Avs                 */
+.teamColorPale25 { color: #ffffff;  }
+.teamColorBright25 { color: #236192; }
+.teamColorSecondary25 { color: #6F263D; }
+
+.teamColorDark26 { color: #000000;  background-color: #111111; }  /*   26 - Kings                */
+.teamColorPale26 { color: #ffffff;  }
+.teamColorBright26 { color:#A2AAAD; }
+.teamColorSecondary26 { color: #FFFFFF; }
+
+.teamColorDark27 { color: #000000;  background-color: #090909; }  /*   27 - UTAH                */
+.teamColorPale27 { color: #ffffff;  }
+.teamColorBright27 { color:  #71AFE5; }
+.teamColorSecondary27 { color: #090909; }
+
+.teamColorDark28 { color: #000000;  background-color: #006847; }  /*   28 - Stars                */
+.teamColorPale28 { color: #ffffff;  }
+.teamColorBright28 { color: #8F8F8C; }
+.teamColorSecondary28 { color: #090909; }
+
+.teamColorDark29 { color: #000000;  background-color: #F47A38; }  /*   29 - Ducks              */
+.teamColorPale29 { color: #ffffff;  }
+.teamColorBright29 { color:  #B9975B; }
+.teamColorSecondary29 { color:#C1C6C8; }
+
+.teamColorDark30 { color: #000000;  background-color: #006D75; }  /*   30 - Sharks               */
+.teamColorPale30 { color: #ffffff;  }
+.teamColorBright30 { color:  #EA7200; }
+.teamColorSecondary30 { color: #090909; }
+
+.teamColorDark32 { color: #000000;  background-color: #333f42; }  /*   32 - Golden Knights                */
+.teamColorPale32 { color: #ffffff;  }
+.teamColorBright32 { color:  #B4975A; }
+.teamColorSecondary32 { color: #c8102E; }
+
+.teamColorDark33 { color: #000000;  background-color: #355464; }  /*   33 - Krakens                */
+.teamColorPale33 { color: #ffffff;  }
+.teamColorBright33 { color:  #99d9d9; }
+.teamColorSecondary33 { color: #001628; }
+
