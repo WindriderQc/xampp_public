@@ -23,7 +23,7 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 
 
 
-.teamColorDark12 { color: #000000; text-shadow: 1.5px 1.5px 1.5px #DA1A32; }  /*   12 - Ottawa                   */
+.teamColorDark12 { color: #000000; text-shadow: 1.5px 1.5px 1.5px #DA1A32; background-color: #B79257; }  /*   12 - Ottawa                   */
 .teamColorPale12 { color: #ffffff; text-shadow: 1.5px 1.5px 1.5px #DA1A32; }
 .teamColorBright12 { color: #DA1A32;  }
 .teamColorSecondary12 { color: #B79257; }

@@ -300,8 +300,14 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
 .tabmain-links a{font-size:16px;}
 </style>
 
-
 </head>
+<script>
+    // Example de modif via JS
+  /*  const theme = 'teamColorPale<?= $TeamInfo['TeamThemeID'] ?>';
+    console.log(theme);
+    document.body.classList.toggle(theme);*/
+</script>
+
 <body>
 
 <header>
@@ -311,13 +317,10 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
 
 
 
-<script>
-console.log("<?= $TeamInfo['TeamThemeID']?>")
-
-</script>
 
 
-<div id="STHSPHPTeamStat_SubHeader" class="STHSPHPTeamBanner_<?= $TeamInfo['TeamThemeID']?>">
+
+<div id="STHSPHPTeamStat_SubHeader" class="STHSPHPTeamBanner_<?= $TeamInfo['TeamThemeID']?>      teamColorDark<?= $TeamInfo['TeamThemeID'] ?>">
 <table class="STHSPHPTeamHeader_Table">
     <tr>
         <td rowspan="2" class="STHSPHPTeamHeader_Logo"> <img src="images/<?= $TeamInfo['TeamThemeID'] ?>.png" alt="" class="STHSPHPTeamStatImage_<?= $TeamInfo['TeamThemeID']?>STHSPHPTeamStatImage"> </td>
@@ -355,12 +358,12 @@ console.log("<?= $TeamInfo['TeamThemeID']?>")
         ?>
         </td></tr>
     </table>
-/div>
+</div>
 
 <div class="container-flex">
 
 
-<div class="STHSPHPTeamStat_Main">
+<div class="STHSPHPTeamStat_Main    teamColorDark<?= $TeamInfo['TeamThemeID'] ?> ">
 <br />
 <div class="tabsmain standard">
 	<ul class="tabmain-links">
