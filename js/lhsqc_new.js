@@ -189,8 +189,12 @@ $(document).ready(function() {
         }
     
         // Desktop hover event
-        tabsMenu.addEventListener('mouseover', showMenu);
-        tabsMenu.addEventListener('mouseout', hideMenu);
+        if(tabsMenu)
+        {
+            tabsMenu.addEventListener('mouseover', showMenu);
+            tabsMenu.addEventListener('mouseout', hideMenu);
+        }
+ 
     
         // Function to handle touchstart events
       /*  function handleTouchStart(event) {
@@ -307,6 +311,10 @@ function inArray(needle, haystack) {
 }
 
 
+//  toggle a div visibility
+function toggleDiv(divId) {
+    $("#"+divId).toggle();
+}
 
 
 //  toggle active class on a target and its source

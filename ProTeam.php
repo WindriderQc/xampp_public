@@ -263,7 +263,6 @@ STHSErrorProTeam:
 	echo "<style>.STHSPHPTeamStat_Main {display:none;}</style>";
 }
 echo "<title>" . $LeagueName . " - " . $TeamName . "</title>";
-If (isset($PerformanceMonitorStart)){echo "<script>console.log(\"STHS Header Page PHP Performance : " . (microtime(true)-$PerformanceMonitorStart) . "\"); </script>";}
 ?>
 <style>
 <?php
@@ -297,24 +296,13 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
 #tablesorter_colSelect6:checked ~ #tablesorter_ColumnSelector6 {display: block;}
 #tablesorter_colSelect8P:checked + label {background: #5797d7;  border-color: #555;}
 #tablesorter_colSelect8P:checked ~ #tablesorter_ColumnSelector8P {display: block;z-index:10;}
-/*@media screen and (max-width: 992px) {
-.STHSWarning {display:block;}
-.STHSPHPTeamStatDepthChart_Table td:nth-child(3){display:none;}
-.STHSPHPTeam_HomeTable td:nth-child(2){display:none;}
-#STHSPHPTeam_HomePrimaryTableLeaders{display:none;}
-}@media screen and (max-width: 890px) {
-.STHSPHPTeamStatDepthChart_Table td:nth-child(2){display:none;}
-#STHSPHPTeamStat_SubHeader {display:none;}
-}*/
+
 .tabmain-links a{font-size:16px;}
 </style>
-<script>
 
-    
-</script>
-<script>function toggleDiv(divId) {$("#"+divId).toggle();}</script>
-</head><body>
 
+</head>
+<body>
 
 <header>
 <?php include "components/GamesScroller.php"; ?>	 
@@ -322,41 +310,52 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
   <div class="container p-2">  
 
 
-<?php 
-If ($TeamInfo <> Null){
-	echo "<div id=\"STHSPHPTeamStat_SubHeader\" class=\"STHSPHPTeamBanner_" . $TeamInfo['TeamThemeID'] . "\">";
-	echo "<table class=\"STHSPHPTeamHeader_Table\"><tr><td rowspan=\"2\" class=\"STHSPHPTeamHeader_Logo\">";
-	If ($TeamInfo['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $TeamInfo['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPTeamStatImage_" . $TeamInfo['TeamThemeID'] . " STHSPHPTeamStatImage\">";}
-	echo "</td><td class=\"STHSPHPTeamHeader_TeamName STHSPHPTeamHeader_TeamNameColor_" . $TeamInfo['TeamThemeID'] . "\">" . $TeamName . "</td></tr><tr><td class=\"STHSPHPTeamHeader_TeamNameColor_" . $TeamInfo['TeamThemeID'] . " STHSPHPTeamHeader_Stat\">";
-	echo "GP: " . $TeamStat['GP'] . " | W: " . ($TeamStat['W'] + $TeamStat['OTW'] + $TeamStat['SOW']) . " | L: " .  $TeamStat['L'];
-	if ($LeagueGeneral['PlayOffStarted'] == "False"){
-		if($LeagueGeneral['PointSystemSO'] == "True"){
-			echo  " | OTL: " . ($TeamStat['OTL'] + $TeamStat['SOL']) . " | P: " . $TeamStat['Points'];
-		}else{
-			echo  " | T: " . $TeamStat['T'] . " | P: " . $TeamStat['Points'];
-		}
-	}
-	echo "<br />" . "GF: " . $TeamStat['GF'] . " | GA: " . $TeamStat['GA'] . " | PP%: ";
-	if ($TeamStat['PPAttemp'] > 0){echo number_Format($TeamStat['PPGoal'] / $TeamStat['PPAttemp'] * 100,2) . "%";} else { echo "0%";}
-	echo " | PK%: ";
-	if ($TeamStat['PKAttemp'] > 0){echo number_Format(($TeamStat['PKAttemp'] - $TeamStat['PKGoalGA']) / $TeamStat['PKAttemp'] * 100,2) . "%";} else {echo "0%";} 
-	echo "<br />" . $TeamLang['GM'] . $TeamInfo['GMName'] . " | " . $TeamLang['Morale'] . $TeamInfo['Morale'] . " | " . $TeamLang['TeamOverall'] . $TeamInfo['TeamOverall'];
-	If ($Team > 0 AND $Team <= 100){
-		$Query = "SELECT count(*) AS count FROM SchedulePro WHERE (VisitorTeam = " . $Team . " OR HomeTeam = " . $Team . ") AND Play = 'False' ORDER BY GameNumber LIMIT 1";
-		$Result = $db->querySingle($Query,true);
-	}else{
-		$Result = Null;
-	}
-	If ($Result['count'] > 0){
-		If ($ScheduleNext['HomeTeam'] == $Team){
-			echo "<br />" . $ScheduleLang['NextGames'] . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['VisitorTeamName'];
-		}elseif($ScheduleNext['VisitorTeam'] == $Team){
-			echo "<br />" . $$ScheduleLang['NextGames']  . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['HomeTeamName'];
-		}
-	}
-	echo "</td></tr></table></div>";
-}
-?>
+
+<script>
+console.log("<?= $TeamInfo['TeamThemeID']?>")
+
+</script>
+
+
+<div id="STHSPHPTeamStat_SubHeader" class="STHSPHPTeamBanner_<?= $TeamInfo['TeamThemeID']?>">
+<table class="STHSPHPTeamHeader_Table">
+    <tr>
+        <td rowspan="2" class="STHSPHPTeamHeader_Logo"> <img src="images/<?= $TeamInfo['TeamThemeID'] ?>.png" alt="" class="STHSPHPTeamStatImage_<?= $TeamInfo['TeamThemeID']?>STHSPHPTeamStatImage"> </td>
+        <td class="STHSPHPTeamHeader_TeamName teamColorPale<?= $TeamInfo['TeamThemeID'] ?>"> <?= $TeamName ?> </td>
+    </tr>
+    <tr>
+        <td class="STHSPHPTeamHeader_Stat teamColorPale<?= $TeamInfo['TeamThemeID'] ?>"> GP: <?= $TeamStat['GP'] ?> | W: <?= ($TeamStat['W'] + $TeamStat['OTW'] + $TeamStat['SOW']) ?> | L: <?= $TeamStat['L'] ?>
+
+        <?php 
+        if ($LeagueGeneral['PlayOffStarted'] == "False"){
+            if($LeagueGeneral['PointSystemSO'] == "True"){
+                echo  " | OTL: " . ($TeamStat['OTL'] + $TeamStat['SOL']) . " | P: " . $TeamStat['Points'];
+            }else{
+                echo  " | T: " . $TeamStat['T'] . " | P: " . $TeamStat['Points'];
+            }
+        }
+        echo "<br />" . "GF: " . $TeamStat['GF'] . " | GA: " . $TeamStat['GA'] . " | PP%: ";
+        if ($TeamStat['PPAttemp'] > 0){echo number_Format($TeamStat['PPGoal'] / $TeamStat['PPAttemp'] * 100,2) . "%";} else { echo "0%";}
+        echo " | PK%: ";
+        if ($TeamStat['PKAttemp'] > 0){echo number_Format(($TeamStat['PKAttemp'] - $TeamStat['PKGoalGA']) / $TeamStat['PKAttemp'] * 100,2) . "%";} else {echo "0%";} 
+        echo "<br />" . $TeamLang['GM'] . $TeamInfo['GMName'] . " | " . $TeamLang['Morale'] . $TeamInfo['Morale'] . " | " . $TeamLang['TeamOverall'] . $TeamInfo['TeamOverall'];
+        If ($Team > 0 AND $Team <= 100){
+            $Query = "SELECT count(*) AS count FROM SchedulePro WHERE (VisitorTeam = " . $Team . " OR HomeTeam = " . $Team . ") AND Play = 'False' ORDER BY GameNumber LIMIT 1";
+            $Result = $db->querySingle($Query,true);
+        }else{
+            $Result = Null;
+        }
+        If ($Result['count'] > 0){
+            If ($ScheduleNext['HomeTeam'] == $Team){
+                echo "<br />" . $ScheduleLang['NextGames'] . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['VisitorTeamName'];
+            }elseif($ScheduleNext['VisitorTeam'] == $Team){
+                echo "<br />" . $$ScheduleLang['NextGames']  . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['HomeTeamName'];
+            }
+        }
+        ?>
+        </td></tr>
+    </table>
+/div>
 
 <div class="container-flex">
 

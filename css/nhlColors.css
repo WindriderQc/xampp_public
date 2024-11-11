@@ -1,0 +1,31 @@
+/* 
+
+    CSS NHL Color Theme
+
+Author:  Yanik Beaulieu
+RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/   
+*/
+
+
+.teamColorDark {color: #000000;}
+
+
+.teamColorDark1 { color: #000000; text-shadow: 1.5px 1.5px 1.5px #FCB514; }   /*   1 - Pinguins      */ 
+.teamColorPale1 { color: #ffffff; text-shadow: 1.5px 1.5px 1.5px #FCB514; }
+.teamColorBright1 { color: #FCB514;  }
+.teamColorSecondary1 { color: #CFC493; }
+
+
+
+
+
+
+
+
+
+.teamColorDark12 { color: #000000; text-shadow: 1.5px 1.5px 1.5px #DA1A32; }  /*   12 - Ottawa                   */
+.teamColorPale12 { color: #ffffff; text-shadow: 1.5px 1.5px 1.5px #DA1A32; }
+.teamColorBright12 { color: #DA1A32;  }
+.teamColorSecondary12 { color: #B79257; }
+
+
