@@ -348,13 +348,13 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
         }else{
             $Result = Null;
         }
-        If ($Result['count'] > 0){
-            If ($ScheduleNext['HomeTeam'] == $Team){
-                echo "<br />" . $ScheduleLang['NextGames'] . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['VisitorTeamName'];
-            }elseif($ScheduleNext['VisitorTeam'] == $Team){
-                echo "<br />" . $$ScheduleLang['NextGames']  . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['HomeTeamName'];
-            }
-        }
+        // If ($Result['count'] > 0){
+        //     If ($ScheduleNext['HomeTeam'] == $Team){
+        //         echo "<br />" . $ScheduleLang['NextGames'] . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['VisitorTeamName'];
+        //     }elseif($ScheduleNext['VisitorTeam'] == $Team){
+        //         echo "<br />" . $$ScheduleLang['NextGames']  . " #" . $ScheduleNext['GameNumber'] ."  vs " . $ScheduleNext['HomeTeamName'];
+        //     }
+        // }
         ?>
         </td></tr>
     </table>
@@ -379,7 +379,7 @@ If ($LeagueSimulation != Null AND $TeamFarmInfo != Null){If ($LeagueSimulation['
 <li<?php if($SubMenu ==7){echo " class=\"activemain\"";}?>><a href="#tabmain7"><?php echo $TeamLang['Finance'];?></a></li>
 <li<?php if($SubMenu ==8){echo " class=\"activemain\"";}?>><a href="#tabmain8"><?php echo $TeamLang['Depth'];?></a></li>
 <!-- <li<?php if($SubMenu ==13){echo " class=\"activemain\"";}?>><a href="#tabmain13"><?php echo $TeamLang['News'];?></a></li> -->
-<li<?php if($SubMenu ==9){echo " class=\"activemain\"";}?>><a href="#tabmain9"><?php echo $TeamLang['History'];?></a></li>
+<!-- <li<?php if($SubMenu ==9){echo " class=\"activemain\"";}?>><a href="#tabmain9"><?php echo $TeamLang['History'];?></a></li> -->
 <!-- <li<?php if($SubMenu ==10){echo " class=\"activemain\"";}?>><a href="#tabmain10"><?php echo $TeamLang['TeamTransaction'];?></a></li> -->
 <!-- <li<?php if($SubMenu ==12){echo " class=\"activemain\"";}?>><a href="#tabmain12"><?php echo $TeamLang['InjurySuspension'];?></a></li> -->
 <?php 
@@ -395,7 +395,7 @@ if ($LeagueOutputOption != Null){if (file_exists($CareerStatDatabaseFile) == tru
 <div class="tabmain<?php if($SubMenu ==0){echo " active";}?>" id="tabmain0">
 <?php If (isset($PerformanceMonitorStart)){echo "<script>console.log(\"STHS 0 Page PHP Performance : " . (microtime(true)-$PerformanceMonitorStart) . "\"); </script>";}?>
 
-<table class="STHSPHPTeam_HomeTable"><tr><td class="STHSPHPPlayerStat_HomeMainTD"></td>
+<table class="STHSPHPTeam_HomeTable"><tr><td class="STHSPHPPlayerStat_HomeMainTD	" ></td>
 
 </div>
 
@@ -489,12 +489,12 @@ if (empty($ScheduleNextGame) == false){while ($row = $ScheduleNextGame ->fetchAr
 
 <table id="STHSPHPTeam_HomePrimaryTableLeaders" style="width:100%;border-collapse:collapse">
 
-<tr><td colspan="5" class="STHSPHPTeamStat_TableTitle" style="padding:10px"><?php echo $TeamLang['TeamLeaders'];?></td></tr>
+<tr><td colspan="5" class="STHSPHPTeamStat_TableTitle teamColorDark<?= $TeamInfo['TeamThemeID'] ?>" style="padding:10px"><?php echo $TeamLang['TeamLeaders'];?></td></tr>
 <tr>
 <?php
 $ResultBound = False;
 if (empty($TeamLeaderG) == false){while ($Row = $TeamLeaderG ->fetchArray()) {
-	echo "<td class=\"STHSPHPTeam_HomePrimaryTableLeadersHeadshotTD\">";
+	echo "<td class=\"STHSPHPTeam_HomePrimaryTableLeadersHeadshotTD 	\">";
 	If ($LeagueOutputOption['PlayersMugShotBaseURL'] != "" AND $LeagueOutputOption['PlayersMugShotFileExtension'] != "" AND $Row['NHLID'] != ""){
 	echo "<img loading=\"lazy\" src=\"" . $LeagueOutputOption['PlayersMugShotBaseURL'] . $Row['NHLID'] . "." . $LeagueOutputOption['PlayersMugShotFileExtension'] . "\" alt=\"" . $Row['Name']. "\" class=\"STHSPHPTeam_HomePrimaryTableLeadersHeadshot\" />";}
 	echo "</td><td class=\"STHSPHPTeam_HomePrimaryTableLeadersTextTD \"><span class=\"STHSPHPTeam_HomePrimaryTableLeadersTextStat\">" . $GeneralStatLang['Goals'] . "</span><br /><a class=\"STHSPHPTeam_HomePrimaryTableLeadersTextPlayer\" href=\"PlayerReport.php?Player=" . $Row['Number'] . "\">" . $Row['Name'] . "</a><br /><span class=\"STHSPHPTeam_HomePrimaryTableLeadersTextResult\">" . $Row['G'] . "</span></td>\n";
@@ -563,7 +563,7 @@ If ($ResultBound == False){echo "<td></td><td></td><td></td><td></td>\n";}?>
 
 <br />
 <table class="STHSPHPTeam_HomePrimaryTable" style="border-bottom-width:0px">
-<tr><td colspan="4" class="STHSPHPTeamStat_TableTitle"><?php echo $TeamLang['TeamStats']?></td></tr>
+<tr><td colspan="4" class="STHSPHPTeamStat_TableTitle	teamColorDark<?= $TeamInfo['TeamThemeID'] ?>"><?php echo $TeamLang['TeamStats']?></td></tr>
 <tr>
 <?php if ($TeamStat != Null){
 If ($TeamStat['GP'] > 0){

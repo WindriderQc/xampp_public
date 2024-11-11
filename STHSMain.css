@@ -64,7 +64,7 @@ table.MenuSTHS a:hover{text-decoration:none;color:#000000;}
 .tabmenu{display:none;}
 .tabmenu.active{display:block;}
 .tabsmain{width:100%;display:inline-block;}
-.tabmain-links {padding-left:1px;}
+.tabmain-links {padding-left:1px;padding-bottom: 1%;}
 .tabmain-links:after{display:block;clear:both;content:'';}
 .tabmain-links li{margin:0px 5px;float:left;list-style:none;}
 .tabmain-links a{padding:0px 25px;display:inline-block;border-radius:3px 3px 0px 0px;color:#dedede;font-size:16px;font-weight:600;color:#4c4c4c;transition:all linear 0.15s;}
@@ -395,11 +395,11 @@ a.tabmenuhome { color:#000000;}
 .STHSPHPPlayerStat_TabHeader{text-align:center;font-size:20px;}
 .STHSPHPPlayerStat_PlayerNameHeader{text-align:center;font-size:24px;}
 .STHSPHPPlayerStat_Tabmain-content{border-radius:1px;box-shadow:-1px 1px 1px rgba(0,0,0,0.15);border-style: solid;border-color: #dedede; border-radius: 10px; -moz-border-radius: 10px;margin:10px;}
-.STHSPHPTeamStat_Main{width:99%;margin:auto;}
+.STHSPHPTeamStat_Main{width:100%;margin:auto;}
 .STHSPHPTeamStat_Table{width:95%;margin:auto;border-width: 2px;border-style: solid;border-collapse: collapse;}
 .STHSPHPTeamStat_Table th{border-width: 1px;border-style: solid;text-align:center;background-color: rgb(222, 222, 222);padding: 0px 4px 0px 4px;}
 .STHSPHPTeamStat_Table td{border-width: 1px;border-style: solid;text-align:center;}
-.STHSPHPTeamStat_TableTitle {font-size:22px;text-align:center;padding-bottom:5px;}
+.STHSPHPTeamStat_TableTitle {font-size:22px;text-align:center; padding: 10px;}
 .STHSPHPTeamStat_TeamNameHeader{text-align:center;font-size:24px;}
 .STHSPHPTeamHeader_Table{width:50%;margin:auto;font-family: Montserrat, sans-serif;}
 .STHSPHPTeamHeader_Logo{text-align:right;}
@@ -479,7 +479,7 @@ a.tabmenuhome { color:#000000;}
 .STHSPHPTeam_HomePrimaryTableTeamMiddlePlay{font-size:20px;width:4%;text-align:center;}
 .STHSPHPTeam_HomePrimaryTableTeamMiddleNotPlay{font-size:20px;width:24%;text-align:center;}
 .STHSPHPTeam_HomePrimaryTableLeadersHeadshot {max-width: 100%;height: auto; margin-left: 25px; margin-right: auto; border-radius: 50%; width: 140px; box-shadow: 0 2px 3px 1px #ddd;}
-.STHSPHPTeam_HomePrimaryTableLeadersHeadshotTD {background-color:white;width:100px;padding:0px;border-style:solid;border-width:1px;border-color:#ccc;width:140px;}
+.STHSPHPTeam_HomePrimaryTableLeadersHeadshotTD {background-color:rgb(255, 255, 255);width:100px;padding:0px;border-style:solid;border-width:1px;border-color:#ccc;width:140px; }
 .STHSPHPTeam_HomePrimaryTableLeadersTextTD {vertical-align:top;background-color:white;padding:0px;border-style:solid;border-width:1px;border-color:#ccc;width:275px;}
 .STHSPHPTeam_HomePrimaryTableTeamInfoBeforeTriangle{padding-bottom:15px;}
 .STHSPHPTeam_HomePrimaryTableTeamInfoTriangle{width: 0;height: 0;border-style: solid;border-width: 15px 10px 0 10px;border-color: #000000 transparent transparent transparent;margin:auto;}
