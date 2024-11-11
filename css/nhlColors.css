@@ -70,4 +70,52 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 .teamColorBright12 { color: #DA1A32;  }
 .teamColorSecondary12 { color: #B79257; }
 
+.teamColorDark13 { color: #000000;  background-color: #AF1E2D; }  /*   13 - Canadiens                  */
+.teamColorPale13 { color: #ffffff;  }
+.teamColorBright13 { color: #AF1E2D;  }
+.teamColorSecondary13 { color: #192168; }
 
+.teamColorDark14 { color: #000000;  background-color: #003087; }  /*   14 - Sabres                  */
+.teamColorPale14 { color: #ffffff;  }
+.teamColorBright14 { color: #FFB81C;  }
+.teamColorSecondary14 { color: #003087; }
+
+.teamColorDark15 { color: #000000;  background-color: #00205b; }  /*   15 - Maple Leafs                  */
+.teamColorPale15 { color: #ffffff;  }
+.teamColorBright15 { color: #00205b;;  }
+.teamColorSecondary15 { color: #B79257; }
+
+.teamColorDark16 { color: #000000;  background-color: #041E42; }  /*   16 - Blues                  */
+.teamColorPale16 { color: #ffffff;  }
+.teamColorBright16 { color: #FCB514;  }
+.teamColorSecondary16 { color: #002F87; }
+
+.teamColorDark17 { color: #000000;  background-color: #ce1126; }  /*   17 - Red Wings                 */
+.teamColorPale17 { color: #ffffff;  }
+.teamColorBright17 { color: #ce1126;  }
+.teamColorSecondary17 { color: #B79257; }
+
+.teamColorDark18 { color: #000000;  background-color:#CF0A2C; }  /*   18 - Blackhawks                  */
+.teamColorPale18 { color: #ffffff;  }
+.teamColorBright18 { color: #ffd100;  }
+.teamColorSecondary18 { color: #00833E; }
+
+.teamColorDark19 { color: #000000;  background-color:#002654; }  /*   19 - BlueJackets                  */
+.teamColorPale19 { color: #ffffff;  }
+.teamColorBright19 { color: #ce1126;  }
+.teamColorSecondary19 { color: #A4A9AD; }
+
+.teamColorDark20 { color: #000000;  background-color:#041E42; }  /*   20 - Predators                  */
+.teamColorPale20 { color: #ffffff;  }
+.teamColorBright20 { color: #FFB81C;  }
+.teamColorSecondary20 { color:#041E42; }
+
+.teamColorDark21 { color: #000000;  background-color:#DDCBA4; }  /*   21 - Wilds                  */
+.teamColorPale21 { color: #ffffff;  }
+.teamColorBright21 { color:#EAAA00;  }
+.teamColorSecondary21 { color: #154734; }
+
+.teamColorDark22 { color: #000000;  background-color: #041E42; }  /*   22 - oilers                 */
+.teamColorPale22 { color: #ffffff;  }
+.teamColorBright22 { color: #FF4C00; }
+.teamColorSecondary22 { color: #041E42; }
