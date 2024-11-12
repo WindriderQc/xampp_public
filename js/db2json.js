@@ -6,6 +6,7 @@ let allProTeamInfo = [];
 let allProTeamStats = [];
 let allProTeamLines = [];
 
+let leagueGeneral = [];
 
 
 async function fetch_players_info() { 
@@ -59,7 +60,6 @@ async function fetch_teams_stats() {
     else { 
         allProTeamStats = data; 
         console.log("ProStats", allProTeamStats);
-        //displayPlayersInfo(allPlayersInfo); // Display initial info if needed 
         }
 }
 
@@ -72,11 +72,23 @@ async function fetch_teams_lines() {
     else { 
         allProTeamLines = data; 
         console.log("ProLines", allProTeamLines);
-        //displayPlayersInfo(allPlayersInfo); // Display initial info if needed 
+        
         }
 }
 
 
+async function fetch_leagueGeneral() {
+    const response = await fetch('../../components/sql/fetch_leagueGeneral.php');
+    const data = await response.json(); 
+    if (data.error) { 
+        console.error(data.error); 
+    } 
+    else { 
+        leagueGeneral = data; 
+        console.log("leagueGeneral", leagueGeneral);
+       
+        }
+}
 
 
 
@@ -84,10 +96,11 @@ async function fetch_teams_lines() {
 //  Initiatizing global variable with DB data.
 async function getAllInfos() 
 {
-    await fetch_players_info(); // Call filterPlayers with the desired ID to filter and display data
+    await fetch_leagueGeneral();
     await fetch_teams_info();
     await fetch_teams_lines(); 
     await fetch_teams_stats();
+    await fetch_players_info(); // Call filterPlayers with the desired ID to filter and display data
     await fetch_players_stats();
 }
 

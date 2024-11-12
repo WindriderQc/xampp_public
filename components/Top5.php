@@ -1,21 +1,28 @@
 
 
-<div class="card shadow-0 mb-3 frontpage-card top5Card  "  >
+<div class="card shadow-0 mb-3 frontpage-card top5Card" >
     <div class="card-header">Top Stars</div>
-    <div class="card-body mt-0 pt-0 text-primary">
-    <div class="StarTableHeader"></div>                                   
+    <div class="card-body mt-0 pt-0 text-primary">                                
         <table class="StarTable">
-                        <?php if(isset($LeagueGeneral)){
-                        echo "<tr><th colspan=\"2\" class=\"STHSIndex_3StarNameHeader\">" . $IndexLang['ProGamesDaysStar'] . "</th></tr>";
-                        echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star1\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarPro1'] . "</td></tr>";
-                        echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star2\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarPro2'] . "</td></tr>";
-                        echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star3\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarPro3'] . "</td></tr>";
+                       
+            <tr><th colspan="2" class="STHSIndex_3StarNameHeader"> <?= $IndexLang['ProGamesDaysStar'] ?> </th></tr>
+            <tr><td colspan="2"><img src="images/Star.png" alt="Star1" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro1"></span></td></tr>
+            <tr><td colspan="2"><img src="images/Star.png" alt="Star2" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro2"></span></td></tr>
+            <tr><td colspan="2"><img src="images/Star.png" alt="Star3" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro3"></span></td></tr>
+            <script>
+               
+                document.getElementById('starPro1').innerHTML = leagueGeneral[0].Today3StarPro1;  //  TODO   !?!?  devrait pas ete un array
+                document.getElementById('starPro2').innerHTML = leagueGeneral[0].Today3StarPro2;
+                document.getElementById('starPro3').innerHTML = leagueGeneral[0].Today3StarPro3;
+            </script>
+                         <?php 
+                         //log2console($LeagueGeneral['name']);
                         If ($LeagueOutputOption['ShowFarmScoreinPHPHomePage'] == 'True'){
                             echo "<tr><th colspan=\"2\" class=\"STHSIndex_3StarNameHeader\">" . $IndexLang['FarmGamesDaysStar'] . "</th></tr>";
                             echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star1\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarFarm1'] . "</td></tr>";
                             echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star2\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarFarm2'] . "</td></tr>";
                             echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star3\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarFarm3'] . "</td></tr>";
-                        }}?>
+                        }?>
                         <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Point'];?></th></tr>
                         <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
                         <?php

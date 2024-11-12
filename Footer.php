@@ -3,27 +3,14 @@
 <footer class="clearfix">
 
 		<div class="row">
-
 			<div class="col">
-
 				<div class="module-content">
-
 					<h4>Legacy</h4>
-
-					<ul>					
-
-                    <?php
-
-                           echo "<li><a href=\"old/index.php\"> Old Website </a></li>";
-
-                           echo "<li><a href=\"" . $LeagueGeneralMenu['OutputName'] . ".stc\">"  . $TopMenuLang['STHSClientLeagueFile'] . "</a></li>";
-
-                        ?>
-
-					</ul>
-
+					<ul>	
+                        <li><a href="old/index.php"> Old Website </a></li>				
+                        <li><?php echo "<a href=\"" . $LeagueGeneralMenu['OutputName'] . ".stc\">"  . $TopMenuLang['STHSClientLeagueFile'] . "</a>"; ?></li>
+				    </ul>
 				</div>
-
 			</div>
 
 			<div class="col">
@@ -35,36 +22,27 @@
 					<ul>
 
                         <li><a href="#" class="MenuAfterImage"><?php echo $TopMenuLang['ProLeague'];?></a><ul>
-
                         <li><a href="Standing.php"><?php echo $TopMenuLang['Standing'];?></a></li>
-
                         <li><a href="Schedule.php"><?php echo $TopMenuLang['Schedule'];?></a></li>
-
                         <li><a href="PlayersStat.php?Order=P&MinGP&Max=50"><?php echo $TopMenuLang['PlayersLeader'];?></a></li>
-
                         <li><a href="GoaliesStat.php?Order=P&MinGP&Max=10"><?php echo $TopMenuLang['GoaliesLeader'];?></a></li>
-
                         <li><a href="IndividualLeaders.php"><?php echo $TopMenuLang['IndividualLeaders'];?></a></li>
-
                         <li><a href="PlayersStat.php"><?php echo $TopMenuLang['AllPlayersStats'];?></a></li>
-
                         <li><a href="GoaliesStat.php"><?php echo $TopMenuLang['AllGoaliesStats'];?></a></li>
-
                         <li><a href="TeamsStat.php"><?php echo $TopMenuLang['TeamsStats'];?></a></li>
-
                         <li><a href="PlayersInfo.php?Type=1"><?php echo $TopMenuLang['PlayersInformation'];?></a></li>
-
                         <li><a href="Finance.php"><?php echo $TopMenuLang['Finance'];?></a></li>
-
                         <li><a href="TeamSalaryCapDetail.php?Team=<?php echo $CookieTeamNumber ?>"><?php echo $TopMenuLang['TeamContractsOverview'];?></a></li>
-
                         <li><a href="PowerRanking.php"><?php echo $TopMenuLang['PowerRanking'];?></a></li>
-
-                        <?php If ($MenuQueryOK == True){if (file_exists($AllStarDatabaseFile)){echo "<li><a href=\"Boxscore.php?Game=9999\">" . $TopMenuLang['AllStar'] . "</a></li>";}
-
-                        elseif (file_exists($LeagueGeneralMenu['OutputName']."-AllStar.".$LeagueGeneralMenu['OutputFileFormat'])){echo "<li><a href=\"".$LeagueGeneralMenu['OutputName']."-AllStar.".$LeagueGeneralMenu['OutputFileFormat']."\">" . $TopMenuLang['AllStar'] . "</a></li>";}}?>
-
-
+                        <?php 
+                        if ($MenuQueryOK == True){
+                            if (file_exists($AllStarDatabaseFile)){
+                                echo "<li><a href=\"Boxscore.php?Game=9999\">" . $TopMenuLang['AllStar'] . "</a></li>";
+                            }
+                        elseif (file_exists($LeagueGeneralMenu['OutputName']."-AllStar.".$LeagueGeneralMenu['OutputFileFormat'])){
+                            echo "<li><a href=\"".$LeagueGeneralMenu['OutputName']."-AllStar.".$LeagueGeneralMenu['OutputFileFormat']."\">" . $TopMenuLang['AllStar'] . "</a></li>";
+                            }
+                        }?>
 
 					</ul>
 
@@ -139,7 +117,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
 
-<script src="js/db2json.js"    type="text/javascript"></script>
+
 
 <script>
     let clickCount = 0;
