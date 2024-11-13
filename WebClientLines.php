@@ -184,7 +184,9 @@
 
 <div id="lineeditor">
     <div class="container pagewrapper pagewrapperlineeditor">
-       
+
+    <div id="errorBanner" style="color: red;"></div>
+    
             <div class="lineSave pb-3 "> 
                 <div class="row  darkText justify-content-center pt-1 m-0 px-0">
 
@@ -376,13 +378,13 @@
                                                                             <div class="plusMinusBtn input-group mx-2 d-flex justify-content-center align-items-center" style="width: auto;">
 
                                                                                 <span class="input-group-btn"  style="">
-                                                                                    <button type="button" class="btn btn-danger btn-number form-control"  data-type="minus"   name="btnDown-<?= $id ?>" onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','down',<?=$cpfields?>);">
+                                                                                    <button type="button" class="btn btn-danger btn-number form-control"  data-type="minus"   name="btnDown-<?= $id ?>" onclick="valChange('<?= $id ?>','Strat','<?=$field?>','down', '<?=$cpfields?>')">
                                                                                     <i class="fa-solid fa-minus"></i>
                                                                                     </button>
                                                                                 </span>
                                                                                 <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
                                                                                 <span class="input-group-btn">
-                                                                                    <button type="button" class="btn btn-success btn-number m-0" name="btnUp-<?= $id ?>" data-type="plus"  onclick="valChange('<?= $id ?>','<?= $strat ?>','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                    <button type="button" class="btn btn-success btn-number m-0" name="btnUp-<?= $id ?>" data-type="plus"  onclick="valChange('<?= $id ?>','Strat','<?=$field?>','up','<?=$cpfields?>')">
                                                                                     <i class="fa-solid fa-plus"></i>
                                                                                     </button>
                                                                                 </span>
@@ -398,13 +400,13 @@
                                                                         <?php   $id = $field . "Time";   ?>                                                                       
                                                                         <div class="input-group  plusMinusBtn mx-2 d-flex justify-content-center align-items-center" style="width: auto;">
                                                                             <span class="input-group-btn  "  style="">
-                                                                                <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown-Time" onclick="valChange('<?= $id ?>','Time','<?=$field?>','down',<?=$cpfields?>);">
+                                                                                <button type="button" class="btn btn-danger btn-number "  data-type="minus" data-field="quant[2]"  name="btnDown-Time" onclick="valChange('<?= $id ?>','Time','<?=$field?>','down','<?=$cpfields?>')">
                                                                                 <i class="fa-solid fa-minus"></i>
                                                                                 </button>
                                                                             </span>
                                                                             <input readonly type="text" id="<?= $id?>" style="width: 75px;" name="txtStrategies[<?= $id ?>]" class="form-control input-number" value="<?= $row[$id] ?>" min="1" max="100">
                                                                             <span class="input-group-btn">
-                                                                                <button type="button" class="btn btn-success btn-number  m-0" data-type="plus" data-field="quant[2]"  name="btnUp-Time"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up',<?=$cpfields?>);">
+                                                                                <button type="button" class="btn btn-success btn-number  m-0" data-type="plus" data-field="quant[2]"  name="btnUp-Time"    onclick="valChange('<?= $id ?>','Time','<?=$field?>','up','<?=$cpfields?>')">
                                                                                 <i class="fa-solid fa-plus"></i>
                                                                                 </button>
                                                                             </span>

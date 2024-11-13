@@ -1,8 +1,91 @@
+function valChange(field, type, sid, updown, BlockPlayerFromPlayingLines12, BlockPlayerFromPlayingLines123, BlockPlayerFromPlayingLines12inPPPK,
+    ProForceGameStrategiesTo, ProForceGameStrategiesAt5, FarmForceGameStrategiesTo, FarmForceGameStrategiesAt5,
+    PullGoalerMinGoal, PullGoalerMinGoalEnforce, PullGoalerMinPct, PullGoalerRemoveGoaliesSecond, PullGoalerMax) {
+
+var fieldvalue = parseInt(document.getElementById(field).value);
+var curvalue = (updown == 'up') ? fieldvalue + 1 : fieldvalue - 1;
+var curtotal = 0;
+var maxmin = 0;
+var val = 0;
+var vallast = 100000000;
+var flag = false;
+var typesplit = type.split("-");
+var message = ''; // For console and banner logging
+
+console.log('field:', field, 'type:', type, 'sid:', sid, updown, '*-*', BlockPlayerFromPlayingLines12);
+
+if (type == 'Strat') {	
+var fOF = document.getElementById(sid + 'OF').value;
+var fDF = document.getElementById(sid + 'DF').value;
+var fPhy = document.getElementById(sid + 'Phy').value;
+curtotal = parseInt(fOF) + parseInt(fDF) + parseInt(fPhy); 
+maxmin = (updown == 'up') ? 5 : 0;
+
+if (!(updown == 'up' && curtotal < maxmin && fieldvalue < maxmin)) {
+message = `Change refused: Total strategy value ${curtotal} does not meet the required max/min for field "${field}".`;
+}
+} else if (typesplit[0] == 'Int') {
+switch(field) {
+case 'Strategy1GoalDiff':
+ maxmin = (updown == 'up') ? (typesplit[1] - 1) : parseInt(document.getElementById('Strategy2GoalDiff').value) + 1;
+ break;
+case 'Strategy2GoalDiff':
+ maxmin = (updown == 'up') ? parseInt(document.getElementById('Strategy1GoalDiff').value) - 1 : 1;
+ break;
+case 'RemoveGoaliesSecond':
+ maxmin = (updown == 'up') ? PullGoalerMax : 0;
+ break;
+case 'PullGoalerMinGoal':
+ maxmin = (updown == 'up') ? 10 : PullGoalerMinGoalEnforce;
+ break;
+default:
+ maxmin = (updown == 'up') ? (typesplit[1] - 1) : 1;
+ break;
+}
+
+if (!(curvalue <= maxmin && !flag)) {
+message = `Change refused: Current value ${curvalue} exceeds allowed max/min for "${field}".`;
+}
+} else {
+if (sid == 'Line15vs5Forward' || sid == 'Line25vs5Forward' || sid == 'Line35vs5Forward' || sid == 'Line45vs5Forward') {
+for (let x = 1; x <= 4; x++) {
+ val = (sid == 'Line' + x + '5vs5Forward') ? curvalue : parseInt(document.getElementById('Line' + x + '5vs5ForwardTime').value);
+ if (val > vallast || val == 100) {
+     flag = true;
+     message = `Change refused: Value sequence error for "${sid}".`;
+     break;
+ }
+ curtotal += val;
+ vallast = val;
+}
+}
+maxmin = (updown == 'up') ? 100 : 1;
+if (!(curtotal <= maxmin && !flag)) {
+message = `Change refused: Total value ${curtotal} exceeds max/min limit for "${sid}".`;
+}
+}
+
+// If there is a message, log it and update the HTML banner
+if (message) {
+console.log(message);
+document.getElementById('errorBanner').innerText = message; // Update HTML banner
+} else {
+document.getElementById(field).value = curvalue; // If no issues, apply the new value
+}
+
+line_validator(BlockPlayerFromPlayingLines12, BlockPlayerFromPlayingLines123, BlockPlayerFromPlayingLines12inPPPK,
+    ProForceGameStrategiesTo, ProForceGameStrategiesAt5, FarmForceGameStrategiesTo, FarmForceGameStrategiesAt5,
+    PullGoalerMinGoal, PullGoalerMinGoalEnforce, PullGoalerMinPct, PullGoalerRemoveGoaliesSecond, PullGoalerMax);
+}
+
+
 function valChange(field,type,sid,updown,BlockPlayerFromPlayingLines12,BlockPlayerFromPlayingLines123,BlockPlayerFromPlayingLines12inPPPK,
 						ProForceGameStrategiesTo,ProForceGameStrategiesAt5,FarmForceGameStrategiesTo,FarmForceGameStrategiesAt5,
 						PullGoalerMinGoal,PullGoalerMinGoalEnforce,PullGoalerMinPct,PullGoalerRemoveGoaliesSecond,PullGoalerMax){
 
+    
 	var fieldvalue = parseInt(document.getElementById(field).value);
+    
 	var curvalue = (updown == 'up') ? fieldvalue + 1 : fieldvalue - 1;
 	var curtotal = 0;
 	var maxmin = 0;
@@ -11,7 +94,9 @@ function valChange(field,type,sid,updown,BlockPlayerFromPlayingLines12,BlockPlay
 	var vallast = 100000000;
 	var flag = false;
 	var typesplit = type.split("-");
+    console.log('field ', field, 'type', type, 'sid', sid, updown, '*-*', BlockPlayerFromPlayingLines12 );
 	if(type == 'Strat'){	
+        
 		var fOF = document.getElementById(sid + 'OF').value;
 		var fDF = document.getElementById(sid + 'DF').value;
 		var fPhy = document.getElementById(sid + 'Phy').value;
