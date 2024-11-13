@@ -1001,11 +1001,15 @@ footer .module-content {
 
 
 /*   Top5    =============================================     */
+/*
+.Headshot {display: inline;}*/
+.STHSPHPIndexLeadersHeadshot { width: 80px; box-shadow: 0 2px 3px 1px #ddd; border-radius: 50%; /* margin-left: 15px; margin-right: auto;   */}
 
-.Headshot {display: inline;}
-
-
-
+.player-container { text-align: center; /* Center-align the text and image */ } 
+.player-container .Headshot { 
+    display: block; /* Make sure the image is displayed as a block element */ 
+    margin: 0 auto; /* Center the image */ 
+}
 
 
 

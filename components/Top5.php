@@ -50,11 +50,19 @@ function genLeaderLine( player,isScorer=false, isGoalie=false, headshot=false )
     let htmlOutput = "";
     htmlOutput += "<tr><td>";
     if(player.TeamThemeID != "N/A") htmlOutput += `<img src="/images/${player.TeamThemeID}.png" alt="" class="STHSPHPIndividualLeadersTeamImage" />`;
-    htmlOutput += `<a href="PlayerReport.php?Player=${player.Number}">${player.Name} (${player.Abbre})</a>`;
-    if (headshot) htmlOutput += `<div class="Headshot"><img loading="lazy" src="https://assets.nhle.com/mugs/nhl/latest/${player.NHLID}.png}" alt="" class="STHSPHPIndexLeadersHeadshot" /></div>`;
+    
+    
+    htmlOutput += `<div class="player-container">`; 
+    if (headshot) { 
+        htmlOutput += `<div class="Headshot"><img loading="lazy" src="https://assets.nhle.com/mugs/nhl/latest/${player.NHLID}.png" alt="${player.Name}" class="STHSPHPIndexLeadersHeadshot" /></div>`; 
+    } 
+    htmlOutput += `<a href="PlayerReport.php?Player=${player.Number}">${player.Name} (${player.Abbre})</a>`; 
+    htmlOutput += `</div>`;
+
+    
     if(isScorer)        htmlOutput += `</td><td>${player.GP}-${player.G}</td></tr>`; 
     else if (isGoalie)  htmlOutput += `</td><td>${player.W}-${player.PCT}</td></tr>`; 
-    else              htmlOutput += `</td><td>${player.G}-${player.A}-${player.P}</td></tr>`; 
+    else                htmlOutput += `</td><td>${player.G}-${player.A}-${player.P}</td></tr>`; 
 
     return htmlOutput;
 }
