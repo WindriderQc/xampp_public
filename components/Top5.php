@@ -1,7 +1,7 @@
 <div class="card shadow-0 mb-3 frontpage-card top5Card" >
     <div class="card-header">Top Stars</div>
     <div class="card-body mt-0 pt-0 text-primary">                                
-        <table class="StarTable">
+        <table class="StarTable table">
                        
             <tr><th colspan="2" class="STHSIndex_3StarNameHeader"> <?= $IndexLang['ProGamesDaysStar'] ?> </th></tr>
             <tr><td colspan="2"><img src="images/Star.png" alt="Star1" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro1"></span></td></tr>
@@ -9,23 +9,23 @@
             <tr><td colspan="2"><img src="images/Star.png" alt="Star3" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro3"></span></td></tr>
             
             <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Point'];?></th></tr>
-            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
-            <tbody id="leaders"></tbody>
+            <tr><td class="STHSIndex_Top5PointNameHeader"></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
+            <tbody id="top3Stars"></tbody>
                  
             <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Goal'];?></th></tr>
-            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">GP-G</td></tr>
+            <tr class=".table-borderless"><td class="STHSIndex_Top5PointNameHeader"></td><td class="STHSIndex_Top5PointResultHeader">GP-G</td></tr>
             <tbody id="top5Goals"></tbody>
 
             <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Goalies'];?></th></tr>
-            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['GoalieName'];?></td><td class="STHSIndex_Top5PointResultHeader">W-PCT</td></tr>                
+            <tr><td class="STHSIndex_Top5PointNameHeader"></td><td class="STHSIndex_Top5PointResultHeader">W-PCT</td></tr>                
             <tbody id="top5Goalies"></tbody>      
               
             <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Defenseman'];?></th></tr>
-            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>            
+            <tr><td class="STHSIndex_Top5PointNameHeader"></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>            
             <tbody id="top5Defenses"></tbody>
 
             <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Rookies'];?></th></tr>
-            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
+            <tr><td class="STHSIndex_Top5PointNameHeader"></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
             <tbody id="top5Rookies"></tbody>
            
                  
@@ -47,9 +47,13 @@
 
 function genLeaderLine( player,isScorer=false, isGoalie=false, headshot=false ) 
 {
-    let htmlOutput = "";
-    htmlOutput += "<tr><td>";
-    if(player.TeamThemeID != "N/A") htmlOutput += `<img src="/images/${player.TeamThemeID}.png" alt="" class="STHSPHPIndividualLeadersTeamImage" />`;
+    let htmlOutput = "";     
+    
+    htmlOutput += "<tr>";
+
+    if (headshot) { htmlOutput += `<div class="pb-3">`; }
+    
+    htmlOutput += `<td><img src="/images/${player.TeamThemeID}.png" alt="" class="STHSPHPIndividualLeadersTeamImage" />`;
     
     
     htmlOutput += `<div class="player-container">`; 
@@ -60,10 +64,12 @@ function genLeaderLine( player,isScorer=false, isGoalie=false, headshot=false )
     htmlOutput += `</div>`;
 
     
-    if(isScorer)        htmlOutput += `</td><td>${player.GP}-${player.G}</td></tr>`; 
-    else if (isGoalie)  htmlOutput += `</td><td>${player.W}-${player.PCT}</td></tr>`; 
-    else                htmlOutput += `</td><td>${player.G}-${player.A}-${player.P}</td></tr>`; 
+    if(isScorer)        htmlOutput += `</td><td>${player.GP}-${player.G}</td>`; 
+    else if (isGoalie)  htmlOutput += `</td><td>${player.W}-${player.PCT}</td>`; 
+    else                htmlOutput += `</td><td>${player.G}-${player.A}-${player.P}</td>`; 
 
+    if (headshot) { htmlOutput += `</div>`; }
+    htmlOutput += `</tr>`;
     return htmlOutput;
 }
 
@@ -88,19 +94,9 @@ function actualizeData()
    
 
 
-    const leaders = getLeaders();
-    console.log(leaders)
-    leaders.forEach(player => { 
-                    LoopCount++; 
-                    htmlOutput += "<tr><td>"; 
-                    if(player.TeamThemeID != "N/A") htmlOutput += `<img src="/images/${player.TeamThemeID}.png" alt="" class="STHSPHPIndividualLeadersTeamImage" /><a href="PlayerReport.php?Player=${player.Number}">${player.Name} (${player.Abbre})</a>`; 
-                    if (LoopCount === 1) { 
-                        htmlOutput += `<div class="Headshot"><img loading="lazy" src="/images/${player.NHLID}.png" alt="" class="STHSPHPIndexLeadersHeadshot" /></div>` ; 
-                    } 
-                    htmlOutput += `</td><td>${player.G}-${player.A}-${player.P}</td></tr>`;
-    })
-
-    document.getElementById('leaders').innerHTML = htmlOutput
+    const top3Stars = getLeaders();
+    updateSection('top3Stars', top3Stars)
+    
 
 
     const top5Goals = getTop5Scorer()
