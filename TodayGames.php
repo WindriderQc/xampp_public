@@ -110,7 +110,7 @@ echo "<title>" . $Title . "</title>";
 
 Function PrintGames($Row, $ScheduleLang, $LeagueOutputOption, $ImagesCDNPath){
 
-	echo "<div class=\"STHSTodayGame_GameOverall\"><table class=\"STHSTodayGame_GameTitle\"><tr><td class=\"STHSTodayGame_GameNumber\"><h3>";
+	echo "<div class=\"STHSTodayGame_GameOverall\"><table class=\"table STHSTodayGame_GameTitle\"><tr><td class=\"STHSTodayGame_GameNumber\"><h3>";
 
 	If (substr($Row['GameNumber'],0,3) == "Pro"){
 
@@ -152,7 +152,7 @@ Function PrintGames($Row, $ScheduleLang, $LeagueOutputOption, $ImagesCDNPath){
 
 	echo "</tr></table>";
 
-	echo "<table class=\"STHSTodayGame_GameData\"><tr>";
+	echo "<table class=\"table STHSTodayGame_GameData\"><tr>";
 
 	echo "<td class=\"STHSTodayGame_TeamName\"><h3>";
 
@@ -186,7 +186,7 @@ Function PrintGames($Row, $ScheduleLang, $LeagueOutputOption, $ImagesCDNPath){
 
 	echo "</tr><tr>";
 
-	echo "<td colspan=\"2\" class=\"STHSTodayGame_3Star\"><br /><table style=\"width:300px;\">";
+	echo "<td colspan=\"2\" class=\"STHSTodayGame_3Star\"><br /><table class=\"table\" style=\"width:300px;\">";
 
 	echo "<tr><td style=\"text-align:right;width:75px;\"><img src=\"" . $ImagesCDNPath . "/images/Star1.png\" alt=\"Star1\" style=\"width:25px;vertical-align:middle;padding-right:4px\" /></td><td style=\"text-align:left;\">" . $Row['Star1'] . "</td></tr>";
 
@@ -239,7 +239,7 @@ Function PrintGames($Row, $ScheduleLang, $LeagueOutputOption, $ImagesCDNPath){
 
 <div style="width:95%;margin:auto;">
 
-<table class="STHSTableFullW"><tr><td><h1><?php echo $Title;?></h1></td><td class="STHSHeaderDate"><?php if(isset($LeagueGeneralMenu)){echo $ScheduleLang['LastUpdate'] . $LeagueGeneralMenu['DatabaseCreationDate'];}?></td></tr></table>
+<table class="table STHSTableFullW"><tr><td><h1><?php echo $Title;?></h1></td><td class="STHSHeaderDate"><?php if(isset($LeagueGeneralMenu)){echo $ScheduleLang['LastUpdate'] . $LeagueGeneralMenu['DatabaseCreationDate'];}?></td></tr></table>
 
 <div class="TodayGameDiv">
 
@@ -279,7 +279,7 @@ If ($LoopCount == 0){echo "<h3 class=\"STHSCenter\">" . $ScheduleLang['NoGameTod
 
 
 
-<table class="tablesorter STHSPHPSchedule_ScheduleTable"><thead><tr>
+<table class="table tablesorter STHSPHPSchedule_ScheduleTable"><thead><tr>
 
 <th title="Day" class="STHSW45"><?php echo $ScheduleLang['Day'];?></th>
 

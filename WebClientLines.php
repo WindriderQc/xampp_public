@@ -33,20 +33,18 @@
         
         // LHSQC
         $WebClientHeadCode = "
-
         <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css\" rel=\"stylesheet\">  
-       
-                                                
+                                             
         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
         <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.min.js\"></script>
         <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js\"></script>
        
         <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">
        
-       
         <link href=\"STHSMain-CSSOverwrite.css\" rel=\"stylesheet\" type=\"text/css\" /> 
         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>
-        <link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap\" rel=\"stylesheet\">";
+        <link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap\" rel=\"stylesheet\">
+        <link href=\"css/nhlColors.css\" rel=\"stylesheet\" type=\"text/css\" /> ";
         //<link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
         //<script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
 
@@ -68,6 +66,19 @@
                 // $teamid is a teamid to use that teams roster.
                 // $league is "Pro" or "Farm" based on selection.         
             
+
+
+
+
+        
+
+                $Query = "SELECT * FROM TeamProInfo WHERE Number = " . $teamid;
+		        $TeamProInfo = $db->querySingle($Query,true);
+                $Theme = $TeamProInfo['TeamThemeID'];
+
+
+
+
                 // Set the status value if the league is Pro or Farm
                 $status = ($league == "Pro") ? 3: 1;
                 // Select all the players and goalies if they are dressed.
@@ -178,16 +189,14 @@
 
 
 
-<header>
+<header class="teamColorPale<?= $Theme ?>">
 <?php include "Menu.php";?>
 
 
 <div id="lineeditor">
-    <div class="container pagewrapper pagewrapperlineeditor">
-
-    <div id="errorBanner" style="color: red;"></div>
-    
-            <div class="lineSave pb-3 "> 
+    <div class="container pagewrapper pagewrapperlineeditor ">
+      
+             <div class="lineSave pb-3 "> 
                 <div class="row  darkText justify-content-center pt-1 m-0 px-0">
 
                     <div class="col-3 ">
@@ -260,7 +269,7 @@
                                             
                                             ?> 
                                             <li class=" nav-item <?= $activeClass ?>" >
-                                                <button class="nav-link <?= $activeClass ?>" id="<?= $t?>-tab" data-bs-toggle="tab" data-bs-target="<?= $tablink . ++$count?>" type="button" role="tab"  tabindex="-1"><?= $t?></button> 
+                                                <button class="nav-link <?= $activeClass ?>  id="<?= $t?>-tab" data-bs-toggle="tab" data-bs-target="<?= $tablink . ++$count?>" type="button" role="tab"  tabindex="-1"><?= $t?></button> 
                                             </li><?php
 
 
@@ -273,7 +282,7 @@
                             </div>
                         </div>
 
-                        <div id="tabs" class="tab-content ">
+                        <div id="tabs" class="teamColorSecondary<?= $Theme ?> tab-content ">
                                 <?php // Loop through the tabs info making the lines pages.
                                 foreach($tabs AS $i=>$t) {
                                     $displaytab = false;
@@ -282,7 +291,7 @@
                                     else                                 $displaytab = false;
                                     
                                     if($displaytab) { ?>
-                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer  tab-pane <?php echo ($count == 1) ? 'active show' : ''; ?> ">
+                                        <div id="tabs-<?= ++$count ?>" class="tabcontainer  tab-pane <?php echo ($count == 1) ? 'active show' : ''; ?>  teamColorSecondary<?= $Theme ?> ">
                                         <?php 
 //  TABS LINES 
                                         if($i == "Forward" || $i == "Defense" || $i == "PP" || $i == "PK4" || $i == "4VS4" || $i == "PK3"){	
@@ -291,10 +300,10 @@
                                            
                                             $bcount = 0;
                                             foreach($blocks[$i] AS $bid=>$block){?>
-                                                    <div class="linesection card p-1 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> ">
+                                                    <div class=" linesection card p-1 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> teamColorSecondary<?= $Theme ?> ">
                                                         
                                                         <div class=" d-flex justify-content-between align-items-center" >
-                                                            <div class="darkText fs-10 text-start px-2"><?= $block ?> </div>
+                                                            <div class=" fs-10 text-start px-2"><?= $block ?> </div>
                                                             <div class="text-end m-0"> 
                                                                 <div class="button-container">
                                                                     <div class="btn-group">   
@@ -734,7 +743,12 @@
     
 <?php include ("Footer.php"); ?>
 
+<script>
 
+const TeamProInfo = <?php echo json_encode($TeamProInfo); ?>;
+console.log(TeamProInfo)
+
+</script>
 
 
 </body></html>

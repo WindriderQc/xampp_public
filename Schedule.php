@@ -185,7 +185,7 @@ If($HistoryOutput == True){echo "<div id=\"ReQueryDiv\" style=\"display:none;\">
 
 
 
-<table class="tablesorter STHSPHPSchedule_ScheduleTable"><thead><tr>
+<table class="tablesorter STHSPHPSchedule_ScheduleTable table"><thead><tr>
 
 <?php include "ScheduleSub.php";?>
 

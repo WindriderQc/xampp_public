@@ -209,7 +209,7 @@ body {
 /*  HEADER   ============================================================================= */
 header {
 
-	background-color: #ededed;
+	/*background-color: #ededed;*/
 	background-size: cover;
 	text-align: center;
 	border-bottom: 5px solid rgba(0,0,0,0.4);
@@ -819,17 +819,6 @@ body:not(.mobile) #stickynav{
 
 }
 
-
-
-.tab-content p {
-
-	margin:0;
-
-	padding: 30px;
-
-	display: inline-block;
-
-}
 
 
 
@@ -1848,7 +1837,7 @@ width: 100%;
 }
 
 .tab-content .tab-pane {
-    background-color: #FFF;
+   /* background-color: #FFF;*/
     color: #148a80;
     min-height: 200px;
     height: auto;

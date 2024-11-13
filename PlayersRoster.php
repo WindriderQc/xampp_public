@@ -389,7 +389,7 @@ $(function() {
 
 
 
-<table class="tablesorter STHSPHPAllPlayerRoster_Table"><thead><tr>
+<table class="table ablesorter STHSPHPAllPlayerRoster_Table"><thead><tr>
 
 <th data-priority="critical" title="Player Name" class="STHSW140Min"><?php echo $PlayersLang['PlayerName'];?></th>
 

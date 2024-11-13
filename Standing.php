@@ -66,7 +66,7 @@ echo "<title>" . $Title . "</title>";
 
 function PrintStandingTop($TeamLang, $StandardStandingOutput, $LeagueGeneral) {
 
-    echo "<table class=\"tablesorter STHSPHPStanding_Table\"><thead><tr>";
+    echo "<table class=\"table tablesorter STHSPHPStanding_Table\"><thead><tr>";
     echo "<th title=\"Position\" class=\"STHSW35\">PO</th>";
     echo "<th title=\"Team Name\" class=\"STHSW200\">" . $TeamLang['TeamName'] ."</th>";
     echo "<th title=\"Games Played\" class=\"STHSW30\">GP</th>";
@@ -441,7 +441,7 @@ If ($StandingQueryOK == True){
 		echo "<td>";If ($Winner['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Winner['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingPlayoffWinnerImage \" />";}
 		echo "<h1>" . $Winner['Name'] . $StandingLang['WinsPlayoff'] . "</h1><br /><br /></div>";
 	}
-	echo "<table class=\"STHSTableFullW\"><tr>";
+	echo "<table class=\"STHSTableFullW table\"><tr>";
 
 	for($Round = 1; $Round <= 5; $Round++){
 
