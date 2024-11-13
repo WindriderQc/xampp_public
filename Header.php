@@ -1,4 +1,8 @@
-<?php  require_once "STHSSetting.php"; ?>
+<?php  
+require_once "STHSSetting.php"; 
+require_once("helperTool.php");
+?>
+
 
 <!DOCTYPE html>
 
@@ -41,3 +45,5 @@
 
     <script src="js/lhsqc_new.js"    type="text/javascript"></script>
     <script src="js/db2json.js"    type="text/javascript"></script>
+    
+

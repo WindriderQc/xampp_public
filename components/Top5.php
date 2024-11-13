@@ -1,5 +1,3 @@
-
-
 <div class="card shadow-0 mb-3 frontpage-card top5Card" >
     <div class="card-header">Top Stars</div>
     <div class="card-body mt-0 pt-0 text-primary">                                
@@ -9,115 +7,120 @@
             <tr><td colspan="2"><img src="images/Star.png" alt="Star1" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro1"></span></td></tr>
             <tr><td colspan="2"><img src="images/Star.png" alt="Star2" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro2"></span></td></tr>
             <tr><td colspan="2"><img src="images/Star.png" alt="Star3" style="width:25px;vertical-align:middle;padding-right:4px" /><span id="starPro3"></span></td></tr>
-            <script>
-               
-                document.getElementById('starPro1').innerHTML = leagueGeneral[0].Today3StarPro1;  //  TODO   !?!?  devrait pas ete un array
-                document.getElementById('starPro2').innerHTML = leagueGeneral[0].Today3StarPro2;
-                document.getElementById('starPro3').innerHTML = leagueGeneral[0].Today3StarPro3;
-            </script>
-                         <?php 
-                         //log2console($LeagueGeneral['name']);
-                        If ($LeagueOutputOption['ShowFarmScoreinPHPHomePage'] == 'True'){
-                            echo "<tr><th colspan=\"2\" class=\"STHSIndex_3StarNameHeader\">" . $IndexLang['FarmGamesDaysStar'] . "</th></tr>";
-                            echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star1\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarFarm1'] . "</td></tr>";
-                            echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star2\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarFarm2'] . "</td></tr>";
-                            echo "<tr><td colspan=\"2\"><img src=\"" . $ImagesCDNPath . "/images/Star.png\" alt=\"Star3\" style=\"width:25px;vertical-align:middle;padding-right:4px\" />" . $LeagueGeneral['Today3StarFarm3'] . "</td></tr>";
-                        }?>
-                        <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Point'];?></th></tr>
-                        <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
-                        <?php
-                        If ($IndexQueryOK== True){
-                            $Query = "SELECT PlayerProStat.G, PlayerProStat.A, PlayerProStat.P, PlayerProStat.GP, PlayerProStat.Name, PlayerProStat.Number, TeamProInfo.Abbre, TeamProInfo.TeamThemeID, PlayerInfo.NHLID  FROM (PlayerInfo INNER JOIN PlayerProStat ON PlayerInfo.Number = PlayerProStat.Number) LEFT JOIN TeamProInfo ON PlayerInfo.Team = TeamProInfo.Number WHERE (PlayerProStat.GP >= " . $LeagueOutputOption['ProMinimumGamePlayerLeader'] . ") AND (PlayerInfo.Team > 0) AND (PlayerProStat.P > 0) ORDER BY PlayerProStat.P DESC, PlayerProStat.G DESC, PlayerProStat.GP ASC LIMIT 5";
-                            $PlayerStat = $db->query($Query);
-                        }
-                        $LoopCount = (integer)0;
-                        if (empty($PlayerStat) == false){while ($Row = $PlayerStat ->fetchArray()) {
-                            $LoopCount +=1;echo "<tr><td>";
-                            If ($Row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPIndividualLeadersTeamImage\" />";}
-                            echo "<a href=\"PlayerReport.php?Player=" . $Row['Number'] . "\">" . $Row['Name'] . " (" . $Row['Abbre'] . ")</a>";
-                            If($LoopCount == 1){If ($LeagueOutputOption['PlayersMugShotBaseURL'] != "" AND $LeagueOutputOption['PlayersMugShotFileExtension'] != "" AND $Row['NHLID'] != ""){
-                            echo "<div class=\"Headshot\"><img loading=\"lazy\" src=\"" . $LeagueOutputOption['PlayersMugShotBaseURL'] . $Row['NHLID'] . "." . $LeagueOutputOption['PlayersMugShotFileExtension'] . "\" alt=\"" . $Row['Name']. "\" class=\"STHSPHPIndexLeadersHeadshot\" /></div>";}}
-                            echo "</td><td>" . $Row['G'] . "-" . $Row['A'] . "-" . $Row['P'] . "</td></tr>\n";
-                        }}?>
+            
+            <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Point'];?></th></tr>
+            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
+            <tbody id="leaders"></tbody>
+                 
+            <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Goal'];?></th></tr>
+            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">GP-G</td></tr>
+            <tbody id="top5Goals"></tbody>
 
-                    <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Goal'];?></th></tr>
-                    <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">GP-G</td></tr>
-                    <?php
-                    If ($IndexQueryOK== True){
-                        $Query = "SELECT PlayerProStat.G, PlayerProStat.A, PlayerProStat.P, PlayerProStat.GP, PlayerProStat.Name, PlayerProStat.Number, TeamProInfo.Abbre, TeamProInfo.TeamThemeID, PlayerInfo.NHLID  FROM (PlayerInfo INNER JOIN PlayerProStat ON PlayerInfo.Number = PlayerProStat.Number) LEFT JOIN TeamProInfo ON PlayerInfo.Team = TeamProInfo.Number WHERE (PlayerProStat.GP >= " . $LeagueOutputOption['ProMinimumGamePlayerLeader'] . ") AND (PlayerInfo.Team > 0) AND (PlayerProStat.P > 0) ORDER BY PlayerProStat.G DESC, PlayerProStat.GP ASC LIMIT 5";
-                        $PlayerStat = $db->query($Query);
-                    }
-                    $LoopCount = (integer)0;
-                    if (empty($PlayerStat) == false){while ($Row = $PlayerStat ->fetchArray()) {
-                        $LoopCount +=1;echo "<tr><td>";
-                        If ($Row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPIndividualLeadersTeamImage\" />";}
-                        echo "<a href=\"PlayerReport.php?Player=" . $Row['Number'] . "\">" . $Row['Name'] . " (" . $Row['Abbre'] . ")</a>";
-                        If($LoopCount == 1){If ($LeagueOutputOption['PlayersMugShotBaseURL'] != "" AND $LeagueOutputOption['PlayersMugShotFileExtension'] != "" AND $Row['NHLID'] != ""){
-                        echo "<div class=\"Headshot\"><img loading=\"lazy\" src=\"" . $LeagueOutputOption['PlayersMugShotBaseURL'] . $Row['NHLID'] . "." . $LeagueOutputOption['PlayersMugShotFileExtension'] . "\" alt=\"" . $Row['Name']. "\" class=\"STHSPHPIndexLeadersHeadshot\" /></div>";}}
-                        echo "</td><td>" . $Row['GP'] . " - " . $Row['G'] . "</td></tr>\n";
-                    }}?>
+            <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Goalies'];?></th></tr>
+            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['GoalieName'];?></td><td class="STHSIndex_Top5PointResultHeader">W-PCT</td></tr>                
+            <tbody id="top5Goalies"></tbody>      
+              
+            <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Defenseman'];?></th></tr>
+            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>            
+            <tbody id="top5Defenses"></tbody>
 
-                    <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Goalies'];?></th></tr>
-                    <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['GoalieName'];?></td><td class="STHSIndex_Top5PointResultHeader">W-PCT</td></tr>
-                    <?php
-                    If ($IndexQueryOK== True){
-                        $Query = "SELECT ROUND((CAST(GoalerProStat.SA - GoalerProStat.GA AS REAL) / (GoalerProStat.SA)),3) AS PCT, GoalerProStat.W, GoalerProStat.SecondPlay, GoalerProStat.Name, GoalerProStat.Number, TeamProInfo.Abbre, TeamProInfo.TeamThemeID, GoalerInfo.NHLID  FROM (GoalerInfo INNER JOIN GoalerProStat ON GoalerInfo.Number = GoalerProStat.Number) LEFT JOIN TeamProInfo ON GoalerInfo.Team = TeamProInfo.Number WHERE (GoalerProStat.SecondPlay >= (" . $LeagueOutputOption['ProMinimumGamePlayerLeader'] . "*3600)) AND (GoalerInfo.Team > 0) AND (PCT > 0) ORDER BY PCT DESC, GoalerProStat.W DESC LIMIT 5";
-                        $PlayerStat = $db->query($Query);
-                    }
-                    $LoopCount = (integer)0;
-                    if (empty($PlayerStat) == false){while ($Row = $PlayerStat ->fetchArray()) {
-                        $LoopCount +=1;echo "<tr><td>";
-                        If ($Row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPIndividualLeadersTeamImage\" />";}
-                        echo "<a href=\"GoalieReport.php?Goalie=" . $Row['Number'] . "\">" . $Row['Name'] . " (" . $Row['Abbre'] . ")</a>";
-                        If($LoopCount == 1){If ($LeagueOutputOption['PlayersMugShotBaseURL'] != "" AND $LeagueOutputOption['PlayersMugShotFileExtension'] != "" AND $Row['NHLID'] != ""){
-                        echo "<div class=\"Headshot\"><img loading=\"lazy\" src=\"" . $LeagueOutputOption['PlayersMugShotBaseURL'] . $Row['NHLID'] . "." . $LeagueOutputOption['PlayersMugShotFileExtension'] . "\" alt=\"" . $Row['Name']. "\" class=\"STHSPHPIndexLeadersHeadshot\" /></div>";}}
-                        echo "</td><td>" . $Row['W'] . " - " . number_Format($Row['PCT'],3) .  "</td></tr>\n";
-                    }}?>
-
-                    <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Defenseman'];?></th></tr>
-                    <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
-                    <?php
-                    If ($IndexQueryOK== True){
-                        $Query = "SELECT PlayerProStat.G, PlayerProStat.A, PlayerProStat.P, PlayerProStat.GP, PlayerProStat.Name, PlayerProStat.Number, TeamProInfo.Abbre, TeamProInfo.TeamThemeID, PlayerInfo.NHLID  FROM (PlayerInfo INNER JOIN PlayerProStat ON PlayerInfo.Number = PlayerProStat.Number) LEFT JOIN TeamProInfo ON PlayerInfo.Team = TeamProInfo.Number WHERE (PlayerProStat.GP >= " . $LeagueOutputOption['ProMinimumGamePlayerLeader'] . ") AND (PlayerInfo.Team > 0) AND (PlayerInfo.PosD='True') AND (PlayerProStat.P > 0) ORDER BY PlayerProStat.P DESC, PlayerProStat.G DESC, PlayerProStat.GP ASC LIMIT 5";
-                        $PlayerStat = $db->query($Query);
-                    }
-                    $LoopCount = (integer)0;
-                    if (empty($PlayerStat) == false){while ($Row = $PlayerStat ->fetchArray()) {
-                        $LoopCount +=1;echo "<tr><td>";
-                        If ($Row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPIndividualLeadersTeamImage\" />";}
-                        echo "<a href=\"PlayerReport.php?Player=" . $Row['Number'] . "\">" . $Row['Name'] . " (" . $Row['Abbre'] . ")</a>";
-                        If($LoopCount == 1){If ($LeagueOutputOption['PlayersMugShotBaseURL'] != "" AND $LeagueOutputOption['PlayersMugShotFileExtension'] != "" AND $Row['NHLID'] != ""){
-                        echo "<div class=\"Headshot\"><img loading=\"lazy\" src=\"" . $LeagueOutputOption['PlayersMugShotBaseURL'] . $Row['NHLID'] . "." . $LeagueOutputOption['PlayersMugShotFileExtension'] . "\" alt=\"" . $Row['Name']. "\" class=\"STHSPHPIndexLeadersHeadshot\" /></div>";}}
-                        echo "</td><td>" . $Row['G'] . "-" . $Row['A'] . "-" . $Row['P'] . "</td></tr>\n";
-                    }}?>
-
-                    <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Rookies'];?></th></tr>
-                    <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
-                    <?php
-                    If ($IndexQueryOK== True){
-                        $Query = "SELECT PlayerProStat.G, PlayerProStat.A, PlayerProStat.P, PlayerProStat.GP, PlayerProStat.Name, PlayerProStat.Number, TeamProInfo.Abbre, TeamProInfo.TeamThemeID, PlayerInfo.NHLID  FROM (PlayerInfo INNER JOIN PlayerProStat ON PlayerInfo.Number = PlayerProStat.Number) LEFT JOIN TeamProInfo ON PlayerInfo.Team = TeamProInfo.Number WHERE (PlayerProStat.GP >= " . $LeagueOutputOption['ProMinimumGamePlayerLeader'] . ") AND (PlayerInfo.Team > 0) AND (PlayerInfo.Rookie='True') AND (PlayerProStat.P > 0) ORDER BY PlayerProStat.P DESC, PlayerProStat.G DESC, PlayerProStat.GP ASC LIMIT 5";
-                        $PlayerStat = $db->query($Query);
-                    }
-                    $LoopCount = (integer)0;
-                    if (empty($PlayerStat) == false){while ($Row = $PlayerStat ->fetchArray()) {
-                        $LoopCount +=1;echo "<tr><td>";
-                        If ($Row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPIndividualLeadersTeamImage\" />";}
-                        echo "<a href=\"PlayerReport.php?Player=" . $Row['Number'] . "\">" . $Row['Name'] . " (" . $Row['Abbre'] . ")</a>";
-                        If($LoopCount == 1){If ($LeagueOutputOption['PlayersMugShotBaseURL'] != "" AND $LeagueOutputOption['PlayersMugShotFileExtension'] != "" AND $Row['NHLID'] != ""){
-                        echo "<div class=\"Headshot\"><img loading=\"lazy\" src=\"" . $LeagueOutputOption['PlayersMugShotBaseURL'] . $Row['NHLID'] . "." . $LeagueOutputOption['PlayersMugShotFileExtension'] . "\" alt=\"" . $Row['Name']. "\" class=\"STHSPHPIndexLeadersHeadshot\" /></div>";}}
-                        echo "</td><td>" . $Row['G'] . "-" . $Row['A'] . "-" . $Row['P'] . "</td></tr>\n";
-                    }}?>
-                    <!-- <?php if(isset($LeagueGeneral)){
-                    if (strlen($LeagueGeneral['Days73StarPro']) > 20){echo "<tr><th colspan=\"2\" class=\"STHSTop5\"><br /><br />" . $IndexLang['7DaysStar'] . "</th></tr><tr><td colspan=\"2\">" . str_replace("/", "<br />",$LeagueGeneral['Days73StarPro']) . "</td></tr>";}
-                    if (strlen($LeagueGeneral['Days303StarPro']) > 20){echo "<tr><th colspan=\"2\" class=\"STHSTop5\"><br /><br />" . $IndexLang['30DaysStar'] . "</th></tr><tr><td colspan=\"2\">" . str_replace("/", "<br />",$LeagueGeneral['Days303StarPro']) . "</td></tr>";}
-
-                    If ($LeagueOutputOption['ShowFarmScoreinPHPHomePage'] == 'True'){
-                        if (strlen($LeagueGeneral['Days73StarFarm']) > 20){echo "<tr><th colspan=\"2\" class=\"STHSTop5\"><br /><br />" . $TopMenuLang['FarmLeague'] . " : " . $IndexLang['7DaysStar'] . "</th></tr><tr><td colspan=\"2\">" . str_replace("/", "<br />",$LeagueGeneral['Days73StarFarm']) . "</td></tr>";}
-                        if (strlen($LeagueGeneral['Days303StarFarm']) > 20){echo "<tr><th colspan=\"2\" class=\"STHSTop5\"><br /><br />" . $TopMenuLang['FarmLeague'] . " : " . $IndexLang['30DaysStar'] . "</th></tr><tr><td colspan=\"2\">" . str_replace("/", 	"<br />",$LeagueGeneral['Days303StarFarm']) . "</td></tr>";}
-                    }
-                    }?> -->
+            <tr><th colspan="2" class="STHSTop5"><?php echo $IndexLang['Top5Rookies'];?></th></tr>
+            <tr><td class="STHSIndex_Top5PointNameHeader"><?php echo $PlayersLang['PlayerName'];?></td><td class="STHSIndex_Top5PointResultHeader">G-A-P</td></tr>
+            <tbody id="top5Rookies"></tbody>
+           
+                 
+            <?php if(isset($LeagueGeneral)){
+            if (strlen($LeagueGeneral['Days73StarPro']) > 20){echo "<tr><th colspan=\"2\" class=\"STHSTop5\"><br /><br />" . $IndexLang['7DaysStar'] . "</th></tr><tr><td colspan=\"2\">" . str_replace("/", "<br />",$LeagueGeneral['Days73StarPro']) . "</td></tr>";}
+            if (strlen($LeagueGeneral['Days303StarPro']) > 20){echo "<tr><th colspan=\"2\" class=\"STHSTop5\"><br /><br />" . $IndexLang['30DaysStar'] . "</th></tr><tr><td colspan=\"2\">" . str_replace("/", "<br />",$LeagueGeneral['Days303StarPro']) . "</td></tr>";}
+            }?> 
 
         </table>
               
     </div>
 </div>
+
+
+
+
+<script>
+
+
+function genLeaderLine( player,isScorer=false, isGoalie=false, headshot=false ) 
+{
+    let htmlOutput = "";
+    htmlOutput += "<tr><td>";
+    if(player.TeamThemeID != "N/A") htmlOutput += `<img src="/images/${player.TeamThemeID}.png" alt="" class="STHSPHPIndividualLeadersTeamImage" />`;
+    htmlOutput += `<a href="PlayerReport.php?Player=${player.Number}">${player.Name} (${player.Abbre})</a>`;
+    if (headshot) htmlOutput += `<div class="Headshot"><img loading="lazy" src="https://assets.nhle.com/mugs/nhl/latest/${player.NHLID}.png}" alt="" class="STHSPHPIndexLeadersHeadshot" /></div>`;
+    if(isScorer)        htmlOutput += `</td><td>${player.GP}-${player.G}</td></tr>`; 
+    else if (isGoalie)  htmlOutput += `</td><td>${player.W}-${player.PCT}</td></tr>`; 
+    else              htmlOutput += `</td><td>${player.G}-${player.A}-${player.P}</td></tr>`; 
+
+    return htmlOutput;
+}
+
+function updateSection(divID, players, isScorer=false, isGoalie=false) {
+    let isFirst = true;
+    let inhtml = "";
+    players.forEach(player => {  inhtml += genLeaderLine(player, isScorer, isGoalie, isFirst);   isFirst = false;    });
+    document.getElementById(divID).innerHTML = inhtml;
+}
+
+
+function actualizeData()
+{
+    let LoopCount = 0; 
+    let htmlOutput = "";
+
+
+    document.getElementById('starPro1').innerHTML = leagueGeneral[0].Today3StarPro1;  //  TODO   !?!?  devrait pas ete un array
+    document.getElementById('starPro2').innerHTML = leagueGeneral[0].Today3StarPro2;
+    document.getElementById('starPro3').innerHTML = leagueGeneral[0].Today3StarPro3;
+
+   
+
+
+    const leaders = getLeaders();
+    console.log(leaders)
+    leaders.forEach(player => { 
+                    LoopCount++; 
+                    htmlOutput += "<tr><td>"; 
+                    if(player.TeamThemeID != "N/A") htmlOutput += `<img src="/images/${player.TeamThemeID}.png" alt="" class="STHSPHPIndividualLeadersTeamImage" /><a href="PlayerReport.php?Player=${player.Number}">${player.Name} (${player.Abbre})</a>`; 
+                    if (LoopCount === 1) { 
+                        htmlOutput += `<div class="Headshot"><img loading="lazy" src="/images/${player.NHLID}.png" alt="" class="STHSPHPIndexLeadersHeadshot" /></div>` ; 
+                    } 
+                    htmlOutput += `</td><td>${player.G}-${player.A}-${player.P}</td></tr>`;
+    })
+
+    document.getElementById('leaders').innerHTML = htmlOutput
+
+
+    const top5Goals = getTop5Scorer()
+    updateSection('top5Goals', top5Goals, true)
+
+
+    const goalerLeaders = getGoalerLeaders()
+    updateSection('top5Goalies', goalerLeaders, false, true)
+    
+ 
+    const top5Defenses = getTop5Defenses()
+    updateSection('top5Defenses', top5Defenses)
+    
+    const top5Rookies = getTop5Rookies()
+    updateSection('top5Rookies', top5Rookies)
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateInfos(actualizeData)
+})
+
+
+
+
+
+
+
+
+</script>

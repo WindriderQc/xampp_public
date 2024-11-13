@@ -373,9 +373,10 @@ a.tabmenuhome { color:#000000;}
 .STHSIndex_Score{vertical-align:top; width:5px;width: 250px;}
 .STHSIndex_NewsTD {vertical-align:top;text-align:left;width:660px;padding-right:20px}
 .STHSIndex_Top5 {vertical-align:top;width:350px;padding-right:20px;color: black;}
+.STHSTop5 {color: black;}
 .STHSIndex_3StarNameHeader {width:200px;min-width: 150px;font-weight: bold;color: black;}
-.STHSIndex_Top5PointNameHeader {width:225px;min-width: 150px;font-weight: bold;}
-.STHSIndex_Top5PointResultHeader {width:75px;min-width: 50px;font-weight: bold;}
+.STHSIndex_Top5PointNameHeader {width:225px;min-width: 150px;font-weight: bold; color: black;}
+.STHSIndex_Top5PointResultHeader {width:75px;min-width: 50px;font-weight: bold; color: black;}
 .STHSIndex_OutputSetting_Table{width:98%;margin:auto;border-width: 2px;border-style: solid;border-collapse: collapse;text-align:center;}
 .STHSIndex_OutputSetting_Table td {border-width: 1px;border-style: solid;}
 .STHSIndex_NewsReplyTable {padding: 0px 8px 0px 8px;display: none;}
@@ -459,7 +460,7 @@ a.tabmenuhome { color:#000000;}
 .STHSPHPGoaliesRosterTeamImage {width:24px;height:24px;padding-left:0px;padding-right:0px;vertical-align:middle}
 .STHSPHPPlayersStatsTeamImage {width:24px;height:24px;padding-left:0px;padding-right:0px;vertical-align:middle}
 .STHSPHPGoaliesStatTeamImage {width:24px;height:24px;padding-left:0px;padding-right:0px;vertical-align:middle}
-.STHSPHPIndividualLeadersTeamImage {width:24px;height:24px;padding-left:0px;padding-right:8px;vertical-align:middle}
+.STHSPHPIndividualLeadersTeamImage {width:30px;padding-left:0px;padding-right:8px;vertical-align:middle}
 .STHSPHPIndividualLeadersHeadshot {max-width: 100%;height: auto; margin-left: 25px; margin-right: auto; border-radius: 50%; width: 80px; box-shadow: 0 2px 3px 1px #ddd;}
 .STHSPHPWaiverTeamImage {width:24px;height:24px;padding-left:0px;padding-right:8px;vertical-align:middle}
 .STHSPHPTradeTeamImage {width:48px;height:48px;padding-left:0px;padding-right:8px;vertical-align:middle}
