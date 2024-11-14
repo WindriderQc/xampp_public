@@ -62,15 +62,15 @@
 			// Display the line editor page using API.
 			// use 4 paramaters Database, TeamID, $league("Pro","Farm"), showH1Tag (DEFAULT true/false)   
 			if($t > 0){   // Check to see if there is a team selected.
-                $teamid = $t;
+                
                 $league=$l;
                 $useServerURIInTabLink=false;
                 // $db = sqlite DB
                 // $teamid is a teamid to use that teams roster.
                 // $league is "Pro" or "Farm" based on selection.         
             
-
-
+                $teamid = $t;
+                
                 $Query = "SELECT * FROM TeamProInfo WHERE Number = " . $teamid;
 		        $TeamProInfo = $db->querySingle($Query,true);
                 $Theme = $TeamProInfo['TeamThemeID'];
