@@ -45,6 +45,9 @@
         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>
         <link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap\" rel=\"stylesheet\">
         <link href=\"css/nhlColors.css\" rel=\"stylesheet\" type=\"text/css\" /> ";
+        //<script src=\"js/db2json.js\"    type=\"text/javascript\"></script>";
+        
+
         //<link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
         //<script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
 
@@ -68,14 +71,16 @@
             
 
 
-
-
-        
-
                 $Query = "SELECT * FROM TeamProInfo WHERE Number = " . $teamid;
 		        $TeamProInfo = $db->querySingle($Query,true);
                 $Theme = $TeamProInfo['TeamThemeID'];
 
+
+                $Query = "SELECT * FROM PlayerInfo WHERE Team = " . $teamid; 
+                $results = $db->query($Query); 
+                $TeamPlayerInfo = []; 
+                while ($row = $results->fetchArray(SQLITE3_ASSOC)) { $TeamPlayerInfo[] = $row; }
+        
 
 
 
@@ -747,6 +752,10 @@
 
 const TeamProInfo = <?php echo json_encode($TeamProInfo); ?>;
 console.log(TeamProInfo)
+
+const TeamPlayerInfo = <?php echo json_encode($TeamPlayerInfo); ?>;
+console.log(TeamPlayerInfo)
+
 
 </script>
 

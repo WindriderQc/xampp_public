@@ -1071,7 +1071,7 @@ function closeList() {
         const label = clickedItem.querySelector('label');
         const uniqueID = clickedItem.getAttribute('data-id');
        
-        const player = allPlayersInfo.find(player => player.Number == uniqueID); 
+        const player = TeamPlayerInfo.find(player => player.Number == uniqueID); 
         console.log(player);
 
         const info = player;
@@ -1154,7 +1154,8 @@ document.querySelector('.playerselect').addEventListener('touchend', function(ev
 
             const uniqueID = clickedItem.getAttribute('data-id');
        
-            const player = allPlayersInfo.find(player => player.Number == uniqueID); 
+            
+            const player = TeamPlayerInfo.find(player => player.Number == uniqueID); 
             console.log(player);
     
             const info = player;
