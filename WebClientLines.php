@@ -437,13 +437,16 @@
                                                                     <?php 
                                                                     foreach($posit as $pid => $pos) {
                                                                         // Set player name in each position
-                                                                        $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : ""; //log2console($playername ."  " . $field . " -  ". $pid );
+                                                                        $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : ""; 
+                                                                        log2console($playername ."  " . $field . " -  ". $pid );
+
                                                                         ?>
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm  p-0" >
                                                                                 <div class="card-body p-0" >
-                                                                                    <?= $playerName ?><br>
-                                                                                    <span>stats </span>
+                                                                                   
+                                                                                    <span>Overall: </span> <span id="smPov">00 </span>
+                                                                                    <span>Condition: </span> <span id="smPco">00 </span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
