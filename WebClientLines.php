@@ -305,7 +305,7 @@
                                            
                                             $bcount = 0;
                                             foreach($blocks[$i] AS $bid=>$block){?>
-                                                    <div class=" linesection card p-1 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> teamColorSecondary<?= $Theme ?> ">
+                                                    <div class="  card p-1 id<?= api_MakeCSSClass($i)?> id<?= api_MakeCSSClass($bid)?> teamColorSecondary<?= $Theme ?> ">
                                                         
                                                         <div class=" d-flex justify-content-between align-items-center" >
                                                             <div class=" fs-10 text-start px-2"><?= $block ?> </div>
