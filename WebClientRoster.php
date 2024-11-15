@@ -125,17 +125,22 @@
                 }
 
                 // Confirm banner based on success
-                if ($success) $confirmbannertext = "Roster has been saved.";
-                else          $confirmbannertext = "Error saving roster. Please try again. <br>" .  $db->lastErrorMsg();
+                if ($success) 
+                {
+                    $confirmbannertext = "Roster has been saved.";
+                    $confirmbanner = "<div class=\"confirm\">". $confirmbannertext ."</div>";  
+                }
+                else{
+                        $confirmbannertext = "Error saving roster. Please try again. <br>" .  $db->lastErrorMsg();
+                        $confirmbanner = "<div class=\"error\">". $confirmbannertext ."</div>";  
+                    }
                 
-            } else $confirmbannertext = "No changes have been made to your roster.";
-            
-            $confirmbanner = "<div class=\"confirm\">". $confirmbannertext ."</div>";  
+            } else{ 
+                $confirmbannertext = "No changes have been made to your roster.";
+                $confirmbanner = "<div class=\"confirm\">". $confirmbannertext ."</div>";  
+            }
+          
             $_SESSION['confirmbanner'] = $confirmbannertext; // Store the message in session
-            // header("HTTP/1.1 303 See Other");
-            //  header("Location: " . $_SERVER['PHP_SELF'] . "?TeamID=" . $CookieTeamNumber); // Redirect to the same page                 
-            //header("Location: index.php" ); // Redirect to the same page 
-            //  exit();
         }
             
 
