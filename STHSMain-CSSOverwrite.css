@@ -1370,14 +1370,9 @@ footer .module-content {
 .STHSTodayGame_GameOverall {
 
     vertical-align: top;
-    border-collapse: separate;
-    border-spacing: 0;
-    border: 1px solid black;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    padding: 5px;
+    padding: 0px;
     margin-bottom: 5px;
-    background-color:  rgba(245,245,245,1);
+    background-color:  white;
     -webkit-column-break-inside: avoid;	
     page-break-inside: avoid; 
     break-inside: avoid;
