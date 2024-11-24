@@ -5,6 +5,6 @@
 temp/
 
 #ignore db files as they change often
-.db
+*.db
 
 linesupload/
