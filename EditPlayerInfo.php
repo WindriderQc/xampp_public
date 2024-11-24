@@ -25,191 +25,161 @@ try{
 
 
 	$db = new SQLite3($DatabaseFile);
-	$Query = "Select Name from LeagueGeneral";
-	$LeagueGeneral = $db->querySingle($Query,true);		
-	$LeagueName = $LeagueGeneral['Name'];
 
-	$Query = "Select AllowPlayerEditionFromWebsite from LeagueWebClient";
-	$LeagueWebClient = $db->querySingle($Query,true);
+    // Fetch league name 
+    $LeagueGeneral = $db->querySingle("SELECT Name FROM LeagueGeneral", true); 
+    $LeagueName = $LeagueGeneral['Name'];
 
+  
+    if ($CookieTeamNumber > 0 AND $CookieTeamNumber <= 102){
 
+        if(isset($_POST['TeamEdit'])){$TeamEdit = filter_var($_POST['TeamEdit'], FILTER_SANITIZE_NUMBER_INT);}
 
-	If ($LeagueWebClient['AllowPlayerEditionFromWebsite'] == "True"){
-		If ($CookieTeamNumber > 0 AND $CookieTeamNumber <= 102){
+        if ($TeamEdit == $CookieTeamNumber){	
 
-			if(isset($_POST['TeamEdit'])){$TeamEdit = filter_var($_POST['TeamEdit'], FILTER_SANITIZE_NUMBER_INT);}
+            if(isset($_POST['PlayerNumber'])){$PlayerNumber = filter_var($_POST['PlayerNumber'], FILTER_SANITIZE_NUMBER_INT);} 
+            if(isset($_POST['PlayerName'])){$PlayerName =  filter_var($_POST['PlayerName'], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH || FILTER_FLAG_NO_ENCODE_QUOTES || FILTER_FLAG_STRIP_BACKTICK);}
+            
+            
+            
+            //if(isset($_POST['DraftYear'])){$PlayerDraftYear = filter_var($_POST['DraftYear'], FILTER_SANITIZE_NUMBER_INT, FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerDraftYear)){$PlayerDraftYear =0 ;}
+            if (isset($_POST['DraftYear'])) {
+                $PlayerDraftYear = filter_var($_POST['DraftYear'], FILTER_SANITIZE_NUMBER_INT);
+                $PlayerDraftYear = ($PlayerDraftYear >= 1900 && $PlayerDraftYear <= date('Y')) ? (int)$PlayerDraftYear : 0;
+            } else {
+                $PlayerDraftYear = 0;
+            }
+            
+            
+            
+            
+            if(isset($_POST['DraftOverallPick'])){$PlayerDraftOverallPick = filter_var($_POST['DraftOverallPick'], FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerDraftOverallPick)){$PlayerDraftOverallPick =0 ;}
+            if(isset($_POST['NHLID'])){$PlayerNHLID = filter_var($_POST['NHLID'], FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerNHLID)){$PlayerNHLID ="" ;}
+            if(isset($_POST['Jersey'])){$PlayerJersey = filter_var($_POST['Jersey'], FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerJersey)){$PlayerJersey =0 ;}
+            if(isset($_POST['Hyperlink'])){$PlayerLink = filter_var($_POST['Hyperlink'], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH || FILTER_FLAG_NO_ENCODE_QUOTES || FILTER_FLAG_STRIP_BACKTICK);}	
 
-			If ($TeamEdit == $CookieTeamNumber){	
+            try {
 
-				if(isset($_POST['PlayerNumber'])){$PlayerNumber = filter_var($_POST['PlayerNumber'], FILTER_SANITIZE_NUMBER_INT);} 
-				if(isset($_POST['PlayerName'])){$PlayerName =  filter_var($_POST['PlayerName'], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH || FILTER_FLAG_NO_ENCODE_QUOTES || FILTER_FLAG_STRIP_BACKTICK);}
-				
-                
-                
-                //if(isset($_POST['DraftYear'])){$PlayerDraftYear = filter_var($_POST['DraftYear'], FILTER_SANITIZE_NUMBER_INT, FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerDraftYear)){$PlayerDraftYear =0 ;}
-				if (isset($_POST['DraftYear'])) {
-                    $PlayerDraftYear = filter_var($_POST['DraftYear'], FILTER_SANITIZE_NUMBER_INT);
-                    $PlayerDraftYear = ($PlayerDraftYear >= 1900 && $PlayerDraftYear <= date('Y')) ? (int)$PlayerDraftYear : 0;
-                } else {
-                    $PlayerDraftYear = 0;
+                if ($PlayerNumber > 0 and $PlayerNumber <= 10000){
+
+                    $Query = "Update PlayerInfo SET DraftYear = '" . $PlayerDraftYear . "', DraftOverallPick = '" . $PlayerDraftOverallPick . "', NHLID = '" . $PlayerNHLID . "', Jersey = '" . $PlayerJersey  . "', URLLink = '" . str_replace("'","''",$PlayerLink). "', WebClientModify = 'True' WHERE Number = " . $PlayerNumber;
+                    $db->exec($Query);
+                    $InformationMessage = $PlayersLang['EditConfirm'] . $PlayerName;
+
+                }elseif($PlayerNumber > 10000 and $PlayerNumber <= 11000){
+
+                    $Query = "Update GoalerInfo SET DraftYear = '" . $PlayerDraftYear . "', DraftOverallPick = '" . $PlayerDraftOverallPick . "', NHLID = '" . $PlayerNHLID . "', Jersey = '" . $PlayerJersey  . "', NHLID = '" . $PlayerNHLID . "', URLLink = '" . str_replace("'","''",$PlayerLink). "', WebClientModify = 'True' WHERE Number = " . ($PlayerNumber - 10000);
+                    $db->exec($Query);
+                    $InformationMessage = $PlayersLang['EditConfirm'] . $PlayerName;
+
+                }else{
+                    $InformationMessage = $PlayersLang['EditFail'];
                 }
-                
-                
-                
-                
-                if(isset($_POST['DraftOverallPick'])){$PlayerDraftOverallPick = filter_var($_POST['DraftOverallPick'], FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerDraftOverallPick)){$PlayerDraftOverallPick =0 ;}
-				if(isset($_POST['NHLID'])){$PlayerNHLID = filter_var($_POST['NHLID'], FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerNHLID)){$PlayerNHLID ="" ;}
-				if(isset($_POST['Jersey'])){$PlayerJersey = filter_var($_POST['Jersey'], FILTER_SANITIZE_NUMBER_INT);} If (empty($PlayerJersey)){$PlayerJersey =0 ;}
-				if(isset($_POST['Hyperlink'])){$PlayerLink = filter_var($_POST['Hyperlink'], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH || FILTER_FLAG_NO_ENCODE_QUOTES || FILTER_FLAG_STRIP_BACKTICK);}	
 
-				try {
+            } catch (Exception $e) {  $InformationMessage = $PlayersLang['EditFail'];	}	
 
-					If ($PlayerNumber > 0 and $PlayerNumber <= 10000){
-
-						$Query = "Update PlayerInfo SET DraftYear = '" . $PlayerDraftYear . "', DraftOverallPick = '" . $PlayerDraftOverallPick . "', NHLID = '" . $PlayerNHLID . "', Jersey = '" . $PlayerJersey  . "', URLLink = '" . str_replace("'","''",$PlayerLink). "', WebClientModify = 'True' WHERE Number = " . $PlayerNumber;
-						$db->exec($Query);
-						$InformationMessage = $PlayersLang['EditConfirm'] . $PlayerName;
-
-					}elseif($PlayerNumber > 10000 and $PlayerNumber <= 11000){
-
-						$Query = "Update GoalerInfo SET DraftYear = '" . $PlayerDraftYear . "', DraftOverallPick = '" . $PlayerDraftOverallPick . "', NHLID = '" . $PlayerNHLID . "', Jersey = '" . $PlayerJersey  . "', NHLID = '" . $PlayerNHLID . "', URLLink = '" . str_replace("'","''",$PlayerLink). "', WebClientModify = 'True' WHERE Number = " . ($PlayerNumber - 10000);
-						$db->exec($Query);
-						$InformationMessage = $PlayersLang['EditConfirm'] . $PlayerName;
-
-					}else{
-						$InformationMessage = $PlayersLang['EditFail'];
-					}
-
-				} catch (Exception $e) {  $InformationMessage = $PlayersLang['EditFail'];	}	
-
-			}
-		}
+        }
+    }
 
 					
 
-		/* Team or All */
-		If ($Team >= 0){
-
-			if($Team > 0){
-				$QueryTeam = "SELECT Name FROM TeamProInfo WHERE Number = " . $Team;
-				$TeamName = $db->querySingle($QueryTeam,true);	
-				$Title = $Title . $TeamName['Name'];
-			}else{
-				$Title = $DynamicTitleLang['Unassigned'];
-			}
-			$TeamQuery = "Team = " . $Team;
-		}else{
-			$TeamQuery = "Team >= 0"; /* Default Place Order Where everything will return */
-
-		}
+    /* Team or All */
+    if ($Team >= 0){
+        $QueryTeam = "SELECT Name FROM TeamProInfo WHERE Number = " . $Team;
+        $TeamName = $db->querySingle($QueryTeam,true);	 
+        $TeamQuery = "Team = " . $Team;
+    }else{
+        $TeamQuery = "Team >= 0"; /* All Teams */
+    }
 
 
-		/* Pro Only or Farm  */
+    /* Pro Only or Farm  */
+    if    ($Type == 1)	$TypeQuery = "Status1 >= 2";
+    elseif($Type == 2)	$TypeQuery = "Status1 <= 1";
+    else			    $TypeQuery = "Number > 0";    /* Default Place Order Where everything will return */
+		
 
-		if($Type == 1){
-			$TypeQuery = "Status1 >= 2";
-			$Title = $Title . $DynamicTitleLang['Pro'];
-		}elseif($Type == 2){
-			$TypeQuery = "Status1 <= 1";
-			$Title = $Title . $DynamicTitleLang['Farm'];
-		}else{
-			$TypeQuery = "Number > 0"; /* Default Place Order Where everything will return */
-		} 
-
-		/* Main Query with correct Variable */
-		$Query = "SELECT MainTable.* FROM (SELECT PlayerInfo.Number, PlayerInfo.Name, PlayerInfo.Team, PlayerInfo.TeamName, PlayerInfo.ProTeamName, PlayerInfo.TeamThemeID, PlayerInfo.Age, PlayerInfo.AgeDate, PlayerInfo.URLLink, PlayerInfo.NHLID, PlayerInfo.DraftYear, PlayerInfo.DraftOverallPick, PlayerInfo.Jersey, PlayerInfo.PosC, PlayerInfo.PosLW, PlayerInfo.PosRW, PlayerInfo.PosD, 'False' AS PosG, PlayerInfo.Retire as Retire FROM PlayerInfo WHERE " . $TeamQuery . " AND Retire = \"False\" AND " . $TypeQuery . " UNION ALL SELECT GoalerInfo.Number, GoalerInfo.Name, GoalerInfo.Team, GoalerInfo.TeamName, GoalerInfo.ProTeamName, GoalerInfo.TeamThemeID, GoalerInfo.Age, GoalerInfo.AgeDate, GoalerInfo.URLLink, GoalerInfo.NHLID, GoalerInfo.DraftYear, GoalerInfo.DraftOverallPick, GoalerInfo.Jersey, 'False' AS PosC, 'False' AS PosLW, 'False' AS PosRW, 'False' AS PosD, 'True' AS PosG, GoalerInfo.Retire as Retire FROM GoalerInfo WHERE " . $TeamQuery . " AND Retire = \"False\" AND " . $TypeQuery . ") AS MainTable ORDER BY MainTable.Name ASC";
+    /* Main Query with correct Variable */
+    $Query = "SELECT MainTable.* FROM (SELECT PlayerInfo.Number, PlayerInfo.Name, PlayerInfo.Team, PlayerInfo.TeamName, PlayerInfo.ProTeamName, PlayerInfo.TeamThemeID, PlayerInfo.Age, PlayerInfo.AgeDate, PlayerInfo.URLLink, PlayerInfo.NHLID, PlayerInfo.DraftYear, PlayerInfo.DraftOverallPick, PlayerInfo.Jersey, PlayerInfo.PosC, PlayerInfo.PosLW, PlayerInfo.PosRW, PlayerInfo.PosD, 'False' AS PosG, PlayerInfo.Retire as Retire FROM PlayerInfo WHERE " . $TeamQuery . " AND Retire = \"False\" AND " . $TypeQuery . " UNION ALL SELECT GoalerInfo.Number, GoalerInfo.Name, GoalerInfo.Team, GoalerInfo.TeamName, GoalerInfo.ProTeamName, GoalerInfo.TeamThemeID, GoalerInfo.Age, GoalerInfo.AgeDate, GoalerInfo.URLLink, GoalerInfo.NHLID, GoalerInfo.DraftYear, GoalerInfo.DraftOverallPick, GoalerInfo.Jersey, 'False' AS PosC, 'False' AS PosLW, 'False' AS PosRW, 'False' AS PosD, 'True' AS PosG, GoalerInfo.Retire as Retire FROM GoalerInfo WHERE " . $TeamQuery . " AND Retire = \"False\" AND " . $TypeQuery . ") AS MainTable ORDER BY MainTable.Name ASC";
 
 		/* Ran Query */	
 		$PlayerInfo = $db->query($Query);
 
+       /* $playerQuery = "SELECT * FROM PlayerInfo WHERE $TeamQuery AND Retire = 'False' AND $TypeQuery";
+        $goalieQuery = "SELECT * FROM GoalerInfo WHERE $TeamQuery AND Retire = 'False' AND $TypeQuery";
+        $playerInfo = $db->query($playerQuery);
+        $goalieInfo = $db->query($goalieQuery);
+        
+        $PlayerInfo = array_merge($playerInfo->fetchArray(SQLITE3_ASSOC), $goalieInfo->fetchArray(SQLITE3_ASSOC));
+        
+*/
 
-	}else{
-		echo "<style>#EditPlayerInfoMainDiv, .STHSPHPAllPlayerInformation_Table {display:none}</style>\n";
-		$InformationMessage = $ThisPageNotAvailable;
-	}
 
-	$Title = $Title . $DynamicTitleLang['PlayersInformation'] . " - " . $PlayersLang['Edit'];
-	echo "<title>" . $LeagueName . " - " . $Title . "</title>";		
+
+
+	
+
+	
 
 } catch (Exception $e) {
 STHSErrorPlayerInfo:
 	$LeagueName = $DatabaseNotFound;
 	$PlayerInfo = Null;
-	$FreeAgentYear = Null;
-	echo "<title>" . $DatabaseNotFound . "</title>";
-	$Title = $DatabaseNotFound;
+	$FreeAgentYear = Null;	
 }}?>
+
+
+   <!-- DataTables CSS -->
+   <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+
 
 </head><body>
 
 <?php include "Menu.php";?>
 
-<script>
-
-$(function() {
-  $(".STHSPHPAllPlayerInformation_Table").tablesorter({
-
-    widgets: ['columnSelector', 'stickyHeaders', 'filter', 'output'],
-
-    widgetOptions : {
-      columnSelector_container : $('#tablesorter_ColumnSelector'),
-      columnSelector_layout : '<label><input type="checkbox">{name}</label>',
-      columnSelector_name  : 'title',
-      columnSelector_mediaquery: true,
-      columnSelector_mediaqueryName: 'Automatic',
-      columnSelector_mediaqueryState: true,
-      columnSelector_mediaqueryHidden: true,
-      columnSelector_breakpoints : [ '20em', '40em', '60em', '80em', '90em', '95em' ],
-	  filter_columnFilters: true,
-      filter_placeholder: { search : '<?php echo $TableSorterLang['Search'];?>' },
-	  filter_searchDelay : 1000,	  
-      filter_reset: '.tablesorter_Reset',	 
-    }
-  });  
-});
-
-</script>
 
 <?php if ($InformationMessage != ""){echo "<div class=\"STHSDivInformationMessage\">" . $InformationMessage . "<br /></div>";}?>
 
 <div id="EditPlayerInfoMainDiv" style="width:99%;margin:auto;">
-
-<?php echo "<h1>" . $Title . "</h1>"; ?>
-
-<div class="tablesorter_ColumnSelectorWrapper">
-    <input id="tablesorter_colSelect1" type="checkbox" class="hidden">
-    <label class="tablesorter_ColumnSelectorButton" for="tablesorter_colSelect1"><?php echo $TableSorterLang['ShoworHideColumn'];?></label>
-    <div id="tablesorter_ColumnSelector" class="tablesorter_ColumnSelector"></div>
-
-	<?php include "FilterTip.php";?>
-</div>
+    <h1> Players Information - Edit </h1>
 
 
+    <div>
+        Toggle column: 
+        <a class="toggle-vis" data-column="0" data-attribute="mainTable" ><?php echo $PlayersLang['PlayerName']; ?></a>
+        <a class="toggle-vis" data-column="1" data-attribute="mainTable"><?php echo $PlayersLang['TeamName']; ?></a>
+        <a class="toggle-vis" data-column="2" data-attribute="mainTable">POS</a>
+        <a class="toggle-vis" data-column="3" data-attribute="mainTable"><?php echo $PlayersLang['Age']; ?></a>
+        <a class="toggle-vis" data-column="4" data-attribute="mainTable"><?php echo $PlayersLang['Birthday']; ?></a>
+        <a class="toggle-vis" data-column="5" data-attribute="mainTable"><?php echo $PlayersLang['DraftYear']; ?></a>
+        <a class="toggle-vis" data-column="6" data-attribute="mainTable"><?php echo $PlayersLang['DraftOverallPick']; ?></a>
+        <a class="toggle-vis" data-column="7" data-attribute="mainTable"><?php echo $PlayersLang['Jersey']; ?></a>
+        <a class="toggle-vis" data-column="8" data-attribute="mainTable"><?php echo $PlayersLang['NHLID']; ?></a>
+        <a class="toggle-vis" data-column="9" data-attribute="mainTable"><?php echo $PlayersLang['Link']; ?></a>
+        <a class="toggle-vis" data-column="10" data-attribute="mainTable"><?php echo $PlayersLang['Edit']; ?></a>
+    </div>
 
 
-
-<table class="tablesorter STHSPHPAllPlayerInformation_Table"><thead><tr>
-<th data-priority="critical" title="Player Name" class="STHSW140Min"><?php echo $PlayersLang['PlayerName'];?></th>
-
-<?php if($Team >= 0){echo "<th class=\"columnSelector-false STHSW140Min\" data-priority=\"6\" title=\"Team Name\">" . $PlayersLang['TeamName'] . "</th>";}else{echo "<th data-priority=\"2\" title=\"Team Name\" class=\"STHSW140Min\">" . $PlayersLang['TeamName'] ."</th>";}?>
-
-<th data-priority="2" title="Position" class="STHSW45">POS</th>
-<th data-priority="5" title="Age" class=" STHSW25"><?php echo $PlayersLang['Age'];?></th>
-<th data-priority="5" title="Birthday" class="STHSW45"><?php echo $PlayersLang['Birthday'];?></th>
-<th data-priority="4" title="Draft Year" class="STHSW55"><?php echo $PlayersLang['DraftYear'];?></th>
-<th data-priority="4" title="Overall Pick" class="STHSW55"><?php echo $PlayersLang['DraftOverallPick'];?></th>
-<th data-priority="4" title="Jersey #" class="STHSW55"><?php echo $PlayersLang['Jersey'];?></th>
-<th data-priority="3" title="NHLID" class="STHSW55"><?php echo $PlayersLang['NHLID'];?></th>
-<th data-priority="3" title="Hyperlink" class="STHSW140Min"><?php echo $PlayersLang['Link'];?></th>
-<th data-priority="2" title="Edit" class="STHSW55"><?php echo $PlayersLang['Edit'];?></th>
-
-</tr></thead><tbody>
-
-
-
+    <table id="mainTable" class="table table-striped table-bordered tablesorter " style="width:100%">
+        <thead><tr>
+        <th data-priority="critical" title="Player Name" class="STHSW140Min"><?php echo $PlayersLang['PlayerName'];?></th>
+        <?php 
+        if($Team >= 0){ echo "<th class=\"columnSelector-false STHSW140Min\" data-priority=\"6\" title=\"Team Name\">" . $PlayersLang['TeamName'] . "</th>";}
+        else{ echo "<th data-priority=\"2\" title=\"Team Name\" class=\"STHSW140Min\">" . $PlayersLang['TeamName'] ."</th>";}?>
+        <th data-priority="2" title="Position" class="STHSW45">POS</th>
+        <th data-priority="5" title="Age" class=" STHSW25"><?php echo $PlayersLang['Age'];?></th>
+        <th data-priority="5" title="Birthday" class="STHSW45"><?php echo $PlayersLang['Birthday'];?></th>
+        <th data-priority="4" title="Draft Year" class="STHSW55"><?php echo $PlayersLang['DraftYear'];?></th>
+        <th data-priority="4" title="Overall Pick" class="STHSW55"><?php echo $PlayersLang['DraftOverallPick'];?></th>
+        <th data-priority="4" title="Jersey #" class="STHSW55"><?php echo $PlayersLang['Jersey'];?></th>
+        <th data-priority="3" title="NHLID" class="STHSW55"><?php echo $PlayersLang['NHLID'];?></th>
+        <th data-priority="3" title="Hyperlink" class="STHSW140Min"><?php echo $PlayersLang['Link'];?></th>
+        <th data-priority="2" title="Edit" class="STHSW55"><?php echo $PlayersLang['Edit'];?></th>
+        </tr></thead>
+    
+        <tbody>
 <?php 
-
-if (empty($PlayerInfo) == false){while ($Row = $PlayerInfo ->fetchArray()) { 
+while ($Row = $PlayerInfo ->fetchArray()) { 
 
 	echo "<tr><td>";
 	if ($Row['PosG']== "True"){echo "<a href=\"GoalieReport.php?Goalie=";}else{echo "<a href=\"PlayerReport.php?Player=";}
@@ -239,20 +209,26 @@ if (empty($PlayerInfo) == false){while ($Row = $PlayerInfo ->fetchArray()) {
 	echo "<input type=\"hidden\" name=\"TeamEdit\" value=\"" . $CookieTeamNumber . "\">";
 	echo "<input type=\"hidden\" name=\"PlayerName\" value=\"" . $Row['Name'] . "\">";
 	echo "<input type=\"hidden\" name=\"PlayerNumber\" value=\"";If($Row['PosG']== "True"){echo ($Row['Number']+10000);}else{echo $Row['Number'];}echo "\"></form></td>";
-	echo "</tr>"; /* The \n is for a new line in the HTML Code */
+	echo "</tr>";
 
-}}
+}
 
 ?>
 
 </tbody></table></div>
 
-<br />
-<script> 
-console.log('Page loaded')
 
+ <!-- jQuery -->
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    
+<script>
+    $(document).ready(function() {
+        $('#mainTable').DataTable();
+    });
 </script>
-
 
 
 <?php include "Footer.php";?>

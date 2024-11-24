@@ -1929,3 +1929,12 @@ width: 100%;
    
 }
 
+
+
+.toggle-vis {
+
+    padding: 5px;
+    color: black;
+    background-color: #E7BF3A;
+    border: 2px solid black;
+}

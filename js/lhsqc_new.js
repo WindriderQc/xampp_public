@@ -87,7 +87,7 @@ $(document).ready(function() {
 
 
 
-/*! Tab Menu ....   test if required*/ 
+    /*! Tab Menu .... in ProTeam page  */ 
 
     jQuery('.tabsmenu.standard .tabmenu-links a').on('click',function(e){
         var currentAttrValue=jQuery(this).attr('href');
@@ -142,34 +142,17 @@ $(document).ready(function() {
 
 
 
-    
-    /*document.querySelectorAll('.tabsMenu .nav-link').forEach(button => {
-        button.addEventListener('click', function() {
-
-            // Remove active class from all nav items 
-            document.querySelectorAll('.tabsMenu .nav-item').forEach(item => { 
-                item.classList.remove('active'); 
-                item.style.display = 'none'; // Hide all items 
-            }); 
-            // Add active class to the clicked button's parent li 
-            this.parentElement.classList.add('active'); 
-            this.parentElement.style.display = 'block'; // Show the clicked item
-            
-           
-            // Hide the menu
-            document.querySelector('.tabsMenu').style.display = 'none';
-        });
-    });*/
 
   
   
     
 
 
+       
+       
+     
         const tabsMenu = document.querySelector('.tabsMenu');
-        let isTouchEvent = false;
-        
-    
+     
         // Function to show the menu
         function showMenu() {
             tabsMenu.classList.add('active'); // Add active class to indicate the menu is open
@@ -195,7 +178,9 @@ $(document).ready(function() {
             tabsMenu.addEventListener('mouseout', hideMenu);
         }
  
-    
+
+        //let isTouchEvent = false;
+        
         // Function to handle touchstart events
       /*  function handleTouchStart(event) {
             isTouchEvent = true;
@@ -219,57 +204,7 @@ $(document).ready(function() {
                 }
             }
         }*/
-    
-        // Function to handle click events
-        /*function handleClick(event) {
-            console.log("Cliiiiiccccccc")
-
-            if (tabsMenu.classList.contains('active')) {}
-
-
-           // Prevent the click event if it was a touch event 
-            if (isTouchEvent) { 
-                isTouchEvent = false; // Reset the flag return; 
-                return;
-            } 
-            if (event.target.classList.contains('nav-link')) { 
-                hideMenu(); // Hide the menu on click 
-            }
-        }*/
-    
-        // Add touchstart and click event listeners
-       // tabsMenu.addEventListener('touchstart', handleTouchStart);
-       // tabsMenu.addEventListener('click', handleClick);
-    
-        // Hide menu on menu item click
-            document.querySelectorAll('.tabsMenu .nav-link').forEach(button => {
-                button.addEventListener('click', function() {
-                    const parentLi = this.parentElement;
-            
-                    // Check if the parent li is already active
-                    const wasActive = parentLi.classList.contains('active');
-            
-                    // Remove active class from all nav items
-                    document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
-                        item.classList.remove('active');
-                        item.style.display = 'none'; // Hide all items
-                    });
-            
-                    // If the clicked button was not active, activate it
-                    if (!wasActive) {
-                        parentLi.classList.add('active');
-                        parentLi.style.display = 'block'; // Show the clicked item
-                        hideMenu();
-                    } 
-                    else { 
-                        showMenu();
-                    }
-            
-                });
-            });
-            
-    
-           /* button.addEventListener('touchstart', function(event) {
+          /* button.addEventListener('touchstart', function(event) {
                 // Ensure the event is not triggered twice
                 event.stopPropagation();
     
@@ -286,8 +221,73 @@ $(document).ready(function() {
                 // Hide the menu
                // hideMenu();
             });*/
+        
+    
+        // Add touchstart and click event listeners
+       // tabsMenu.addEventListener('touchstart', handleTouchStart);
+       // tabsMenu.addEventListener('click', handleClick);
+    
 
 
+
+
+
+    // Hide menu on menu item click
+    document.querySelectorAll('.tabsMenu .nav-link').forEach(button => {
+        button.addEventListener('click', function() {
+            const parentLi = this.parentElement;
+    
+            // Check if the parent li is already active
+            const wasActive = parentLi.classList.contains('active');
+    
+            // Remove active class from all nav items
+            document.querySelectorAll('.tabsMenu .nav-item').forEach(item => {
+                item.classList.remove('active');
+                item.style.display = 'none'; // Hide all items
+            });
+    
+            // If the clicked button was not active, activate it
+            if (!wasActive) {
+                parentLi.classList.add('active');
+                parentLi.style.display = 'block'; // Show the clicked item
+                hideMenu();
+            } 
+            else { 
+                showMenu();
+            }
+    
+        });
+    });
+            
+    
+     
+
+
+
+        // Attach click event listener to toggle column visibility
+        document.querySelectorAll('a.toggle-vis').forEach((el) => {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+    
+                // Get the column index and table ID from data attributes
+                let columnIdx = e.target.getAttribute('data-column');
+                let tableId = e.target.getAttribute('data-attribute');
+                
+                // Retrieve the DataTable instance using the table ID
+                let table = $(`#${tableId}`).DataTable();
+    
+                if (!table) {
+                    console.error(`Table with ID "${tableId}" not found or not initialized.`);
+                    return;
+                }
+    
+                // Toggle the visibility of the column
+                let column = table.column(columnIdx);
+                console.log(`Toggling column ${columnIdx} visibility on table "${tableId}"`);
+                column.visible(!column.visible());
+            });
+        });
+  
 
 
       
@@ -335,3 +335,4 @@ function toggler(event, target)  {
     targetDiv.classList.toggle('active'); // Toggle the active class on the target div
 
 }
+
