@@ -1554,7 +1554,7 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
    
 }
 .positionlist .checkbox input::hover {
-    
+    margin-top: 2px;
 }
 
 .positionlist .checkbox label {
@@ -1792,10 +1792,6 @@ width: 100%;
 }
 
 
-.StandingsWest {
-
-
-}
 
 
 .tradetable {

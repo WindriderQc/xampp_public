@@ -24,7 +24,8 @@ try{
 	if(isset($_GET['Team'])){$Team = filter_var($_GET['Team'], FILTER_SANITIZE_NUMBER_INT);}
 
 
-	$db = new SQLite3($DatabaseFile);
+	$db = new SQLite3($DatabaseFile, SQLITE3_OPEN_READWRITE);
+
 
     // Fetch league name 
     $LeagueGeneral = $db->querySingle("SELECT Name FROM LeagueGeneral", true); 
@@ -62,9 +63,22 @@ try{
 
                 if ($PlayerNumber > 0 and $PlayerNumber <= 10000){
 
-                    $Query = "Update PlayerInfo SET DraftYear = '" . $PlayerDraftYear . "', DraftOverallPick = '" . $PlayerDraftOverallPick . "', NHLID = '" . $PlayerNHLID . "', Jersey = '" . $PlayerJersey  . "', URLLink = '" . str_replace("'","''",$PlayerLink). "', WebClientModify = 'True' WHERE Number = " . $PlayerNumber;
-                    $db->exec($Query);
-                    $InformationMessage = $PlayersLang['EditConfirm'] . $PlayerName;
+                        $Query = "UPDATE PlayerInfo SET 
+                        DraftYear = '" . $PlayerDraftYear . "', 
+                        DraftOverallPick = '" . $PlayerDraftOverallPick . "', 
+                        NHLID = '" . $PlayerNHLID . "', 
+                        Jersey = '" . $PlayerJersey  . "', 
+                        URLLink = '" . str_replace("'", "''", $PlayerLink) . "', 
+                        WebClientModify = 'True' 
+                    WHERE Number = " . $PlayerNumber;
+                    
+                    if ($db->exec($Query) === false) {
+                       log2console("Error updating record: " . $db->lastErrorMsg());
+                    } else {
+                        log2console("Having fun: " . $db->lastErrorMsg());
+                        $InformationMessage = $PlayersLang['EditConfirm'] . $PlayerName; 
+                    }
+                
 
                 }elseif($PlayerNumber > 10000 and $PlayerNumber <= 11000){
 
@@ -144,7 +158,7 @@ STHSErrorPlayerInfo:
     <h1> Players Information - Edit </h1>
 
 
-    <div>
+    <div class="py-2">
         Toggle column: 
         <a class="toggle-vis" data-column="0" data-attribute="mainTable" ><?php echo $PlayersLang['PlayerName']; ?></a>
         <a class="toggle-vis" data-column="1" data-attribute="mainTable"><?php echo $PlayersLang['TeamName']; ?></a>
@@ -179,39 +193,49 @@ STHSErrorPlayerInfo:
     
         <tbody>
 <?php 
-while ($Row = $PlayerInfo ->fetchArray()) { 
 
-	echo "<tr><td>";
-	if ($Row['PosG']== "True"){echo "<a href=\"GoalieReport.php?Goalie=";}else{echo "<a href=\"PlayerReport.php?Player=";}
+while ($Row = $PlayerInfo->fetchArray()) { 
+    echo "<tr> <form action=\"EditPlayerInfo.php?Type={$Type}" . ($Team > 0 ? "&Team={$Team}" : "") . ($lang == "fr" ? "&Lang=fr" : "") . "\" method=\"post\">";
+    // Determine the link based on position
+    $linkType = $Row['PosG'] == "True" ? "GoalieReport.php?Goalie=" : "PlayerReport.php?Player=";
+    echo "<td><a href=\"{$linkType}{$Row['Number']}\">{$Row['Name']}</a></td>";
 
-	echo $Row['Number'] . "\">" . $Row['Name'] . "</a></td>";
-    if ($Row['TeamThemeID'] > 0){  echo "<td><img src=\"" . $ImagesCDNPath . "/images/" . $Row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPGoaliesRosterTeamImage\" />" . $Row['TeamName'] . "</td>";    }
-    else{ echo "<td>" . $Row['TeamName'] . "</td>";}	
+    // Display team name with optional image
+    echo "<td>";
+    if ($Row['TeamThemeID'] > 0) {        echo "<img src=\"{$ImagesCDNPath}/images/{$Row['TeamThemeID']}.png\" alt=\"\" class=\"STHSPHPGoaliesRosterTeamImage\" />";    }
+    echo "{$Row['TeamName']}</td>";
 
-	
-	echo "<td>" .$Position = (string)"";
-	if ($Row['PosC']== "True"){if ($Position == ""){$Position = "C";}else{$Position = $Position . "/C";}}
-	if ($Row['PosLW']== "True"){if ($Position == ""){$Position = "LW";}else{$Position = $Position . "/LW";}}
-	if ($Row['PosRW']== "True"){if ($Position == ""){$Position = "RW";}else{$Position = $Position . "/RW";}}
-	if ($Row['PosD']== "True"){if ($Position == ""){$Position = "D";}else{$Position = $Position . "/D";}}
-	if ($Row['PosG']== "True"){if ($Position == ""){$Position = "G";}}
-	echo $Position . "</td>";	
+    // Calculate position
+    $Position = "";
+    $Position .= $Row['PosC'] == "True" ? "C" : "";
+    $Position .= $Row['PosLW'] == "True" ? ($Position ? "/LW" : "LW") : "";
+    $Position .= $Row['PosRW'] == "True" ? ($Position ? "/RW" : "RW") : "";
+    $Position .= $Row['PosD'] == "True" ? ($Position ? "/D" : "D") : "";
+    $Position .= $Row['PosG'] == "True" ? ($Position ? "/G" : "G") : "";
+    echo "<td>{$Position}</td>";
 
-	echo "<td>" . $Row['Age'] . "</td>";
-	echo "<td>" . $Row['AgeDate'] . "</td>";
-	echo "<td class=\"STHSCenter\"><form action=\"EditPlayerInfo.php?Type=" .$Type ;If ($Team > 0){echo "&Team=".$Team;}If ($lang == "fr"){echo "&Lang=fr";} echo "\" method=\"post\">";
-	echo "<input type=\"number\" min=\"0\" max=\"3000\" name=\"DraftYear\" value=\"";If(isset($Row['DraftYear'])){Echo $Row['DraftYear'];}echo "\"></td>";
-	echo "<td class=\"STHSCenter\"><input type=\"number\" min=\"0\" max=\"1000\" name=\"DraftOverallPick\" value=\"";If(isset($Row['DraftOverallPick'])){Echo $Row['DraftOverallPick'];}echo "\"></td>";
-	echo "<td class=\"STHSCenter\"><input type=\"number\" min=\"0\" max=\"99\" name=\"Jersey\" value=\"";If(isset($Row['Jersey'])){Echo $Row['Jersey'];}echo "\"></td>";
-	echo "<td class=\"STHSCenter\"><input type=\"number\" min=\"0\" max=\"999999999\" name=\"NHLID\" value=\"";If(isset($Row['NHLID'])){Echo $Row['NHLID'];}echo "\"></td>";
-	echo "<td class=\"STHSCenter\"><input type=\"url\" name=\"Hyperlink\" value=\"";If(isset($Row['URLLink'])){Echo $Row['URLLink'];}echo "\" size=\"60\"></td>";
-	echo "<td class=\"STHSCenter\"><input type=\"submit\" class=\"SubmitButtonSmall\" value=\"" . $PlayersLang['Edit'] . "\">";
-	echo "<input type=\"hidden\" name=\"TeamEdit\" value=\"" . $CookieTeamNumber . "\">";
-	echo "<input type=\"hidden\" name=\"PlayerName\" value=\"" . $Row['Name'] . "\">";
-	echo "<input type=\"hidden\" name=\"PlayerNumber\" value=\"";If($Row['PosG']== "True"){echo ($Row['Number']+10000);}else{echo $Row['Number'];}echo "\"></form></td>";
-	echo "</tr>";
+    // Age and birth date
+    echo "<td>{$Row['Age']}</td>";
+    echo "<td>{$Row['AgeDate']}</td>";
 
+    // Draft Year, Draft Overall Pick, Jersey, NHL ID, and Hyperlink
+    echo "<td> <input type=\"number\" min=\"0\" max=\"3000\" name=\"DraftYear\" value=\"{$Row['DraftYear']}\"> </td>";
+    echo "<td> <input type=\"number\" min=\"0\" max=\"1000\" name=\"DraftOverallPick\" value=\"{$Row['DraftOverallPick']}\"> </td>";
+    echo "<td> <input type=\"number\" min=\"0\" max=\"99\" name=\"Jersey\" value=\"{$Row['Jersey']}\"> </td>";
+    echo "<td> <input type=\"number\" min=\"0\" max=\"999999999\" name=\"NHLID\" value=\"{$Row['NHLID']}\"> </td>";
+    echo "<td> <input type=\"url\" name=\"Hyperlink\" value=\"{$Row['URLLink']}\" size=\"60\"> </td>";
+
+    // Submit button and hidden fields
+    echo "<td> 
+                <input type=\"submit\" class=\"SubmitButtonSmall\" value=\"{$PlayersLang['Edit']}\">
+                <input type=\"hidden\" name=\"TeamEdit\" value=\"{$CookieTeamNumber}\">
+                <input type=\"hidden\" name=\"PlayerName\" value=\"{$Row['Name']}\">
+                <input type=\"hidden\" name=\"PlayerNumber\" value=\"" . ($Row['PosG'] == "True" ? ($Row['Number'] + 10000) : $Row['Number']) . "\">
+            </td>";
+          
+    echo "</form> </tr>";
 }
+
 
 ?>
 
