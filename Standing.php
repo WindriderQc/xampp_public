@@ -104,7 +104,7 @@ function PrintStandingTop($TeamLang, $StandardStandingOutput, $LeagueGeneral) {
     echo "<th title=\"Visitor Only\" class=\"STHSW75\">" . $TeamLang['Visitor'] ."</th>";
     echo "<th title=\"Last 10 Game\" class=\"STHSW75\">" . $TeamLang['Last10'] ."</th>";
     echo "<th title=\"Streak\" class=\"STHSW30\">STK</th>";
-    echo "<th title=\"Next Game\" class=\"STHSW30\">Next</th>";
+    echo "<th title=\"Next Game\" class=\"STHSW30 noSort\">Next</th>";
     echo "</tr></thead><tbody>";
 }
 
@@ -173,24 +173,26 @@ Function PrintStandingTableRow($row, $TypeText, $StandardStandingOutput, $League
 	echo "<td>" . ($row['HomeW'] + $row['HomeOTW'] + $row['HomeSOW'])."-".$row['HomeL']."-".($row['HomeOTL']+$row['HomeSOL']) . "</td>";
 	echo "<td>" . ($row['W'] + $row['OTW'] + $row['SOW'] - $row['HomeW'] - $row['HomeOTW'] - $row['HomeSOW'])."-".($row['L'] - $row['HomeL'])."-".($row['OTL']+$row['SOL']-$row['HomeOTL']-$row['HomeSOL']) . "</td>";
 	echo "<td>" . ($row['Last10W'] + $row['Last10OTW'] + $row['Last10SOW'])."-".$row['Last10L']."-".($row['Last10OTL']+$row['Last10SOL']) . "</td>";
-	echo "<td>" . $row['Streak'] . "</td>";
+	$streakClass = strpos($row['Streak'], 'W') === 0 ? 'streak-win' : 'streak-loss';
+	echo "<td class=\"" . $streakClass . "\">" . htmlspecialchars($row['Streak']) . "</td>";
 
 	$dbS = new SQLite3($DatabaseFile);
 	$Query = "SELECT count(*) AS count FROM Schedule" . $TypeText . " WHERE (VisitorTeam = " . $row['Number'] . " OR HomeTeam = " . $row['Number'] . ") AND Play = 'False' ORDER BY GameNumber LIMIT 1";
 	$Result = $dbS->querySingle($Query,true);
 
-	If ($Result['count'] > 0){
+	if ($Result['count'] > 0) {
 		$Query = "SELECT * FROM Schedule" . $TypeText . " WHERE (VisitorTeam = " . $row['Number'] . " OR HomeTeam = " . $row['Number'] . ") AND Play = 'False' ORDER BY GameNumber LIMIT 1";
-		$ScheduleNext = $dbS->querySingle($Query,true);			
-
-		If ($ScheduleNext['HomeTeam'] == $row['Number']){
-			echo "<td> vs " . $ScheduleNext['VisitorTeamAbbre'] . "</td>";
-		}elseif($ScheduleNext['VisitorTeam'] == $row['Number']){
-			echo "<td> vs " . $ScheduleNext['HomeTeamAbbre'] . "</td>";
+		$ScheduleNext = $dbS->querySingle($Query, true);
+	
+		if ($ScheduleNext['HomeTeam'] == $row['Number']) {
+			echo "<td><img src='images/" . $ScheduleNext['VisitorTeam'] . ".png' alt='" . $ScheduleNext['VisitorTeamAbbre'] . "' class='team-logo'></td>";
+		} elseif ($ScheduleNext['VisitorTeam'] == $row['Number']) {
+			echo "<td><img src='images/" . $ScheduleNext['HomeTeam'] . ".png' alt='" . $ScheduleNext['HomeTeamAbbre'] . "' class='team-logo'></td>";
 		}
-	}else{
+	} else {
 		echo "<td></td>";
 	}
+	
 	echo "</tr>\n"; /* The \n is for a new line in the HTML Code */
 }
 ?>
@@ -262,7 +264,10 @@ if ($Playoff == True){
 If ($StandingQueryOK == True){
     
 
-	echo "<h2 class=\"\">" . $LeagueGeneral['ConferenceName1'] . "</h2>";
+	echo "<h2 class=\"conference-title\">
+        <img src=\"images\Eastern.png\" alt=\"Eastern Conference\" class=\"conference-iconE\" />
+      
+      </h2>";
 	PrintStandingTop($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
 
 	/* Division 1 */
@@ -314,7 +319,10 @@ If ($StandingQueryOK == True){
 
 
 
-	echo "<h2 class=\"\">" . $LeagueGeneral['ConferenceName2'] . "</h2>";
+	echo "<h2 class=\"conference-title\">
+        <img src=\"images\Western.png\" alt=\"Eastern Conference\" class=\"conference-iconW\" />
+        
+      </h2>";
 	PrintStandingTop($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
 
 	/* Division 4 */
@@ -530,12 +538,18 @@ If ($StandingQueryOK == True){
 
 
 <script>
-
-$(function(){
-  $(".STHSPHPStanding_Table").tablesorter({widgets:['staticRow']});
+$(function() {
+  $(".STHSPHPStanding_Table").tablesorter({
+    widgets: ['staticRow'],
+    headers: {
+      // Remplace 17 par l'index réel de la colonne Next
+      15: { sorter: false }
+	  
+    }
+  });
 });
-
 </script>
+
 
 </div>
 <!-- container end div -->

@@ -673,3 +673,31 @@ border: 0px;
   margin:0px;
   border: 0px;
   }
+
+  .conference-iconW{
+
+    width: 150px;
+    height: 150px;
+  }
+
+  .conference-iconE{
+
+    width: 150px;  
+    height: 150px;
+  }
+
+  .STHSPHPStanding_Table td.streak-win {
+    color: green ;
+    font-weight: bold;
+}
+.STHSPHPStanding_Table td.streak-loss {
+    color: red;
+    font-weight: bold;
+}
+
+.team-logo {
+  width: 30px; /* Ajustez la taille du logo */
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
