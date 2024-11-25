@@ -366,7 +366,7 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
 <div class="STHSPHPTeamStat_Main    teamColorDark<?= $TeamInfo['TeamThemeID'] ?> ">
 <br />
 <div class="tabsmain standard">
-	<ul class="tabmain-links">
+	<ul class="tabmain-links teamColorMenu<?= $TeamInfo['TeamThemeID'] ?>">
 <?php 
 If ($LeagueSimulation != Null AND $TeamFarmInfo != Null){If ($LeagueSimulation['FarmEnable'] == "True"){echo "<li><a class=\"tabmenuhome\" href=\"FarmTeam.php?Team=" . $Team . "\">" . $TeamFarmInfo['Name'] . "</a></li>";}}?>
 <li<?php if($SubMenu ==0){echo " class=\"activemain\"";}?>><a href="#tabmain0"><?php echo $TeamLang['Home'];?></a></li>
