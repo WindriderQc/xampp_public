@@ -10,6 +10,8 @@
 	
 	// Make a connection variable to pass to API
 	$db = api_sqlite_connect($DatabaseFile);
+
+
 	if ($db){
 		
 		$Query = "Select ShowWebClientInDymanicWebsite FROM LeagueOutputOption";
