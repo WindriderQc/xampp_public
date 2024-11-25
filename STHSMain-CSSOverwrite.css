@@ -1921,16 +1921,32 @@ width: 100%;
 
 .tabsMenu .active li {
    
-    display: block;
-   
+    display: block; 
 }
 
+#letter-links {
+    width:100%; 
+    padding-left:100px;
+    padding-right: 100px; 
+    padding-top:15px; 
+    padding-bottom: 15px; 
+    display: flex; 
+    justify-content: space-between;
+}
 
-
-.toggle-vis {
+.letter-links a {
 
     padding: 5px;
     color: black;
     background-color: #E7BF3A;
     border: 2px solid black;
+}
+
+
+.toggle-vis {
+
+    padding: 2px;
+    color: black;
+    background-color: #f7f0d9;
+    border: 1px solid black;
 }

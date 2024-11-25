@@ -1,5 +1,8 @@
-<?php include "Header.php";
+<?php include "Header.php"; ?>
 
+  <!-- DataTables CSS -->
+  <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+<?php
 $Team = (integer)-1; /* -1 All Team */
 $Title = (string)"";
 $InformationMessage = (string)"";
@@ -24,7 +27,7 @@ try{
 	if(isset($_GET['Team'])){$Team = filter_var($_GET['Team'], FILTER_SANITIZE_NUMBER_INT);}
 
 
-	$db = new SQLite3($DatabaseFile, SQLITE3_OPEN_READWRITE);
+	$db = new SQLite3($DatabaseFile);
 
 
     // Fetch league name 
@@ -94,8 +97,7 @@ try{
 
         }
     }
-
-					
+		
 
     /* Team or All */
     if ($Team >= 0){
@@ -114,25 +116,10 @@ try{
 		
 
     /* Main Query with correct Variable */
+    $start = microtime(true);
     $Query = "SELECT MainTable.* FROM (SELECT PlayerInfo.Number, PlayerInfo.Name, PlayerInfo.Team, PlayerInfo.TeamName, PlayerInfo.ProTeamName, PlayerInfo.TeamThemeID, PlayerInfo.Age, PlayerInfo.AgeDate, PlayerInfo.URLLink, PlayerInfo.NHLID, PlayerInfo.DraftYear, PlayerInfo.DraftOverallPick, PlayerInfo.Jersey, PlayerInfo.PosC, PlayerInfo.PosLW, PlayerInfo.PosRW, PlayerInfo.PosD, 'False' AS PosG, PlayerInfo.Retire as Retire FROM PlayerInfo WHERE " . $TeamQuery . " AND Retire = \"False\" AND " . $TypeQuery . " UNION ALL SELECT GoalerInfo.Number, GoalerInfo.Name, GoalerInfo.Team, GoalerInfo.TeamName, GoalerInfo.ProTeamName, GoalerInfo.TeamThemeID, GoalerInfo.Age, GoalerInfo.AgeDate, GoalerInfo.URLLink, GoalerInfo.NHLID, GoalerInfo.DraftYear, GoalerInfo.DraftOverallPick, GoalerInfo.Jersey, 'False' AS PosC, 'False' AS PosLW, 'False' AS PosRW, 'False' AS PosD, 'True' AS PosG, GoalerInfo.Retire as Retire FROM GoalerInfo WHERE " . $TeamQuery . " AND Retire = \"False\" AND " . $TypeQuery . ") AS MainTable ORDER BY MainTable.Name ASC";
-
-		/* Ran Query */	
-		$PlayerInfo = $db->query($Query);
-
-       /* $playerQuery = "SELECT * FROM PlayerInfo WHERE $TeamQuery AND Retire = 'False' AND $TypeQuery";
-        $goalieQuery = "SELECT * FROM GoalerInfo WHERE $TeamQuery AND Retire = 'False' AND $TypeQuery";
-        $playerInfo = $db->query($playerQuery);
-        $goalieInfo = $db->query($goalieQuery);
-        
-        $PlayerInfo = array_merge($playerInfo->fetchArray(SQLITE3_ASSOC), $goalieInfo->fetchArray(SQLITE3_ASSOC));
-        
-*/
-
-
-
-
-	
-
+    $end = microtime(true);
+    log2console("Query Time: " . ($end - $start) . " seconds");
 	
 
 } catch (Exception $e) {
@@ -143,8 +130,7 @@ STHSErrorPlayerInfo:
 }}?>
 
 
-   <!-- DataTables CSS -->
-   <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+ 
 
 
 </head><body>
@@ -157,8 +143,14 @@ STHSErrorPlayerInfo:
 <div id="EditPlayerInfoMainDiv" style="width:99%;margin:auto;">
     <h1> Players Information - Edit </h1>
 
+    <div id="letter-links" >
+    <?php foreach (range('A', 'Z') as $letter) {
+        echo "<a href=\"javascript:void(0);\" class=\"letter-link\" data-letter=\"$letter\">$letter</a>";
+    } ?>
+</div>
 
-    <div class="py-2">
+
+    <div class="mb-4">
         Toggle column: 
         <a class="toggle-vis" data-column="0" data-attribute="mainTable" ><?php echo $PlayersLang['PlayerName']; ?></a>
         <a class="toggle-vis" data-column="1" data-attribute="mainTable"><?php echo $PlayersLang['TeamName']; ?></a>
@@ -174,7 +166,7 @@ STHSErrorPlayerInfo:
     </div>
 
 
-    <table id="mainTable" class="table table-striped table-bordered tablesorter " style="width:100%">
+    <table id="mainTable" class="table table-striped table-bordered " style="width:100%;">
         <thead><tr>
         <th data-priority="critical" title="Player Name" class="STHSW140Min"><?php echo $PlayersLang['PlayerName'];?></th>
         <?php 
@@ -192,18 +184,119 @@ STHSErrorPlayerInfo:
         </tr></thead>
     
         <tbody>
-<?php 
 
-while ($Row = $PlayerInfo->fetchArray()) { 
-    echo "<tr> <form action=\"EditPlayerInfo.php?Type={$Type}" . ($Team > 0 ? "&Team={$Team}" : "") . ($lang == "fr" ? "&Lang=fr" : "") . "\" method=\"post\">";
+        </tbody>
+</table></div>
+
+
+
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"> /* $(document).ready(function() {
+        $('#mainTable').DataTable();
+    });*/
+</script>
+    
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    document.querySelectorAll('.letter-link').forEach(link => {
+        link.addEventListener('click', function() {
+            const letter = this.getAttribute('data-letter');
+            fetchPlayersByLetter(letter);
+            $('#mainTable').DataTable(); // Re-initialize DataTable
+        });
+    });
+
+
+    // Simulate click on letter "A" on page load
+    const letterALink = document.querySelector('.letter-link[data-letter="A"]');
+    if (letterALink) {
+        letterALink.click();
+    }
+
+});
+   
+
+function fetchPlayersByLetter(letter) {
+    fetch(`/components/sql/fetch_playersByLetter.php?letter=${letter}`)
+        .then(response => response.json())
+        .then(data => {
+            // Reference the DataTable
+            const table = $('#mainTable').DataTable();
+
+            // Clear existing data in DataTable
+            table.clear();
+
+            // Prepare and add new rows
+            const rows = data.map(player => [
+                `<a href="${player.PosG === "True" ? "GoalieReport.php?Goalie=" : "PlayerReport.php?Player="}${player.Number}">
+                    ${player.Name}
+                 </a>`,
+                `${player.TeamThemeID > 0 ? `<img loading="lazy" src="/images/${player.TeamThemeID}.png" alt="" class="STHSPHPGoaliesRosterTeamImage" />` : ''}
+                 ${player.TeamName}`,
+                formatPosition(player),
+                player.Age,
+                player.AgeDate,
+                `<input type="number" min="0" max="3000" name="DraftYear" value="${player.DraftYear}">`,
+                `<input type="number" min="0" max="1000" name="DraftOverallPick" value="${player.DraftOverallPick}">`,
+                `<input type="number" min="0" max="99" name="Jersey" value="${player.Jersey}">`,
+                `<input type="number" min="0" max="999999999" name="NHLID" value="${player.NHLID}">`,
+                `<input type="url" name="Hyperlink" value="${player.URLLink}" size="60">`,
+                `<input type="submit" class="SubmitButtonSmall" value="Edit">
+                 <input type="hidden" name="TeamEdit" value="<?php echo $CookieTeamNumber; ?>">
+                 <input type="hidden" name="PlayerName" value="${player.Name}">
+                 <input type="hidden" name="PlayerNumber" value="${player.PosG === "True" ? player.Number + 10000 : player.Number}">`
+            ]);
+
+            // Add rows to the DataTable and redraw
+            table.rows.add(rows).draw();
+        });
+}
+
+
+    // Helper function to format position
+    function formatPosition(player) {
+        let position = '';
+        position += player.PosC === "True" ? "C" : '';
+        position += player.PosLW === "True" ? (position ? "/LW" : "LW") : '';
+        position += player.PosRW === "True" ? (position ? "/RW" : "RW") : '';
+        position += player.PosD === "True" ? (position ? "/D" : "D") : '';
+        position += player.PosG === "True" ? (position ? "/G" : "G") : '';
+        return position;
+    }
+
+</script>
+<?php include "Footer.php";?>
+
+
+
+
+<script>
+
+/*// Determine the letter filter (default to 'A')
+$selectedLetter = isset($_GET['letter']) ? $_GET['letter'] : 'A';
+
+// Filter the data dynamically for the selected letter
+$FilteredPlayerInfo = array_filter($PlayerInfo, function ($row) use ($selectedLetter) {
+    return stripos($row['Name'], $selectedLetter) === 0; // Match names starting with the letter
+});*/
+
+/*
+$output = ''; // Buffer for the table rows
+while ($Row = $FilteredPlayerInfo->fetchArray()) { 
+    
+    $output .= "<tr> <form action=\"EditPlayerInfo.php?Type={$Type}" . ($Team > 0 ? "&Team={$Team}" : "") . ($lang == "fr" ? "&Lang=fr" : "") . "\" method=\"post\">";
     // Determine the link based on position
     $linkType = $Row['PosG'] == "True" ? "GoalieReport.php?Goalie=" : "PlayerReport.php?Player=";
-    echo "<td><a href=\"{$linkType}{$Row['Number']}\">{$Row['Name']}</a></td>";
+    $output .=  "<td><a href=\"{$linkType}{$Row['Number']}\">{$Row['Name']}</a></td>";
 
     // Display team name with optional image
-    echo "<td>";
-    if ($Row['TeamThemeID'] > 0) {        echo "<img src=\"{$ImagesCDNPath}/images/{$Row['TeamThemeID']}.png\" alt=\"\" class=\"STHSPHPGoaliesRosterTeamImage\" />";    }
-    echo "{$Row['TeamName']}</td>";
+    $output .=  "<td>";
+    if ($Row['TeamThemeID'] > 0) {        $output .= "<img loading=\"lazy\" src=\"/images/{$Row['TeamThemeID']}.png\" alt=\"\" class=\"STHSPHPGoaliesRosterTeamImage\" />";    }
+    $output .=  "{$Row['TeamName']}</td>";
+
 
     // Calculate position
     $Position = "";
@@ -212,47 +305,36 @@ while ($Row = $PlayerInfo->fetchArray()) {
     $Position .= $Row['PosRW'] == "True" ? ($Position ? "/RW" : "RW") : "";
     $Position .= $Row['PosD'] == "True" ? ($Position ? "/D" : "D") : "";
     $Position .= $Row['PosG'] == "True" ? ($Position ? "/G" : "G") : "";
-    echo "<td>{$Position}</td>";
+    $output .= "<td>{$Position}</td>";
+
+
+
 
     // Age and birth date
-    echo "<td>{$Row['Age']}</td>";
-    echo "<td>{$Row['AgeDate']}</td>";
+    $output .=  "<td>{$Row['Age']}</td>";
+    $output .=  "<td>{$Row['AgeDate']}</td>";
 
     // Draft Year, Draft Overall Pick, Jersey, NHL ID, and Hyperlink
-    echo "<td> <input type=\"number\" min=\"0\" max=\"3000\" name=\"DraftYear\" value=\"{$Row['DraftYear']}\"> </td>";
-    echo "<td> <input type=\"number\" min=\"0\" max=\"1000\" name=\"DraftOverallPick\" value=\"{$Row['DraftOverallPick']}\"> </td>";
-    echo "<td> <input type=\"number\" min=\"0\" max=\"99\" name=\"Jersey\" value=\"{$Row['Jersey']}\"> </td>";
-    echo "<td> <input type=\"number\" min=\"0\" max=\"999999999\" name=\"NHLID\" value=\"{$Row['NHLID']}\"> </td>";
-    echo "<td> <input type=\"url\" name=\"Hyperlink\" value=\"{$Row['URLLink']}\" size=\"60\"> </td>";
+    $output .=  "<td> <input type=\"number\" min=\"0\" max=\"3000\" name=\"DraftYear\" value=\"{$Row['DraftYear']}\"> </td>";
+    $output .=  "<td> <input type=\"number\" min=\"0\" max=\"1000\" name=\"DraftOverallPick\" value=\"{$Row['DraftOverallPick']}\"> </td>";
+    $output .=  "<td> <input type=\"number\" min=\"0\" max=\"99\" name=\"Jersey\" value=\"{$Row['Jersey']}\"> </td>";
+    $output .=  "<td> <input type=\"number\" min=\"0\" max=\"999999999\" name=\"NHLID\" value=\"{$Row['NHLID']}\"> </td>";
+    $output .=  "<td> <input type=\"url\" name=\"Hyperlink\" value=\"{$Row['URLLink']}\" size=\"60\"> </td>";
 
     // Submit button and hidden fields
-    echo "<td> 
+    $output .=  "<td> 
                 <input type=\"submit\" class=\"SubmitButtonSmall\" value=\"{$PlayersLang['Edit']}\">
                 <input type=\"hidden\" name=\"TeamEdit\" value=\"{$CookieTeamNumber}\">
                 <input type=\"hidden\" name=\"PlayerName\" value=\"{$Row['Name']}\">
                 <input type=\"hidden\" name=\"PlayerNumber\" value=\"" . ($Row['PosG'] == "True" ? ($Row['Number'] + 10000) : $Row['Number']) . "\">
             </td>";
           
-    echo "</form> </tr>";
-}
+    $output .=  "</form> </tr>";
 
 
-?>
-
-</tbody></table></div>
-
-
- <!-- jQuery -->
- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     
-<script>
-    $(document).ready(function() {
-        $('#mainTable').DataTable();
-    });
+
+}
+echo $output;*/
+
 </script>
-
-
-<?php include "Footer.php";?>
