@@ -93,7 +93,7 @@
         </tr>
       </thead>
       <tbody class="text-center">
-        <!-- Exemple de données -->
+       
         <tr>
           <td>82</td>
           <td>40</td>
@@ -109,24 +109,106 @@
       </tbody>
     </table>
 
-    <ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-  </li>
-</ul>
 
-    <!-- <h5>Player Ratings</h5>
-    <table class="table table-bordered">
-      <thead>
+     <!-- Last 5 Games Section -->
+
+     <h5>Last 5 Games</h5>
+  <div class="container mt-0 p-0 lastFiveGames">
+   
+    <table class="table table-bordered customBorderTop customBorderBottom ">
+      <thead class="text-center fw-bolder customBoldText">
+        <tr>
+          <th>OPP</th>
+          <th>G</th>
+          <th>A</th>
+          <th>PTS</th>
+          <th>+/-</th>
+          <th>PIM</th>
+          <th>PPG</th>
+          <th>SHG</th>
+          <th>S</th>
+          <th>TOI</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+       
+        <tr>
+          <td>COL</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>+2</td>
+          <td>2</td>
+          <td>1</td>
+          <td>0</td>
+          <td>6</td>
+          <td>18:22</td>
+        </tr>
+
+        <tr>
+          <td>DAL</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>+2</td>
+          <td>2</td>
+          <td>1</td>
+          <td>0</td>
+          <td>6</td>
+          <td>18:22</td>
+        </tr>
+
+        <tr>
+          <td>FLO</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>+2</td>
+          <td>2</td>
+          <td>1</td>
+          <td>0</td>
+          <td>6</td>
+          <td>18:22</td>
+        </tr>
+
+      
+        <tr>
+          <td>ANA</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>+2</td>
+          <td>2</td>
+          <td>1</td>
+          <td>0</td>
+          <td>6</td>
+          <td>18:22</td>
+        </tr>
+
+        <tr>
+          <td>NJD</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>+2</td>
+          <td>2</td>
+          <td>1</td>
+          <td>0</td>
+          <td>6</td>
+          <td>18:22</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+   
+    <h5>Player Ratings</h5>
+    <table class="table table-bordered customBorderTop customBorderBottom">
+      <thead class= "text-center fw-bolder customBoldText">
         <tr>
           <th>CON</th>
           <th>CK</th>
@@ -148,9 +230,8 @@
           <th>OV</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Exemple de données -->
-        <!-- <tr>
+      <tbody class="text-center customBoldText">
+              <tr>
           <td>75</td>
           <td>85</td>
           <td>80</td>
@@ -171,7 +252,7 @@
           <td>70</td>
         </tr>
       </tbody>
-    </table> --> 
+    </table> 
 </div>
 
 <!-- Lien vers Bootstrap Bundle (comprend Popper.js et Bootstrap JS) -->
