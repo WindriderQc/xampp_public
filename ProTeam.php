@@ -323,8 +323,16 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
 <div id="STHSPHPTeamStat_SubHeader" class="STHSPHPTeamBanner_<?= $TeamInfo['TeamThemeID']?>      teamColorDark<?= $TeamInfo['TeamThemeID'] ?>">
 <table class="STHSPHPTeamHeader_Table">
     <tr>
-        <td rowspan="2" class="STHSPHPTeamHeader_Logo"> <img src="images/<?= $TeamInfo['TeamThemeID'] ?>.png" alt="" class="STHSPHPTeamStatImage_<?= $TeamInfo['TeamThemeID']?>STHSPHPTeamStatImage"> </td>
-        <td class="STHSPHPTeamHeader_TeamName teamColorPale<?= $TeamInfo['TeamThemeID'] ?>"> <?= $TeamName ?> </td>
+	<td rowspan="2" class="STHSPHPTeamHeader_Logo">
+    <img src="images/<?= $TeamInfo['TeamThemeID'] ?>.png" 
+         style="width: 120px; height: 120px;" 
+         alt="" 
+         class="STHSPHPTeamStatImage_<?= $TeamInfo['TeamThemeID'] ?> STHSPHPTeamStatImage">
+</td>
+
+
+
+	<td class="STHSPHPTeamHeader_TeamName teamColorPale<?= $TeamInfo['TeamThemeID'] ?>"> <?= $TeamName ?> </td>
     </tr>
     <tr>
         <td class="STHSPHPTeamHeader_Stat teamColorPale<?= $TeamInfo['TeamThemeID'] ?>"> GP: <?= $TeamStat['GP'] ?> | W: <?= ($TeamStat['W'] + $TeamStat['OTW'] + $TeamStat['SOW']) ?> | L: <?= $TeamStat['L'] ?>
