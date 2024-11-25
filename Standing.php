@@ -41,14 +41,14 @@ try{
 	
 	if ($LeagueGeneral['PlayOffStarted'] == "True")    {
 		if(isset($_GET['Season'])){
-			$Title = $LeagueName . " - " . $StandingLang['Standing'] . " " . $TitleType;
+			$Title = $StandingLang['Standing'] . " " . $TitleType;
 			$TypeTextTeam = $TypeTextTeam . "Season";
 		}else{
-			$Title = $LeagueName . " - " . $StandingLang['Playoff'] . " " . $TitleType;
+			$Title =$StandingLang['Playoff'] . " " . $TitleType;
 			$Playoff = True;
 		}
 	}else{
-		$Title = $LeagueName . " - " . $StandingLang['Standing'] . " " . $TitleType;
+		$Title =$StandingLang['Standing'] . " " . $TitleType;
 	}
 	$StandingQueryOK = True;
 } catch (Exception $e) {
@@ -231,8 +231,8 @@ if ($Playoff == True){
 <?php include "components/GamesScroller.php"; ?>
 <?php include "Menu.php";?>
 
-<div style="width:99%;margin:auto;">
-<div class="container">
+<div class="customStanding">
+<!-- <div class="container"> -->
 <?php echo "<h1>" . $Title . "</h1>"; ?>
 
 <div class="tabsmain standard">
@@ -256,17 +256,17 @@ if ($Playoff == True){
     <div class="tabmain-content">
         <div class="tabmain active<?php if(isset($LeagueGeneral)){If ($LeagueGeneral['DivisionNewNHLPlayoff'] == "True"){echo "";}}?>" id="tabmain1">  <!-- TODO  BUG   le code original empeche les standing Farm d'afficher.  quand on ajoute ?Farm a la requete, DivisionNewNHLPlayoff devient False et le tabmain1 n'affiche plus... -->  
       
-            <div class="container">
+            <!-- <div class="container"> -->
 
 <?php
 If ($StandingQueryOK == True){
     
 
-	echo "<h2>" . $LeagueGeneral['ConferenceName1'] . "</h2>";
+	echo "<h2 class=\"\">" . $LeagueGeneral['ConferenceName1'] . "</h2>";
 	PrintStandingTop($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
 
 	/* Division 1 */
-	Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName1'] . "</td></tr>";
+	Echo "<tr class=\"static\"><td class=\"staticTD ConferenceName1\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName1'] . "</td></tr>";
 	$Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName1'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
 	$Standing = $db->query($Query);
 	$LoopCount =0;
@@ -281,7 +281,7 @@ If ($StandingQueryOK == True){
 		
 
 	/* Division 2 */	
-	Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName2'] . "</td></tr>";
+	Echo "<tr class=\"static\"><td class=\"staticTD ConferenceName1\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName2'] . "</td></tr>";
 	$Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName2'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
 	$Standing = $db->query($Query);
 	$LoopCount =0;
@@ -296,7 +296,7 @@ If ($StandingQueryOK == True){
 
 
 	/* Overall for Conference 1 */	
-	Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] ."</td></tr>";
+	Echo "<tr class=\"static\"><td class=\"staticTD ConferenceName1\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] ."</td></tr>";
 	$Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Conference)=\"" . $LeagueGeneral['ConferenceName1'] . "\") AND ((RankingOrder.Type)=1)) ORDER BY RankingOrder.TeamOrder";
 	$Standing = $db->query($Query);
 	$LoopCount =0;
@@ -304,7 +304,7 @@ If ($StandingQueryOK == True){
 	if (empty($Standing) == false){while ($row = $Standing ->fetchArray()) {
 		$LoopCount +=1;
 		If ($LoopCount > 6 ){PrintStandingTableRow($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);}
-		If ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
+		If ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD ConferenceOoP1\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
 
 	}}
 
@@ -314,12 +314,12 @@ If ($StandingQueryOK == True){
 
 
 
-	echo "<h2>" . $LeagueGeneral['ConferenceName2'] . "</h2>";
+	echo "<h2 class=\"\">" . $LeagueGeneral['ConferenceName2'] . "</h2>";
 	PrintStandingTop($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
 
 	/* Division 4 */
 
-	Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName4'] . "</td></tr>";
+	Echo "<tr class=\"static\"><td class=\"staticTD ConferenceName2\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName4'] . "</td></tr>";
 
 	$Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName4'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
 	$Standing = $db->query($Query);
@@ -332,7 +332,7 @@ If ($StandingQueryOK == True){
 
 	
 	/* Division 5 */	
-	Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName5'] . "</td></tr>";
+	Echo "<tr class=\"static\"><td class=\"staticTD ConferenceName2\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName5'] . "</td></tr>";
 	$Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName5'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
 	$Standing = $db->query($Query);
 	$LoopCount =0;
@@ -344,7 +344,7 @@ If ($StandingQueryOK == True){
 
 
 	/* Overall for Conference 2 */	
-	Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] . "</td></tr>";
+	Echo "<tr class=\"static\"><td class=\"staticTD ConferenceName2\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] . "</td></tr>";
 	$Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Conference)=\"" . $LeagueGeneral['ConferenceName2'] . "\") AND ((RankingOrder.Type)=2)) ORDER BY RankingOrder.TeamOrder";
 	$Standing = $db->query($Query);
 	$LoopCount =0;
@@ -353,7 +353,7 @@ If ($StandingQueryOK == True){
 
 		$LoopCount +=1;
 		If ($LoopCount > 6 ){PrintStandingTableRow($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);}
-		If ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
+		If ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD ConferenceOoP2\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
 
 	}}
 	echo "</tbody></table>";

@@ -1,9 +1,9 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 .tablesorter {font-family:arial;font-size: 8pt; background-color: rgb(222, 222, 222); margin:10px 0pt 15px;  width: 100%; text-align: left; border-spacing: 0px;border: #ccc 1px solid; border-width: 1px 0 0 1px;}
 .tablesorter th, .tablesorter td { border: #ccc 1px solid; border-width: 0 1px 1px 0;}
-.tablesorter th, .tablesorter thead td {font-size: 9pt; background-color: rgb(222, 222, 222); border-collapse: collapse; padding: 4px; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);}
+.tablesorter th, .tablesorter thead td {font-size: 9pt; background-color: rgb(222, 222, 222); border-collapse: collapse; padding: 0px; text-align: center;}
 .tablesorter tbody td, .tablesorter tfoot th, .tablesorter tfoot td { padding: 4px; vertical-align: top; font-size: 12px;}
-.tablesorter .header, .tablesorter .tablesorter-header { background-color: rgb(222, 222, 222); background-position: center right; background-repeat: no-repeat; background-image: url(data:image/gif;base64,R0lGODlhDAAMAMQAAAJEjAJCiwJBigJAiANFjgNGjgNEjQRIkQRHkANIkAVMlAVQmAZWnQZUnAdYoAhdpAhZoAlhqQlepQliqQppsApmrQxutgtutQtutAxwtwxwtg1yug1zugxtsw1yuP8A/yH5BAEAAB8ALAAAAAAMAAwAAAUx4Cd+3GiOW4ado2d9VMVm1xg9ptadTsP+QNZEcjoQTBDGCAFgLRSfQgCYMAiCn8EvBAA7); padding: 4px 20px 4px 4px; white-space: normal; cursor: pointer;}
+.tablesorter .header, .tablesorter .tablesorter-header { background-color: rgb(0, 0, 0); background-position: center right; background-repeat: no-repeat; background-image: url(data:image/gif;base64,R0lGODlhDAAMAMQAAAJEjAJCiwJBigJAiANFjgNGjgNEjQRIkQRHkANIkAVMlAVQmAZWnQZUnAdYoAhdpAhZoAlhqQlepQliqQppsApmrQxutgtutQtutAxwtwxwtg1yug1zugxtsw1yuP8A/yH5BAEAAB8ALAAAAAAMAAwAAAUx4Cd+3GiOW4ado2d9VMVm1xg9ptadTsP+QNZEcjoQTBDGCAFgLRSfQgCYMAiCn8EvBAA7); padding: 4px 20px 4px 4px; white-space: normal; cursor: pointer;color: white;}
 .tablesorter .headerSortUp, .tablesorter .tablesorter-headerSortUp, .tablesorter .tablesorter-headerAsc { color: #333; background-color: #ebedee; background-position: center right; background-repeat: no-repeat; background-image: url(data:image/gif;base64,R0lGODlhDAAMANUAAAJCiwNHkANFjgNEjQRIkQNJkQRMlARKkwRKkgVPlwZSmgdaogdYnwhfpghcowlhqgliqglgqAlgpwljqwporwpmrQplrAtsswtqsgtrsgtqsQxttAtvtQtttAxyuQxwtwxxtwxvtg10uw1zuQ1xuP8A/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAMAAwAAAY6wJKwJBoahyNQ6Dj0fDoZCpPEuWgqk4jxs8FQLI+Gg8Esm5kQydFQMC7IwkOAqUiUCAIzIjA4lwBlQQA7); }
 .tablesorter .headerSortDown, .tablesorter .tablesorter-headerSortDown, .tablesorter .tablesorter-headerDesc { color: #333; background-color: #ebedee; background-position: center right; background-repeat: no-repeat; background-image: url(data:image/gif;base64,R0lGODlhDAAMANUAAAE/iAJBigNFjgNEjQNFjQNDiwRHkQRHjwNHjwROlgRMlQRMlARJkgRKkgZQmAVPlgZWnQZSmgZRmAdXoAdXnwdUnAdbogdZoQhbowlhqAlepglkrAliqQtstAtqsQxyugxyuQxwuAxxuAxxtwxwtgxvtQ10vA12vA10u/8A/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACkALAAAAAAMAAwAAAY6wJQwdRoah6bP6DhEiVIdDxNEGm4yxlDpiJkwv2AmR2OhVCSJBsJ4gUQeCwOB6VAwBAXwYRAIpwBfQQA7); }
 .tablesorter thead .sorter-false { background-image: none; cursor: default; padding: 4px;}
@@ -35,7 +35,7 @@ caption { background-color: #fff;}
 .tablesorter_ColumnSelector input {margin-right: 5px;}
 .tablesorter_ColumnSelector .disabled {color: #ddd;}
 .tablesorter .filtered { display: none;}
-.tablesorter tbody tr.static td {vertical-align: middle;}
+.tablesorter tbody tr.static td {vertical-align: middle;color: white;}
 table.basictablesorter { font-family:arial; background-color: rgb(222, 222, 222); margin:10px 0pt 15px; font-size: 8pt; width: 100%; text-align: left; border-spacing: 0px;border: #ccc 1px solid; border-width: 1px 0 0 1px;}
 table.basictablesorter th, table.basictablesorter td { border: #ccc 1px solid; border-width: 0 1px 1px 0;}
 table.basictablesorter thead tr th, table.tablesorter tfoot tr th { background-color: rgb(222, 222, 222); text-align:center; font-size: 8pt; padding: 4px 12px 4px 0px;}
@@ -64,10 +64,10 @@ table.MenuSTHS a:hover{text-decoration:none;color:#000000;}
 .tabmenu{display:none;}
 .tabmenu.active{display:block;}
 .tabsmain{width:100%;display:inline-block;}
-.tabmain-links {padding-left:1px;padding-bottom: 1%;}
+.tabmain-links {padding-left:1px;padding-bottom: 1%;margin:auto;display: flex;justify-content: center;font-size: large;color: black;}
 .tabmain-links:after{display:block;clear:both;content:'';}
 .tabmain-links li{margin:0px 5px;float:left;list-style:none;}
-.tabmain-links a{padding:0px 25px;display:inline-block;border-radius:3px 3px 0px 0px;color:#dedede;font-size:16px;font-weight:600;color:#4c4c4c;transition:all linear 0.15s;}
+.tabmain-links a{padding:0px 25px;display:inline-block;border-radius:3px 3px 0px 0px;color:#dedede;font-size:16px;font-weight:600;color:#000000;transition:all linear 0.15s;}
 .tabmain-links a:hover{text-decoration:none;color:#000000;}
 li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:#990000;}
 .tabmain-content{border-radius:1px;}
@@ -247,7 +247,7 @@ table.MenuSTHS a{padding:0px 3px;font-size:12px;}
 .ms-container .ms-selection li.ms-hover{  cursor: pointer;  color: #fff;  text-decoration: none;  background-color: #08c;}
 .ms-container .ms-selectable li.disabled,
 .ms-container .ms-selection li.disabled{  background-color: #eee;  color: #aaa;  cursor: text;}
-body {font:14px/17px "Trebuchet MS", Arial, Helvetica, sans-serif; margin:0;padding:0;}
+body {font:14px/17px  Arial, Helvetica, sans-serif; margin:0;padding:0;}
 .footer {background-image:url('images/footerbg.gif'); height:40px; width:100%; text-align:center; line-height:40px; font-size:14px; color:#000000; font-weight: bold;}
 h1, h2, h3, h4, h5, h6 { font-family:Georgia, Tahoma; font-weight:400; line-height:100%; margin:12px;}
 h1 { font-size:22px;}
@@ -649,3 +649,27 @@ border-radius: 3px 3px 3px 3px;-moz-border-radius: 3px 3px 3px 3px;-webkit-borde
 .STHSPHPLeaderboard_TableTextPlayer {display:-webkit-inline-box;vertical-align:middle;padding-left:12px;font-size:20px;color:#383732;font-weight:normal;}
 .STHSPHPLeaderboard_TableTextResult {font-size:60px;line-height:100px;padding-left:12px;}
 
+.customStanding {
+
+  width: 100%;
+  max-width: 1284px;
+  margin: auto;
+
+}
+
+.ConferenceName1 {background-color: #ff0000 !important;}
+.ConferenceName2 {background-color: #0011ff !important;}
+
+.ConferenceOoP1 hr { 
+background-color: #ff0000;
+height: 12px;
+margin:0px;
+border: 0px;
+}
+
+.ConferenceOoP2 hr { 
+  background-color: #0011ff;
+  height: 12px;
+  margin:0px;
+  border: 0px;
+  }
