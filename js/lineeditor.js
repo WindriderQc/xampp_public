@@ -955,6 +955,13 @@ function checkCompleteLines(){
 function actualizePlayerCard(player) 
 {
 	document.getElementById("tdName").innerHTML = player.Name;
+
+	const baseURL = "https://assets.nhle.com/mugs/nhl/latest/";
+    const imageURL = `${baseURL}${player.NHLID}.png`; // Remplace les 7 chiffres par le NHLID
+
+    // Mettre à jour l'image
+    const imageElement = document.getElementById("tdImage");
+    imageElement.src = imageURL;
 	
 	document.getElementById("tdAge").innerHTML = player.Age;
     document.getElementById("tdCountry").innerHTML = player.Country;
