@@ -1,6 +1,5 @@
 <?php include "Header.php"; ?>
 
-
 <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 </head>
@@ -10,42 +9,120 @@
 <div style="width:99%;margin:auto;">
     
     <div id="title" class="m-4 mb-1"><h1> Team Stats </h1></div>
-   
 
     <div id="ReQueryDiv" style="display:block;">
         <?php /*include "SearchTeamsStat.php";*/ ?>
     </div>
-
-    <div>
-        Toggle column: <a class="toggle-vis" data-column="0">Name</a> - <a class="toggle-vis" data-column="1">Position</a> - <a class="toggle-vis" data-column="2">Office</a> - <a class="toggle-vis" data-column="3">Age</a> - <a class="toggle-vis" data-column="4">Start date</a> - <a class="toggle-vis" data-column="5">Salary</a>
+    
+    <div id="toggleColumns" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleColumnsButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Toggle Columns
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="toggleColumnsButton">
+            <!-- Checkboxes will be dynamically added here -->
+        </ul>
     </div>
 
-    <table id="teamStatsTable" class="display m-4 p-1"></table>
 
-    </div>
-
+    <table id="teamStatsTable" class="display m-4 p-1"> </table>
 </div>
 
 <script>
+$(document).ready(function() {
 
-let teamsInfo
+    let teamsInfo;
 
-
-
-function initTable() {
-
-
+    function initTable() {
     // Dynamically generate columns array 
-    const columns = Object.keys(teamsInfo[0]).map(key => ({ title: key, data: key }));
+    const columns = Object.keys(teamsInfo[0]).map((key, index) => ({
+        title: key,
+        data: key,
+        index: index
+    }));
 
-
-
+    // Initialize the DataTable
     const table = $('#teamStatsTable').DataTable({
         paging: false,
-        scrollY: '200px',
         data: teamsInfo,
         columns: columns,
-        /*columns: [
+    });
+
+   // Dynamically generate toggle checkboxes
+    const toggleColumnsDiv = document.getElementById("toggleColumns");
+    const dropdownMenu = toggleColumnsDiv.querySelector(".dropdown-menu"); // Target the dropdown menu
+
+    columns.forEach((col, idx) => {
+        // Create list item
+        const listItem = document.createElement("li");
+
+        // Create checkbox
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "form-check-input";
+        checkbox.id = `toggle-column-${idx}`;
+        checkbox.dataset.column = idx; // Set column index
+        checkbox.checked = true; // Default to checked
+
+        // Create label
+        const label = document.createElement("label");
+        label.className = "form-check-label";
+        label.htmlFor = `toggle-column-${idx}`;
+        label.textContent = col.title;
+
+        // Append checkbox and label to list item
+        listItem.appendChild(checkbox);
+        listItem.appendChild(label);
+
+        // Append list item to dropdown menu
+        dropdownMenu.appendChild(listItem);
+
+        // Add event listener for toggling column visibility
+        checkbox.addEventListener("change", function () {
+            const column = table.column(idx);
+            column.visible(this.checked);
+        });
+    });
+
+
+    // Add click event for column visibility toggle
+    document.querySelectorAll('a.toggle-vis').forEach((el) => {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const columnIdx = e.target.getAttribute('data-column');
+            const column = table.column(columnIdx);
+
+            // Toggle the visibility
+            column.visible(!column.visible());
+        });
+    });
+}
+
+
+    async function fetch_teamStats(successCallback=null) { 
+        const response = await fetch('TeamsInfo_fetch.php'); 
+        const data = await response.json(); 
+        if (data.error) { console.error(data.error); } 
+        else { 
+            teamsInfo = data; 
+            console.log("teamsInfo", teamsInfo);  
+            if(successCallback) successCallback();
+        } 
+    }
+
+    fetch_teamStats(initTable);
+
+});
+</script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+
+<?php include "Footer.php"; ?>
+
+
+<script >
+/*columns: [
             { title: "Number", data: "Number" },
             { title: "Name", data: "Name" },
             { title: "OrderName", data: "OrderName" },
@@ -106,41 +183,5 @@ function initTable() {
             { title: "FaceOffTotalNeutralZone", data: "FaceOffTotalNeutralZone" },
             { title: "EmptyNetGoal", data: "EmptyNetGoal" }
         ]*/
-    });
 
-    document.querySelectorAll('a.toggle-vis').forEach((el) => {
-        el.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            let columnIdx = e.target.getAttribute('data-column');
-            let column = table.column(columnIdx);
-
-            // Toggle the visibility
-            column.visible(!column.visible());
-        });
-    });
-}
-
-
-async function fetch_teamStats() { 
-
-    const response = await fetch('TeamsInfo_fetch.php'); 
-    const data = await response.json(); 
-    if (data.error) { console.error(data.error); } 
-    else { 
-        teamsInfo = data; 
-        console.log("teamsInfo", teamsInfo);  
-        initTable();
-    } 
-}
-fetch_teamStats();
-
-
-</script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-
-<?php include "Footer.php"; ?>
-
-
-
+<script/>
