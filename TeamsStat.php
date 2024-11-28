@@ -6,7 +6,7 @@
 <body>
 <?php include "Menu.php";?>
 
-<div style="width:99%;margin:auto;">
+<div class="dataTables_wrapper">
     
     <div id="title" class="m-4 mb-1"><h1> Team Stats </h1></div>
 
@@ -14,7 +14,7 @@
         <?php /*include "SearchTeamsStat.php";*/ ?>
     </div>
     
-    <div id="toggleColumns" class="dropdown">
+    <div id="toggleColumns" class="dropdown mx-4">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleColumnsButton" data-bs-toggle="dropdown" aria-expanded="false">
             Toggle Columns
         </button>
@@ -60,6 +60,8 @@ $(document).ready(function() {
         paging: false,
         data: teamsInfo,
         columns: columns,
+        autoWidth: false, // Disable automatic column width expansion
+       
     });
 
 

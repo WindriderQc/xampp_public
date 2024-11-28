@@ -1949,4 +1949,18 @@ width: 100%;
     color: black;
     background-color: #f7f0d9;
     border: 1px solid black;
+
+}
+
+    /* Prevent columns from expanding excessively */
+#teamStatsTable th,
+#teamStatsTable td {
+   
+  /*  max-width: 50px; /* Optional: Set a max-width for columns */
+}
+
+/* Keep the table width based on content */
+.dataTables_wrapper {
+    /*width: auto !important; /* Allow the table to shrink naturally  ;  */
+    width:98%;margin:auto
 }
