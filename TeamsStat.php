@@ -35,7 +35,7 @@ $(document).ready(function() {
     function initTable() {
 
     // Dynamically generate columns array with default visibility
-    const defaultVisibleKeys = ["TeamThemeID", "GP", "W", "L", "OTW", "OrderName", "Points"]; // Default visible columns
+    const defaultVisibleKeys = [ "OrderName", "GP", "W", "L", "OTW", "SOW", "SOL","Points", "GF", "GA", ]; // Default visible columns
 
     const columns = Object.keys(teamsInfo[0]).map((key) => {
         const isVisible = defaultVisibleKeys.includes(key);
