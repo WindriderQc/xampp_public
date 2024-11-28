@@ -39,6 +39,8 @@ require_once("helperTool.php");
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">  
+
      <!--<link href="css/styleT.css" rel="stylesheet" type="text/css" />  -->  
     <link href="STHSMain-CSSOverwrite.css" rel="stylesheet" type="text/css" />
     <link href="css/nhlColors.css" rel="stylesheet" type="text/css" />
@@ -46,4 +48,4 @@ require_once("helperTool.php");
     <script src="js/lhsqc_new.js"    type="text/javascript"></script>
     <script src="js/db2json.js"    type="text/javascript"></script>
     
-
+    <link href="css/nhlColors.css" rel="stylesheet" type="text/css" /> ";
