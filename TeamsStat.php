@@ -33,12 +33,27 @@ $(document).ready(function() {
     let teamsInfo;
 
     function initTable() {
-    // Dynamically generate columns array 
-    const columns = Object.keys(teamsInfo[0]).map((key, index) => ({
-        title: key,
-        data: key,
-        index: index
-    }));
+
+    // Dynamically generate columns array with default visibility
+    const defaultVisibleKeys = ["TeamThemeID", "GP", "W", "L", "OTW", "OrderName", "Points"]; // Default visible columns
+
+    const columns = Object.keys(teamsInfo[0]).map((key) => {
+        const isVisible = defaultVisibleKeys.includes(key);
+        return {
+            title: key,
+            data: key,
+            visible: isVisible, // Set initial visibility based on defaults
+            render: key === "OrderName" ? function (data, type, row) {
+                const iconFilename = row["TeamThemeID"];
+                const iconUrl = `images/${iconFilename}.png`;
+                return `<img src="${iconUrl}" alt="${iconFilename}" style="width:20px; height:20px; margin-right:8px;"> ${data}`;
+            } : undefined,
+        };
+    });
+
+
+
+
 
     // Initialize the DataTable
     const table = $('#teamStatsTable').DataTable({
@@ -47,42 +62,42 @@ $(document).ready(function() {
         columns: columns,
     });
 
+
+
+
+
    // Dynamically generate toggle checkboxes
     const toggleColumnsDiv = document.getElementById("toggleColumns");
-    const dropdownMenu = toggleColumnsDiv.querySelector(".dropdown-menu"); // Target the dropdown menu
+    const dropdownMenu = toggleColumnsDiv.querySelector(".dropdown-menu"); 
 
     columns.forEach((col, idx) => {
-        // Create list item
+       
         const listItem = document.createElement("li");
 
-        // Create checkbox
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.className = "form-check-input";
         checkbox.id = `toggle-column-${idx}`;
         checkbox.dataset.column = idx; // Set column index
-        checkbox.checked = true; // Default to checked
+        checkbox.checked = col.visible; // Sync with column visibility
 
-        // Create label
         const label = document.createElement("label");
         label.className = "form-check-label";
         label.htmlFor = `toggle-column-${idx}`;
         label.textContent = col.title;
 
-        // Append checkbox and label to list item
         listItem.appendChild(checkbox);
         listItem.appendChild(label);
-
-        // Append list item to dropdown menu
         dropdownMenu.appendChild(listItem);
 
         // Add event listener for toggling column visibility
         checkbox.addEventListener("change", function () {
             const column = table.column(idx);
-            column.visible(this.checked);
+            column.visible(this.checked); // Sync visibility with checkbox state
         });
     });
 
+}
 
     // Add click event for column visibility toggle
     document.querySelectorAll('a.toggle-vis').forEach((el) => {
@@ -92,11 +107,10 @@ $(document).ready(function() {
             const columnIdx = e.target.getAttribute('data-column');
             const column = table.column(columnIdx);
 
-            // Toggle the visibility
             column.visible(!column.visible());
         });
     });
-}
+
 
 
     async function fetch_teamStats(successCallback=null) { 
