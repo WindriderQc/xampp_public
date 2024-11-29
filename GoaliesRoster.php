@@ -1,5 +1,8 @@
-<?php include "Header.php";
+<?php include "Header.php";?>
 
+<script src="STHSMain.js"    type="text/javascript"></script>
+
+<?php
 $Title = (string)"";
 $Team = (integer)-1; /* -1 All Team */
 $Search = (boolean)False;
