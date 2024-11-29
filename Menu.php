@@ -249,7 +249,7 @@ if ($MenuQueryOK == True) {
                 <li><a href="TeamSalaryCapDetail.php?TeamID=<?php echo $CookieTeamNumber ?>">Contract Overview</a></li>
                 <li><a href="PlayersCompare.php">Players Compare</a></li>
                 <li><a href="Trade.php">Trade</a></li>
-                <li><a href="EntryDraft.php">Draft Projection</a></li>
+                <li><a href="EntryDraftProjection.php">Draft Projection</a></li>
                 <!-- <li><a href="upload.php">Upload Lines</a></li> -->
             </ul>
         </li>
@@ -287,7 +287,7 @@ if ($MenuQueryOK == True) {
             <a class=" " href="TeamSalaryCapDetail.php?TeamID=<?php echo $CookieTeamNumber ?>">Contract Overview</a></li>
             <a class=" " href="PlayersCompare.php">Players Compare</a></li>
             <a class=" " href="Trade.php">Trade</a></li>
-            <a class=" " href="EntryDraft.php">Draft Projection</a></li>               
+            <a class=" " href="EntryDraftProjection.php">Draft Projection</a></li>               
         </ul>
 
         </li>
