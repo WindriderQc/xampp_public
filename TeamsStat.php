@@ -52,8 +52,7 @@ $(document).ready(function() {
         };
     });
 
-    /*
-    const teams = teamsInfo.map((team) => team.Name );*/
+
  
     // Initialize the DataTable
     const table = $('#teamStatsTable').DataTable({

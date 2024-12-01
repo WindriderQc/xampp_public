@@ -1,4 +1,8 @@
-<?php include "Header.php";
+<?php include "Header.php"; ?>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+
+<?php
 
 $Team = (integer)0;
 If ($lang == "fr"){include 'LanguageFR-Stat.php';}else{include 'LanguageEN-Stat.php';}
@@ -64,13 +68,12 @@ If ($lang == "fr"){include 'LanguageFR-Stat.php';}else{include 'LanguageEN-Stat.
 <?php include "Menu.php";?>
 
 <div style="width:98%;margin:auto;"> <?php echo "<h1>" . $Title . "</h1>"; ?></div>
-<div id="MainDiv" style="width:98%;margin:auto;">
+    <div id="MainDiv" style="width:98%;margin:auto;">
 
-<form action="TeamSalaryCapDetail.php" method="get">
-    <table class="table STHSTable">
-        <tr>
-            <td class="STHSW200 STHSPHPSearch_Field"><strong><?php echo $SearchLang['Team'];?></strong></td><td class="STHSW250">
-            <select name="Team" class="STHSSelect STHSW250">
+        <form action="TeamSalaryCapDetail.php" method="get">
+            
+            <div class=""><strong><?php echo $SearchLang['Team'];?></strong></div>
+            <select name="Team" class="  form-select"  id="teamSelect">
             <?php
             $Query = "SELECT Number, Name FROM TeamProInfo Order By Name";
             If (isset($db)){$TeamNameSearch = $db->query($Query);}
@@ -80,16 +83,23 @@ If ($lang == "fr"){include 'LanguageFR-Stat.php';}else{include 'LanguageEN-Stat.
                 echo ">" . $Row['Name'] . "</option>"; 
             }}
             ?>
-            </select></td>
-        </tr>
+            </select>
+           
+        </form>
 
-        <tr>
-            <td colspan="2" class="STHSCenter"><input type="submit" class="SubmitButton" style="margin-top:10px;" value="<?php echo $SearchLang['Submit'];?>"></td>
-        </tr>
-    </table>
-</form>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const teamSelect = document.getElementById('teamSelect');
+        
+        // Add change event listener
+        teamSelect.addEventListener('change', function () {        
+            window.location.href = `TeamSalaryCapDetail.php?Team=${teamSelect.value}`; // Redirect to the new URL with the selected team 
+        });
+    });
+    </script>
 
-</div>
+
+   
 
 
 
@@ -258,10 +268,20 @@ echo $TeamLang['SalaryCapSimulationNote'] . "<br /><br /><br />";
     </tr>
 	</table>
 </form>
-<script>
-$('#SelectPlayers').multiSelect();
-</script>
 </div>
 
 </div>
+
+<script>
+    // Initialize the DataTable
+    const table = $('#teamStatsTable').DataTable({
+       /* paging: false,
+     
+        autoWidth: false, // Disable automatic column width expansion*/
+    });
+
+</script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+
 <?php include "Footer.php";?>
