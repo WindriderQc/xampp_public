@@ -12,13 +12,13 @@
   
     <div class='row'>
         <div id="toggleTeams" class="dropdown mx-4">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleTeamsButton" data-bs-toggle="dropdown" aria-expanded="false">Select Teams </button>
+            <button class="btn btn-warning dropdown-toggle" type="button" id="toggleTeamsButton" data-bs-toggle="dropdown" aria-expanded="false">Select Teams </button>
             <ul class="dropdown-menu dropdown-menu-teams" aria-labelledby="toggleTeamsButton"> <!-- Checkboxes will be dynamically added here -->        </ul>
         </div>
 
         
         <div id="toggleColumns" class="dropdown mx-4" >
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleColumnsButton" data-bs-toggle="dropdown" aria-expanded="false">Select Columns </button>
+            <button class="btn btn-warning dropdown-toggle" type="button" id="toggleColumnsButton" data-bs-toggle="dropdown" aria-expanded="false">Select Columns </button>
             <ul class="dropdown-menu dropdown-menu-cols" aria-labelledby="toggleColumnsButton"> <!-- Checkboxes will be dynamically added here -->        </ul>
         </div>
     </row>

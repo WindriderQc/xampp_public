@@ -1,10 +1,7 @@
-- ajouter un bouton pour rendre visbile/invisble les parametre de ligne dans line edirto, et mettre les player side by side
+- Arrangé GameScroller pour qu'il prenne l'info de db2json...   la il change de source a chaque page selon le php existant 😟
 - Actualisé la page active dans le menu pour que le bon menu soit indiqué en jaune, pas tjrs HOME.
-- Lien HOME du menu est noir sur noir dans HOME mais pas dans les autres pages... confirmer Requis.
+- Remettre Lien HOME du menu noir dans index mais pas dans les autres pages... 
 - Pimper le look de la page tradetracker pour avoir les trades sur la même ligne au lieu de deux différentes (voir référence dans le folder idee)
-- Footer Menu - ajouter Farm league?
-- On dirait que les pages n'utilise pas toutes la meme db...  a valider car le contenu de GameScroller bar change selon les pages...
-- TodayGames est dans le menu sous ScoreBoard   et aussi dans Stats->Today's Game.    Pourrait etre enlevé du main menu puisqu'il y a en plus le gameScroller.....
 - Bug de menu mobile...  icone qui bouge ou ligne qui rapettisse.
 - Fichier Transaction2.php  -  je crois qu'il n'est pas utilisé.
 
@@ -19,3 +16,5 @@ Complété:
 - Ajouter lien boxscore dans le scroller et enlever la card latest score. (YB)
 - CSS Boxscore (J'ai copisé LHSQC dans Main) Nom des équipe devenu blanc (YB)  - Remis le CSS original et copié LHSQC.css dans un nouveau fichier STHSMain_overwite.css
 - Standing AHL qui ne fonctionne pas (YB)   Weird...    je ne comprends pas comment ca pouvait marcher avant.    le code original empeche les standing Farm d'afficher quand on ajoute ?Farm a la requete standing.php, DivisionNewNHLPlayoff devient False et le tabmain1 n'affiche plus... 
+- ajouter un bouton pour rendre visbile/invisble les parametre de ligne dans line edirto, et mettre les player side by side (YB)
+- TodayGames est dans le menu sous ScoreBoard   et aussi dans Stats->Today's Game.    Pourrait etre enlevé du main menu puisqu'il y a en plus le gameScroller..... (DOM)
