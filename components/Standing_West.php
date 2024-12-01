@@ -1,4 +1,8 @@
 <?php
+
+If ($lang == "fr"){include 'LanguageFR-League.php';}else{include 'LanguageEN-League.php';}
+If ($lang == "fr"){include 'LanguageFR-Stat.php';}else{include 'LanguageEN-Stat.php';}
+
 $TypeText = (string)"Pro";$TitleType = $DynamicTitleLang['Pro'];
 $TypeTextTeam = (string)"Pro";
 $Playoff = (boolean)False;
@@ -283,7 +287,7 @@ if ($Playoff == True){
             }
 
             // Wildcard Standings
-            echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . "Wildcard" . "</td></tr>";
+            echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">". $StandingLang['Wildcard'] . "</td></tr>";
             $Query = "SELECT Team{$TypeTextTeam}Stat.*, Team{$TypeText}Info.Conference, Team{$TypeText}Info.Division, Team{$TypeText}Info.TeamThemeID, RankingOrder.Type
                     FROM Team{$TypeTextTeam}Stat
                     INNER JOIN Team{$TypeText}Info ON Team{$TypeTextTeam}Stat.Number = Team{$TypeText}Info.Number
