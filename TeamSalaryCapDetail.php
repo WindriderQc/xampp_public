@@ -1,6 +1,5 @@
 <?php include "Header.php"; ?>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 
 <?php
 
@@ -103,7 +102,7 @@ If ($lang == "fr"){include 'LanguageFR-Stat.php';}else{include 'LanguageEN-Stat.
 
 
 
-<table class="table tablesorter STHSPHPTeamSalaryCapDetail_Table"><thead><tr>
+<table class="table tablesorter STHSPHPTeamSalaryCapDetail_Table display" id="contractTable"><thead><tr>
 <th data-priority="critical" title="Player Name" class="STHSW140Min"><?php echo $PlayersLang['PlayerName'];?></th>
 <th data-priority="2" title="Position" class="STHSW45">POS</th>
 <th data-priority="1" title="Age" class="STHSW25"><?php echo $PlayersLang['Age'];?></th>
@@ -249,7 +248,7 @@ echo $TeamLang['SalaryCapSimulationNote'] . "<br /><br /><br />";
 	
 	<tr>
 	<td></td>
-	<td><select id="SelectPlayers" name="SelectPlayers[]"  multiple="multiple">
+	<td><select id="SelectPlayers" name="SelectPlayers[]"  multiple="multiple" class=" form-select">
 	<?php
 	if (empty($AllPlayers) == false){while ($Row = $AllPlayers ->fetchArray()) { 
 		echo "<option value='" . $Row['Number'] . "'";
@@ -264,7 +263,7 @@ echo $TeamLang['SalaryCapSimulationNote'] . "<br /><br /><br />";
 	</tr>
 		
 	<tr>
-      <td></td><td class="STHSPHPTradeType"><input class="SubmitButton" type="submit" name="Submit" value="<?php echo $PlayersLang['Submit'];?>" /></td>
+      <td></td><td class="STHSPHPTradeType"><input class=" btn btn-warning" type="submit" name="Submit" value="<?php echo $PlayersLang['Submit'];?>" /></td>
     </tr>
 	</table>
 </form>
@@ -272,16 +271,7 @@ echo $TeamLang['SalaryCapSimulationNote'] . "<br /><br /><br />";
 
 </div>
 
-<script>
-    // Initialize the DataTable
-    const table = $('#teamStatsTable').DataTable({
-       /* paging: false,
-     
-        autoWidth: false, // Disable automatic column width expansion*/
-    });
 
-</script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+
 
 <?php include "Footer.php";?>
