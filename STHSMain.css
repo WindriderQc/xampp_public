@@ -70,6 +70,28 @@ table.MenuSTHS a:hover{text-decoration:none;color:#000000;}
 .tabmain-links a{padding:0px 25px;display:inline-block;border-radius:3px 3px 0px 0px;color:#dedede;font-size:16px;font-weight:600;color:#000000;transition:all linear 0.15s;}
 .tabmain-links a:hover{text-decoration:none;color:#000000;}
 li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:#990000;}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .tabmain-links {
+      flex-wrap: wrap; /* Les éléments passent à la ligne si nécessaire */
+  }
+
+  .tabmain-links li {
+      float: none; /* Supprime le flottement */
+      margin: 5px 0; /* Ajoute un espace vertical */
+  }
+
+  .tabmain-links a {
+      padding: 10px; /* Rend les liens plus adaptés au mobile */
+      text-align: center; /* Centre le texte */
+      width: 100%; /* Chaque lien prend toute la largeur disponible */
+      box-sizing: border-box; /* Inclut le padding dans la largeur */
+  }
+}
+
+
+
 .tabmain-content{border-radius:1px;}
 .tabmain{display:none;}
 .tabmain.active{display:block;}

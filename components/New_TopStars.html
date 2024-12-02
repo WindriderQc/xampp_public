@@ -6,70 +6,135 @@
     <title>Card - Offensive Leader</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 </head>
-<body>
-    <div class="hp-offleaders-div container mt-4">
-        <div class="card w-50 mx-auto">
-            <div class="card-header text-center bg-dark text-white">
-                <h2 class="mb-0">Offensive Leaders</h2>
+
+
+<div class="hp-leaders-div container">
+    <div class="card w-100 mx-auto">
+        <div class="card-header text-center bg-dark text-white">
+            <h5 class="mb-0">Top Scorers</h5>
+        </div>
+        <div class="card-body">
+            <div class="row p-2">
+                <!-- Section gauche : photo de profil et informations -->
+                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                    <!-- Photo principale -->
+                    <div class="mb-3 position-relative">
+                        <img id="general-player-photo" src="/images/default.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
+                    </div>
+                    <!-- Ligne sous les images -->
+                    <div class="w-100 border-bottom mb-3"></div>
+                    <!-- Informations joueur -->
+                    <div class="d-flex justify-content-center align-items-center mb-2">
+                        <div class="me-3 pe-3 border-end">
+                            <strong id="general-player-number"></strong>
+                        </div>
+                        <div class="">
+                            <span id="general-player-name">Player Name</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section droite : tableau des leaders -->
+                <div class="col-md-9">
+                    <!-- Titre des colonnes -->
+                    <div class="row text-center fw-bold border-bottom mb-3">
+                        <div class="col-9">Player</div>
+                        <div class="col-3">PTS</div>
+                    </div>
+                    <!-- Contenu dynamique -->
+                    <div class="text-center" id="leaderboard-general">
+                        <!-- Les lignes des joueurs seront insérées ici par JS -->
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="row">
+        </div>
+    </div>
+</div>
+
+<!-- Offensive Leaders -->
+<body>
+    <div class="hp-offleaders-div container">
+        <div class="card w-100 mx-auto ">
+            <div class="card-header text-center bg-dark text-white">
+                <h5 class="mb-0">Top Goals</h5>
+            </div>
+            <div class="card-body ">
+                <div class="row p-2">
                     <!-- Section gauche : photo de profil et informations -->
                     <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                        <!-- Première image -->
+                        <!-- Photo principale -->
                         <div class="mb-3 position-relative">
-                            <img src="/images/Petterson.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
-                        </div>
-                        <!-- Deuxième image superposée -->
-                        <div class="position-absolute top-50 start-505 translate-middle" style="z-index: 2;">
-                            <img src="/images/3.png" alt="Secondary Profile Picture" class=" img-fluid mugshotOverlay">
+                            <img id="player-photo" src="/images/default.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
                         </div>
                         <!-- Ligne sous les images -->
                         <div class="w-100 border-bottom mb-3"></div>
-                        <!-- Informations côte à côte avec une ligne verticale -->
+                        <!-- Informations joueur -->
                         <div class="d-flex justify-content-center align-items-center mb-2">
-                            <!-- Numéro -->
                             <div class="me-3 pe-3 border-end">
-                                <strong>#40</strong>
+                                <strong id="player-number"></strong>
                             </div>
-                            <!-- Nom -->
-                            <div class="ms-3">
-                                <span>Elias Petterson</span>
+                            <div class="">
+                                <span id="player-name">Player Name</span>
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
     
                     <!-- Section droite : tableau des leaders -->
                     <div class="col-md-9">
                         <!-- Titre des colonnes -->
-                        <div class="row text-center fw-bold pb-2 border-bottom mb-3">
+                        <div class="row text-center fw-bold  border-bottom mb-3">
                             <div class="col-9">Player</div>
-                            <div class="col-3">PTS</div>
+                            <div class="col-3">Goals</div>
                         </div>
-                        <!-- Lignes des leaders -->
-                        <div class="row text-center mb-2">
-                            <div class="col-9">Elias Petterson</div>
-                            <div class="col-3">19</div>
+                        <!-- Contenu dynamique -->
+                        <div  class="text-center" id="leaderboard">
+                            <!-- Les lignes des joueurs seront insérées ici par JS -->
                         </div>
-                        <div class="row text-center mb-2">
-                            <div class="col-9">Brayden Point</div>
-                            <div class="col-3">18</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hp-goalie-leaders-div container">
+        <div class="card w-100 mx-auto">
+            <div class="card-header text-center bg-dark text-white">
+                <h5 class="mb-0">Goalie Leaders</h5>
+            </div>
+            <div class="card-body">
+                <div class="row p-2">
+                    <!-- Section gauche : photo de profil et informations -->
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <!-- Photo principale -->
+                        <div class="mb-3 position-relative">
+                            <img id="goalie-player-photo" src="/images/default.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
                         </div>
-                        <div class="row text-center mb-2">
-                            <div class="col-9">Nathan MacKinnon</div>
-                            <div class="col-3">17</div>
+                        <!-- Ligne sous les images -->
+                        <div class="w-100 border-bottom mb-3"></div>
+                        <!-- Informations joueur -->
+                        <div class="d-flex justify-content-center align-items-center mb-2">
+                            <div class="me-3 pe-3 border-end">
+                                <strong id="goalie-player-number"></strong>
+                            </div>
+                            <div class="">
+                                <span id="goalie-player-name">Player Name</span>
+                            </div>
                         </div>
-                        <div class="row text-center mb-2">
-                            <div class="col-9">Leon Draisaitl</div>
-                            <div class="col-3">16</div>
+                    </div>
+    
+                    <!-- Section droite : tableau des leaders -->
+                    <div class="col-md-9">
+                        <!-- Titre des colonnes -->
+                        <div class="row text-center fw-bold border-bottom mb-3">
+                            <div class="col-6">Player</div>
+                            <div class="col-3">PCT</div>
+                            <div class="col-3">W</div>
                         </div>
-                        <div class="row text-center mb-2">
-                            <div class="col-9">David Pastrnak</div>
-                            <div class="col-3">15</div>
+                        <!-- Contenu dynamique -->
+                        <div class="text-center" id="leaderboard-goalie">
+                            <!-- Les lignes des gardiens seront insérées ici par JS -->
                         </div>
                     </div>
                 </div>
@@ -77,12 +142,22 @@
         </div>
     </div>
     
+    
+    
+    
+    
+    
+
+    
+
+    
     <style>
         .mugshotTop5 {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
             border: 2px solid #ddd;
+            
         }
         .card {
             border: none;
@@ -92,13 +167,162 @@
             background-color: #007bff;
             color: white;
         }
-        .mugshotOverlay {
-            width: 50px;
-            height: 50px;
-        }
+        
+
+        
     </style>
     
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+<script>
+
+// Fonction pour mettre à jour le tableau des leaders
+function updateLeaderboard() {
+    const topScorers = getTop5Scorer();
+
+    const leaderboard = document.getElementById('leaderboard');
+    const playerPhoto = document.getElementById('player-photo');
+    const playerNumber = document.getElementById('player-number'); // Utilisé pour afficher le logo
+    const playerName = document.getElementById('player-name');
+    const baseURL = "https://assets.nhle.com/mugs/nhl/latest/";
+
+    leaderboard.innerHTML = "";
+
+    if (topScorers.length === 0) {
+        leaderboard.innerHTML = `<div class="text-center">Aucune donnée disponible</div>`;
+        return;
+    }
+
+    const mainPlayer = topScorers[0];
+    console.log("Données du joueur principal :", mainPlayer); // Vérifier les champs disponibles
+
+    // Photo du joueur
+    const imageURL = `${baseURL}${mainPlayer.NHLID}.png`;
+    playerPhoto.src = imageURL;
+
+    // Nom du joueur
+    playerName.textContent = mainPlayer.Name;
+
+    // Logo de l'équipe
+    const logoURL = `/images/${mainPlayer.Team}.png`; // Construire l'URL du logo
+    playerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`; // Remplace le contenu par une image
+
+    // Ajouter les joueurs dans le tableau
+    topScorers.forEach(player => {
+        const row = document.createElement('div');
+        row.className = "row text-center mb-2";
+        row.innerHTML = `
+            <div class="col-9">${player.Name}</div>
+            <div class="col-3">${player.G}</div>
+        `;
+        leaderboard.appendChild(row);
+    });
+}
+
+function updateGeneralLeaderboard() {
+    const generalLeaders = getLeaders(); // Appel à la fonction getLeaders()
+
+    const leaderboardGeneral = document.getElementById('leaderboard-general');
+    const generalPlayerPhoto = document.getElementById('general-player-photo');
+    const generalPlayerNumber = document.getElementById('general-player-number');
+    const generalPlayerName = document.getElementById('general-player-name');
+    const baseURL = "https://assets.nhle.com/mugs/nhl/latest/";
+
+    leaderboardGeneral.innerHTML = "";
+
+    if (generalLeaders.length === 0) {
+        leaderboardGeneral.innerHTML = `<div class="text-center">Aucune donnée disponible</div>`;
+        return;
+    }
+
+    // Joueur principal
+    const mainPlayer = generalLeaders[0];
+    console.log("Données du joueur principal (General Leaders) :", mainPlayer);
+
+    // Photo du joueur
+    const imageURL = `${baseURL}${mainPlayer.NHLID}.png`;
+    generalPlayerPhoto.src = imageURL;
+
+    // Nom du joueur
+    generalPlayerName.textContent = mainPlayer.Name;
+
+    // Logo de l'équipe
+    const logoURL = `/images/${mainPlayer.Team}.png`;
+    generalPlayerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`;
+
+    // Ajouter les joueurs dans le tableau
+    generalLeaders.forEach(player => {
+        const row = document.createElement('div');
+        row.className = "row text-center mb-2";
+        row.innerHTML = `
+            <div class="col-9">${player.Name}</div>
+            <div class="col-3">${player.P}</div>
+        `;
+        leaderboardGeneral.appendChild(row);
+    });
+}
+
+function updateGoalieLeaderboard() {
+    const goalieLeaders = getGoalerLeaders(); // Appel à la fonction getGoalerLeaders()
+
+    const leaderboardGoalie = document.getElementById('leaderboard-goalie');
+    const goaliePlayerPhoto = document.getElementById('goalie-player-photo');
+    const goaliePlayerNumber = document.getElementById('goalie-player-number');
+    const goaliePlayerName = document.getElementById('goalie-player-name');
+    const baseURL = "https://assets.nhle.com/mugs/nhl/latest/";
+
+    leaderboardGoalie.innerHTML = "";
+
+    if (goalieLeaders.length === 0) {
+        leaderboardGoalie.innerHTML = `<div class="text-center">Aucune donnée disponible</div>`;
+        return;
+    }
+
+    // Joueur principal
+    const mainPlayer = goalieLeaders[0];
+    console.log("Données du joueur principal (Goalie Leaders) :", mainPlayer);
+
+    // Photo du joueur
+    const imageURL = `${baseURL}${mainPlayer.NHLID}.png`;
+    goaliePlayerPhoto.src = imageURL;
+
+    // Nom du joueur
+    goaliePlayerName.textContent = mainPlayer.Name;
+
+    // Logo de l'équipe
+    const logoURL = `/images/${mainPlayer.Team}.png`;
+    goaliePlayerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`;
+
+    // Ajouter les gardiens dans le tableau
+    goalieLeaders.forEach(player => {
+        const row = document.createElement('div');
+        row.className = "row text-center mb-2";
+        row.innerHTML = `
+            <div class="col-6">${player.Name}</div>
+            <div class="col-3">${player.PCT}</div>
+            <div class="col-3">${player.W}</div>
+        `;
+        leaderboardGoalie.appendChild(row);
+    });
+}
+
+
+
+updateInfos(() => {
+    updateLeaderboard(); // Met à jour le tableau Offensive Leaders
+    updateGeneralLeaderboard(); // Met à jour le tableau General Leaders
+    updateGoalieLeaderboard(); // Met à jour le tableau Goalie Leaders
+});
+
+
+
+</script>
+
+   
 </body>
 </html>
+
+
+
+
+
+ 
