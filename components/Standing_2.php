@@ -1,6 +1,8 @@
 
 
 <?php
+if ($lang == "fr"){include 'LanguageFR-League.php';}else{include 'LanguageEN-League.php';}
+if ($lang == "fr"){include 'LanguageFR-Stat.php';}else{include 'LanguageEN-Stat.php';}
 
 $TypeText = (string)"Pro";$TitleType = $DynamicTitleLang['Pro'];
 $TypeTextTeam = (string)"Pro";
@@ -153,7 +155,7 @@ Function PrintStandingTableRow($row, $TypeText, $StandardStandingOutput, $League
 	$Result = $dbS->querySingle($Query,true);
 	}
 
-	echo "</tr>\n"; /* The \n is for a new line in the HTML Code */
+	echo "</tr>";
 
 ?>
 
@@ -163,28 +165,10 @@ Function PrintStandingTableRow($row, $TypeText, $StandardStandingOutput, $League
 
 <style>
 
-@media screen and (max-width: 1060px) {
-.STHSWarning {display:block;}
-.STHSPHPStanding_Table thead th:nth-last-child(1){display:none;}
-.STHSPHPStanding_Table tbody td:nth-last-child(1){display:none;}
-.STHSPHPStanding_Table thead th:nth-last-child(3){display:none;}
-.STHSPHPStanding_Table tbody td:nth-last-child(3){display:none;}
-.STHSPHPStanding_Table thead th:nth-last-child(4){display:none;}
-.STHSPHPStanding_Table tbody td:nth-last-child(4){display:none;}
-.STHSPHPStanding_Table thead th:nth-last-child(5){display:none;}
-.STHSPHPStanding_Table tbody td:nth-last-child(5){display:none;}
-}
-@media screen and (max-width: 890px) {
-.STHSPHPStanding_Table thead th:nth-last-child(2){display:none;}
-.STHSPHPStanding_Table tbody td:nth-last-child(2){display:none;}
-.STHSPHPStanding_Table thead th:nth-last-child(6){display:none;}
-.STHSPHPStanding_Table tbody td:nth-last-child(6){display:none;}
-}
 
-.STHSPHPStanding_Table tbody td.staticTD {font-size:14pt;border-right:hidden; border-left:hidden;}
+
 
 <?php 
-
 if ($Playoff == True){
 	echo "#tabmain1{display:none;}\n";
 	echo "#tabmain2{display:none;}\n";
@@ -206,10 +190,8 @@ if ($Playoff == True){
     <div class="card-header">Conférence de l'Est</div>
     <div class="card-body mt-0 pt-1 px-0 mx-0 text-primary">
 
-
         <div class="tabsmain standard">
-            <ul class="tabmain-links">
-            </ul>
+      
         <div class="tabmain-content">
 
             <div class="tabmain <?php if(isset($LeagueGeneral)){If ($LeagueGeneral['DivisionNewNHLPlayoff'] == "True"){echo "active";}}?>" id="tabmain1">
@@ -250,7 +232,8 @@ if ($Playoff == True){
 
 
             /* Overall for Conference 1 */	
-            Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] ."</td></tr>";
+             echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] ."</td></tr>";    
+           // echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"> Wildcard </td></tr>";
             $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Conference)=\"" . $LeagueGeneral['ConferenceName1'] . "\") AND ((RankingOrder.Type)=1)) ORDER BY RankingOrder.TeamOrder";
             $Standing = $db->query($Query);
             $LoopCount =0;
@@ -374,11 +357,8 @@ if ($Playoff == True){
 
 
         <div class="tabmain<?php if ($Playoff == True){echo " active";}?>" id="tabmain5">
-
-
         <?php
-
-        If ($StandingQueryOK == True){
+        if ($StandingQueryOK == True){
 
             If ($LeagueGeneral['PlayOffWinner'] != 0 AND $Playoff == True){
 

@@ -24,12 +24,6 @@ $FilteredPlayerInfo = array_filter($PlayerInfo, function ($row) use ($selectedLe
     return stripos($row['Name'], $selectedLetter) === 0;
 });
 
-$FilteredPlayerInfo = array_filter($PlayerInfo, function ($row) use ($selectedLetter) {
-    return stripos($row['Name'], $selectedLetter) === 0;
-});
-
-
-
 // Format filtered data as JSON
 echo json_encode(array_values($FilteredPlayerInfo)); // Reset array keys
 ?>

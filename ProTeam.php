@@ -332,10 +332,10 @@ if (empty($LeagueGeneral) == false){If ($LeagueGeneral['OffSeason'] == "True"){e
 
 
 
-	<td class="STHSPHPTeamHeader_TeamName teamColorPale<?= $TeamInfo['TeamThemeID'] ?>"> <?= $TeamName ?> </td>
+	<td class="STHSPHPTeamHeader_TeamName teamColorPale<?= $TeamInfo['TeamThemeID']  ?> no-border"> <?= $TeamName ?> </td>
     </tr>
     <tr>
-        <td class="STHSPHPTeamHeader_Stat teamColorPale<?= $TeamInfo['TeamThemeID'] ?>"> GP: <?= $TeamStat['GP'] ?> | W: <?= ($TeamStat['W'] + $TeamStat['OTW'] + $TeamStat['SOW']) ?> | L: <?= $TeamStat['L'] ?>
+        <td class="STHSPHPTeamHeader_Stat teamColorPale<?= $TeamInfo['TeamThemeID'] ?> no-border"> GP: <?= $TeamStat['GP'] ?> | W: <?= ($TeamStat['W'] + $TeamStat['OTW'] + $TeamStat['SOW']) ?> | L: <?= $TeamStat['L'] ?>
 
         <?php 
         if ($LeagueGeneral['PlayOffStarted'] == "False"){

@@ -1,6 +1,7 @@
-
-
 <?php
+
+If ($lang == "fr"){include 'LanguageFR-League.php';}else{include 'LanguageEN-League.php';}
+If ($lang == "fr"){include 'LanguageFR-Stat.php';}else{include 'LanguageEN-Stat.php';}
 
 $TypeText = (string)"Pro";$TitleType = $DynamicTitleLang['Pro'];
 $TypeTextTeam = (string)"Pro";
@@ -11,54 +12,32 @@ $Search = (boolean)False;
 $LeagueOutputOption = Null;
 $ColumnPerTable = 18;
 
-If (file_exists($DatabaseFile) == false){	Goto STHSErrorStanding;} else{
-    try{
+$Title = (string)"";
+$LeagueName = (string)"";
+if(isset($_GET['Farm'])){$TypeText = "Farm";$TypeTextTeam = (string)"Farm";$TitleType = $DynamicTitleLang['Farm'];}
 
-	$Title = (string)"";
-	$LeagueName = (string)"";
-	if(isset($_GET['Farm'])){$TypeText = "Farm";$TypeTextTeam = (string)"Farm";$TitleType = $DynamicTitleLang['Farm'];}
+$db = new SQLite3($DatabaseFile);
 
-	$db = new SQLite3($DatabaseFile);
+$Query = "Select Name, PointSystemW, PointSystemSO, NoOvertime, " . $TypeText . "ConferenceName1 AS ConferenceName1," . $TypeText . "ConferenceName2 AS ConferenceName2," . $TypeText . "DivisionName1 AS DivisionName1," . $TypeText . "DivisionName2 AS DivisionName2," . $TypeText . "DivisionName3 AS DivisionName3," . $TypeText . "DivisionName4 AS DivisionName4," . $TypeText . "DivisionName5 AS DivisionName5," . $TypeText . "DivisionName6 AS DivisionName6," . $TypeText . "HowManyPlayOffTeam AS HowManyPlayOffTeam," . $TypeText . "DivisionNewNHLPlayoff  AS DivisionNewNHLPlayoff,PlayOffWinner" . $TypeText . " AS PlayOffWinner, PlayOffStarted, PlayOffRound, TieBreaker2010, TieBreaker2019 FROM LeagueGeneral";
+$LeagueGeneral = $db->querySingle($Query,true);		
+$LeagueName = $LeagueGeneral['Name'];
+$Query = "Select StandardStandingOutput From LeagueOutputOption";
+$LeagueOutputOption = $db->querySingle($Query,true);		
+$Conference = array($LeagueGeneral['ConferenceName1'], $LeagueGeneral['ConferenceName2']);
+$Division = array($LeagueGeneral['DivisionName1'], $LeagueGeneral['DivisionName2'], $LeagueGeneral['DivisionName3'], $LeagueGeneral['DivisionName4'], $LeagueGeneral['DivisionName5'], $LeagueGeneral['DivisionName6']);
+$Query = "Select " . $TypeText . "TwoConference AS TwoConference from LeagueSimulation";
+$LeagueSimulation = $db->querySingle($Query,true);	
 
-	$Query = "Select Name, PointSystemW, PointSystemSO, NoOvertime, " . $TypeText . "ConferenceName1 AS ConferenceName1," . $TypeText . "ConferenceName2 AS ConferenceName2," . $TypeText . "DivisionName1 AS DivisionName1," . $TypeText . "DivisionName2 AS DivisionName2," . $TypeText . "DivisionName3 AS DivisionName3," . $TypeText . "DivisionName4 AS DivisionName4," . $TypeText . "DivisionName5 AS DivisionName5," . $TypeText . "DivisionName6 AS DivisionName6," . $TypeText . "HowManyPlayOffTeam AS HowManyPlayOffTeam," . $TypeText . "DivisionNewNHLPlayoff  AS DivisionNewNHLPlayoff,PlayOffWinner" . $TypeText . " AS PlayOffWinner, PlayOffStarted, PlayOffRound, TieBreaker2010, TieBreaker2019 FROM LeagueGeneral";
-	$LeagueGeneral = $db->querySingle($Query,true);		
-	$LeagueName = $LeagueGeneral['Name'];
-	$Query = "Select StandardStandingOutput From LeagueOutputOption";
-	$LeagueOutputOption = $db->querySingle($Query,true);		
-	$Conference = array($LeagueGeneral['ConferenceName1'], $LeagueGeneral['ConferenceName2']);
-	$Division = array($LeagueGeneral['DivisionName1'], $LeagueGeneral['DivisionName2'], $LeagueGeneral['DivisionName3'], $LeagueGeneral['DivisionName4'], $LeagueGeneral['DivisionName5'], $LeagueGeneral['DivisionName6']);
-	$Query = "Select " . $TypeText . "TwoConference AS TwoConference from LeagueSimulation";
-	$LeagueSimulation = $db->querySingle($Query,true);	
+if ($LeagueGeneral['PlayOffStarted'] == "True"){
+    if(isset($_GET['Season'])){
+        $TypeTextTeam = $TypeTextTeam . "Season";
+    }else{
+        $Playoff = True;
+    }
+}
 
-	If ($LeagueOutputOption['StandardStandingOutput'] == "False"){
-		$ColumnPerTable = 21;
-		If ($LeagueGeneral['PointSystemSO'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
-		If ($LeagueGeneral['TieBreaker2019'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
-		If ($LeagueGeneral['TieBreaker2019'] == "False" AND $LeagueGeneral['TieBreaker2010'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
-	}
+$StandingQueryOK = True;
 
-	
-	if ($LeagueGeneral['PlayOffStarted'] == "True"){
-		if(isset($_GET['Season'])){
-			$Title = $LeagueName . " - " . $StandingLang['Standing'] . " " . $TitleType;
-			$TypeTextTeam = $TypeTextTeam . "Season";
-		}else{
-			$Title = $LeagueName . " - " . $StandingLang['Playoff'] . " " . $TitleType;
-			$Playoff = True;
-		}
-	}else{		$Title = $LeagueName . " - " . $StandingLang['Standing'] . " " . $TitleType;	}
-
-	$StandingQueryOK = True;
-
-} catch (Exception $e) {  
-STHSErrorStanding:
-	$StandingQueryOK = False;
-	$LeagueName = $DatabaseNotFound;
-	$Standing = Null;
-	$LeagueGeneral = Null;
-	echo "<title>" . $DatabaseNotFound . "</title>";
-	$Title = $DatabaseNotFound;
-}}
 
 
 
@@ -69,7 +48,7 @@ function PrintStandingWest($TeamLang, $StandardStandingOutput, $LeagueGeneral) {
     echo "<th title=\"Position\" class=\"STHSW35\">PO</th>";
     echo "<th title=\"Team Name\" class=\"STHSW200\">" . $TeamLang['TeamName'] ."</th>";
     echo "<th title=\"Games Played\" class=\"STHSW30\">GP</th>";
-    If ($StandardStandingOutput == "True"){
+    if ($StandardStandingOutput == "True"){
         echo "<th title=\"Wins\" class=\"STHSW30\">W</th>";
         echo "<th title=\"Loss\" class=\"STHSW30\">L</th>";
         echo "<th title=\"Overtime Loss\" class=\"STHSW30\">OTL</th>";
@@ -89,8 +68,8 @@ function PrintStandingWest($TeamLang, $StandardStandingOutput, $LeagueGeneral) {
     }
 
     echo "<th title=\"Points\" class=\"STHSW30\">P</th>";
-    If ($LeagueGeneral['TieBreaker2019'] == "True"){echo "<th title=\"Normal Wins\" class=\"STHSW30\">RW</th>";}
-    If ($LeagueGeneral['TieBreaker2019'] == "True" OR $LeagueGeneral['TieBreaker2010'] == "True"){echo "<th title=\"Normal Wins + Overtime Win\" class=\"STHSW30\">ROW</th>";}
+    if ($LeagueGeneral['TieBreaker2019'] == "True"){echo "<th title=\"Normal Wins\" class=\"STHSW30\">RW</th>";}
+    if ($LeagueGeneral['TieBreaker2019'] == "True" OR $LeagueGeneral['TieBreaker2010'] == "True"){echo "<th title=\"Normal Wins + Overtime Win\" class=\"STHSW30\">ROW</th>";}
 
     echo "</tr></thead><tbody>";
 }
@@ -102,7 +81,7 @@ Function PrintStandingTableWest($Standing, $TypeText, $StandardStandingOutput, $
     while ($row = $Standing ->fetchArray()) {
         $LoopCount +=1;
         PrintStandingTableRowWest($row, $TypeText, $StandardStandingOutput, $LeagueGeneral, $LoopCount, $DatabaseFile,$ImagesCDNPath);
-        If ($LoopCount > 0 AND $LoopCount == $LinesNumber){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
+        if ($LoopCount > 0 AND $LoopCount == $LinesNumber){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
     }
     echo "</tbody></table>";
 }
@@ -112,7 +91,7 @@ Function PrintStandingTableWest($Standing, $TypeText, $StandardStandingOutput, $
 Function PrintStandingTableRowWest($row, $TypeText, $StandardStandingOutput, $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath){
 	echo "<tr><td>" . $LoopCount . "</td>";
 	echo "<td><span class=\"" . $TypeText . "Standing_Team" . $row['Number'] . "\"></span>";
-	If ($row['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImageMainPage\" />";}
+	if ($row['TeamThemeID'] > 0){echo "<img src=\"images/" . $row['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImageMainPage\" />";}
 	echo "<div class=\"darkText\"><a href=\"" . $TypeText . "Team.php?Team=" . $row['Number'] . "\">" . $row['Name'] . "</a></div>";
 
 	if($row['StandingPlayoffTitle']=="E"){echo " - E ";
@@ -123,7 +102,7 @@ Function PrintStandingTableRowWest($row, $TypeText, $StandardStandingOutput, $Le
 
 	echo "</td><td>" . $row['GP'] . "</td>";
 
-	If ($StandardStandingOutput == "True"){
+	if ($StandardStandingOutput == "True"){
 		echo "<td>" . ($row['W'] + $row['OTW'] + $row['SOW']) . "</td>";
 		echo "<td>" . $row['L'] . "</td>";
 		echo "<td>" . ($row['OTL'] + $row['SOL']) . "</td>";
@@ -146,14 +125,14 @@ Function PrintStandingTableRowWest($row, $TypeText, $StandardStandingOutput, $Le
 	}
 
 	echo "<td><strong>" . $row['Points'] . "</strong></td>";
-	If ($LeagueGeneral['TieBreaker2019'] == "True"){echo "<td>" . ($row['W']) . "</td>";}
-	If ($LeagueGeneral['TieBreaker2019'] == "True" OR $LeagueGeneral['TieBreaker2010'] == "True"){echo "<td>" . ($row['W'] + $row['OTW']) . "</td>";}
+	if ($LeagueGeneral['TieBreaker2019'] == "True"){echo "<td>" . ($row['W']) . "</td>";}
+	if ($LeagueGeneral['TieBreaker2019'] == "True" OR $LeagueGeneral['TieBreaker2010'] == "True"){echo "<td>" . ($row['W'] + $row['OTW']) . "</td>";}
 	$dbS = new SQLite3($DatabaseFile);
 	$Query = "SELECT count(*) AS count FROM Schedule" . $TypeText . " WHERE (VisitorTeam = " . $row['Number'] . " OR HomeTeam = " . $row['Number'] . ") AND Play = 'False' ORDER BY GameNumber LIMIT 1";
 	$Result = $dbS->querySingle($Query,true);
 	}
 
-	echo "</tr>\n"; /* The \n is for a new line in the HTML Code */
+	echo "</tr>"; 
 
 ?>
 
@@ -212,19 +191,19 @@ if ($Playoff == True){
             </ul>
         <div class="tabmain-content">
 
-            <div class="tabmain <?php if(isset($LeagueGeneral)){If ($LeagueGeneral['DivisionNewNHLPlayoff'] == "True"){echo "active";}}?>" id="tabmain1">
+            <div class="tabmain <?php if(isset($LeagueGeneral)){if ($LeagueGeneral['DivisionNewNHLPlayoff'] == "True"){echo "active";}}?>" id="tabmain1">
 
        
 
         <?php
-        If ($StandingQueryOK == True){
+        if ($StandingQueryOK == True){
 
             // PrintStandingWest($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
 
 
 
             // /* Division 1 */
-            // Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName1'] . "</td></tr>";
+            // echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName1'] . "</td></tr>";
             // $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName1'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
             // $Standing = $db->query($Query);
             // $LoopCount =0;
@@ -237,7 +216,7 @@ if ($Playoff == True){
               
 
             // /* Division 2 */	
-            // Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName2'] . "</td></tr>";
+            // echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName2'] . "</td></tr>";
             // $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName2'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
             // $Standing = $db->query($Query);
             // $LoopCount =0;
@@ -250,70 +229,97 @@ if ($Playoff == True){
 
 
             // /* Overall for Conference 1 */	
-            // Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] ."</td></tr>";
+            // echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] ."</td></tr>";
             // $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Conference)=\"" . $LeagueGeneral['ConferenceName1'] . "\") AND ((RankingOrder.Type)=1)) ORDER BY RankingOrder.TeamOrder";
             // $Standing = $db->query($Query);
             // $LoopCount =0;
 
             // if (empty($Standing) == false){while ($row = $Standing ->fetchArray()) {
             //     $LoopCount +=1;
-            //     If ($LoopCount > 6 ){PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);}
-            //     If ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
+            //     if ($LoopCount > 6 ){PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);}
+            //     if ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
             // }}
 
 
 
-            echo "</tbody></table>";	
+           
 
 
-
-            // echo "<h2>" . $LeagueGeneral['ConferenceName2'] . "</h2>";
+            // Print standings for Conference 2
             PrintStandingWest($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
 
-            /* Division 4 */
-            Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName4'] . "</td></tr>";
-            $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName4'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
+            // Division 4
+            echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName4'] . "</td></tr>";
+            $Query = "SELECT Team{$TypeTextTeam}Stat.*, Team{$TypeText}Info.Conference, Team{$TypeText}Info.Division, Team{$TypeText}Info.TeamThemeID, RankingOrder.Type
+                    FROM Team{$TypeTextTeam}Stat
+                    INNER JOIN Team{$TypeText}Info ON Team{$TypeTextTeam}Stat.Number = Team{$TypeText}Info.Number
+                    INNER JOIN RankingOrder ON Team{$TypeTextTeam}Stat.Number = RankingOrder.Team{$TypeText}Number
+                    WHERE Team{$TypeText}Info.Division = '{$LeagueGeneral['DivisionName4']}'
+                    AND RankingOrder.Type = 0
+                    ORDER BY RankingOrder.TeamOrder LIMIT 3";
             $Standing = $db->query($Query);
-            $LoopCount =0;
+            $LoopCount = 0;
 
-            if (empty($Standing) == false){while ($row = $Standing ->fetchArray()) {
-                $LoopCount +=1;
-                PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);
-            }}
+            if ($Standing) {
+                while ($row = $Standing->fetchArray()) {
+                    $LoopCount += 1;
+                    PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount, $DatabaseFile, $ImagesCDNPath);
+                }
+            }
 
-                
-
-            /* Division 5 */	
-            Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName5'] . "</td></tr>";
-            $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $LeagueGeneral['DivisionName5'] . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder LIMIT 3";
+            // Division 5
+            echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneral['DivisionName5'] . "</td></tr>";
+            $Query = "SELECT Team{$TypeTextTeam}Stat.*, Team{$TypeText}Info.Conference, Team{$TypeText}Info.Division, Team{$TypeText}Info.TeamThemeID, RankingOrder.Type
+                    FROM Team{$TypeTextTeam}Stat
+                    INNER JOIN Team{$TypeText}Info ON Team{$TypeTextTeam}Stat.Number = Team{$TypeText}Info.Number
+                    INNER JOIN RankingOrder ON Team{$TypeTextTeam}Stat.Number = RankingOrder.Team{$TypeText}Number
+                    WHERE Team{$TypeText}Info.Division = '{$LeagueGeneral['DivisionName5']}'
+                    AND RankingOrder.Type = 0
+                    ORDER BY RankingOrder.TeamOrder LIMIT 3";
             $Standing = $db->query($Query);
-            $LoopCount =0;
+            $LoopCount = 0;
 
-            if (empty($Standing) == false){while ($row = $Standing ->fetchArray()) {
-                $LoopCount +=1;
-                PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);
-            }}
+            if ($Standing) {
+                while ($row = $Standing->fetchArray()) {
+                    $LoopCount += 1;
+                    PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount, $DatabaseFile, $ImagesCDNPath);
+                }
+            }
 
-
-            /* Overall for Conference 2 */	
-            Echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">" . $StandingLang['Wildcard'] . "</td></tr>";
-            $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Conference)=\"" . $LeagueGeneral['ConferenceName2'] . "\") AND ((RankingOrder.Type)=2)) ORDER BY RankingOrder.TeamOrder";
+            // Wildcard Standings
+            echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\">". $StandingLang['Wildcard'] . "</td></tr>";
+            $Query = "SELECT Team{$TypeTextTeam}Stat.*, Team{$TypeText}Info.Conference, Team{$TypeText}Info.Division, Team{$TypeText}Info.TeamThemeID, RankingOrder.Type
+                    FROM Team{$TypeTextTeam}Stat
+                    INNER JOIN Team{$TypeText}Info ON Team{$TypeTextTeam}Stat.Number = Team{$TypeText}Info.Number
+                    INNER JOIN RankingOrder ON Team{$TypeTextTeam}Stat.Number = RankingOrder.Team{$TypeText}Number
+                    WHERE Team{$TypeText}Info.Conference = '{$LeagueGeneral['ConferenceName2']}'
+                    AND RankingOrder.Type = 2
+                    ORDER BY RankingOrder.TeamOrder";
             $Standing = $db->query($Query);
-            $LoopCount =0;
-            if (empty($Standing) == false){while ($row = $Standing ->fetchArray()) {
-                $LoopCount +=1;
-                If ($LoopCount > 6 ){PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount,$DatabaseFile,$ImagesCDNPath);}
-                If ($LoopCount == 8){echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";}
-            }}
+            $LoopCount = 0;
+
+            if ($Standing) {
+                while ($row = $Standing->fetchArray()) {
+                    $LoopCount += 1;
+                    // Ensure wildcards only show up in their section
+                    if ($LoopCount > 6) {
+                        PrintStandingTableRowWest($row, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $LoopCount, $DatabaseFile, $ImagesCDNPath);
+                    }
+                    if ($LoopCount == 8) {
+                        echo "<tr class=\"static\"><td class=\"staticTD\" colspan=\"" . $ColumnPerTable . "\"><hr /></td></tr>";
+                    }
+                }
+            }
             echo "</tbody></table>";
+
         }
         ?>
         </div>
 
 
-        <div class="tabmain <?php if(isset($LeagueGeneral)){If ($LeagueGeneral['DivisionNewNHLPlayoff'] == "False"){echo "active";}}?>" id="tabmain2">
+        <div class="tabmain <?php if(isset($LeagueGeneral)){if ($LeagueGeneral['DivisionNewNHLPlayoff'] == "False"){echo "active";}}?>" id="tabmain2">
         <?php
-        If ($StandingQueryOK == True){
+        if ($StandingQueryOK == True){
             $LoopCount =0;
 
             foreach ($Conference as $Value){
@@ -322,11 +328,11 @@ if ($Playoff == True){
                 $Standing = $db->query($Query);
                 $DataReturn = $db->query($Query); /* Run the Query Twice to Loop Second Array to confirm the first Query Return Data  */
 
-                If ($DataReturn == True){if($DataReturn->fetchArray()){ /* Only Print Information if Query has row */
+                if ($DataReturn == True){if($DataReturn->fetchArray()){ /* Only Print Information if Query has row */
                     echo "<h2>" . $Value . "</h2>";
                     PrintStandingWest($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
 
-                    If ($LeagueSimulation['TwoConference'] == "True"){
+                    if ($LeagueSimulation['TwoConference'] == "True"){
                         PrintStandingTableWest($Standing, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $ColumnPerTable, $LeagueGeneral['HowManyPlayOffTeam']/2,$DatabaseFile,$ImagesCDNPath);
                     }else{
                         PrintStandingTableWest($Standing, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral, $ColumnPerTable, $LeagueGeneral['HowManyPlayOffTeam'],$DatabaseFile,$ImagesCDNPath);
@@ -339,14 +345,14 @@ if ($Playoff == True){
 
         <div class="tabmain" id="tabmain3">
         <?php
-        If ($StandingQueryOK == True){
+        if ($StandingQueryOK == True){
             foreach ($Division as $Value){
                 $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((Team" . $TypeText . "Info.Division)=\"" . $Value . "\") AND ((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder";
 
                 $Standing = $db->query($Query);
                 $DataReturn = $db->query($Query); /* Run the Query Twice to Loop Second Array to confirm the first Query Return Data  */
 
-                If ($DataReturn == True){if($DataReturn->fetchArray()){ /* Only Print Information if Query has row */
+                if ($DataReturn == True){if($DataReturn->fetchArray()){ /* Only Print Information if Query has row */
                     echo "<h2>" . $Value . "</h2>";
                     PrintStandingWest($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
                     PrintStandingTableWest($Standing, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral,$ColumnPerTable,0,$DatabaseFile,$ImagesCDNPath);
@@ -358,12 +364,12 @@ if ($Playoff == True){
 
         <div class="tabmain" id="tabmain4">
         <?php
-        If ($StandingQueryOK == True){
-            Echo "<h2>" . $StandingLang['Overall'] . "</h2>";
+        if ($StandingQueryOK == True){
+            echo "<h2>" . $StandingLang['Overall'] . "</h2>";
             $Query = "SELECT Team" . $TypeTextTeam . "Stat.*, Team" . $TypeText . "Info.Conference, Team" . $TypeText . "Info.Division,Team" . $TypeText . "Info.TeamThemeID, RankingOrder.Type FROM (Team" . $TypeTextTeam . "Stat INNER JOIN Team" . $TypeText . "Info ON Team" . $TypeTextTeam . "Stat.Number = Team" . $TypeText . "Info.Number) INNER JOIN RankingOrder ON Team" . $TypeTextTeam . "Stat.Number = RankingOrder.Team" . $TypeText . "Number WHERE (((RankingOrder.Type)=0)) ORDER BY RankingOrder.TeamOrder";
             $Standing = $db->query($Query);
             $DataReturn = $db->query($Query); /* Run the Query Twice to Loop Second Array to confirm the first Query Return Data  */
-            If ($DataReturn == True){
+            if ($DataReturn == True){
                 PrintStandingWest($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral);
                 PrintStandingTableWest($Standing, $TypeText, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneral,$ColumnPerTable,0,$DatabaseFile,$ImagesCDNPath);
             }
@@ -378,20 +384,20 @@ if ($Playoff == True){
 
         <?php
 
-        If ($StandingQueryOK == True){
+        if ($StandingQueryOK == True){
 
-            If ($LeagueGeneral['PlayOffWinner'] != 0 AND $Playoff == True){
+            if ($LeagueGeneral['PlayOffWinner'] != 0 AND $Playoff == True){
 
                 $Winner = $db->querySingle("Select Team" . $TypeText . "Info.Name,Team" . $TypeText . "Info.TeamThemeID from Team" . $TypeText . "Info WHERE Team" . $TypeText . "Info.Number = ". $LeagueGeneral['PlayOffWinner'],true);
                 echo "<div class=\"STHSCenter\">";
-                echo "<td>";If ($Winner['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Winner['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingPlayoffWinnerImage \" />";}
+                echo "<td>";if ($Winner['TeamThemeID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Winner['TeamThemeID'] .".png\" alt=\"\" class=\"STHSPHPStandingPlayoffWinnerImage \" />";}
                 echo "<h1>" . $Winner['Name'] . $StandingLang['WinsPlayoff'] . "</h1><br /><br /></div>";
             }
 
             echo "<table class=\"STHSTableFullW\"><tr>";
 
             for($Round = 1; $Round <= 5; $Round++){
-                If ($Round <= $LeagueGeneral['PlayOffRound']){
+                if ($Round <= $LeagueGeneral['PlayOffRound']){
                     echo "<td><b> " . $StandingLang['Round'] . $Round . "</b></td>";
                 }else{
                     echo "<td></td>";
@@ -406,54 +412,54 @@ if ($Playoff == True){
 
                 echo "<tr>";
 
-                If ($Row['Round1'] == 0){echo "<td></td>";}else{
+                if ($Row['Round1'] == 0){echo "<td></td>";}else{
                     $Round1 = $db->querySingle("SELECT Playoff" . $TypeText . ".*, TeamInfoHome.Name as HomeTeamName, TeamInfoVisitor.Name as VisitorTeamName, TeamInfoHome.TeamThemeID as HomeThemID, TeamInfoVisitor.TeamThemeID as VisitorThemID FROM (Playoff" . $TypeText . " INNER JOIN Team" . $TypeText . "Info AS TeamInfoHome ON Playoff" . $TypeText . ".HomeTeam = TeamInfoHome.Number) LEFT JOIN Team" . $TypeText . "Info AS TeamInfoVisitor ON Playoff" . $TypeText . ".VisitorTeam = TeamInfoVisitor.Number WHERE Playoff" . $TypeText . ".Number = " . $Row['Round1'],true);	
                     if($Round1 != Null){
 
-                        echo "<td>";If ($Round1['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round1['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
+                        echo "<td>";if ($Round1['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round1['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round1['VisitorTeam'] . "\">" . $Round1['VisitorTeamName'] . " - " . $Round1['VisitorWin'] . "</a><br />";}
-                        If ($Round1['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round1['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
+                        if ($Round1['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round1['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round1['HomeTeam'] . "\">" . $Round1['HomeTeamName'] . " - " . $Round1['HomeWin'] . "</a><br /><br /></td>\n";}
                     }
                 }
 
-                If ($Row['Round2'] == 0){echo "<td></td>";}else{
+                if ($Row['Round2'] == 0){echo "<td></td>";}else{
                     $Round2 = $db->querySingle("SELECT Playoff" . $TypeText . ".*, TeamInfoHome.Name as HomeTeamName, TeamInfoVisitor.Name as VisitorTeamName, TeamInfoHome.TeamThemeID as HomeThemID, TeamInfoVisitor.TeamThemeID as VisitorThemID FROM (Playoff" . $TypeText . " INNER JOIN Team" . $TypeText . "Info AS TeamInfoHome ON Playoff" . $TypeText . ".HomeTeam = TeamInfoHome.Number) LEFT JOIN Team" . $TypeText . "Info AS TeamInfoVisitor ON Playoff" . $TypeText . ".VisitorTeam = TeamInfoVisitor.Number WHERE Playoff" . $TypeText . ".Number = " . $Row['Round2'],true);
 
                     if($Round2 != Null){
-                        echo "<td>";If ($Round2['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round2['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
+                        echo "<td>";if ($Round2['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round2['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round2['VisitorTeam'] . "\">" . $Round2['VisitorTeamName'] . " - " . $Round2['VisitorWin'] . "</a><br />";}
-                        If ($Round2['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round2['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
+                        if ($Round2['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round2['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round2['HomeTeam'] . "\">" . $Round2['HomeTeamName'] . " - " . $Round2['HomeWin'] . "</a><br /><br /></td>\n";}
                     }
                 }
 
-                If ($Row['Round3'] == 0){echo "<td></td>";}else{
+                if ($Row['Round3'] == 0){echo "<td></td>";}else{
                     $Round3 = $db->querySingle("SELECT Playoff" . $TypeText . ".*, TeamInfoHome.Name as HomeTeamName, TeamInfoVisitor.Name as VisitorTeamName, TeamInfoHome.TeamThemeID as HomeThemID, TeamInfoVisitor.TeamThemeID as VisitorThemID FROM (Playoff" . $TypeText . " INNER JOIN Team" . $TypeText . "Info AS TeamInfoHome ON Playoff" . $TypeText . ".HomeTeam = TeamInfoHome.Number) LEFT JOIN Team" . $TypeText . "Info AS TeamInfoVisitor ON Playoff" . $TypeText . ".VisitorTeam = TeamInfoVisitor.Number WHERE Playoff" . $TypeText . ".Number = " . $Row['Round3'],true);	
                     if($Round3 != Null){
-                        echo "<td>";If ($Round3['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round3['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";		
+                        echo "<td>";if ($Round3['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round3['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";		
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round3['VisitorTeam'] . "\">" . $Round3['VisitorTeamName'] . " - " . $Round3['VisitorWin'] . "</a><br />";}
-                        If ($Round3['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round3['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
+                        if ($Round3['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round3['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round3['HomeTeam'] . "\">" . $Round3['HomeTeamName'] . " - " . $Round3['HomeWin'] . "</a><br /><br /></td>\n";}
                     }
                 }
 
-                If ($Row['Round4'] == 0){echo "<td></td>";}else{
+                if ($Row['Round4'] == 0){echo "<td></td>";}else{
                     $Round4 = $db->querySingle("SELECT Playoff" . $TypeText . ".*, TeamInfoHome.Name as HomeTeamName, TeamInfoVisitor.Name as VisitorTeamName, TeamInfoHome.TeamThemeID as HomeThemID, TeamInfoVisitor.TeamThemeID as VisitorThemID FROM (Playoff" . $TypeText . " INNER JOIN Team" . $TypeText . "Info AS TeamInfoHome ON Playoff" . $TypeText . ".HomeTeam = TeamInfoHome.Number) LEFT JOIN Team" . $TypeText . "Info AS TeamInfoVisitor ON Playoff" . $TypeText . ".VisitorTeam = TeamInfoVisitor.Number WHERE Playoff" . $TypeText . ".Number = " . $Row['Round4'],true);	
                     if($Round4 != Null){
-                        echo "<td>";If ($Round4['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round4['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";			
+                        echo "<td>";if ($Round4['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round4['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";			
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round4['VisitorTeam'] . "\">" . $Round4['VisitorTeamName'] . " - " . $Round4['VisitorWin'] . "</a><br />";}
-                        If ($Round4['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round4['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
+                        if ($Round4['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round4['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round4['HomeTeam'] . "\">" . $Round4['HomeTeamName'] . " - " . $Round4['HomeWin'] . "</a><br /><br /></td>\n";}
                     }
                 }
 
-                If ($Row['Round5'] == 0){echo "<td></td>";}else{
+                if ($Row['Round5'] == 0){echo "<td></td>";}else{
                     $Round5 = $db->querySingle("SELECT Playoff" . $TypeText . ".*, TeamInfoHome.Name as HomeTeamName, TeamInfoVisitor.Name as VisitorTeamName, TeamInfoHome.TeamThemeID as HomeThemID, TeamInfoVisitor.TeamThemeID as VisitorThemID FROM (Playoff" . $TypeText . " INNER JOIN Team" . $TypeText . "Info AS TeamInfoHome ON Playoff" . $TypeText . ".HomeTeam = TeamInfoHome.Number) LEFT JOIN Team" . $TypeText . "Info AS TeamInfoVisitor ON Playoff" . $TypeText . ".VisitorTeam = TeamInfoVisitor.Number WHERE Playoff" . $TypeText . ".Number = " . $Row['Round5'],true);	
                     if($Round5 != Null){
-                        echo "<td>";If ($Round5['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round5['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";	
+                        echo "<td>";if ($Round5['VisitorThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round5['VisitorThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";	
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round5['VisitorTeam'] . "\">" . $Round5['VisitorTeamName'] . " - " . $Round5['VisitorWin'] . "</a><br />";}
-                        If ($Round4['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round4['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
+                        if ($Round4['HomeThemID'] > 0){echo "<img src=\"" . $ImagesCDNPath . "/images/" . $Round4['HomeThemID'] .".png\" alt=\"\" class=\"STHSPHPStandingTeamImage\" />";
                         echo "<a href=\"" . $TypeText . "Team.php?Team=" . $Round5['HomeTeam'] . "\">" . $Round5['HomeTeamName'] . " - " . $Round5['HomeWin'] . "</a><br /><br /></td>\n";}
                     }
                 }

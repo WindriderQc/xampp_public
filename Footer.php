@@ -17,32 +17,12 @@
 
 				<div class="module-content">
 
-					<div class=""><img id="MenuProLeagueImage" src="<?php echo $ImagesCDNPath;?>/images/proleague.png" width="90" height="90" alt="Pro League Menu"></div>
+					<div class=""><img id="MenuProLeagueImage" src="images/proleague.png" width="90" height="90" alt="Pro League Menu"></div>
+                    <div class=""><img id="MenuFarmLeagueImage" src="images/farmleague.png" width="90" height="90" alt="Farm League Menu"></div>
 
 					<ul>
 
-                        <li><a href="#" class="MenuAfterImage"><?php echo $TopMenuLang['ProLeague'];?></a><ul>
-                        <li><a href="Standing.php"><?php echo $TopMenuLang['Standing'];?></a></li>
-                        <li><a href="Schedule.php"><?php echo $TopMenuLang['Schedule'];?></a></li>
-                        <li><a href="PlayersStat.php?Order=P&MinGP&Max=50"><?php echo $TopMenuLang['PlayersLeader'];?></a></li>
-                        <li><a href="GoaliesStat.php?Order=P&MinGP&Max=10"><?php echo $TopMenuLang['GoaliesLeader'];?></a></li>
-                        <li><a href="IndividualLeaders.php"><?php echo $TopMenuLang['IndividualLeaders'];?></a></li>
-                        <li><a href="PlayersStat.php"><?php echo $TopMenuLang['AllPlayersStats'];?></a></li>
-                        <li><a href="GoaliesStat.php"><?php echo $TopMenuLang['AllGoaliesStats'];?></a></li>
-                        <li><a href="TeamsStat.php"><?php echo $TopMenuLang['TeamsStats'];?></a></li>
-                        <li><a href="PlayersInfo.php?Type=1"><?php echo $TopMenuLang['PlayersInformation'];?></a></li>
-                        <li><a href="Finance.php"><?php echo $TopMenuLang['Finance'];?></a></li>
-                        <li><a href="TeamSalaryCapDetail.php?Team=<?php echo $CookieTeamNumber ?>"><?php echo $TopMenuLang['TeamContractsOverview'];?></a></li>
-                        <li><a href="PowerRanking.php"><?php echo $TopMenuLang['PowerRanking'];?></a></li>
-                        <?php 
-                        if ($MenuQueryOK == True){
-                            if (file_exists($AllStarDatabaseFile)){
-                                echo "<li><a href=\"Boxscore.php?Game=9999\">" . $TopMenuLang['AllStar'] . "</a></li>";
-                            }
-                        elseif (file_exists($LeagueGeneralMenu['OutputName']."-AllStar.".$LeagueGeneralMenu['OutputFileFormat'])){
-                            echo "<li><a href=\"".$LeagueGeneralMenu['OutputName']."-AllStar.".$LeagueGeneralMenu['OutputFileFormat']."\">" . $TopMenuLang['AllStar'] . "</a></li>";
-                            }
-                        }?>
+                       
 
 					</ul>
 

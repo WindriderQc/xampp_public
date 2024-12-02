@@ -12,55 +12,42 @@ $Search = (boolean)False;
 $LeagueOutputOption = Null;
 $ColumnPerTable = 18;
 
-If (file_exists($DatabaseFile) == false){	Goto STHSErrorStanding;}else{
-try{
+$Title = (string)"";
+$LeagueName = (string)"";
+if(isset($_GET['Farm'])){$TypeText = "Farm";$TypeTextTeam = (string)"Farm";$TitleType = $DynamicTitleLang['Farm'];}
 
-	$Title = (string)"";
-	$LeagueName = (string)"";
-	if(isset($_GET['Farm'])){$TypeText = "Farm";$TypeTextTeam = (string)"Farm";$TitleType = $DynamicTitleLang['Farm'];}
-	
-	$db = new SQLite3($DatabaseFile);
+$db = new SQLite3($DatabaseFile);
 
-	$Query = "Select Name, PointSystemW, PointSystemSO, NoOvertime, " . $TypeText . "ConferenceName1 AS ConferenceName1," . $TypeText . "ConferenceName2 AS ConferenceName2," . $TypeText . "DivisionName1 AS DivisionName1," . $TypeText . "DivisionName2 AS DivisionName2," . $TypeText . "DivisionName3 AS DivisionName3," . $TypeText . "DivisionName4 AS DivisionName4," . $TypeText . "DivisionName5 AS DivisionName5," . $TypeText . "DivisionName6 AS DivisionName6," . $TypeText . "HowManyPlayOffTeam AS HowManyPlayOffTeam," . $TypeText . "DivisionNewNHLPlayoff  AS DivisionNewNHLPlayoff,PlayOffWinner" . $TypeText . " AS PlayOffWinner, PlayOffStarted, PlayOffRound, TieBreaker2010, TieBreaker2019 FROM LeagueGeneral";
-	$LeagueGeneral = $db->querySingle($Query,true);		
-	$LeagueName = $LeagueGeneral['Name'];
-	$Query = "Select StandardStandingOutput From LeagueOutputOption";
-	$LeagueOutputOption = $db->querySingle($Query,true);		
-	$Conference = array($LeagueGeneral['ConferenceName1'], $LeagueGeneral['ConferenceName2']);
-	$Division = array($LeagueGeneral['DivisionName1'], $LeagueGeneral['DivisionName2'], $LeagueGeneral['DivisionName3'], $LeagueGeneral['DivisionName4'], $LeagueGeneral['DivisionName5'], $LeagueGeneral['DivisionName6']);
+$Query = "Select Name, PointSystemW, PointSystemSO, NoOvertime, " . $TypeText . "ConferenceName1 AS ConferenceName1," . $TypeText . "ConferenceName2 AS ConferenceName2," . $TypeText . "DivisionName1 AS DivisionName1," . $TypeText . "DivisionName2 AS DivisionName2," . $TypeText . "DivisionName3 AS DivisionName3," . $TypeText . "DivisionName4 AS DivisionName4," . $TypeText . "DivisionName5 AS DivisionName5," . $TypeText . "DivisionName6 AS DivisionName6," . $TypeText . "HowManyPlayOffTeam AS HowManyPlayOffTeam," . $TypeText . "DivisionNewNHLPlayoff  AS DivisionNewNHLPlayoff,PlayOffWinner" . $TypeText . " AS PlayOffWinner, PlayOffStarted, PlayOffRound, TieBreaker2010, TieBreaker2019 FROM LeagueGeneral";
+$LeagueGeneral = $db->querySingle($Query,true);		
+$LeagueName = $LeagueGeneral['Name'];
+$Query = "Select StandardStandingOutput From LeagueOutputOption";
+$LeagueOutputOption = $db->querySingle($Query,true);		
+$Conference = array($LeagueGeneral['ConferenceName1'], $LeagueGeneral['ConferenceName2']);
+$Division = array($LeagueGeneral['DivisionName1'], $LeagueGeneral['DivisionName2'], $LeagueGeneral['DivisionName3'], $LeagueGeneral['DivisionName4'], $LeagueGeneral['DivisionName5'], $LeagueGeneral['DivisionName6']);
+$Query = "Select " . $TypeText . "TwoConference AS TwoConference from LeagueSimulation";
+$LeagueSimulation = $db->querySingle($Query,true);	
 
-	$Query = "Select " . $TypeText . "TwoConference AS TwoConference from LeagueSimulation";
-	$LeagueSimulation = $db->querySingle($Query,true);	
+if ($LeagueOutputOption['StandardStandingOutput'] == "False"){
+    $ColumnPerTable = 21;
+    if ($LeagueGeneral['PointSystemSO'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
+    if ($LeagueGeneral['TieBreaker2019'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
+    if ($LeagueGeneral['TieBreaker2019'] == "False" AND $LeagueGeneral['TieBreaker2010'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
+}
 
-	if ($LeagueOutputOption['StandardStandingOutput'] == "False"){
-		$ColumnPerTable = 21;
-		if ($LeagueGeneral['PointSystemSO'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
-		if ($LeagueGeneral['TieBreaker2019'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
-		if ($LeagueGeneral['TieBreaker2019'] == "False" AND $LeagueGeneral['TieBreaker2010'] == "False"){$ColumnPerTable = $ColumnPerTable -1;}
-	}
-	
-	if ($LeagueGeneral['PlayOffStarted'] == "True")    {
-		if(isset($_GET['Season'])){
-			$Title = $StandingLang['Standing'] . " " . $TitleType;
-			$TypeTextTeam = $TypeTextTeam . "Season";
-		}else{
-			$Title =$StandingLang['Playoff'] . " " . $TitleType;
-			$Playoff = True;
-		}
-	}else{
-		$Title =$StandingLang['Standing'] . " " . $TitleType;
-	}
-	$StandingQueryOK = True;
-} catch (Exception $e) {
-STHSErrorStanding:
-	$StandingQueryOK = False;
-	$LeagueName = $DatabaseNotFound;
-	$Standing = Null;
-	$LeagueGeneral = Null;
-	echo "<title>" . $DatabaseNotFound . "</title>";
-	$Title = $DatabaseNotFound;
-}}
+if ($LeagueGeneral['PlayOffStarted'] == "True")    {
+    if(isset($_GET['Season'])){
+        $Title = $StandingLang['Standing'] . " " . $TitleType;
+        $TypeTextTeam = $TypeTextTeam . "Season";
+    }else{
+        $Title =$StandingLang['Playoff'] . " " . $TitleType;
+        $Playoff = True;
+    }
+}else{
+    $Title =$StandingLang['Standing'] . " " . $TitleType;
+}
 
+$StandingQueryOK = True;
 echo "<title>" . $Title . "</title>";
 
 
