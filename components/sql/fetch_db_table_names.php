@@ -16,6 +16,7 @@ if ($db) {
     }
 
     header('Content-Type: application/json');
+    $db->close();
     echo json_encode($tables);
 } else {
     echo "Failed to connect to the database";

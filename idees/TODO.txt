@@ -3,7 +3,7 @@
 - Remettre Lien HOME du menu noir dans index mais pas dans les autres pages... 
 - Pimper le look de la page tradetracker pour avoir les trades sur la même ligne au lieu de deux différentes (voir référence dans le folder idee)
 - Bug de menu mobile...  icone qui bouge ou ligne qui rapettisse.
-- Fichier Transaction2.php  -  je crois qu'il n'est pas utilisé.
+
 
 
 
@@ -18,3 +18,4 @@ Complété:
 - Standing AHL qui ne fonctionne pas (YB)   Weird...    je ne comprends pas comment ca pouvait marcher avant.    le code original empeche les standing Farm d'afficher quand on ajoute ?Farm a la requete standing.php, DivisionNewNHLPlayoff devient False et le tabmain1 n'affiche plus... 
 - ajouter un bouton pour rendre visbile/invisble les parametre de ligne dans line edirto, et mettre les player side by side (YB)
 - TodayGames est dans le menu sous ScoreBoard   et aussi dans Stats->Today's Game.    Pourrait etre enlevé du main menu puisqu'il y a en plus le gameScroller..... (DOM)
+- Fichier Transaction2.php  -  je crois qu'il n'est pas utilisé. Deleted. gardé juste le component. (YB)

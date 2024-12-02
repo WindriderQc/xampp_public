@@ -1,9 +1,8 @@
 <?php    
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 header('Content-Type: application/json');
+
 $DatabaseFile = '../../LHSQC-STHS.db';
 $db = new SQLite3($DatabaseFile);
 
@@ -15,6 +14,7 @@ if($db) {
     else {
         $GoalerInfo = [];
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {            $GoalerInfo[] = $row;        }
+        $db->close();
         echo json_encode($GoalerInfo);
     }
 }

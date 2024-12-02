@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+header('Content-Type: application/json');
 
 $DatabaseFile = '../../LHSQC-STHS.db';
 $db = new SQLite3($DatabaseFile);
@@ -21,7 +22,6 @@ if ($db) {
             $tableColumns[] = $row['name'];
         }
 
-        header('Content-Type: application/json');
         echo json_encode(['fields' => $tableColumns]);
         exit;
     } elseif ($table && $field && $value) {
@@ -41,7 +41,6 @@ if ($db) {
         $rowData = $rowData ? [$rowData] : []; // Wrap rowData in an array
         
 
-        header('Content-Type: application/json');
         echo json_encode([
             'columns' => $tableColumns,
             'rows' => $rowData ? $rowData : []
@@ -78,10 +77,8 @@ if ($db) {
             ];
         }
 
-        header('Content-Type: application/json');
+        $db->close();
         echo json_encode($columns);
     }
-} else {
-    echo "Failed to connect to the database";
-}
+} else {    echo "Failed to connect to the database";  }
 ?>

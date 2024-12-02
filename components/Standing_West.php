@@ -487,3 +487,4 @@ if ($Playoff == True){
     </div>
 </div> 
 
+<?php $db->close(); ?>

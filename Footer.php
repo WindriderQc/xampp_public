@@ -117,5 +117,7 @@
     });
 </script>
 
+
+<?php if (isset($db) && $db)  $db->close();  // Close the database connection if it exists  ?>
 </body>
 </html> 

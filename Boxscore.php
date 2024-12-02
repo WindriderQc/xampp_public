@@ -136,6 +136,7 @@ If (file_exists($DatabaseFile) == false){
 
 				}
 
+                $Gamedb->close();
 			}				
 
 		}else{
@@ -154,6 +155,7 @@ If (file_exists($DatabaseFile) == false){
 
 	}
 
+    $db-close();
 } catch (Exception $e) {
 
 STHSErrorBoxscore:

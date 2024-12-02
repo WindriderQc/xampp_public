@@ -19,6 +19,7 @@ if($db) {
     } else {
         $data = [];
         while ($row = $result->fetchArray(SQLITE3_ASSOC))  $data[] = $row;
+        $db->close();
         echo json_encode($data);
     }
 }

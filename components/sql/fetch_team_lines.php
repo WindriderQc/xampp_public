@@ -22,6 +22,7 @@ if($db) {
             $TeamProLines[] = $row;
         }
 
+        $db->close();
         echo json_encode($TeamProLines);
     }
 }

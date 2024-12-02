@@ -22,6 +22,7 @@ if($db) {
             $LeagueGeneral[] = $row;
         }
 
+        $db->close();
         echo json_encode($LeagueGeneral);
     }
 }
