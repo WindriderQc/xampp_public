@@ -9,6 +9,7 @@ let TeamProInfo = [];
 let allProTeamStats = [];
 let allProTeamLines = [];
 let leagueGeneral = [];
+
 //Assembled Data
 let playersInfoStat = [];
 
@@ -78,7 +79,6 @@ async function fetch_leagueGeneral() {
 }
 
 
-
 //  Data Assembling function
 
 function getPlayersInfoStat() {
@@ -107,8 +107,7 @@ function getPlayersInfoStat() {
     return data;
 }
     
-    
-
+   
     
 
 
@@ -120,16 +119,16 @@ function getPlayersInfoStat() {
 
 async function getAllInfos() 
 {
-    await fetch_leagueGeneral();
-    await fetch_teams_info();
-    await fetch_teams_lines(); 
-    await fetch_teams_stats();
-    await fetch_players_info(); // Call filterPlayers with the desired ID to filter and display data
-    await fetch_players_stats();
-    await fetch_goalerInfo();
-    await fetch_goalerProStat();
+    await fetch_leagueGeneral()
+    await fetch_teams_info()
+    await fetch_teams_lines() 
+    await fetch_teams_stats()
+    await fetch_players_info() // Call filterPlayers with the desired ID to filter and display data
+    await fetch_players_stats()
+    await fetch_goalerInfo()
+    await fetch_goalerProStat()
 
-    await getPlayersInfoStat();
+    await getPlayersInfoStat()
 }
 
 
@@ -231,3 +230,7 @@ function getTop5Rookies()
 
     return (filteredPlayers)
 }
+
+
+
+
