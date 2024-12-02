@@ -82,6 +82,8 @@ if ($MenuQueryOK == True) {
     $menuStatsItems .= "<li><a href=\"GoaliesStat.php?Farm\">" . $TopMenuLang['GoaliesLeaderAhl'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"TeamsStat.php?\">" . $TopMenuLang['TeamsStats'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"Transaction.php?SinceLast\">" . $TopMenuLang['TodaysTransactions'] . "</a></li>";
+    $menuStatsItems .= "<li><a href=\"PowerRanking.php\"> Power Ranking </a></li>";
+  
 
 
     //Teams
