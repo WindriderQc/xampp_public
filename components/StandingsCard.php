@@ -118,7 +118,7 @@ if ($LeagueGeneral['PlayOffStarted'] == "True"){
                 }}
                 ?>
 
-                <tr class="static"><td class="staticTD" colspan="<?= $ColumnPerTable ?>"> <?=  $Conference[$side/3] ?> </td></tr>
+                <tr class="static"><td class="staticTD" colspan="<?= $ColumnPerTable ?>"> Wildcards </td></tr>
                 <?php
 
 
