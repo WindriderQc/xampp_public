@@ -2024,3 +2024,11 @@ width: 100%;
     vertical-align: middle;
   }
   
+
+  .mugshotTop5 {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    
+}
