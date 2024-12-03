@@ -1,64 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card - Offensive Leader</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-</head>
+<div id="top5" class="card">
 
-
-<div class="hp-leaders-div container">
-    <div class="card w-100 mx-auto">
-        <div class="card-header text-center bg-dark text-white">
-            <h5 class="mb-0">Top Scorers</h5>
-        </div>
-        <div class="card-body">
-            <div class="row p-2">
-                <!-- Section gauche : photo de profil et informations -->
-                <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                    <!-- Photo principale -->
-                    <div class="mb-3 position-relative">
-                        <img id="general-player-photo" src="/images/default.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
-                    </div>
-                    <!-- Ligne sous les images -->
-                    <div class="w-100 border-bottom mb-3"></div>
-                    <!-- Informations joueur -->
-                    <div class="d-flex justify-content-center align-items-center mb-2">
-                        <div class="me-3 pe-3 border-end">
-                            <strong id="general-player-number"></strong>
+    <div class="hp-leaders-div ">
+        <div class="card">
+            <div class="card-header text-center bg-dark ">
+                <h5 class="mb-0 text-white">Top Scorers</h5>
+            </div>
+            <div class="card-body">
+                <div class="row p-2">
+                    <!-- Section gauche : photo de profil et informations -->
+                    <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                        <!-- Photo principale -->
+                        <div class="mb-3 position-relative">
+                            <img id="general-player-photo" src="/images/default.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
                         </div>
-                        <div class="">
-                            <span id="general-player-name">Player Name</span>
+                        <!-- Ligne sous les images -->
+                        <div class=" border-bottom mb-3"></div>
+                        <!-- Informations joueur -->
+                        <div class="d-flex justify-content-center align-items-center mb-2">
+                            <div class="me-3 pe-3 border-end">
+                                <strong id="general-player-number"></strong>
+                            </div>
+                            <div class="">
+                                <span id="general-player-name">Player Name</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Section droite : tableau des leaders -->
-                <div class="col-md-9">
-                    <!-- Titre des colonnes -->
-                    <div class="row text-center fw-bold border-bottom mb-3">
-                        <div class="col-9">Player</div>
-                        <div class="col-3">PTS</div>
-                    </div>
-                    <!-- Contenu dynamique -->
-                    <div class="text-center" id="leaderboard-general">
-                        <!-- Les lignes des joueurs seront insérées ici par JS -->
+                    <!-- Section droite : tableau des leaders -->
+                    <div class="col-md-9">
+                        <!-- Titre des colonnes -->
+                        <div class="row text-center fw-bold border-bottom mb-3">
+                            <div class="col-9">Player</div>
+                            <div class="col-3">PTS</div>
+                        </div>
+                        <!-- Contenu dynamique -->
+                        <div class="text-center" id="leaderboard-general">
+                            <!-- Les lignes des joueurs seront insérées ici par JS -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <!-- Offensive Leaders -->
-<body>
-    <div class="hp-offleaders-div container">
-        <div class="card w-100 mx-auto ">
-            <div class="card-header text-center bg-dark text-white">
-                <h5 class="mb-0">Top Goals</h5>
+
+    <div class="hp-offleaders-div">
+        <div class="card">
+            <div class="card-header text-center bg-dark">
+                <h5 class="mb-0  text-white">Top Goals</h5>
             </div>
             <div class="card-body ">
                 <div class="row p-2">
@@ -69,7 +59,7 @@
                             <img id="player-photo" src="/images/default.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
                         </div>
                         <!-- Ligne sous les images -->
-                        <div class="w-100 border-bottom mb-3"></div>
+                        <div class=" border-bottom mb-3"></div>
                         <!-- Informations joueur -->
                         <div class="d-flex justify-content-center align-items-center mb-2">
                             <div class="me-3 pe-3 border-end">
@@ -98,11 +88,9 @@
         </div>
     </div>
 
-    <div class="hp-goalie-leaders-div container">
-        <div class="card w-100 mx-auto">
-            <div class="card-header text-center bg-dark text-white">
-                <h5 class="mb-0">Goalie Leaders</h5>
-            </div>
+    <div class="hp-goalie-leaders-div">
+        <div class="card frontpage-card">
+            <div class="card-header frontpage-card">Goalie Leaders</div>
             <div class="card-body">
                 <div class="row p-2">
                     <!-- Section gauche : photo de profil et informations -->
@@ -112,7 +100,7 @@
                             <img id="goalie-player-photo" src="/images/default.png" alt="Profile Picture" class="rounded-circle img-fluid mugshotTop5">
                         </div>
                         <!-- Ligne sous les images -->
-                        <div class="w-100 border-bottom mb-3"></div>
+                        <div class=" border-bottom mb-3"></div>
                         <!-- Informations joueur -->
                         <div class="d-flex justify-content-center align-items-center mb-2">
                             <div class="me-3 pe-3 border-end">
@@ -142,39 +130,11 @@
         </div>
     </div>
     
+</div>
     
-    
-    
-    
-    
-
-    
-
-    
-    <style>
-        .mugshotTop5 {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border: 2px solid #ddd;
-            
-        }
-        .card {
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-        }
-        
-
-        
-    </style>
-    
+   
     
 <script>
-
 // Fonction pour mettre à jour le tableau des leaders
 function updateLeaderboard() {
     const topScorers = getTop5Scorer();
@@ -316,10 +276,6 @@ updateInfos(() => {
 
 
 </script>
-
-   
-</body>
-</html>
 
 
 
