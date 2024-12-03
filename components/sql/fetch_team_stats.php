@@ -22,6 +22,7 @@ if($db) {
             $TeamProStat[] = $row;
         }
 
+        $db->close();
         echo json_encode($TeamProStat);
     }
 }

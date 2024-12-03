@@ -45,5 +45,5 @@ require_once("helperTool.php");
     <link href="STHSMain-CSSOverwrite.css" rel="stylesheet" type="text/css" />
     <link href="css/nhlColors.css" rel="stylesheet" type="text/css" />
 
-    <script src="js/lhsqc_new.js"    type="text/javascript"></script>
     <script src="js/db2json.js"    type="text/javascript"></script>
+    <script src="js/lhsqc_new.js"    type="text/javascript"></script>

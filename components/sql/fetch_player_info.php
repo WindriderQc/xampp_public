@@ -22,6 +22,7 @@ if($db) {
             $playersInfo[] = $row;
         }
 
+        $db->close();
         echo json_encode($playersInfo);
     }
 }

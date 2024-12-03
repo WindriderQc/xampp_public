@@ -24,6 +24,8 @@ $FilteredPlayerInfo = array_filter($PlayerInfo, function ($row) use ($selectedLe
     return stripos($row['Name'], $selectedLetter) === 0;
 });
 
+$db->close();
+
 // Format filtered data as JSON
 echo json_encode(array_values($FilteredPlayerInfo)); // Reset array keys
 ?>

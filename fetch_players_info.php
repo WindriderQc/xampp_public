@@ -22,7 +22,7 @@ if($db) {
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $playersInfo[] = $row;
         }
-
+        $db-close();
         echo json_encode($playersInfo);
     }
 }

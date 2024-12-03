@@ -15,6 +15,7 @@ if($db) {
     else {
         $GoalerProStat = [];
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {            $GoalerProStat[] = $row;        }
+        $db->close();
         echo json_encode($GoalerProStat);
     }
 }

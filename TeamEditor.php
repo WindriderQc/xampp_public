@@ -52,10 +52,7 @@
 </script>
    
 
-<?php 
-    include ("Footer.php"); 
-    $db->close();
-?>
+<?php include ("Footer.php"); ?>
 
 </body>
 </html>

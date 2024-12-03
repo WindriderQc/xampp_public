@@ -22,6 +22,7 @@ if($db) {
             $ProspectsInfo[] = $row;
         }
 
+        $db->close();
         echo json_encode($ProspectsInfo);
     }
 }

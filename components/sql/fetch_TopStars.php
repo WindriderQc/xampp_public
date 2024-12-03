@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
+header('Content-Type: application/json');
 $DatabaseFile = '../../LHSQC-STHS.db';
 
 $db = new SQLite3($DatabaseFile);
@@ -29,10 +29,10 @@ if ($db) {
         $PlayerStats[] = $row;
     }
 
-    header('Content-Type: application/json');
+    $db->close();
     echo json_encode($PlayerStats);
-} else {
-    die('Database connection failed');
+} else { 
+    echo json_encode(["error" => "Error - db not defined when fetching Top stars"]); 
 }
 ?>
 

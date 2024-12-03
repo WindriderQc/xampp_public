@@ -1964,3 +1964,63 @@ width: 100%;
     /*width: auto !important; /* Allow the table to shrink naturally  ;  */
     width:98%;margin:auto
 }
+
+
+
+
+
+
+
+.customStanding {
+
+    width: 100%;
+    max-width: 1284px;
+    margin: auto;
+  
+  }
+  
+  .ConferenceName1 {background-color: rgb(197, 16, 49) !important;}
+  .ConferenceName2 {background-color: #0d243c !important;}
+  
+  .ConferenceOoP1 hr { 
+  background-color: rgb(197, 16, 49);
+  height: 12px;
+  margin:0px;
+  border: 0px;
+  }
+  
+  .ConferenceOoP2 hr { 
+    background-color: #0d243c;
+    height: 12px;
+    margin:0px;
+    border: 0px;
+    }
+  
+    .conference-iconW{
+  
+      width: 150px;
+      height: 150px;
+    }
+  
+    .conference-iconE{
+  
+      width: 150px;  
+      height: 150px;
+    }
+  
+    .STHSPHPStanding_Table td.streak-win {
+      color: green ;
+      font-weight: bold;
+  }
+  .STHSPHPStanding_Table td.streak-loss {
+      color: red;
+      font-weight: bold;
+  }
+  
+  .team-logo {
+    width: 30px; /* Ajustez la taille du logo */
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
