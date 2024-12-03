@@ -264,9 +264,6 @@ if ($StandingQueryOK == True){
 	PrintStandingTop($TeamLang, $LeagueOutputOption['StandardStandingOutput'], $LeagueGeneralNoType);
 
 
-    log2console("test1");
-    log2console($LeagueGeneralNoType);
-
 	/* Division 1 */
 	echo "<tr class=\"static\"><td class=\"staticTD ConferenceName1\" colspan=\"" . $ColumnPerTable . "\">" . $LeagueGeneralNoType['DivisionName1'] . "</td></tr>";
 

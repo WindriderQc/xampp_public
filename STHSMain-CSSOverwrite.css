@@ -1719,7 +1719,7 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 
 
 
-.tablesorterMainPage tbody tr.static td {
+.StandingsCard tbody tr.static td {
     
     vertical-align: middle; 
     background-color:#ff1717;
@@ -1728,18 +1728,18 @@ li.activemain a,li.activemain a:hover{text-decoration:none;font-size:125%;color:
 }
 
 
-.tablesorterMainPage thead th {
+.StandingsCard thead th {
     
     vertical-align: middle; 
     background-color:#000000;
     color: white;
 }
 
-.tablesorterMainPage span {
+.StandingsCard span {
     color: black !important;
 }
 
-.tablesorterMainPage {
+.StandingsCard {
     color:black !important;
     
 }

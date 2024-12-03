@@ -93,9 +93,9 @@ STHSErrorIndex:
             
 
             <div class="row mt-2  mx-2 " >
-				<div class="col-lg-4 col-12 StandingsWest"> <?php include "components/Standing_West.php"; ?> </div>
-                <div class="col-lg-4 col-12 "> <?php include "components/TopStars.html"; ?> </div>   
-                <div class="col-lg-4 col-12"> <?php include "components/Standing_2.php"; ?> </div> 
+				<div class="col-lg-4 col-12"><div> <?php $side=3; include "components/StandingsCard.php"; ?> </div> </div>
+                <div class="col-lg-4 col-12"><div> <?php          include "components/TopStars.html";     ?> </div> </div>   
+                <div class="col-lg-4 col-12"><div> <?php $side=0; include "components/StandingsCard.php"; ?> </div> </div> 
             </div>
 
 			<div class="row mt-2  mx-2 " >
