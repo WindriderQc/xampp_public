@@ -1,4 +1,8 @@
-<?php include "Header.php";
+<?php include "Header.php"; ?>
+
+<script src="STHSMain.js"    type="text/javascript"></script>
+
+<?php
 
 /*
 Syntax to call this webpage should be ProTeam.php?Team=2 where only the number change and it's based on the Tean Number Field.
