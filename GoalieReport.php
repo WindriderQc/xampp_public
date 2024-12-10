@@ -246,7 +246,7 @@ echo "</style>";
                     <?php if (!empty($TeamPlayers)): ?>
                         <?php while ($row = $TeamPlayers->fetchArray()): ?>
                             <li>
-                                <a class="dropdown-item" href="<?php echo ($row['PosG'] === 'True') ? 'GoalieReport.php?Goalie=' . $row['Number'] : 'playerreport2.php?Player=' . $row['Number']; ?>">
+                                <a class="dropdown-item" href="<?php echo ($row['PosG'] === 'True') ? 'GoalieReport.php?Goalie=' . $row['Number'] : 'PlayerReport.php?Player=' . $row['Number']; ?>">
                                     <?php echo $row['Name']; ?>
                                 </a>
                             </li>
