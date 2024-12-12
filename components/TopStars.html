@@ -159,7 +159,7 @@ function updateLeaderboard() {
     playerName.textContent = mainPlayer.Name;
 
     // Logo de l'équipe
-    const logoURL = `/images/${mainPlayer.Team}.png`; // Construire l'URL du logo
+    const logoURL = `/images/${mainPlayer.TeamThemeID}.png`; // Construire l'URL du logo
     playerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`; // Remplace le contenu par une image
 
     // Ajouter les joueurs dans le tableau
@@ -202,7 +202,7 @@ function updateGeneralLeaderboard() {
     generalPlayerName.textContent = mainPlayer.Name;
 
     // Logo de l'équipe
-    const logoURL = `/images/${mainPlayer.Team}.png`;
+    const logoURL = `/images/${mainPlayer.TeamThemeID}.png`;
     generalPlayerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`;
 
     // Ajouter les joueurs dans le tableau
@@ -245,7 +245,7 @@ function updateGoalieLeaderboard() {
     goaliePlayerName.textContent = mainPlayer.Name;
 
     // Logo de l'équipe
-    const logoURL = `/images/${mainPlayer.Team}.png`;
+    const logoURL = `/images/${mainPlayer.TeamThemeID}.png`;
     goaliePlayerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`;
 
     // Ajouter les gardiens dans le tableau

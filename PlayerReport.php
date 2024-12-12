@@ -205,7 +205,7 @@ foreach ($PlayerPositions as $position => $value) {
     <!-- Player Profile Section -->
     <section class="row text-center justify-content-center player-profile m-0 p-0">
         <!-- Player Mugshot -->
-        <div class="col-4 playerReportMugshot p-0 m-0 ">
+        <div class="col-4 col-sm-12 playerReportMugshot p-0 m-0 ">
             <?php if ($PlayerInfo['NHLID']): ?>
                 <img src="<?php echo $LeagueOutputOption['PlayersMugShotBaseURL'] . $PlayerInfo['NHLID'] . '.' . $LeagueOutputOption['PlayersMugShotFileExtension']; ?>" 
                      alt="<?php echo $PlayerName; ?>" 
@@ -216,7 +216,7 @@ foreach ($PlayerPositions as $position => $value) {
         </div>
 
         <!-- Player Info -->
-        <div class="col-5 player-info p-0 text-start">
+        <div class="col-5 col-sm-12 player-info p-0 text-start">
     <div class="row">
         <div class="col-6">
         <p><strong>Position:</strong> <?php echo $playerPosition; ?></p>
@@ -271,7 +271,7 @@ foreach ($PlayerPositions as $position => $value) {
 
 
         <!-- Player Team Logo -->
-        <div class="d-flex col-3 pt-3 justify-content-center">
+        <div class="d-flex col-3 col-sm-12 pt-3 justify-content-center">
             <?php if (!empty($PlayerInfo['TeamThemeID'])): ?>
                 <img src="<?php echo $ImagesCDNPath . '/images/' . $PlayerInfo['TeamThemeID'] . '.png'; ?>" 
                      alt="<?php echo $PlayerInfo['ProTeamName'] ?? 'Team Logo'; ?>" 
