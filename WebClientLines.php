@@ -754,14 +754,11 @@
 <?php include ("Footer.php"); ?>
 
 <script>
-
 const TeamProInfo = <?php echo json_encode($TeamProInfo); ?>;
-console.log(TeamProInfo)
+console.log("TeamProInfo", TeamProInfo)
 
 const TeamPlayerInfo = <?php echo json_encode($TeamPlayerInfo); ?>;
-console.log(TeamPlayerInfo)
-
-
+console.log("TeamPlayerInfo", TeamPlayerInfo)
 </script>
 
 
