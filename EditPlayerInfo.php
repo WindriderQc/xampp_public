@@ -257,18 +257,6 @@ function fetchPlayersByLetter(letter) {
         });
 }
 
-
-    // Helper function to format position
-    function formatPosition(player) {
-        let position = '';
-        position += player.PosC === "True" ? "C" : '';
-        position += player.PosLW === "True" ? (position ? "/LW" : "LW") : '';
-        position += player.PosRW === "True" ? (position ? "/RW" : "RW") : '';
-        position += player.PosD === "True" ? (position ? "/D" : "D") : '';
-        position += player.PosG === "True" ? (position ? "/G" : "G") : '';
-        return position;
-    }
-
 </script>
 <?php include "Footer.php";?>
 

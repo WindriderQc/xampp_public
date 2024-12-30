@@ -336,3 +336,24 @@ function toggler(event, target)  {
 
 }
 
+
+
+// Helper function to format position
+function formatPosition(player) {
+    let position = '';
+    position += player.PosC === "True" ? "C" : '';
+    position += player.PosLW === "True" ? (position ? "/LW" : "LW") : '';
+    position += player.PosRW === "True" ? (position ? "/RW" : "RW") : '';
+    position += player.PosD === "True" ? (position ? "/D" : "D") : '';
+    position += player.PosG === "True" ? (position ? "/G" : "G") : '';
+    return position;
+}
+function formatPosition(PosC, PosLW, PosRW, PosD, PosG) {
+    let position = '';
+    position += PosC === "True" ? "C" : '';
+    position += PosLW === "True" ? (position ? "/LW" : "LW") : '';
+    position += PosRW === "True" ? (position ? "/RW" : "RW") : '';
+    position += PosD === "True" ? (position ? "/D" : "D") : '';
+    position += PosG === "True" ? (position ? "/G" : "G") : '';
+    return position;
+}

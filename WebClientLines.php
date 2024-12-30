@@ -13,13 +13,6 @@
 
 
 	if ($db){
-		
-		$Query = "Select ShowWebClientInDymanicWebsite FROM LeagueOutputOption";
-		$LeagueOutputOption = $db->querySingle($Query,true);
-		
-		$Query = "Select BlockAutoProLineFunctionForGM,BlockAutoFarmLineFunctionForGM FROM LeagueWebClient";
-		$LeagueWebClient = $db->querySingle($Query,true);
-
 		// Look for a team ID in the URL, if non exists use 0
 		$t = (isset($_REQUEST["TeamID"])) ? filter_var($_REQUEST["TeamID"], FILTER_SANITIZE_NUMBER_INT): 0;
 		$l = (isset($_REQUEST["League"])) ? filter_var($_REQUEST["League"], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH) : false;
@@ -29,8 +22,7 @@
 			$rs = api_dbresult_teamsbyname($db,"Pro",$t);
 			$row = $rs->fetchArray();
 		}
-		If ($l == "Pro" AND $LeagueWebClient['BlockAutoProLineFunctionForGM'] == "True"){echo "<style>#autolines {display:none};</style>";}
-		If ($l == "Farm" AND $LeagueWebClient['BlockAutoFarmLineFunctionForGM'] == "True"){echo "<style>#autolines {display:none};</style>";}
+
 		
         
         // LHSQC
@@ -47,12 +39,7 @@
         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>
         <link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap\" rel=\"stylesheet\">
         <link href=\"css/nhlColors.css\" rel=\"stylesheet\" type=\"text/css\" /> ";
-        //<script src=\"js/db2json.js\"    type=\"text/javascript\"></script>";
-        
-
-        //<link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
-        //<script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
-
+ 
 
 		// Make a default header 
 		api_layout_header("lineeditor",$db,$t,$l,$WebClientHeadCode);
@@ -83,9 +70,10 @@
                 $TeamPlayerInfo = []; 
                 while ($row = $results->fetchArray(SQLITE3_ASSOC)) { $TeamPlayerInfo[] = $row; }
         
+                log2console("Team Player Info:");
+                log2console($TeamPlayerInfo);
 
-
-
+                
                 // Set the status value if the league is Pro or Farm
                 $status = ($league == "Pro") ? 3: 1;
                 // Select all the players and goalies if they are dressed.
@@ -96,16 +84,16 @@
                 // Get the recordset of all the players
                 $oRS = $db->query($sql);
                 // Make an array of available players to use.
-                // This makes comparing from a roster change easier.
-                // i.e. Database could show a player in a position in the lines table, but if that
-                // player was scratched, or moved between farm and pro, there has to be a way to
-                // show he isn't there and show blank on the line. 
+                // This makes comparing from a roster change easier.    i.e. Database could show a player in a position in the lines table, but if that player was scratched, or moved between farm and pro, there has to be a way to show he isn't there and show blank on the line. 
                 $availableplayers = array();
                 while($row = $oRS->fetchArray()){
                     $availableplayers[api_MakeCSSClass($row["Name"])]["id"] = $row["Number"];
                     $availableplayers[api_MakeCSSClass($row["Name"])]["Name"] = $row["Name"];
                 }
+                log2console("Available Players:");
                 log2console($availableplayers);
+             
+
                
                 // Check to see if Custom OT lines are turned on 
                 $sql = "SELECT " . $league . "CustomOTLines AS CustomLines FROM LeagueGeneral;";
@@ -119,7 +107,7 @@
                 $cpfields = "";
                 foreach($dbfields AS $f){$cpfields .= strtolower($f) .",";}
                 $cpfields .= $cpfieldsOTLines;
-                //$cpfields = rtrim($cpfields,",");
+                
 
                 $bannertext = "";
                 
@@ -217,7 +205,11 @@
                     </div> 
 
                     <div class="col-3"> 
-                        <button type="button" class="btn btn-warning btn-custom openList btn-lg shadow " > <img src="images/roster.png" alt="Button 2" ><br>Roster </button>
+                        <button type="button" class="btn btn-warning btn-custom openList btn-lg shadow " > 
+                            <img src="images/roster.png" alt="Button 2" > 
+                            <img src="<?php echo '/images/' . $Theme . '.png'; ?>" alt="<?php echo $PlayerInfo['ProTeamName'] ?? 'Team Logo'; ?>" class="playerReportTeamLogo ">
+                            <br> Roster 
+                        </button>
                     </div> 
                 </div>
             </div>
@@ -437,21 +429,130 @@
 
                                                                 <div class='row pt-1 '>
                                                                     <?php 
+                                                                              
                                                                     foreach($posit as $pid => $pos) {
-                                                                        // Set player name in each position
-                                                                        $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : ""; 
-                                                                        log2console($playername ."  " . $field . " -  ". $pid );
+                                                                        
+
+                                                                        $cardName = $row[$field . $pid]; 
+
+                                                                        $playerID = $availableplayers[api_MakeCSSClass($cardName)]['id'];
+                                                                      //  log2console($cardName ." - " . $field . " -  ". $pid . " -  ". $playerID );
+
+                                                                        $index = -1; // Default value if not found
+
+                                                                        foreach ($TeamPlayerInfo as $key => $player) {
+                                                                            
+                                                                            if ($player['Number'] === $playerID) {
+                                                                                $index = $key;
+                                                                                break;
+                                                                            }
+                                                                        }
+
+                                                                        $PlayerInfo = $TeamPlayerInfo[$index];
+                                                                       // log2console($PlayerInfo);                                                                  
 
                                                                         ?>
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm  p-0" >
                                                                                 <div class="card-body p-0" >
                                                                                    
-                                                                                    <span>Overall: </span> <span id="smPov">00 </span>
-                                                                                    <span>Condition: </span> <span id="smPco">00 </span>
+                                                                                                                                     
+                                                                      
+                                                                                    <div class="row p-2">
+                                                                                        <div class="col-md-3 d-flex flex-column align-items-center position-relative">
+                                                                                            <!-- Photo principale -->
+                                                                                            <div class="mb-3 position-relative">
+                                                                                                <img src="<?php echo  "https://assets.nhle.com/mugs/nhl/latest/" . $PlayerInfo['NHLID'] . ".png"; ?>"  alt="<?php echo $PlayerInfo['Name'] ?>" class="rounded-circle img-fluid mugshotTop5">
+                                                                                            </div>
+                                                                                            <!-- Ligne sous les images -->
+                                                                                            <div class=" border-bottom mb-3"></div>
+                                                                                            <!-- Informations joueur -->
+                                                                                            <div class="d-flex  mb-2">
+                                                                                                <div class="px-2 border-end">
+                                                                                                    <strong>#<?php echo ( $PlayerInfo['Jersey'] ? $PlayerInfo['Jersey'] : " -"); ?></strong>
+                                                                                                </div>
+                                                                                                <div class="px-2">
+                                                                                                    <span><?php echo formatPosition($PlayerInfo['PosC'], $PlayerInfo['PosLW'], $PlayerInfo['PosRW'] , $PlayerInfo['PosD'], $PlayerInfo['PosG'] ); ?></span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <!-- Section droite : tableau des leaders -->
+                                                                                        <div class="col-md-9 ">
+                                                                                            
+                                                                                            <hr> <!-- Séparateur horizontal -->
+                                                                                            <div class="row">
+                                                                                                <div class="col  text-start">
+                                                                                                    <strong>Age:</strong> <?php echo $PlayerInfo['Age'] ; ?></br>
+                                                                                                    <strong>Weight:</strong> <?php echo $PlayerInfo['Weight']; ?> lbs </br>
+                                                                                                    <strong>Height:</strong> <?php echo $PlayerInfo['Height']; ?></br>
+                                                                                                    <strong>Birthdate:</strong> <?php echo $PlayerInfo['AgeDate']; ?></br>
+                                                                                                    <strong>Draft Year:</strong> <?php echo $PlayerInfo['DraftYear']; ?></br>
+                                                                                                    <strong>Contract:</strong> <?php echo $PlayerInfo['Contract']; ?></br>
+                                                                                                    <strong>Cap Hit:</strong> <?php echo isset($PlayerInfo['SalaryCap']) ? '$' . number_format($PlayerInfo['SalaryCap'], 0) : 'Unknown'; ?></br>
+                                                                                                    <strong>Available For Trade:</strong> <?php echo $PlayerInfo['AvailableforTrade']; ?>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <hr> <!-- Séparateur horizontal -->
+                                                                                            <div class="col  text-start">
+                                                                                                Games In A Row With A Point: <strong> <?php echo $PlayerInfo['GameInRowWithAPoint']; ?></strong></br>
+                                                                                                Overall:                     <strong> <?php echo $PlayerInfo['Overall']; ?>            </strong></br>
+                                                                                            </div>
+                                                                                    
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                             
+
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+
+                                                                        <script>
+                                                                            function updatePersona() {
+                                                                              
+
+                                                                                const leaderboard = document.getElementById('leaderboard');
+                                                                                const playerPhoto = document.getElementById('player-photo');
+                                                                                const playerNumber = document.getElementById('player-number'); // Utilisé pour afficher le logo
+                                                                                const playerName = document.getElementById('player-name');
+                                                                                const baseURL = "https://assets.nhle.com/mugs/nhl/latest/";
+
+                                                                                leaderboard.innerHTML = "";
+
+                                                                                if (topScorers.length === 0) {
+                                                                                    leaderboard.innerHTML = `<div class="text-center">Aucune donnée disponible</div>`;
+                                                                                    return;
+                                                                                }
+
+                                                                                const mainPlayer = topScorers[0];
+                                                                                console.log("Données du joueur principal :", mainPlayer); // Vérifier les champs disponibles
+
+                                                                                // Photo du joueur
+                                                                                const imageURL = `${baseURL}${mainPlayer.NHLID}.png`;
+                                                                                playerPhoto.src = imageURL;
+
+                                                                                // Nom du joueur
+                                                                                playerName.textContent = mainPlayer.Name;
+
+                                                                                // Logo de l'équipe
+                                                                                const logoURL = `/images/${mainPlayer.TeamThemeID}.png`; // Construire l'URL du logo
+                                                                                playerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`; // Remplace le contenu par une image
+
+                                                                                // Ajouter les joueurs dans le tableau
+                                                                                topScorers.forEach(player => {
+                                                                                    const row = document.createElement('div');
+                                                                                    row.className = "row text-center mb-2";
+                                                                                    row.innerHTML = `
+                                                                                        <div class="col-9">${player.Name}</div>
+                                                                                        <div class="col-3">${player.G}</div>
+                                                                                    `;
+                                                                                    leaderboard.appendChild(row);
+                                                                                });
+                                                                            }
+                                                                            updatePersona();
+                                                                        </script>
                                                                         <?php         
                                                                     }
                                                                     ?>
@@ -708,16 +809,28 @@
 
 
 
-
-
 <!-- Side Navigation -->
 <div id="sideNavR" class="sidenavR">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <div id="sideNavContent">PlayerCardC will appear here...</div>
 </div>
-            
-            
-            
+                  
+
+
+<?php 
+            }
+		}else{
+            include "Menu.php";
+			echo "<div class=\"STHSDivAlertMessage\">" . $NoUserLogin . "<br /><br /></div>";		
+		}
+
+	// Close the db connection
+	$db->close();
+      
+}?>
+    
+<?php include ("Footer.php"); ?>
+
 <script>
     function deactivateBanners() {
         const banners = document.querySelectorAll('.banner'); 
@@ -727,38 +840,13 @@
    
     setTimeout(deactivateBanners, 5000);                    // Hide the confirm banner after 5 seconds
     document.addEventListener('click', deactivateBanners);  // Hide the confirm banner on user interaction
-</script>
 
 
+    const TeamProInfo = <?php echo json_encode($TeamProInfo); ?>;
+    console.log("TeamProInfo", TeamProInfo)
 
-<div id="playerInfoContainer"></div>            
-
-
-<?php 
-            }
-		}else{
-			echo "<div class=\"STHSDivInformationMessage\">" . $NoUserLogin . "<br /><br /></div>";		
-		}
-
-
-?>
-
-  
-
-<?php
-	// Close the db connection
-	$db->close();
-       
-}?>
-    
-<?php include ("Footer.php"); ?>
-
-<script>
-const TeamProInfo = <?php echo json_encode($TeamProInfo); ?>;
-console.log("TeamProInfo", TeamProInfo)
-
-const TeamPlayerInfo = <?php echo json_encode($TeamPlayerInfo); ?>;
-console.log("TeamPlayerInfo", TeamPlayerInfo)
+    const TeamPlayerInfo = <?php echo json_encode($TeamPlayerInfo); ?>;
+    console.log("TeamPlayerInfo", TeamPlayerInfo)
 </script>
 
 
