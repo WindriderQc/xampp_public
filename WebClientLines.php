@@ -428,18 +428,13 @@
                                                             <div class="container persona" id='persona<?= api_MakeCSSClass($bid)?>'>
 
                                                                 <div class='row pt-1 '>
-                                                                    <?php 
-                                                                              
+                                                                    <?php      
+                                                                    // TODO:  Optimize...    la table available players purrait etre creer au d/part avec le UniqueID comme index...   ca eviterait cette loop a chaque joueurs...   design bouetteux....  
                                                                     foreach($posit as $pid => $pos) {
                                                                         
-
                                                                         $cardName = $row[$field . $pid]; 
-
                                                                         $playerID = $availableplayers[api_MakeCSSClass($cardName)]['id'];
-                                                                      //  log2console($cardName ." - " . $field . " -  ". $pid . " -  ". $playerID );
-
                                                                         $index = -1; // Default value if not found
-
                                                                         foreach ($TeamPlayerInfo as $key => $player) {
                                                                             
                                                                             if ($player['Number'] === $playerID) {
@@ -447,17 +442,12 @@
                                                                                 break;
                                                                             }
                                                                         }
-
                                                                         $PlayerInfo = $TeamPlayerInfo[$index];
-                                                                       // log2console($PlayerInfo);                                                                  
-
                                                                         ?>
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm  p-0" >
                                                                                 <div class="card-body p-0" >
                                                                                    
-                                                                                                                                     
-                                                                      
                                                                                     <div class="row p-2">
                                                                                         <div class="col-md-3 d-flex flex-column align-items-center position-relative">
                                                                                             <!-- Photo principale -->
@@ -509,50 +499,8 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        <script>
-                                                                            function updatePersona() {
-                                                                              
-
-                                                                                const leaderboard = document.getElementById('leaderboard');
-                                                                                const playerPhoto = document.getElementById('player-photo');
-                                                                                const playerNumber = document.getElementById('player-number'); // Utilisé pour afficher le logo
-                                                                                const playerName = document.getElementById('player-name');
-                                                                                const baseURL = "https://assets.nhle.com/mugs/nhl/latest/";
-
-                                                                                leaderboard.innerHTML = "";
-
-                                                                                if (topScorers.length === 0) {
-                                                                                    leaderboard.innerHTML = `<div class="text-center">Aucune donnée disponible</div>`;
-                                                                                    return;
-                                                                                }
-
-                                                                                const mainPlayer = topScorers[0];
-                                                                                console.log("Données du joueur principal :", mainPlayer); // Vérifier les champs disponibles
-
-                                                                                // Photo du joueur
-                                                                                const imageURL = `${baseURL}${mainPlayer.NHLID}.png`;
-                                                                                playerPhoto.src = imageURL;
-
-                                                                                // Nom du joueur
-                                                                                playerName.textContent = mainPlayer.Name;
-
-                                                                                // Logo de l'équipe
-                                                                                const logoURL = `/images/${mainPlayer.TeamThemeID}.png`; // Construire l'URL du logo
-                                                                                playerNumber.innerHTML = `<img src="${logoURL}" alt="Team Logo" class="team-logo">`; // Remplace le contenu par une image
-
-                                                                                // Ajouter les joueurs dans le tableau
-                                                                                topScorers.forEach(player => {
-                                                                                    const row = document.createElement('div');
-                                                                                    row.className = "row text-center mb-2";
-                                                                                    row.innerHTML = `
-                                                                                        <div class="col-9">${player.Name}</div>
-                                                                                        <div class="col-3">${player.G}</div>
-                                                                                    `;
-                                                                                    leaderboard.appendChild(row);
-                                                                                });
-                                                                            }
-                                                                            updatePersona();
-                                                                        </script>
+                                                                        
+                                                                       
                                                                         <?php         
                                                                     }
                                                                     ?>
