@@ -219,6 +219,37 @@
 
         <form id="submissionform" class="STHSWebClient_Form " name="frmEditLines" method="POST" onload="checkCompleteLines();">
 
+        <ul class="nav nav-tabs" id="lineTabs" role="tablist">
+    <?php for ($i = 1; $i <= 5; $i++): ?>
+        <li class="nav-item">
+            <a class="nav-link <?= ($i == 1) ? 'active' : '' ?>" id="day<?= $i ?>-tab" data-bs-toggle="tab" href="#day<?= $i ?>" role="tab">Jour 0<?= $i ?></a>
+        </li>
+    <?php endfor; ?>
+</ul>
+
+<div class="tab-content" id="lineTabsContent">
+    <?php for ($i = 1; $i <= 5; $i++): ?>
+        <div class="tab-pane fade <?= ($i == 1) ? 'show active' : '' ?>" id="day<?= $i ?>" role="tabpanel">
+            <h3>Édition des lignes pour Jour 0<?= $i ?></h3>
+            
+            <!-- 🏒 Formulaire réutilisé mais avec des inputs spécifiques à chaque jour -->
+            <form class="STHSWebClient_Form" name="frmEditLines" method="POST">
+                <input type="hidden" name="day" value="<?= $i ?>"> <!-- Identifie le jour pour la sauvegarde -->
+                <input type="hidden" name="teamid" value="<?= $teamid ?>">
+
+                <div id="line-editor-content-<?= $i ?>">
+                    <?php include("line_editor_content.php"); ?>
+                </div>
+
+                <button type="submit" name="sbtUpdateLines" class="btn btn-warning">Enregistrer</button>
+            </form>
+        </div>
+    <?php endfor; ?>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
             
                    
            
@@ -241,6 +272,34 @@
                         $blocks = api_get_line_arrays("blocks");
                         $positions = api_get_line_arrays("positions");
                         $strategy = api_get_line_arrays("strategy");
+
+                        if(isset($_POST["sbtUpdateLines"])) {
+                            $teamid = filter_var($_POST["teamid"], FILTER_SANITIZE_NUMBER_INT);
+                            $day = filter_var($_POST["day"], FILTER_SANITIZE_NUMBER_INT);
+                            $lines = $_POST["lines"]; // Récupère les changements
+                        
+                            if($teamid > 0 && $day >= 1 && $day <= 5) {
+                                $db->busyTimeout(5000);
+                                $db->exec("pragma journal_mode=memory;");
+                        
+                                foreach ($lines as $position => $player) {
+                                    $player = filter_var($player, FILTER_SANITIZE_STRING);
+                        
+                                    if (!empty($player)) {
+                                        $sql = "UPDATE TeamProLines SET $position = :player WHERE TeamNumber = :teamid AND Day = :day;";
+                                        $stmt = $db->prepare($sql);
+                                        $stmt->bindValue(':player', $player, SQLITE3_TEXT);
+                                        $stmt->bindValue(':teamid', $teamid, SQLITE3_INTEGER);
+                                        $stmt->bindValue(':day', $day, SQLITE3_INTEGER);
+                                        $stmt->execute();
+                                    }
+                                }
+                                echo "Les modifications pour Jour 0$day ont été enregistrées.";
+                            } else {
+                                echo "Erreur : ID de l'équipe ou jour invalide.";
+                            }
+                        }
+                        
                     ?>
                         
                         

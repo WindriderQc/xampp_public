@@ -55,9 +55,21 @@ If ($Player == 0){
 		$Query = "SELECT PlayerFarmStat.*, ROUND((CAST(PlayerFarmStat.G AS REAL) / (PlayerFarmStat.Shots))*100,2) AS ShotsPCT, ROUND((CAST(PlayerFarmStat.SecondPlay AS REAL) / 60 / (PlayerFarmStat.GP)),2) AS AMG,ROUND((CAST(PlayerFarmStat.FaceOffWon AS REAL) / (PlayerFarmStat.FaceOffTotal))*100,2) as FaceoffPCT,ROUND((CAST(PlayerFarmStat.P AS REAL) / (PlayerFarmStat.SecondPlay) * 60 * 20),2) AS P20 FROM PlayerFarmStat WHERE Number = " . $Player;
 		$PlayerFarmStat = $db->querySingle($Query,true);
 		
-		$Query = "SELECT count(*) AS count FROM PlayerProStatMultipleTeam WHERE Number = " . $Player;
-		$Result = $db->querySingle($Query,true);
-		If ($Result['count'] > 0){$PlayerProStatMultipleTeamFound = TRUE;}
+		// Vérifie si le joueur a joué pour plusieurs équipes
+$Query = "SELECT count(*) AS count FROM PlayerProStatMultipleTeam WHERE Number = " . $Player;
+$Result = $db->querySingle($Query,true);
+If ($Result['count'] > 0) {
+    $PlayerProStatMultipleTeamFound = TRUE;
+
+    // Récupérer les stats de chaque équipe
+    $Query = "SELECT PlayerProStatMultipleTeam.*, TeamProInfo.Name AS TeamName, TeamProInfo.TeamThemeID 
+          FROM PlayerProStatMultipleTeam 
+          LEFT JOIN TeamProInfo ON PlayerProStatMultipleTeam.Team = TeamProInfo.Number
+          WHERE PlayerProStatMultipleTeam.Number = " . $Player;
+$PlayerProStatMultipleTeam = $db->query($Query);
+
+}
+
 		
 		$Query = "SELECT count(*) AS count FROM PlayerFarmStatMultipleTeam WHERE Number = " . $Player;
 		$Result = $db->querySingle($Query,true);
@@ -175,6 +187,7 @@ foreach ($PlayerPositions as $position => $value) {
 
 </div>
 
+
     <div class=" position-relative playerInfoOverlay">
     <!-- Player Name Dropdown -->
     <div class="container  playerReportMainContainer p-0 ">
@@ -205,7 +218,7 @@ foreach ($PlayerPositions as $position => $value) {
     <!-- Player Profile Section -->
     <section class="row text-center justify-content-center player-profile m-0 p-0">
         <!-- Player Mugshot -->
-        <div class="col-4 col-sm-12 playerReportMugshot p-0 m-0 ">
+        <div class="col-4 playerReportMugshot p-0 m-0 ">
             <?php if ($PlayerInfo['NHLID']): ?>
                 <img src="<?php echo $LeagueOutputOption['PlayersMugShotBaseURL'] . $PlayerInfo['NHLID'] . '.' . $LeagueOutputOption['PlayersMugShotFileExtension']; ?>" 
                      alt="<?php echo $PlayerName; ?>" 
@@ -216,7 +229,7 @@ foreach ($PlayerPositions as $position => $value) {
         </div>
 
         <!-- Player Info -->
-        <div class="col-5 col-sm-12 player-info p-0 text-start">
+        <div class="col-5 player-info p-0 text-start">
     <div class="row">
         <div class="col-6">
         <p><strong>Position:</strong> <?php echo $playerPosition; ?></p>
@@ -271,7 +284,7 @@ foreach ($PlayerPositions as $position => $value) {
 
 
         <!-- Player Team Logo -->
-        <div class="d-flex col-3 col-sm-12 pt-3 justify-content-center">
+        <div class="d-flex col-3 pt-3 justify-content-center">
             <?php if (!empty($PlayerInfo['TeamThemeID'])): ?>
                 <img src="<?php echo $ImagesCDNPath . '/images/' . $PlayerInfo['TeamThemeID'] . '.png'; ?>" 
                      alt="<?php echo $PlayerInfo['ProTeamName'] ?? 'Team Logo'; ?>" 
@@ -345,6 +358,61 @@ foreach ($PlayerPositions as $position => $value) {
             <?php endif; ?>
         </div>
 
+        <?php if ($PlayerProStatMultipleTeamFound == true): ?>
+    <div class="container-fluid p-0">
+        <div class="col-md-12 border-top border-bottom">
+           
+            <table class="table table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Team</th>
+                        <th>GP</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Points</th>
+                        <th>+/-</th>
+                        <th>PIM</th>
+                        <th>Shots</th>
+                        <th>S%</th>
+                        <th>PPG</th>
+                        <th>Hits</th>
+                        <th>Block Shots</th>
+                        <th>Giveaway</th>
+                        <th>Takeaway</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $PlayerProStatMultipleTeam->fetchArray()): ?>
+                        <tr>
+                            
+                        <td>
+    <img src="<?php echo $ImagesCDNPath . '/images/' . $row['TeamThemeID'] . '.png'; ?>" 
+         alt="<?php echo $row['TeamName']; ?>" 
+         style="width: 35px; height: 35px; margin-left: 25%;">
+</td>
+
+                            <td><?php echo $row['GP']; ?></td>
+                            <td><?php echo $row['G']; ?></td>
+                            <td><?php echo $row['A']; ?></td>
+                            <td><?php echo $row['P']; ?></td>
+                            <td><?php echo $row['PlusMinus']; ?></td>
+                            <td><?php echo $row['Pim']; ?></td>
+                            <td><?php echo $row['Shots']; ?></td>
+                            <td><?php echo $row['ShotsPCT'] . '%'; ?></td>
+                            <td><?php echo $row['PPG']; ?></td>
+                            <td><?php echo $row['Hits']; ?></td>
+                            <td><?php echo $row['ShotsBlock']; ?></td>
+                            <td><?php echo $row['GiveAway']; ?></td>
+                            <td><?php echo $row['TakeAway']; ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
+
+
 
     <!-- Player Statistics Section -->
     <div class="container-fluid p-0 ">
@@ -393,6 +461,104 @@ foreach ($PlayerPositions as $position => $value) {
             <?php endif; ?>
         </div>
 
+        <!-- Farm Stats Section -->
+<div class="container-fluid p-0">
+    <div class="col-md-12 border-top border-bottom">
+        
+        <?php if ($PlayerFarmStat): ?>
+            <table class="table table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>GP</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Points</th>
+                        <th>+/-</th>
+                        <th>PIM</th>
+                        <th>Shots</th>
+                        <th>S%</th>
+                        <th>PPG</th>
+                        <th>Hits</th>
+                        <th>Block Shots</th>
+                        <th>Giveaway</th>
+                        <th>Takeaway</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo $PlayerFarmStat['GP']; ?></td>
+                        <td><?php echo $PlayerFarmStat['G']; ?></td>
+                        <td><?php echo $PlayerFarmStat['A']; ?></td>
+                        <td><?php echo $PlayerFarmStat['P']; ?></td>
+                        <td><?php echo $PlayerFarmStat['PlusMinus']; ?></td>
+                        <td><?php echo $PlayerFarmStat['Pim']; ?></td>
+                        <td><?php echo $PlayerFarmStat['Shots']; ?></td>
+                        <td><?php echo $PlayerFarmStat['ShotsPCT'] . '%'; ?></td>
+                        <td><?php echo $PlayerFarmStat['PPG']; ?></td>
+                        <td><?php echo $PlayerFarmStat['Hits']; ?></td>
+                        <td><?php echo $PlayerFarmStat['ShotsBlock']; ?></td>
+                        <td><?php echo $PlayerFarmStat['GiveAway']; ?></td>
+                        <td><?php echo $PlayerFarmStat['TakeAway']; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p class="text-center">No farm stats available.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php if ($PlayerFarmStatMultipleTeamFound == true): ?>
+    <div class="container-fluid p-0">
+        <div class="col-md-12 border-top border-bottom">
+        <h3 class="text-center mt-3" style="color: white !important;">Farm League - Stats Per Team</h3>
+        <table class="table table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Team</th>
+                        <th>GP</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Points</th>
+                        <th>+/-</th>
+                        <th>PIM</th>
+                        <th>Shots</th>
+                        <th>S%</th>
+                        <th>PPG</th>
+                        <th>Hits</th>
+                        <th>Block Shots</th>
+                        <th>Giveaway</th>
+                        <th>Takeaway</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $PlayerFarmStatMultipleTeam->fetchArray()): ?>
+                        <tr>
+                            <td>
+                                <img src="<?php echo $ImagesCDNPath . '/images/' . $row['TeamThemeID'] . '.png'; ?>" 
+                                     alt="<?php echo $row['TeamName']; ?>" 
+                                     style="width: 35px; height: 35px; margin-left: 25%;">
+                            </td>
+                            <td><?php echo $row['GP']; ?></td>
+                            <td><?php echo $row['G']; ?></td>
+                            <td><?php echo $row['A']; ?></td>
+                            <td><?php echo $row['P']; ?></td>
+                            <td><?php echo $row['PlusMinus']; ?></td>
+                            <td><?php echo $row['Pim']; ?></td>
+                            <td><?php echo $row['Shots']; ?></td>
+                            <td><?php echo $row['ShotsPCT'] . '%'; ?></td>
+                            <td><?php echo $row['PPG']; ?></td>
+                            <td><?php echo $row['Hits']; ?></td>
+                            <td><?php echo $row['ShotsBlock']; ?></td>
+                            <td><?php echo $row['GiveAway']; ?></td>
+                            <td><?php echo $row['TakeAway']; ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
 
 
 </div>
@@ -496,6 +662,8 @@ foreach ($PlayerPositions as $position => $value) {
     padding: 5px;
 
 }
+
+
 
 
 

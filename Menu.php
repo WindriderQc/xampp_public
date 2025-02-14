@@ -81,7 +81,7 @@ if ($MenuQueryOK == True) {
     $menuStatsItems .= "<li><a href=\"PlayersStat.php?Farm\">" . $TopMenuLang['PlayersLeaderAhl'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"GoaliesStat.php?Farm\">" . $TopMenuLang['GoaliesLeaderAhl'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"TeamsStat.php?\">" . $TopMenuLang['TeamsStats'] . "</a></li>";
-    $menuStatsItems .= "<li><a href=\"Transaction.php?SinceLast\">" . $TopMenuLang['TodaysTransactions'] . "</a></li>";
+   // $menuStatsItems .= "<li><a href=\"Transaction.php?SinceLast\">" . $TopMenuLang['TodaysTransactions'] . "</a></li>";
     $menuStatsItems .= "<li><a href=\"PowerRanking.php\"> Power Ranking </a></li>";
   
 
@@ -211,6 +211,9 @@ if ($MenuQueryOK == True) {
             <ul>
                 <li><a href="PlayersRoster.php">Players</a></li>
                 <li><a href="GoaliesRoster.php">Goalies</a></li>
+                <li><a href="Prospects.php">Prospects</a></li>
+                <li><a href="PlayersRoster.php?Team=0&Type=0">UFA</a></li>
+                <li><a href="Transaction.php?TradeLogHistory">Latest Transaction</a></li>
                 <!-- <li><a href="PlayerContracts.php">Contracts</a></li> -->
             </ul>
         </li>
@@ -293,7 +296,17 @@ if ($MenuQueryOK == True) {
         </ul>
 
         </li>
-        <li><a href="PlayersRoster.php">Players</a></li>
+        
+        <li><div> Players <i class="fa fa-chevron-right"></i></div>
+            <ul>
+                <li><a href="Players.php">Players</a></li>
+                <li><a href="Goalies.php">Goalies</a></li>
+                <li><a href="Prospects.php">Prospects</a></li>
+                <li><a href="PlayersRoster.php?Type=0&FreeAgent=1">UFA</a></li>
+                <li><a href="Transaction.php?TradeLogHistory">Latest Transaction</a></li>
+            </ul>
+        </li>
+
         <li><div> Schedule  <i class="fa fa-chevron-right"></i></div>
             <ul>
                 <li><a href="Schedule.php">LHSQC</a></li>

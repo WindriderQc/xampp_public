@@ -33,24 +33,51 @@ $(document).ready(function() {
 
     let teamsInfo;
 
+    function calculateStats(teamsInfo) {
+    return teamsInfo.map(team => {
+        // Vérifier si les valeurs sont récupérées correctement
+        const ppGoal = parseFloat(team.PPGoal) || 0;
+        const ppAttempt = parseFloat(team.PPAttemp) || 1; // Pour éviter une division par zéro
+        team.PPP = ((ppGoal / ppAttempt) * 100).toFixed(2);
+
+        const pkGoalGA = parseFloat(team.PKGoalGA) || 0;
+        const pkAttempt = parseFloat(team.PKAttemp) || 1; // Éviter division par zéro
+
+        // 🛠 Debug : Afficher les valeurs dans la console
+        console.log(`Team: ${team.OrderName}, PKgoalGA: ${pkGoalGA}, PKAttemp: ${pkAttempt}`);
+
+        if (pkAttempt === 0) {
+            team.PKP = "N/A"; // Si aucune tentative en PK, on affiche N/A
+        } else {
+            team.PKP = (100 - ((pkGoalGA / pkAttempt) * 100)).toFixed(2);
+        }
+
+        return team;
+    });
+}
+
+
+
+
     function initTable() {
 
     // Dynamically generate columns array with default visibility
-    const defaultVisibleKeys = [ "OrderName", "GP", "W", "L", "OTW", "SOW", "SOL","GF", "GA","Points", "ShotsFor", "ShotsAga" , "ShotsBlock", "Pim", "Hits" ]; // Default visible columns
+    const defaultVisibleKeys = [ "OrderName", "GP", "W", "L", "OTW", "SOW", "SOL","GF", "GA","Points", "ShotsFor", "ShotsAga" , "ShotsBlock", "Pim", "Hits", "PPP", "PKP" ]; // Ajout de PKP
 
     const columns = Object.keys(teamsInfo[0]).map((key) => {
-        const isVisible = defaultVisibleKeys.includes(key);
-        return {
-            title: key,
-            data: key,
-            visible: isVisible, // Set initial visibility based on defaults
-            render: key === "OrderName" ? function (data, type, row) {
-                const iconFilename = row["TeamThemeID"];
-                const iconUrl = `images/${iconFilename}.png`;
-                return `<img src="${iconUrl}" alt="${iconFilename}" style="width:20px; height:20px; margin-right:8px;"> ${data}`;
-            } : undefined,
-        };
-    });
+    const isVisible = defaultVisibleKeys.includes(key);
+    return {
+        title: key,
+        data: key,
+        visible: isVisible, 
+        render: key === "PPP" || key === "PKP" ? function (data, type, row) {
+            return `${data} %`; // Ajoute un pourcentage pour PPP et PKP
+        } : undefined,
+    };
+});
+
+
+
 
 
  
@@ -157,16 +184,19 @@ $(document).ready(function() {
 
 
 
-    async function fetch_teamStats(successCallback=null) { 
-        const response = await fetch('TeamsInfo_fetch.php'); 
-        const data = await response.json(); 
-        if (data.error) { console.error(data.error); } 
-        else { 
-            teamsInfo = data; 
-            console.log("teamsInfo", teamsInfo);  
-            if(successCallback) successCallback();
-        } 
-    }
+    async function fetch_teamStats(successCallback = null) { 
+    const response = await fetch('TeamsInfo_fetch.php'); 
+    const data = await response.json(); 
+    if (data.error) { 
+        console.error(data.error); 
+    } else { 
+        teamsInfo = calculateStats(data); // 🆕 Calcul du PPP & PKP
+        console.log("teamsInfo", teamsInfo);  
+        if (successCallback) successCallback();
+    } 
+}
+
+
 
     fetch_teamStats(initTable);
 

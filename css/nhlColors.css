@@ -23,11 +23,11 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 .teamColorSecondary2  { color: #f47d30; }
 .teamColorMenu2 li a { color: #00539b; }  
 
-.teamColorDark3 { color: #000000; background-color: #0038A8;}   /*   3 - Islanders    */ 
+.teamColorDark3 { color: #000000; background-color: #0038A8;}   /*   3 - Rangers    */ 
 .teamColorPale3 { color: #ffffff; } 
 .teamColorBright3 { color: #f47d30;}
 .teamColorSecondary3 { color: #CE1126; }
-.teamColorMenu3 li a { color: #000000; }  
+.teamColorMenu3 li a { color: #ffffff; }  
 
 .teamColorDark4 { color: #000000; background-color: 	#CE1126;}   /*   4 - Devils     */ 
 .teamColorPale4 { color: #ffffff; } 
@@ -86,9 +86,9 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 .teamColorPale13 { color: #ffffff;  }
 .teamColorBright13 { color: #AF1E2D;  }
 .teamColorSecondary13 { color: #192168; }
-.teamColorMenu13 li a { color: #192168; }  
+.teamColorMenu13 li a { color: #ffffff; }  
 
-.teamColorDark14 { color: #000000;  background-color: #003087; }  /*   14 - Sabres                  */
+.teamColorDark14 { color: #000000;  background-color: #002f87a4; }  /*   14 - Sabres                  */
 .teamColorPale14 { color: #ffffff;  }
 .teamColorBright14 li a { color: #FFB81C;  }
 .teamColorSecondary14 { color: #003087; }
@@ -122,7 +122,7 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 .teamColorPale19 { color: #ffffff;  }
 .teamColorBright19 { color: #ce1126;  }
 .teamColorSecondary19 { color: #A4A9AD; }
-.teamColorMenu19 li a { color: #A4A9AD; }  
+.teamColorMenu19 li a { color: #ffffff; }  
 
 .teamColorDark20 { color: #000000;  background-color:#041E42; }  /*   20 - Predators                  */
 .teamColorPale20 { color: #ffffff;  }
@@ -142,11 +142,11 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 .teamColorSecondary22 { color: #041E42; }
 .teamColorMenu22 li a { color: #FF4C00; }
 
-.teamColorDark23 { color: #000000;  background-color:#D2001C; }  /*   23 - Flames                 */
+.teamColorDark23 { color: #000000;  background-color:#d2001c; }  /*   23 - Flames                 */
 .teamColorPale23 { color: #ffffff;  }
 .teamColorBright23 { color: #FAAF19; }
 .teamColorSecondary23 { color: #D2001C; }
-.teamColorMenu23 li a { color: #000000; }
+.teamColorMenu23 li a { color: #ffffff; }
 
 .teamColorDark24 { color: #000000;  background-color: #00205B; }  /*   24 - Canucks                 */
 .teamColorPale24 { color: #ffffff;  }
@@ -176,13 +176,13 @@ RGB Source:    https://teamcolorcodes.com/nhl-team-color-codes/
 .teamColorPale28 { color: #ffffff;  }
 .teamColorBright28 { color: #8F8F8C; }
 .teamColorSecondary28 { color: #090909; }
-.teamColorMenu28 li a { color: #8F8F8C; }
+.teamColorMenu28 li a { color: #ffffff; }
 
 .teamColorDark29 { color: #000000;  background-color: #F47A38; }  /*   29 - Ducks              */
 .teamColorPale29 { color: #ffffff;  }
 .teamColorBright29 { color:  #B9975B; }
 .teamColorSecondary29 { color:#C1C6C8; }
-.teamColorMenu29 li a { color: #C1C6C8; }
+.teamColorMenu29 li a { color: #ffffff; }
 
 
 .teamColorDark30 { color: #000000;  background-color: #006D75; }  /*   30 - Sharks               */
