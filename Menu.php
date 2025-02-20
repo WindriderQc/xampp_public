@@ -201,13 +201,13 @@ if ($MenuQueryOK == True) {
             <a href="Standing.php">Standings</a>
             <ul>
                 <li><a href="Standing.php">LHSQC</a></li>
-                <li><a href="Standing.php?Farm">AHL</a></li>
+                <li><a href="StandingAhl.php?Farm">AHL</a></li>
             </ul>
         </li>
 
         <!-- Menu Players avec sous-menus -->
         <li>
-            <a href="PlayersRoster.php">Players</a>
+            <a href="PlayersRoster.php">PlaSyers</a>
             <ul>
                 <li><a href="PlayersRoster.php">Players</a></li>
                 <li><a href="GoaliesRoster.php">Goalies</a></li>
@@ -316,7 +316,7 @@ if ($MenuQueryOK == True) {
         <li><div> Standing  <i class="fa fa-chevron-right"></i></div>
             <ul>
                 <li><a href="Standing.php">LHSQC</a></li>
-                <li><a href="Standing.php?Farm">AHL</a></li>
+                <li><a href="StandingAhl.php?Farm">AHL</a></li>
             </ul>
         </li>
         

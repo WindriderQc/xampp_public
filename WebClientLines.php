@@ -13,6 +13,13 @@
 
 
 	if ($db){
+		
+		$Query = "Select ShowWebClientInDymanicWebsite FROM LeagueOutputOption";
+		$LeagueOutputOption = $db->querySingle($Query,true);
+		
+		$Query = "Select BlockAutoProLineFunctionForGM,BlockAutoFarmLineFunctionForGM FROM LeagueWebClient";
+		$LeagueWebClient = $db->querySingle($Query,true);
+
 		// Look for a team ID in the URL, if non exists use 0
 		$t = (isset($_REQUEST["TeamID"])) ? filter_var($_REQUEST["TeamID"], FILTER_SANITIZE_NUMBER_INT): 0;
 		$l = (isset($_REQUEST["League"])) ? filter_var($_REQUEST["League"], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW || FILTER_FLAG_STRIP_HIGH) : false;
@@ -22,7 +29,8 @@
 			$rs = api_dbresult_teamsbyname($db,"Pro",$t);
 			$row = $rs->fetchArray();
 		}
-
+		If ($l == "Pro" AND $LeagueWebClient['BlockAutoProLineFunctionForGM'] == "True"){echo "<style>#autolines {display:none};</style>";}
+		If ($l == "Farm" AND $LeagueWebClient['BlockAutoFarmLineFunctionForGM'] == "True"){echo "<style>#autolines {display:none};</style>";}
 		
         
         // LHSQC
@@ -39,7 +47,12 @@
         <script src=\"js/lhsqc_new.js\"    type=\"text/javascript\"></script>
         <link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap\" rel=\"stylesheet\">
         <link href=\"css/nhlColors.css\" rel=\"stylesheet\" type=\"text/css\" /> ";
- 
+        //<script src=\"js/db2json.js\"    type=\"text/javascript\"></script>";
+        
+
+        //<link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css\">";
+        //<script src=\"LHSQC.js\"    type=\"text/javascript\"></script>";  
+
 
 		// Make a default header 
 		api_layout_header("lineeditor",$db,$t,$l,$WebClientHeadCode);
@@ -70,10 +83,9 @@
                 $TeamPlayerInfo = []; 
                 while ($row = $results->fetchArray(SQLITE3_ASSOC)) { $TeamPlayerInfo[] = $row; }
         
-                log2console("Team Player Info:");
-                log2console($TeamPlayerInfo);
 
-                
+
+
                 // Set the status value if the league is Pro or Farm
                 $status = ($league == "Pro") ? 3: 1;
                 // Select all the players and goalies if they are dressed.
@@ -84,16 +96,16 @@
                 // Get the recordset of all the players
                 $oRS = $db->query($sql);
                 // Make an array of available players to use.
-                // This makes comparing from a roster change easier.    i.e. Database could show a player in a position in the lines table, but if that player was scratched, or moved between farm and pro, there has to be a way to show he isn't there and show blank on the line. 
+                // This makes comparing from a roster change easier.
+                // i.e. Database could show a player in a position in the lines table, but if that
+                // player was scratched, or moved between farm and pro, there has to be a way to
+                // show he isn't there and show blank on the line. 
                 $availableplayers = array();
                 while($row = $oRS->fetchArray()){
                     $availableplayers[api_MakeCSSClass($row["Name"])]["id"] = $row["Number"];
                     $availableplayers[api_MakeCSSClass($row["Name"])]["Name"] = $row["Name"];
                 }
-                log2console("Available Players:");
                 log2console($availableplayers);
-             
-
                
                 // Check to see if Custom OT lines are turned on 
                 $sql = "SELECT " . $league . "CustomOTLines AS CustomLines FROM LeagueGeneral;";
@@ -107,7 +119,7 @@
                 $cpfields = "";
                 foreach($dbfields AS $f){$cpfields .= strtolower($f) .",";}
                 $cpfields .= $cpfieldsOTLines;
-                
+                //$cpfields = rtrim($cpfields,",");
 
                 $bannertext = "";
                 
@@ -205,11 +217,7 @@
                     </div> 
 
                     <div class="col-3"> 
-                        <button type="button" class="btn btn-warning btn-custom openList btn-lg shadow " > 
-                            <img src="images/roster.png" alt="Button 2" > 
-                            <img src="<?php echo '/images/' . $Theme . '.png'; ?>" alt="<?php echo $PlayerInfo['ProTeamName'] ?? 'Team Logo'; ?>" class="playerReportTeamLogo ">
-                            <br> Roster 
-                        </button>
+                        <button type="button" class="btn btn-warning btn-custom openList btn-lg shadow " > <img src="images/roster.png" alt="Button 2" ><br>Roster </button>
                     </div> 
                 </div>
             </div>
@@ -218,37 +226,6 @@
  
 
         <form id="submissionform" class="STHSWebClient_Form " name="frmEditLines" method="POST" onload="checkCompleteLines();">
-
-        <ul class="nav nav-tabs" id="lineTabs" role="tablist">
-    <?php for ($i = 1; $i <= 5; $i++): ?>
-        <li class="nav-item">
-            <a class="nav-link <?= ($i == 1) ? 'active' : '' ?>" id="day<?= $i ?>-tab" data-bs-toggle="tab" href="#day<?= $i ?>" role="tab">Jour 0<?= $i ?></a>
-        </li>
-    <?php endfor; ?>
-</ul>
-
-<div class="tab-content" id="lineTabsContent">
-    <?php for ($i = 1; $i <= 5; $i++): ?>
-        <div class="tab-pane fade <?= ($i == 1) ? 'show active' : '' ?>" id="day<?= $i ?>" role="tabpanel">
-            <h3>Édition des lignes pour Jour 0<?= $i ?></h3>
-            
-            <!-- 🏒 Formulaire réutilisé mais avec des inputs spécifiques à chaque jour -->
-            <form class="STHSWebClient_Form" name="frmEditLines" method="POST">
-                <input type="hidden" name="day" value="<?= $i ?>"> <!-- Identifie le jour pour la sauvegarde -->
-                <input type="hidden" name="teamid" value="<?= $teamid ?>">
-
-                <div id="line-editor-content-<?= $i ?>">
-                    <?php include("line_editor_content.php"); ?>
-                </div>
-
-                <button type="submit" name="sbtUpdateLines" class="btn btn-warning">Enregistrer</button>
-            </form>
-        </div>
-    <?php endfor; ?>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 
             
                    
@@ -272,34 +249,6 @@
                         $blocks = api_get_line_arrays("blocks");
                         $positions = api_get_line_arrays("positions");
                         $strategy = api_get_line_arrays("strategy");
-
-                        if(isset($_POST["sbtUpdateLines"])) {
-                            $teamid = filter_var($_POST["teamid"], FILTER_SANITIZE_NUMBER_INT);
-                            $day = filter_var($_POST["day"], FILTER_SANITIZE_NUMBER_INT);
-                            $lines = $_POST["lines"]; // Récupère les changements
-                        
-                            if($teamid > 0 && $day >= 1 && $day <= 5) {
-                                $db->busyTimeout(5000);
-                                $db->exec("pragma journal_mode=memory;");
-                        
-                                foreach ($lines as $position => $player) {
-                                    $player = filter_var($player, FILTER_SANITIZE_STRING);
-                        
-                                    if (!empty($player)) {
-                                        $sql = "UPDATE TeamProLines SET $position = :player WHERE TeamNumber = :teamid AND Day = :day;";
-                                        $stmt = $db->prepare($sql);
-                                        $stmt->bindValue(':player', $player, SQLITE3_TEXT);
-                                        $stmt->bindValue(':teamid', $teamid, SQLITE3_INTEGER);
-                                        $stmt->bindValue(':day', $day, SQLITE3_INTEGER);
-                                        $stmt->execute();
-                                    }
-                                }
-                                echo "Les modifications pour Jour 0$day ont été enregistrées.";
-                            } else {
-                                echo "Erreur : ID de l'équipe ou jour invalide.";
-                            }
-                        }
-                        
                     ?>
                         
                         
@@ -487,79 +436,22 @@
                                                             <div class="container persona" id='persona<?= api_MakeCSSClass($bid)?>'>
 
                                                                 <div class='row pt-1 '>
-                                                                    <?php      
-                                                                    // TODO:  Optimize...    la table available players purrait etre creer au d/part avec le UniqueID comme index...   ca eviterait cette loop a chaque joueurs...   design bouetteux....  
+                                                                    <?php 
                                                                     foreach($posit as $pid => $pos) {
-                                                                        
-                                                                        $cardName = $row[$field . $pid]; 
-                                                                        $playerID = $availableplayers[api_MakeCSSClass($cardName)]['id'];
-                                                                        $index = -1; // Default value if not found
-                                                                        foreach ($TeamPlayerInfo as $key => $player) {
-                                                                            
-                                                                            if ($player['Number'] === $playerID) {
-                                                                                $index = $key;
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                        $PlayerInfo = $TeamPlayerInfo[$index];
+                                                                        // Set player name in each position
+                                                                        $playerName = isset($availableplayers[api_MakeCSSClass($row[$field . $pid])]) ? $row[$field . $pid] : ""; 
+                                                                        log2console($playername ."  " . $field . " -  ". $pid );
+
                                                                         ?>
                                                                         <div class='col-4 p-1 '>
                                                                             <div class="card rosterElm  p-0" >
                                                                                 <div class="card-body p-0" >
                                                                                    
-                                                                                    <div class="row p-2">
-                                                                                        <div class="col-md-3 d-flex flex-column align-items-center position-relative">
-                                                                                            <!-- Photo principale -->
-                                                                                            <div class="mb-3 position-relative">
-                                                                                                <img src="<?php echo  "https://assets.nhle.com/mugs/nhl/latest/" . $PlayerInfo['NHLID'] . ".png"; ?>"  alt="<?php echo $PlayerInfo['Name'] ?>" class="rounded-circle img-fluid mugshotTop5">
-                                                                                            </div>
-                                                                                            <!-- Ligne sous les images -->
-                                                                                            <div class=" border-bottom mb-3"></div>
-                                                                                            <!-- Informations joueur -->
-                                                                                            <div class="d-flex  mb-2">
-                                                                                                <div class="px-2 border-end">
-                                                                                                    <strong>#<?php echo ( $PlayerInfo['Jersey'] ? $PlayerInfo['Jersey'] : " -"); ?></strong>
-                                                                                                </div>
-                                                                                                <div class="px-2">
-                                                                                                    <span><?php echo formatPosition($PlayerInfo['PosC'], $PlayerInfo['PosLW'], $PlayerInfo['PosRW'] , $PlayerInfo['PosD'], $PlayerInfo['PosG'] ); ?></span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <!-- Section droite : tableau des leaders -->
-                                                                                        <div class="col-md-9 ">
-                                                                                            
-                                                                                            <hr> <!-- Séparateur horizontal -->
-                                                                                            <div class="row">
-                                                                                                <div class="col  text-start">
-                                                                                                    <strong>Age:</strong> <?php echo $PlayerInfo['Age'] ; ?></br>
-                                                                                                    <strong>Weight:</strong> <?php echo $PlayerInfo['Weight']; ?> lbs </br>
-                                                                                                    <strong>Height:</strong> <?php echo $PlayerInfo['Height']; ?></br>
-                                                                                                    <strong>Birthdate:</strong> <?php echo $PlayerInfo['AgeDate']; ?></br>
-                                                                                                    <strong>Draft Year:</strong> <?php echo $PlayerInfo['DraftYear']; ?></br>
-                                                                                                    <strong>Contract:</strong> <?php echo $PlayerInfo['Contract']; ?></br>
-                                                                                                    <strong>Cap Hit:</strong> <?php echo isset($PlayerInfo['SalaryCap']) ? '$' . number_format($PlayerInfo['SalaryCap'], 0) : 'Unknown'; ?></br>
-                                                                                                    <strong>Available For Trade:</strong> <?php echo $PlayerInfo['AvailableforTrade']; ?>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <hr> <!-- Séparateur horizontal -->
-                                                                                            <div class="col  text-start">
-                                                                                                Games In A Row With A Point: <strong> <?php echo $PlayerInfo['GameInRowWithAPoint']; ?></strong></br>
-                                                                                                Overall:                     <strong> <?php echo $PlayerInfo['Overall']; ?>            </strong></br>
-                                                                                            </div>
-                                                                                    
-                                                                                        </div>
-
-                                                                                    </div>
-
-                                                                             
-
+                                                                                    <span>Overall: </span> <span id="smPov">00 </span>
+                                                                                    <span>Condition: </span> <span id="smPco">00 </span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-
-                                                                        
-                                                                       
                                                                         <?php         
                                                                     }
                                                                     ?>
@@ -816,28 +708,16 @@
 
 
 
+
+
 <!-- Side Navigation -->
 <div id="sideNavR" class="sidenavR">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <div id="sideNavContent">PlayerCardC will appear here...</div>
 </div>
-                  
-
-
-<?php 
-            }
-		}else{
-            include "Menu.php";
-			echo "<div class=\"STHSDivAlertMessage\">" . $NoUserLogin . "<br /><br /></div>";		
-		}
-
-	// Close the db connection
-	$db->close();
-      
-}?>
-    
-<?php include ("Footer.php"); ?>
-
+            
+            
+            
 <script>
     function deactivateBanners() {
         const banners = document.querySelectorAll('.banner'); 
@@ -847,13 +727,41 @@
    
     setTimeout(deactivateBanners, 5000);                    // Hide the confirm banner after 5 seconds
     document.addEventListener('click', deactivateBanners);  // Hide the confirm banner on user interaction
+</script>
 
 
-    const TeamProInfo = <?php echo json_encode($TeamProInfo); ?>;
-    console.log("TeamProInfo", TeamProInfo)
 
-    const TeamPlayerInfo = <?php echo json_encode($TeamPlayerInfo); ?>;
-    console.log("TeamPlayerInfo", TeamPlayerInfo)
+<div id="playerInfoContainer"></div>            
+
+
+<?php 
+            }
+		}else{
+			echo "<div class=\"STHSDivInformationMessage\">" . $NoUserLogin . "<br /><br /></div>";		
+		}
+
+
+?>
+
+  
+
+<?php
+	// Close the db connection
+	$db->close();
+       
+}?>
+    
+<?php include ("Footer.php"); ?>
+
+<script>
+
+const TeamProInfo = <?php echo json_encode($TeamProInfo); ?>;
+console.log(TeamProInfo)
+
+const TeamPlayerInfo = <?php echo json_encode($TeamPlayerInfo); ?>;
+console.log(TeamPlayerInfo)
+
+
 </script>
 
 
