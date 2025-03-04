@@ -207,11 +207,12 @@ if ($MenuQueryOK == True) {
 
         <!-- Menu Players avec sous-menus -->
         <li>
-            <a href="PlayersRoster.php">PlaSyers</a>
+            <a href="PlayersRoster.php">League</a>
             <ul>
                 <li><a href="PlayersRoster.php">Players</a></li>
                 <li><a href="GoaliesRoster.php">Goalies</a></li>
                 <li><a href="Prospects.php">Prospects</a></li>
+                <li><a href="Coaches.php">Coaches</a></li>
                 <li><a href="PlayersRoster.php?Team=0&Type=0">UFA</a></li>
                 <li><a href="Transaction.php?TradeLogHistory">Latest Transaction</a></li>
                 <!-- <li><a href="PlayerContracts.php">Contracts</a></li> -->
@@ -297,11 +298,12 @@ if ($MenuQueryOK == True) {
 
         </li>
         
-        <li><div> Players <i class="fa fa-chevron-right"></i></div>
+        <li><div> League <i class="fa fa-chevron-right"></i></div>
             <ul>
                 <li><a href="Players.php">Players</a></li>
                 <li><a href="Goalies.php">Goalies</a></li>
                 <li><a href="Prospects.php">Prospects</a></li>
+                <li><a href="Coaches.php">Coaches</a></li>
                 <li><a href="PlayersRoster.php?Type=0&FreeAgent=1">UFA</a></li>
                 <li><a href="Transaction.php?TradeLogHistory">Latest Transaction</a></li>
             </ul>
