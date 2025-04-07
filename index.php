@@ -14,6 +14,11 @@ try{
 	$db = new SQLite3($DatabaseFile);
 	$Query = "Select Name, ScheduleNextDay, IndexHeadLineDay0, IndexHeadLineDay1 ,IndexHeadLineDay2, DefaultSimulationPerDay, PointSystemSO, OffSeason, Days73StarPro, Days303StarPro, Days73StarFarm, Days303StarFarm, Today3StarPro1, Today3StarPro2, Today3StarPro3, Today3StarFarm1, Today3StarFarm2, Today3StarFarm3 from LeagueGeneral";
 
+	$dbNews = new SQLite3($NewsDatabaseFile);
+	$Query = "Select LeagueNews.*, TeamProInfo.TeamThemeID, TeamProInfo.Name FROM LeagueNews LEFT JOIN TeamProInfo ON LeagueNews.TeamNumber = TeamProInfo.Number WHERE Remove = 'False' ORDER BY Time DESC";
+	$dbNews -> query("ATTACH DATABASE '".realpath($DatabaseFile)."' AS CurrentDB");
+	$LeagueNews = $dbNews->query($Query);
+
 	$LeagueGeneral = $db->querySingle($Query,true);		
 	$LeagueName = $LeagueGeneral['Name'];
 
@@ -92,6 +97,10 @@ STHSErrorIndex:
         ?>
         <?php include "Menu.php"; ?>	
         <div class="clearfix header-content" style="display:inline-block;">
+		
+		<div class="STHSIndex_TheNews"><?php echo $LeagueName . $IndexLang['News'];?></div>
+<div class="STHSIndex_NewsDiv"><?php include "NewsSub.php";?></div>
+		
             
 
             <div class="row mt-2  mx-2 " >

@@ -473,7 +473,7 @@ header h2 {
 
 	font-weight: 700;
 
-	color: #fff;
+	color: #000000;
 
 }
 
@@ -481,7 +481,7 @@ header p {
 
 	margin: 0 auto 30px;
 
-	color: #fff;
+	color: #000000;
 
 	width: 40%;
 
@@ -495,7 +495,7 @@ header p {
 
 div .active a {
 
-	color: #ffffff;
+	color: #000000;
 
 	/*text-transform: uppercase;*/
 

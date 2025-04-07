@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Playoff Tree Connecté</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 40px;
+    }
+
+    .bracket {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    .round {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      position: relative;
+    }
+
+    .match-wrapper {
+      position: relative;
+    }
+
+    .match {
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 0 auto;
+    }
+
+    .team {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fafafa;
+      text-align: center;
+    }
+
+    /* Ligne horizontale sortant d'un match */
+    .match-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 20px;
+      height: 2px;
+      background: #999;
+    }
+
+    /* Ligne verticale qui relie 2 matchs */
+    .connector {
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 20px;
+      height: calc(100% + 60px);
+    }
+
+    .connector::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 20px;
+      height: 2px;
+      background: #999;
+    }
+
+    .connector::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 9px;
+      width: 2px;
+      height: 100%;
+      background: #999;
+    }
+
+    /* Pas de ligne après la finale */
+    .final .match-wrapper::after {
+      display: none;
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align: center;">Playoff Tree - Connexions Réelles</h1>
+
+  <div class="bracket">
+    
+    <!-- Round 1 -->
+    <div class="round">
+      <h3>Quarts</h3>
+      <div class="match-wrapper">
+        <div class="match">
+          <div class="team">Équipe A</div>
+          <div class="team">Équipe B</div>
+        </div>
+      </div>
+      <div class="match-wrapper">
+        <div class="match">
+          <div class="team">Équipe C</div>
+          <div class="team">Équipe D</div>
+        </div>
+        <div class="connector"></div>
+      </div>
+      <div class="match-wrapper">
+        <div class="match">
+          <div class="team">Équipe E</div>
+          <div class="team">Équipe F</div>
+        </div>
+      </div>
+      <div class="match-wrapper">
+        <div class="match">
+          <div class="team">Équipe G</div>
+          <div class="team">Équipe H</div>
+        </div>
+        <div class="connector"></div>
+      </div>
+    </div>
+
+    <!-- Round 2 -->
+    <div class="round">
+      <h3>Demi-finales</h3>
+      <div class="match-wrapper">
+        <div class="match">
+          <div class="team">Gagnant A/C</div>
+          <div class="team">Gagnant D/B</div>
+        </div>
+      </div>
+      <div class="match-wrapper">
+        <div class="match">
+          <div class="team">Gagnant E/G</div>
+          <div class="team">Gagnant F/H</div>
+        </div>
+        <div class="connector"></div>
+      </div>
+    </div>
+
+    <!-- Final -->
+    <div class="round final">
+      <h3>Finale</h3>
+      <div class="match-wrapper">
+        <div class="match">
+          <div class="team">Demi 1</div>
+          <div class="team">Demi 2</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
