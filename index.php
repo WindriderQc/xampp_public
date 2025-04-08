@@ -99,7 +99,8 @@ STHSErrorIndex:
         <div class="clearfix header-content" style="display:inline-block;">
 		
 		<div class="STHSIndex_TheNews"><?php echo $LeagueName . $IndexLang['News'];?></div>
-<div class="STHSIndex_NewsDiv"><?php include "NewsSub.php";?></div>
+
+		<div class="STHSIndex_NewsDiv"><?php include "NewsSub.php";?></div>
 		
             
 
