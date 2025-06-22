@@ -100,11 +100,24 @@ STHSErrorIndex:
 		
 		<div class="STHSIndex_TheNews"><?php echo $LeagueName . $IndexLang['News'];?></div>
 
-		<div class="STHSIndex_NewsDiv"><?php include "NewsSub.php";?></div>
 		
+		<div class="row mt-2  mx-2 " >
+		<div class="text-center my-3">
+		<a href="NewsEditor.php" class="btn btn-light text-dark border">
+        <i class="bi bi-plus-circle"></i> Ajouter un article
+    </a>
+</div>
+
+			<div class="col-lg-4 col-12 mx-auto text-center">
+    <div> <?php $side=3; include "components/NewsSub.php"; ?> </div>
+</div>
+ 
+				
+            </div>
             
 
             <div class="row mt-2  mx-2 " >
+			
 				<div class="col-lg-4 col-12"><div> <?php $side=3; include "components/StandingsCard.php"; ?> </div> </div>
                 <div class="col-lg-4 col-12"><div> <?php          include "components/TopStars.html";     ?> </div> </div>   
                 <div class="col-lg-4 col-12"><div> <?php $side=0; include "components/StandingsCard.php"; ?> </div> </div> 

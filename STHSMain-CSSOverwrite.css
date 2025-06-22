@@ -2056,13 +2056,15 @@ width: 100%;
 .STHSIndex_TheNews {
    
     
-    background-color: rgb(184, 189, 40);
+    background-color: rgb(255, 255, 255);
     margin: 5px;
 }
 
 .STHSIndex_NewsDiv {
    
     background-color: rgb(255, 255, 255);
+    margin-left: 30%;
+    margin-right: 30%;
     
 }
 
